@@ -5,12 +5,12 @@ var config = require('../../config.json');
 
 //modelos de base de datos
 var auth = require('../../_Models/auth');
-//var habitaciones = require('../../_Models/Habitacion');
-var aerolineas = require('../../_Models/Aerolinea');
-var pasajeros = require('../../_Models/Pasajero');
-var paises = require('../../_Models/Pais');
-var adicionales = require('../../_Models/Adicional');
-var reservas = require('../../_Models/Reserva');
+var habitaciones = require('../../_Models/habitacion');
+var aerolineas = require('../../_Models/aerolinea');
+var pasajeros = require('../../_Models/pasajero');
+var paises = require('../../_Models/pais');
+var adicionales = require('../../_Models/adicional');
+var reservas = require('../../_Models/reserva');
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -83,15 +83,15 @@ router.use(function(req, res, next) {
 // R U T A S  P R I V A D A S
 
 //H A B I T A C I O N E S
-// router.get('/habitaciones/all/:param', (req, res) => {
+router.get('/habitaciones/all/:param', (req, res) => {
   
-//   habitaciones.get(req.params.param, res);
-// });
+  habitaciones.get(req.params.param, res);
+});
 
-// router.post('/habitaciones/', (req, res) => {
+router.post('/habitaciones/', (req, res) => {
 
-//   habitaciones.mantenimiento(req.body, res);
-// });
+  habitaciones.mantenimiento(req.body, res);
+});
 
 //A E R O L I N E A S
 router.get('/aerolineas/all/:param', (req, res) => {
