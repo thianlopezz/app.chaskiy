@@ -8,7 +8,8 @@
     "build": "ng build && forever start server.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
@@ -29,11 +30,11 @@
     "mongoose": "^4.9.5",
     "ng2-select2": "^1.0.0-beta.10",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "@angular/cli": "1.0.0",
+    "@angular/compiler-cli": "^4.0.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0",
-    "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
