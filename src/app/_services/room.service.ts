@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Habitacion } from '../_models/index';
+import { Habitacion, pathApi } from '../_models/index';
 
-const _config = "http://localhost:3000";
+const _config = pathApi.path;
 
 @Injectable()
 export class RoomService {
@@ -15,7 +15,7 @@ export class RoomService {
     getAll() {
         
         var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ this.currentUser.idHospedaje +'"/>');
-        return this.http.get(_config + '/api/habitaciones/all/'+ param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/habitaciones/all/'+ param, this.jwt()).map((response: Response) => response.json());
     }
 
     // getById(id: string) {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Reserve, CurrentMonth } from '../_models/index';
+import { Reserve, CurrentMonth, pathApi } from '../_models/index';
 
-const _config = "http://localhost:3000";
+const _config = pathApi.path;
 
 @Injectable()
 export class ReserveService {

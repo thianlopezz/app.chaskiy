@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Pais } from '../_models/index';
+import { Pais, pathApi } from '../_models/index';
 
-const _config = "http://localhost:3000";
+const _config = pathApi.path;
 
 @Injectable()
 export class PaisService {

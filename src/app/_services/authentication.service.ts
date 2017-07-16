@@ -3,7 +3,9 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
-const _config = "http://localhost:3000";
+import { pathApi } from '../_models/index';
+
+const _config = pathApi.path;
  
 @Injectable()
 export class AuthenticationService {
