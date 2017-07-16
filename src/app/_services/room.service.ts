@@ -12,7 +12,7 @@ export class RoomService {
 
     getAll() {
         
-        var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ this.currentUser.idHospedaje +'"/>');
+        var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ this.currentUser.idHospedaje +'" />');
         return this.http.get('/api/habitaciones/all/'+ param, this.jwt()).map((response: Response) => response.json());
     }
 
