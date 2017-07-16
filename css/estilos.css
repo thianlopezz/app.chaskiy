@@ -1,0 +1,63 @@
+html {
+  font-size: 15px; }
+
+.default-container {
+  margin-top: 4rem; }
+
+.bienvenidos {
+  background: #3a7ec5;
+  background-size: cover;
+  height: 90vh;
+  overflow: hidden; }
+
+.fixed-top {
+  background: rgba(0, 0, 0, 0.6); }
+
+.navbar-brand {
+  font-size: 1.4rem;
+  text-transform: uppercase; }
+
+.navbar-toggler {
+  padding: 0rem .75rem;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.9); }
+
+.navbar-light .navbar-toggler {
+  border-color: transparent; }
+
+.navbar-light .navbar-brand, .navbar-light .navbar-toggler {
+  color: rgba(255, 255, 255, 0.9); }
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover, .navbar-light .navbar-toggler:focus, .navbar-light .navbar-toggler:hover {
+  color: white; }
+
+.navbar-light .navbar-nav .nav-link {
+  color: white;
+  text-align: center; }
+
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .open > .nav-link {
+  color: rgba(0, 0, 0, 0.9);
+  background: rgba(34, 189, 97, 0.81); }
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(34, 189, 97, 0.81); }
+
+.texto-bienvenido {
+  color: white;
+  margin-top: 6rem; }
+
+#navbar0 {
+  clear: board; }
+
+.quienes-somos {
+  background-color: #fff;
+  color: #000; }
+
+.btn-icon {
+  font-size: 1.4rem; }
+
+.navaux {
+  position: static; }
+
+/*# sourceMappingURL=estilos.css.map */

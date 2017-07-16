@@ -1,0 +1,41 @@
+<section class="navClass">
+	<div class="container">
+		<header class="encabezado">
+			<!-- <nav class="navbar navbar-light fixed-top navaux">
+				<a class="navbar-brand" href="#">Chaskiy Qurpa</a>
+			</nav> -->
+			<nav class="navbar navbar-light fixed-top">
+			  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar0" aria-controls="navbar0" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <a class="navbar-brand" href="#">Chaskiy Qurpa</a>
+
+			  <div class="collapse navbar-collapse" id="navbar0">
+			    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+			      <li class="nav-item">
+			        <a class="nav-link" [routerLink]="['/index']">Inicio</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" [routerLink]="['/register']">Registrate</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" [routerLink]="['/login']">Login</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" [routerLink]="['/reserva']">Reservas</a>
+			      </li>
+			    </ul>
+			  </div>
+			</nav>
+		</header>
+	</div>
+</section>
+<section>
+	<div class="container default-container">
+		<div class="col-md-12">			
+			<alert></alert>
+		</div>
+	</div>
+	<router-outlet></router-outlet>
+	<confirm></confirm>
+</section>

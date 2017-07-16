@@ -1,0 +1,99 @@
+<div class="container default-container">
+	<div class="col-md-12">		
+		<div class="card">
+		  <div class="card-block">		  	
+		    <h2>Habitaciones</h2>
+		  </div>
+		</div>
+	</div>	
+	<div class="col-md-12">
+		<div class="card">
+		  <div class="card-block">		  	
+		    <h2>Registros 
+		    	<small>Habitaciones</small>
+			    <button type="button" class="btn btn-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
+			      <i class="fa fa-plus" aria-hidden="true"></i>
+			    </button>		    
+		    </h2>
+			<table class="table table-hover">
+			  <thead>
+			    <tr>
+			      <th>#Habitación</th>
+			      <th>Nombre</th>
+			      <th>Tarifa</th>
+			      <th>Editar/Eliminar</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr *ngFor="let room of rooms">
+			      <td width="15%">{{room.noHabitacion}}</td>
+			      <td width="50%">{{room.habitacion}}</td>
+			      <td width="15%">{{room.tarifa | currency:'USD':true}}</td>
+			      <td width="20%">
+			      	<div class="btn-group grid-btn" role="group">
+					  <button type="button" (click)="setModi(room)" class="btn btn-primary" data-toggle="modal" data-target="#habitacionModal">
+					  	<i class="fa fa-pencil" aria-hidden="true"></i>
+					  </button>
+					  <button type="button" (click)="setElim(room)" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+					  	<i class="fa fa-trash" aria-hidden="true"></i>
+					  </button>
+					</div>
+			      </td>
+			    </tr>
+			  </tbody>
+			</table>
+		  </div>
+		</div>
+	</div>
+</div>
+<!-- MODAL HABITACION -->
+<div *ngIf="model" class="modal fade" id="habitacionModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Habitación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>  	
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate><!-- 
+	    	<div class="btn-group grid-btn" role="group">
+			  <button type="button" (click)="setNuevo()" class="btn btn-outline-primary">
+			  	<i class="fa fa-file-text-o" aria-hidden="true"></i>
+			  </button>
+			  <button type="reset" (click)="readOnly=true" class="btn btn-outline-primary">
+			  	<i class="fa fa-repeat" aria-hidden="true"></i>
+			  </button>
+			</div> -->
+	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !noHabitacion.valid }">
+	            <label for="noHabitacion">#Habitación</label>
+	            <input type="number" class="form-control col-md-4" name="noHabitacion" [(ngModel)]="model.noHabitacion" #noHabitacion="ngModel" required />
+	            <div *ngIf="f.submitted && !noHabitacion.valid" class="help-block">El número de la habitación es requerido</div>
+	        </div>
+	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !habitacion.valid }">
+	            <label for="tarifa">Tarifa</label>
+	            <input type="text" class="form-control col-md-4" name="tarifa" [(ngModel)]="model.tarifa" #habitacion="ngModel" required />
+	            <div *ngIf="f.submitted && !habitacion.valid" class="help-block">La tarifa por noche es requerida</div>
+	        </div>
+	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !habitacion.valid }">
+	            <label for="habitacion">Nombre</label>
+	            <input type="text" class="form-control col-md-8" name="habitacion" [(ngModel)]="model.habitacion" #habitacion="ngModel" required />
+	            <div *ngIf="f.submitted && !habitacion.valid" class="help-block">El nombre de la habitación es requerido</div>
+	        </div>
+	        <!-- <div class="form-group">
+	            <button [disabled]="readOnly" class="btn btn-primary pull-right">
+	            	<i class="fa fa-floppy-o" aria-hidden="true"></i>		            	
+	            	Guardar
+	            </button>
+	            <img *ngIf="loading" src="/assets/images/loading.svg" />
+	        </div> -->
+	        <div class="modal-footer">	          
+	          <button type="submit" class="btn btn-primary">Guardar
+	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
+	          </button>
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        </div> 
+	    </form>
+    </div>
+  </div>
+</div>

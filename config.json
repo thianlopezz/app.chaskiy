@@ -1,0 +1,15 @@
+
+{
+    "express"  : {
+        "port"     : 5000
+    },
+    "mongodb": {
+        "db"       : "prUser",
+        "user"     : "",
+        "password" : "",
+        "host"     : "localhost",
+        "port"     : "27017"
+    },
+    "secret": "ilovescotchyscotch",
+    "api":"http://localhost:3000"
+}

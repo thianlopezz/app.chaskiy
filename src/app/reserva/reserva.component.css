@@ -1,0 +1,75 @@
+.bg{background-color:#cccccc !important;}
+
+._selected{
+
+	height: 100%;
+}
+
+._selected a {
+
+	background: rgba(92, 184, 92, 0.57);
+	transition: opacity 0.3s;
+}
+
+._reserved{	
+
+	height: 100%;
+}
+
+._reserved a {
+
+	background: rgba(18, 153, 220, 0.39);
+	transition: opacity 0.3s;
+}
+
+._occupied{
+
+	height: 100%;
+}
+
+._occupied a {
+
+	background: rgba(220, 142, 140, 0.87);
+	transition: opacity 0.3s;
+}
+
+._blocked{
+
+	background: #ddd;
+	height: 100%;
+}
+
+._blocked a{
+
+	background: #ddd;
+}
+
+._nah{
+
+	height: 100%;
+}
+
+._nah a{
+
+	opacity: 0;
+	background: #f1f1f1;
+	transition: opacity 0.3s;
+}
+
+._nah a:hover{
+
+	opacity: 1;	
+	box-shadow: none;
+}
+
+.day :hover{
+
+    opacity: 0.5;    
+	box-shadow: none;
+}
+
+.day>.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+    
