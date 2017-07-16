@@ -5,12 +5,12 @@ function Connection() {
 
   this.init = function() {
     this.pool = mysql.createPool({
-      connectionLimit: 10,
-      host: 'localhost',
-      port:3307,
-      user: 'root',
-      password: 'password',
-      database: 'chaskiydb'
+      connectionLimit: 5,
+      host: 'jj820qt5lpu6krut.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      port:3306,
+      user: 'a88o2yzlm52ic8qk',
+      password: 'a9p8bz388mkxe4r9',
+      database: 'klqwovr2osphw94b'
     });
   };
 
