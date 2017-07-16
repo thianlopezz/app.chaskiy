@@ -4,9 +4,17 @@ function Aerolinea() {
 
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
-      con.query('call ae_aerolinea(\''+params+'\')', function(err, result) {
-        con.release();
-        res.send(result[0]);
+      con.query('call ae_aerolinea(\''+params+'\')', function(err, result) {        
+        try{
+
+          con.release();
+          res.send(result[0]);
+        }
+        catch(ex){
+
+          console.log('Error>> ex>> Aerolinea.get>> ' + ex);
+          res.send({success: false, mensaje: ex});
+        }
       });
     });
   };

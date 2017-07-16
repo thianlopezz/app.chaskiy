@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Adicional, pathApi } from '../_models/index';
-
-const _config = pathApi.path;
+import { Adicional } from '../_models/index';
 
 @Injectable()
 export class AdicionalService {
@@ -15,7 +13,7 @@ export class AdicionalService {
     getAll() {
         
         var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ this.currentUser.idHospedaje +'" />');
-        return this.http.get(_config + '/api/adicionales/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/adicionales/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     // getById(id: string) {

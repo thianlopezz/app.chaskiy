@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Habitacion, pathApi } from '../_models/index';
-
-const _config = pathApi.path;
+import { Habitacion } from '../_models/index';
 
 @Injectable()
 export class RoomService {
@@ -26,7 +24,7 @@ export class RoomService {
         
         room.idHospedaje = this.currentUser.idHospedaje;
         room.idUsuario = this.currentUser.idUsuario;
-        return this.http.post(_config + '/api/habitaciones/', room, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/habitaciones/', room, this.jwt()).map((response: Response) => response.json());
     }
 
     // update(room: Habitacion) {

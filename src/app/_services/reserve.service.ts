@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Reserve, CurrentMonth, pathApi } from '../_models/index';
-
-const _config = pathApi.path;
+import { Reserve, CurrentMonth } from '../_models/index';
 
 @Injectable()
 export class ReserveService {
@@ -30,14 +28,14 @@ export class ReserveService {
         var param = encodeURIComponent('<params accion = "C" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta 
                                             +'" idHospedaje= "'+ this.currentUser.idHospedaje +'" />');
 
-        return this.http.get(_config + '/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     mantenimiento(reserve: Reserve) {
         
         reserve.idHospedaje = this.currentUser.idHospedaje;
         reserve.idUsuario = this.currentUser.idUsuario;
-        return this.http.post(_config + '/api/reservas', reserve, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/reservas', reserve, this.jwt()).map((response: Response) => response.json());
     }
 
     // update(room: Room) {

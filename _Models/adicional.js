@@ -4,9 +4,17 @@ function Adicional() {
 
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
-      con.query('call ad_adicional(\''+params+'\')', function(err, result) {
+      con.query('call ad_adicional(\''+params+'\')', function(err, result) {        
+        try{
+
         con.release();
         res.send(result[0]);
+        }
+        catch(ex){
+
+          console.log('Error>> ex>> Adicional.get>> ' + ex);
+          res.send({success: false, mensaje: ex});
+        }
       });
     });
   };

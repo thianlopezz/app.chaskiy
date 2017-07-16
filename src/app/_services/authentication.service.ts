@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-
-import { pathApi } from '../_models/index';
-
-const _config = pathApi.path;
  
 @Injectable()
 export class AuthenticationService {
@@ -17,7 +13,7 @@ export class AuthenticationService {
         user.username = user.username.trim();
         user.password = user.password.trim();
 
-        return this.http.post(_config + '/api/auth/login/', user)
+        return this.http.post('/api/auth/login/', user)
             .map((response: Response) => {
                 
                 let _response = response.json();

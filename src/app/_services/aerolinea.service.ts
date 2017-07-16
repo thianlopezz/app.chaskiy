@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Aerolinea, pathApi } from '../_models/index';
-
-const _config = pathApi.path;
+import { Aerolinea } from '../_models/index';
 
 @Injectable()
 export class AerolineaService {
@@ -15,7 +13,7 @@ export class AerolineaService {
     getAll() {
         
         var param = encodeURIComponent('<params accion="C" />');
-        return this.http.get(_config + '/api/aerolineas/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/aerolineas/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     // getById(id: string) {

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Passenger, pathApi } from '../_models/index';
-
-const _config = pathApi.path;
+import { Passenger } from '../_models/index';
 
 @Injectable()
 export class PassengerService {

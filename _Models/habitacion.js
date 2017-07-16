@@ -5,8 +5,16 @@ function Habitacion() {
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
       con.query('call hab_habitacion(\''+params+'\')', function(err, result) {
-        con.release();
-        res.send(result[0]);
+        try{
+
+          con.release();
+          res.send(result[0]);
+        }
+        catch(ex){
+
+          console.log('Error>> ex>> Habitacion.get>> ' + ex);
+          res.send({success: false, mensaje: ex});
+        }
       });
     });
   };

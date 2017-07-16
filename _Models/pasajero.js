@@ -5,16 +5,23 @@ function Pasajero() {
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
       con.query('call pa_pasajero(\''+params+'\')', function(err, result) {
+        try{
 
-        con.release();
+          con.release();
 
-        if(err){
+          if(err){
 
-          console.log('Error>> Pasajero.get>>' + err);
-          res.send({success: false, mensaje: '' + err});
+            console.log('Error>> Pasajero.get>>' + err);
+            res.send({success: false, mensaje: '' + err});
+          }
+
+          res.send({success: true, data: result[0]});
         }
+        catch(ex){
 
-        res.send({success: true, data: result[0]});
+          console.log('Error>> ex>> Pasajero.get>> ' + ex);
+          res.send({success: false, mensaje: ex});
+        }
       });
     });
   };

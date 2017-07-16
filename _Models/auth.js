@@ -12,7 +12,7 @@ function auth() {
           if(err){
             
             console.log('Error>> auth.logIn>>' + err);            
-            return callback({success: false, usuario: '' + err});
+            return callback({success: false, mensaje: '' + err});
           }
 
           if(result[0][0].err == undefined)
