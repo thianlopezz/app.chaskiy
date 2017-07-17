@@ -60,6 +60,7 @@ function Reserva() {
     reserva.idReserva = reserva.idReserva || 0;
     reserva.notas = reserva.notas || '';
     reserva.pass.valuePa = reserva.pass.valuePa || 0;
+    reserva.valueAd = reserva.valueAd || [];
 
     var param = '<params accion= "'+ reserva.accion +'" idHospedaje= "'+ reserva.idHospedaje 
                     +'" idAerolinea= "'+ reserva.idAerolinea +'" idReserva= "'+ reserva.idReserva

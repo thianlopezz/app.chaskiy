@@ -181,11 +181,11 @@ export class ReservaComponent implements OnInit {
     switch (this.accion){
       case 'I':
         mensaje = 'Reserva creada con éxito';
-        mensaje_err = 'Ocurrió al crear la reserva';
+        mensaje_err = 'Ocurrió un error al crear la reserva';
       break;
       case 'U':
         mensaje = 'Reserva modificada con éxito';
-        mensaje_err = 'Ocurrió al modificar la reserva';
+        mensaje_err = 'Ocurrió un error al modificar la reserva';
       break;
     }
 
