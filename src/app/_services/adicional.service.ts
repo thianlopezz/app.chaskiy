@@ -32,7 +32,7 @@ export class AdicionalService {
     //     return this.http.delete(_config + '/api/rooms/' + room._id, this.jwt()).map((response: Response) => response.json());
     // }
 
-    // private helper methods
+    // private helper methodsz
 
     private jwt() {
 

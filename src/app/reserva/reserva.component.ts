@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, ConfirmService, AcceptService, RoomService, AerolineaService, 
-          PassengerService, ReserveService, PaisService, AdicionalService } from '../_services/index';
+          PassengerService, ReserveService, PaisService, AdicionalService, AuthenticationService } from '../_services/index';
 import { Habitacion, CurrentMonth, dayReserve, Aerolinea } from '../_models/index';
 import { Select2OptionData } from 'ng2-select2';
 
@@ -56,7 +57,9 @@ export class ReservaComponent implements OnInit {
 
   toDay: Date;
 
-  constructor(private roomService: RoomService,
+  constructor(private authService: AuthenticationService,
+                private router: Router,
+                private roomService: RoomService,
                 private alertService: AlertService,
                 private confirmService: ConfirmService,
                 private acceptService: AcceptService,
@@ -73,6 +76,8 @@ export class ReservaComponent implements OnInit {
   }
 
   ngOnInit() { 
+
+    this.isLogged();
 
     var now = new Date();
 
@@ -954,8 +959,12 @@ private setSelect2Adicionales(){
     });
 }
 
-private getByDate() {
-  this.reserveService.getByDate(this.current).subscribe(
+private getByDate() {  
+        
+  var feDesde = '01' + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
+  var feHasta = this.current.finMes + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
+
+  this.reserveService.getByDate('C', feDesde, feHasta).subscribe(
     reservas => { 
 
       if(reservas.success){
@@ -973,6 +982,17 @@ private getDateString(delimiter: string, date: string){
 
   var auxDate= date.split(delimiter);
   return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
+}
+
+private isLogged(){
+
+    this.authService.isLogged().subscribe(
+                                response => 
+                                { 
+                                    
+                                    if(!response.success)
+                                        this.router.navigate(['/login']);
+                                });
 }
 
 }

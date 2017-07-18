@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
  
 @Injectable()
 export class AuthenticationService {
+
+    currentUser: any;
     
-    constructor(private http: Http) { }
+    constructor(private http: Http) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
  
     login(user: any) {
         
@@ -36,5 +39,18 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+    }
+
+    isLogged(){
+
+        return this.http.get('/api/auth/islogged/', this.jwt()).map((response: Response) => response.json());
+    }
+
+    private jwt() {
+
+        if (this.currentUser && this.currentUser.token) {
+            let headers = new Headers({ 'x-access-token': this.currentUser.token });
+            return new RequestOptions({ headers: headers });
+        }
     }
 }

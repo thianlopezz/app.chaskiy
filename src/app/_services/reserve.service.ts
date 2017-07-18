@@ -20,12 +20,9 @@ export class ReserveService {
         return this.http.get('/api/reservas/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
-    getByDate(current: CurrentMonth) {
-        
-        var feDesde = '01' + '/' + (current.noMonth + 1) + '/' + current.anio;
-        var feHasta = current.finMes + '/' + (current.noMonth + 1) + '/' + current.anio;
+    getByDate(consulta: string, feDesde: string, feHasta: string) { //DD/MM/AAAA Y DD/MM/AAAA
 
-        var param = encodeURIComponent('<params accion = "C" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta 
+        var param = encodeURIComponent('<params accion = "'+ consulta +'" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta 
                                             +'" idHospedaje= "'+ this.currentUser.idHospedaje +'" />');
 
         return this.http.get('/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());

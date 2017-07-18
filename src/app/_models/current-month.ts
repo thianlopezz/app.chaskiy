@@ -15,6 +15,7 @@ export class CurrentMonth {
     // }
 
     constructor() {
+        
     	var date = new Date();
     	this.noMonth = date.getMonth();
     	this.mes = this.meses[this.noMonth];

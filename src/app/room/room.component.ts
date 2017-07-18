@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Habitacion } from '../_models/index';
-import { AlertService, ConfirmService, AcceptService, RoomService } from '../_services/index';
+import { AlertService, ConfirmService, AcceptService, RoomService, AuthenticationService } from '../_services/index';
 
 declare var jQuery:any;
 
@@ -22,7 +23,9 @@ export class RoomComponent implements OnInit {
 
   jQuery:any;
 
-  constructor(private roomService: RoomService,
+  constructor(private authService: AuthenticationService,
+                private router: Router,
+                private roomService: RoomService,
                 private alertService: AlertService,
                 private confirmService: ConfirmService,
                 private acceptService:AcceptService) { 
@@ -32,6 +35,8 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.isLogged();
     this.loadAllRooms();    
     this.subscription = this.acceptService.getAcceptChangeEmitter()
       .subscribe(resp => this.selectedVal(resp));
@@ -150,6 +155,17 @@ export class RoomComponent implements OnInit {
  
 private loadAllRooms() {
     this.roomService.getAll().subscribe(rooms => { this.rooms = rooms; });
+}
+
+private isLogged(){
+
+    this.authService.isLogged().subscribe(
+                                response => 
+                                {
+                                    
+                                    if(!response.success)
+                                        this.router.navigate(['/login']);
+                                });
 }
 
 }

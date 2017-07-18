@@ -14,7 +14,7 @@ function Reserva() {
             console.log('Error>> Pasajero.get>> ' + err);
             res.send({success: false, mensaje: '' + err});
           }
-
+          
           res.send({success: true, data: result[0]});
         }
         catch(ex){

@@ -27,7 +27,7 @@ router.post('/auth/login', (req, res) => {
 
       if(result.success){
         var token = jwt.sign(result, config.secret, {
-                  expiresIn: "2h" // expires in 24 hours
+                  expiresIn: "24h" // expires in 24 hours
                 });
 
         result.usuario.token = token;
@@ -60,7 +60,8 @@ router.use(function(req, res, next) {
     // verifies secret and checks exp
     jwt.verify(token, config.secret, function(err, decoded) {      
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+
+        return res.json({ success: false, err: -1, mensaje: 'Failed to authenticate token.' });    
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;    
@@ -74,13 +75,19 @@ router.use(function(req, res, next) {
     // return an error
     return res.status(403).send({ 
         success: false, 
-        message: 'No token provided.' 
+        mensaje: 'No token provided.' 
     });
     
   }
 });
 
 // R U T A S  P R I V A D A S
+
+//H A B I T A C I O N E S
+router.get('/auth/islogged/', (req, res) => {
+  
+  return res.json({ success: true });
+});
 
 //H A B I T A C I O N E S
 router.get('/habitaciones/all/:param', (req, res) => {
