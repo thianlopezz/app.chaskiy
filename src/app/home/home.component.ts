@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
                                         
                                         if(!response.success)
                                             this.router.navigate(['/login']);
-                                    }, error => this.router.navigate(['/login']) );
+                                    }, 
+                                    error => this.router.navigate(['/login']) );
     }
 }
