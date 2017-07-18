@@ -6,7 +6,11 @@
 		</div>		
 	</div>
 	<div class="card mb-2" *ngFor="let reserva of reservadosDb" [ngClass]="checked(reserva)">
-		<h5 class="card-header text-center">{{reserva.pasajero + ' (' + reserva.noPersonas +' personas)'}}</h5>
+		<h5 class="card-header text-center">
+			{{reserva.pasajero + ' (' + reserva.noPersonas +' personas)'}}
+			&nbsp;/&nbsp;
+			{{'Estado: ' + getEstado(reserva)}}
+		</h5>
 		<div class="card-block">
 			<div class="row">
 				<div class="col-md-6">

@@ -7,7 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
  
 @Component({
     moduleId: module.id,
-    templateUrl: 'home.component.html'
+    templateUrl: 'home.component.html',
+    styleUrls: ['./home.component.css']
 })
  
 export class HomeComponent implements OnInit {
@@ -26,6 +27,24 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.isLogged();
         this.getByDate();
+    }
+
+    getEstado(reserva: any){
+
+        if(reserva.estado == 'E')
+            return "Cancelada";
+        else{
+
+            if(reserva.checkin){
+
+                if(!reserva.checkout)
+                    return "Checked in";
+                else
+                    return "Checked out";
+            }
+            else
+                return "Reservada";
+        }
     }
 
     checked(reserva: any){
@@ -47,7 +66,6 @@ export class HomeComponent implements OnInit {
     }
 
     private getByDate() {
-        debugger;
 
         var dia = 1000 * 60 * 60 * 24;        
 

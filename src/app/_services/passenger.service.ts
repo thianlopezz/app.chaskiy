@@ -5,10 +5,8 @@ import { Passenger } from '../_models/index';
 
 @Injectable()
 export class PassengerService {
-
-    currentUser: any;
     
-    constructor(private http: Http) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
+    constructor(private http: Http) { }
 
     // getAll() {
     //     return this.http.get(_config + '/api/rooms', this.jwt()).map((response: Response) => response.json());
@@ -16,7 +14,9 @@ export class PassengerService {
 
     getById(id: string) {
         
-        var param = encodeURIComponent('<params accion="C1" identificacion = "'+ id +'" idHospedaje = "'+ this.currentUser.idHospedaje +'" />');
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        var param = encodeURIComponent('<params accion="C1" identificacion = "'+ id +'" idHospedaje = "'+ currentUser.idHospedaje +'" />');
         return this.http.get('/api/pasajeros/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
@@ -36,8 +36,10 @@ export class PassengerService {
 
     private jwt() {
 
-        if (this.currentUser && this.currentUser.token) {
-            let headers = new Headers({ 'x-access-token': this.currentUser.token });
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'x-access-token': currentUser.token });
             return new RequestOptions({ headers: headers });
         }
     }

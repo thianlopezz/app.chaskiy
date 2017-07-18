@@ -25,7 +25,6 @@ import { ReservaComponent } from './reserva/reserva.component';
 import { RoomComponent } from './room/room.component';
 import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
 import { ModalMessageComponent } from './modal-message/modal-message.component';
-import { ModalReservaComponent } from './modal-reserva/modal-reserva.component';
 
 import { Select2Module } from 'ng2-select2';
 
@@ -40,8 +39,7 @@ import { Select2Module } from 'ng2-select2';
     ReservaComponent,
     RoomComponent,
     ModalConfirmComponent,
-    ModalMessageComponent,
-    ModalReservaComponent
+    ModalMessageComponent
   ],
   imports: [
     BrowserModule,

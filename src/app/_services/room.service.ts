@@ -5,14 +5,14 @@ import { Habitacion } from '../_models/index';
 
 @Injectable()
 export class RoomService {
-
-    currentUser: any;
     
-    constructor(private http: Http) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
+    constructor(private http: Http) { }
 
     getAll() {
         
-        var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ this.currentUser.idHospedaje +'" />');
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ currentUser.idHospedaje +'" />');
         return this.http.get('/api/habitaciones/all/'+ param, this.jwt()).map((response: Response) => response.json());
     }
 
@@ -22,8 +22,10 @@ export class RoomService {
 
     mantenimiento(room: Habitacion) {
         
-        room.idHospedaje = this.currentUser.idHospedaje;
-        room.idUsuario = this.currentUser.idUsuario;
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        room.idHospedaje = currentUser.idHospedaje;
+        room.idUsuario = currentUser.idUsuario;
         return this.http.post('/api/habitaciones/', room, this.jwt()).map((response: Response) => response.json());
     }
 
@@ -39,8 +41,10 @@ export class RoomService {
 
     private jwt() {
 
-        if (this.currentUser && this.currentUser.token) {
-            let headers = new Headers({ 'x-access-token': this.currentUser.token });
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'x-access-token': currentUser.token });
             return new RequestOptions({ headers: headers });
         }
     }

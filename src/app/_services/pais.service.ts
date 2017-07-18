@@ -8,7 +8,7 @@ export class PaisService {
 
     currentUser: any;
     
-    constructor(private http: Http) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
+    constructor(private http: Http) { }
 
     getAll() {
         
@@ -36,8 +36,10 @@ export class PaisService {
 
     private jwt() {
 
-        if (this.currentUser && this.currentUser.token) {
-            let headers = new Headers({ 'x-access-token': this.currentUser.token });
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'x-access-token': currentUser.token });
             return new RequestOptions({ headers: headers });
         }
     }

@@ -6,13 +6,13 @@ import { Adicional } from '../_models/index';
 @Injectable()
 export class AdicionalService {
 
-    currentUser: any;
-
-    constructor(private http: Http) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
+    constructor(private http: Http) { }
 
     getAll() {
+
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
-        var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ this.currentUser.idHospedaje +'" />');
+        var param = encodeURIComponent('<params accion="C" idHospedaje = "'+ currentUser.idHospedaje +'" />');
         return this.http.get('/api/adicionales/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
@@ -36,8 +36,10 @@ export class AdicionalService {
 
     private jwt() {
 
-        if (this.currentUser && this.currentUser.token) {
-            let headers = new Headers({ 'x-access-token': this.currentUser.token });
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'x-access-token': currentUser.token });
             return new RequestOptions({ headers: headers });
         }
     }
