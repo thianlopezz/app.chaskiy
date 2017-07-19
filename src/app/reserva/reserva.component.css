@@ -18,7 +18,7 @@
 
 ._reserved a {
 
-	background: rgba(18, 153, 220, 0.39);
+	background-color: #5bc0de;
 	transition: opacity 0.3s;
 }
 
@@ -29,7 +29,7 @@
 
 ._occupied a {
 
-	background: rgba(220, 142, 140, 0.87);
+	background-color: #f0ad4e;
 	transition: opacity 0.3s;
 }
 

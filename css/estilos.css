@@ -1,6 +1,27 @@
 html {
   font-size: 15px; }
 
+.imageContainer {
+  position: absolute;
+  width: 100px;
+  /*the image width*/
+  height: 100px;
+  /*the image height*/
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  /*half the image width*/
+  margin-top: -50px
+  /*half the image height*/ }
+
+.navbar-brand {
+  padding: 0px; }
+
+.navbar-brand > img {
+  height: 100%;
+  padding: 15px;
+  width: auto; }
+
 .default-container {
   margin-top: 4rem; }
 
@@ -59,5 +80,8 @@ html {
 
 .navaux {
   position: static; }
+
+.exbrand .navbar-brand > img {
+  padding: 7px 15px; }
 
 /*# sourceMappingURL=estilos.css.map */
