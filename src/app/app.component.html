@@ -1,21 +1,20 @@
-<section class="navClass">
-	<div class="container exbrand">
-		<header class="encabezado">
-			<!-- <nav class="navbar navbar-light fixed-top navaux">
-				<a class="navbar-brand" href="#">Chaskiy Qurpa</a>
-			</nav> -->
-			<nav class="navbar navbar-light fixed-top">
+<div id="wrapper">
+	<section class="navClass">
+		<header class="encabezado exbrand">
+			<nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
 			  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar0" aria-controls="navbar0" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 			  <a class="navbar-brand" href="#">
-			  	<img src="/assets/images/chaskiy-brand.png" width="30" height="30" alt="">
+			  	<img src="/assets/images/chaskiy-brand.png" alt="">
 			  </a>
-
-			  <div class="collapse navbar-collapse" id="navbar0">
+			  <div *ngIf="!isLogged()" class="collapse navbar-collapse" id="navbar0">
 			    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
 			      <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/index']">Inicio</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" [routerLink]="['/register']">Precios</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/register']">Registrate</a>
@@ -23,7 +22,7 @@
 			      <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/login']">Login</a>
 			      </li>
-			      <li class="nav-item">
+			      <!-- <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/home']">Home</a>
 			      </li>
 			      <li class="nav-item">
@@ -31,19 +30,173 @@
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/room']">Habitaciones</a>
+			      </li> -->
+			    </ul>
+			  </div>		  				  	
+			    <ul *ngIf="isLogged()" class="navbar-nav pull-right">
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Dropdown link
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          <a class="dropdown-item" href="#">Action</a>
+			          <a class="dropdown-item" href="#">Another action</a>
+			          <a class="dropdown-item" href="#">Something else here</a>
+			        </div>
 			      </li>
 			    </ul>
-			  </div>
+			  
 			</nav>
 		</header>
-	</div>
-</section>
-<section>
-	<div class="container default-container">
-		<div class="col-md-12">			
-			<alert></alert>
-		</div>
-	</div>
-	<router-outlet></router-outlet>
-	<confirm></confirm>
-</section>
+	</section>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <!-- <a href="#">
+                    Start Bootstrap
+                </a> -->
+            </li>
+            <li>
+                <a [routerLink]="['/home']">Inicio</a>
+            </li>
+            <li>
+                <a [routerLink]="['/reserva']">Reservas</a>
+            </li>
+            <li>
+                <a [routerLink]="['/room']">Habitaciones</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">        	
+            <button [hidden]="!isLogged()" type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+	<footer *ngIf="!isLogged()" class="mt-5">
+	  <div class="container-fluid bg-faded mt-5">
+	    <div class="container">
+	      <div class="row py-3">
+	        <!-- footer column 1 start -->
+	        <div class="col-md-4">
+	          <!-- row start -->
+	          <div class="row py-2">
+	            <div class="col-sm-3 hidden-md-down">
+	              <a class="bg-circle bg-info" href="https://twitter.com/ ">
+	                <i class="fa fa-2x fa-fw fa-twitter" aria-hidden="true "></i>
+	              </a>
+	            </div>
+	            <div class="col-sm-9">
+	              <h4>Tweets</h4>
+	              Embed here?
+	            </div>
+	          </div>
+	          <!-- row end -->
+	        </div>
+	        <!-- footer column 1 end -->
+	        <!-- footer column 2 start -->
+	        <div class="col-md-4">
+	          <!-- row start -->
+	          <div class="row py-2">
+	            <div class="col-sm-3 hidden-md-down">
+	              <a class="bg-circle bg-info" href="#">
+	                <i class="fa fa-2x fa-fw fa-address-card" aria-hidden="true"></i>
+	              </a>
+	            </div>
+	            <div class="col-sm-9">
+	              <h4>Contact us</h4>
+	              <p>Why not?</p>
+	            </div>
+	          </div>
+	          <!-- row end -->
+	          <!-- row start -->
+	          <div class="row py-2">
+	            <div class="col-sm-3 hidden-md-down">
+	              <a class="bg-circle bg-info" href="#">
+	                <i class="fa fa-2x fa-fw fa-laptop" aria-hidden="true"></i>
+	              </a>
+	            </div>
+	            <div class="col-sm-9">
+	              <h4>Cookie policy</h4>
+	              <p class=" ">We use <a class=" " href="/#">cookies </a></p>
+	            </div>
+	          </div>
+	          <!-- row end -->
+	        </div>
+	        <!-- footer column 2 end -->
+	        <!-- footer column 3 start -->
+	        <div class="col-md-4">
+	          <!-- row starting  -->
+	          <div class="row py-2">
+	            <div class="col-sm-3 hidden-md-down">
+	              <a class="bg-circle bg-danger" href="# ">
+	                <i class="fa fa-2x fa-fw fa-file-pdf-o" aria-hidden="true"></i>
+	              </a>
+	            </div>
+	            <div class="col-sm-9">
+	              <h4>Download pdf</h4>
+	              <p> You like print?</p>
+	            </div>
+	          </div>
+	          <!-- row ended -->
+	          <!-- row starting  -->
+	          <div class="row py-2">
+	            <div class="col-sm-3 hidden-md-down">
+	              <a class="bg-circle bg-info" href="https://twitter.com/ ">
+	                <i class="fa fa-2x fa-fw fa-info" aria-hidden="true "></i>
+	              </a>
+	            </div>
+	            <div class="col-sm-9">
+	              <h4>Info</h4>
+	              About us.
+	            </div>
+	          </div>
+	          <!-- row ended -->
+	        </div>
+	        <!-- footer column 3 end -->
+	      </div>
+	    </div>
+	  </div>
+	  <div class="container-fluid bg-primary">
+	    <div class="container">
+	      <div class="row py-3">
+	        <div class="col-md-9">
+	          <p class="text-white">Lorem ipsum.</p>
+	        </div>
+	        <div class="col-md-3">
+	          <div class="d-inline-block">
+	            <div class="bg-circle-outline d-inline-block">
+	              <a href="https://www.facebook.com/" class="text-white"><i class="fa fa-2x fa-fw fa-facebook"></i>
+			</a>
+	            </div>
+
+	            <div class="bg-circle-outline d-inline-block">
+	              <a href="https://twitter.com/" class="text-white">
+	                <i class="fa fa-2x fa-fw fa-twitter"></i></a>
+	            </div>
+
+	            <div class="bg-circle-outline d-inline-block">
+	              <a href="https://www.linkedin.com/company/" class="text-white">
+	                <i class="fa fa-2x fa-fw fa-linkedin"></i></a>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</footer>
+</div>
+<!-- /#wrapper -->
+
+<confirm></confirm>
+

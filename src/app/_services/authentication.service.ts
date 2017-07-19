@@ -33,6 +33,15 @@ export class AuthenticationService {
             });
     }
  
+    isLoLogged() {
+
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(currentUser == null || !currentUser.token)
+            return false;
+
+        return true;
+    }
+ 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');

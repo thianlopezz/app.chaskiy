@@ -1,0 +1,11 @@
+/*// B L O Q U E  B I E N V E N I D O S*/
+.bienvenidos{
+    background: #f7f7f7;
+	background-size:cover;
+	height: 70vh;
+    overflow: hidden;
+}
+
+.carousel {
+    margin-top: 5rem;
+}

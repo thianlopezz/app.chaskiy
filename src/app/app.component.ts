@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from './_services/index';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  constructor(private authService: AuthenticationService) { }
+
+  // ngOnInit() {
+
+  // }
+
+  isLogged(){
+
+  	return this.authService.isLoLogged();
+  }
+
 }

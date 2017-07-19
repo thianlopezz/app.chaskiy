@@ -10,73 +10,74 @@ html{
         top: 50%;
         margin-left: -50px; /*half the image width*/
         margin-top: -50px; /*half the image height*/
-    }
+}
 
 .navbar-brand {
   padding: 0px;
 }
+
 .navbar-brand > img {
   height: 100%;
   padding: 15px;
   width: auto;
 }
 
-.default-container{
-    margin-top: 4rem;
+// .default-container{
+//     margin-top: 4rem;
+// }
+
+.navbar-light{
+	background: rgba(0, 34, 51, 0.88);
+    font-size: 1.35rem;
 }
 
-// B L O Q U E  B I E N V E N I D O S
-.bienvenidos{
-	background:rgb(58, 126, 197);
-	//background:url("../images");
-	background-size:cover;
-	height:90vh;	
-    overflow: hidden;
+.navbar-light .navbar-nav .nav-link {
+    color: #ffffff;
 }
 
-.fixed-top{
-	background: rgba(0, 0, 0, 0.60);
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(229, 150, 5, 1);
 }
 
 // .navbar {
 //     padding: .8rem 1rem;
 // }
 
-.navbar-brand {
-    font-size: 1.4rem;
-    text-transform: uppercase;
-}
+// .navbar-brand {
+//     font-size: 1.4rem;
+//     text-transform: uppercase;
+// }
 
-.navbar-toggler {
-    padding: 0rem .75rem;
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.9);
-}
+// .navbar-toggler {
+//     padding: 0rem .75rem;
+//     font-size: 1.6rem;
+//     color: rgba(255, 255, 255, 0.9);
+// }
 
-.navbar-light .navbar-toggler {
-    border-color: rgba(0,0,0,0);
-}
+// .navbar-light .navbar-toggler {
+//     border-color: rgba(0,0,0,0);
+// }
 
-.navbar-light .navbar-brand, .navbar-light .navbar-toggler {
-    color: rgba(255, 255, 255, 0.9);
-}
+// .navbar-light .navbar-brand, .navbar-light .navbar-toggler {
+//     color: rgba(255, 255, 255, 0.9);
+// }
 
-.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover, .navbar-light .navbar-toggler:focus, .navbar-light .navbar-toggler:hover {
-    color: rgb(255, 255, 255);
-}
-.navbar-light .navbar-nav .nav-link {
-    color: rgb(255, 255, 255);
-    text-align: center;
-}
+// .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover, .navbar-light .navbar-toggler:focus, .navbar-light .navbar-toggler:hover {
+//     color: rgb(255, 255, 255);
+// }
+// .navbar-light .navbar-nav .nav-link {
+//     color: rgb(255, 255, 255);
+//     text-align: center;
+// }
 
-.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .open>.nav-link {
-    color: rgba(0,0,0,.9);
-    background: rgba(34, 189, 97, 0.81);
-}
-.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    color: rgba(0,0,0,.7);
-    background: rgba(34, 189, 97, 0.81);
-}
+// .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .open>.nav-link {
+//     color: rgba(0,0,0,.9);
+//     background: rgba(34, 189, 97, 0.81);
+// }
+// .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+//     color: rgba(0,0,0,.7);
+//     background: rgba(34, 189, 97, 0.81);
+// }
 
 .texto-bienvenido {
     color: white;
@@ -103,7 +104,7 @@ html{
 // }
 
 #navbar0{
-	clear: board;
+    margin-left: 5rem;
 }
 
 //B L O Q U E  Q U I E N E S  S O M O S
@@ -116,10 +117,6 @@ html{
     font-size: 1.4rem;
 }
 
-.navaux{
-    position: static;
-}
-
 .exbrand .navbar-brand > img {
-  padding: 7px 15px;
+  padding: 0px 0px;
 }

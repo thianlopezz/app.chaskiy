@@ -9,13 +9,13 @@ import { ReservaComponent } from './reserva/reserva.component';
 import { RoomComponent } from './room/room.component';
 
 const appRoutes: Routes = [
-    { path: '', component: LandingComponent, canActivate: [AuthGuard] },
+    { path: '', component: LandingComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'index', component: LandingComponent },
-    { path: 'reserva', component: ReservaComponent },
-    { path: 'room', component: RoomComponent },
-    { path: 'home', component: HomeComponent },
+    { path: 'reserva', component: ReservaComponent, canActivate: [AuthGuard] },
+    { path: 'room', component: RoomComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

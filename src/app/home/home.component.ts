@@ -13,16 +13,11 @@ import { Router, ActivatedRoute } from '@angular/router';
  
 export class HomeComponent implements OnInit {
 
-    currentUser: any;
-
     reservadosDb: any[] = [];
  
     constructor(private authService: AuthenticationService,
                 private router: Router,
-                private reserveService: ReserveService) { 
-
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    }
+                private reserveService: ReserveService) { }
  
     ngOnInit() {
         this.isLogged();
