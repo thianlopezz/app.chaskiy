@@ -9,14 +9,18 @@ import { AuthenticationService } from './_services/index';
 })
 export class AppComponent {
 
+	currentUser: any;
+
   constructor(private authService: AuthenticationService) { }
 
-  // ngOnInit() {
+  ngOnInit() {
 
-  // }
+  	this.currentUser = this.authService.getLogin();
+  }
 
   isLogged(){
 
+    this.currentUser = this.authService.getLogin();
   	return this.authService.isLoLogged();
   }
 

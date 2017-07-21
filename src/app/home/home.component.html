@@ -5,8 +5,8 @@
 			<hr class="my-2">
 		</div>		
 	</div>
-	<div class="card mb-2" *ngFor="let reserva of reservadosDb" [ngClass]="checked(reserva)">
-		<h5 class="card-header text-center">
+	<div class="card mb-2" *ngFor="let reserva of reservadosDb">
+		<h5 class="card-header text-center" [ngClass]="checked(reserva)">
 			{{reserva.pasajero + ' (' + reserva.noPersonas +' personas)'}}
 			&nbsp;/&nbsp;
 			{{'Estado: ' + getEstado(reserva)}}

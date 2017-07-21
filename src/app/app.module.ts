@@ -18,7 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { LandingComponent } from './landing/landing.component';
 
 import { AlertService, ConfirmService, AuthenticationService, AcceptService, 
-          RoomService, AerolineaService, PassengerService, ReserveService, PaisService, AdicionalService } from './_services/index';
+          RoomService, AerolineaService, PassengerService, ReserveService, PaisService, AdicionalService, MessageService } from './_services/index';
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
 import { ReservaComponent } from './reserva/reserva.component';
@@ -27,6 +27,9 @@ import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
 import { ModalMessageComponent } from './modal-message/modal-message.component';
 
 import { Select2Module } from 'ng2-select2';
+import { CurrencyDirective } from './_directives/currency.directive';
+import { CurrencyPipePipe } from './_pipes/currency-pipe.pipe';
+import { AdicionalComponent } from './adicional/adicional.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { Select2Module } from 'ng2-select2';
     ReservaComponent,
     RoomComponent,
     ModalConfirmComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    CurrencyDirective,
+    CurrencyPipePipe,
+    AdicionalComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,9 @@ import { Select2Module } from 'ng2-select2';
               PassengerService,
               ReserveService,
               PaisService,
-              AdicionalService],
+              AdicionalService,
+              MessageService,
+              CurrencyPipePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

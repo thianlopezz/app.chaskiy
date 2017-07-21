@@ -2,7 +2,7 @@
 	<section class="navClass">
 		<header class="encabezado exbrand">
 			<nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
-			  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar0" aria-controls="navbar0" aria-expanded="false" aria-label="Toggle navigation">
+			  <button *ngIf="!isLogged()" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar0" aria-controls="navbar0" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 			  <a class="navbar-brand" href="#">
@@ -32,25 +32,32 @@
 			        <a class="nav-link" [routerLink]="['/room']">Habitaciones</a>
 			      </li> -->
 			    </ul>
-			  </div>		  				  	
-				<ul *ngIf="isLogged()" class="navbar-nav pull-right">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				      Dropdown link
-				    </a>
-				    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				      <a class="dropdown-item" href="#">Action</a>
-				      <a class="dropdown-item" href="#">Another action</a>
-				      <a class="dropdown-item" href="#">Something else here</a>
-				    </div>
-				  </li>
-				</ul>
-			  
+			  </div>
+			  <div class="d-flex flex-row-reverse w-100">
+			  	<div class="p-2">		  				  	
+					<ul *ngIf="currentUser" class="navbar-nav">
+					  <li class="nav-item dropdown">
+					    <a class="nav-link dropdown-toggle" style="font-size:1rem;" href="#" id="ddMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					      {{currentUser.nombre}}
+					    </a>
+					    <div class="dropdown-menu" aria-labelledby="ddMenu">
+					      <a class="dropdown-item" [routerLink]="['/contra']">Cambiar Contraseña
+					      	<i class="fa fa-key" aria-hidden="true"></i>
+					      </a>
+					      <div class="dropdown-divider"></div>
+					      <a class="dropdown-item" [routerLink]="['/login']">Logout
+					      	<i class="fa fa-sign-out" aria-hidden="true"></i>
+					      </a>
+					    </div>
+					  </li>
+					</ul>
+				</div>
+				</div>			  
 			</nav>
 		</header>
 	</section>
     <!-- Sidebar -->
-    <div id="sidebar-wrapper">
+    <div [hidden]="!isLogged()" id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <!-- <a href="#">
@@ -62,9 +69,18 @@
             </li>
             <li>
                 <a [routerLink]="['/reserva']">Reservas</a>
+            </li>            
+            <li>
+                <span style="color: white;">
+                	<i class="fa fa-cog" aria-hidden="true"></i>
+                	Mantenimientos                	
+                </span>
             </li>
             <li>
                 <a [routerLink]="['/room']">Habitaciones</a>
+            </li>
+            <li>
+                <a [routerLink]="['/adds']">Adicionales</a>
             </li>
         </ul>
     </div>
@@ -78,7 +94,9 @@
     			<span class="hamb-middle"></span>
 				<span class="hamb-bottom"></span>
             </button>
-            <router-outlet></router-outlet>
+            <section class="wrapper">
+            	<router-outlet></router-outlet>            	
+            </section>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -88,6 +106,23 @@
 		    <div class="container">
 		      <div class="row py-3">
 		        <!-- footer column 1 start -->
+		        <div class="col-md-4">
+		          <!-- row start -->
+		          <div class="row py-2">
+		            <div class="col-sm-3 hidden-md-down">
+		              <a class="bg-circle bg-info" href="#">
+		                <i class="fa fa-2x fa-fw fa-address-card" aria-hidden="true"></i>
+		              </a>
+		            </div>
+		            <div class="col-sm-9">
+		              <h4>Contáctanos</h4>
+		              <p>Queremos saber de ti</p>
+		            </div>
+		          </div>
+		          <!-- row end -->
+		        </div>
+		        <!-- footer column 1 end -->
+		        <!-- footer column 2 start -->
 		        <div class="col-md-4">
 		          <!-- row start -->
 		          <div class="row py-2">
@@ -102,25 +137,8 @@
 		            </div>
 		          </div>
 		          <!-- row end -->
-		        </div>
-		        <!-- footer column 1 end -->
-		        <!-- footer column 2 start -->
-		        <div class="col-md-4">
 		          <!-- row start -->
-		          <div class="row py-2">
-		            <div class="col-sm-3 hidden-md-down">
-		              <a class="bg-circle bg-info" href="#">
-		                <i class="fa fa-2x fa-fw fa-address-card" aria-hidden="true"></i>
-		              </a>
-		            </div>
-		            <div class="col-sm-9">
-		              <h4>Contact us</h4>
-		              <p>Why not?</p>
-		            </div>
-		          </div>
-		          <!-- row end -->
-		          <!-- row start -->
-		          <div class="row py-2">
+		          <!-- <div class="row py-2">
 		            <div class="col-sm-3 hidden-md-down">
 		              <a class="bg-circle bg-info" href="#">
 		                <i class="fa fa-2x fa-fw fa-laptop" aria-hidden="true"></i>
@@ -130,7 +148,7 @@
 		              <h4>Cookie policy</h4>
 		              <p class=" ">We use <a class=" " href="/#">cookies </a></p>
 		            </div>
-		          </div>
+		          </div> -->
 		          <!-- row end -->
 		        </div>
 		        <!-- footer column 2 end -->
@@ -150,7 +168,7 @@
 		          </div>
 		          <!-- row ended -->
 		          <!-- row starting  -->
-		          <div class="row py-2">
+		          <!-- <div class="row py-2">
 		            <div class="col-sm-3 hidden-md-down">
 		              <a class="bg-circle bg-info" href="https://twitter.com/ ">
 		                <i class="fa fa-2x fa-fw fa-info" aria-hidden="true "></i>
@@ -160,7 +178,7 @@
 		              <h4>Info</h4>
 		              About us.
 		            </div>
-		          </div>
+		          </div> -->
 		          <!-- row ended -->
 		        </div>
 		        <!-- footer column 3 end -->
@@ -171,7 +189,7 @@
 		    <div class="container">
 		      <div class="row py-3">
 		        <div class="col-md-9">
-		          <p class="text-white">Lorem ipsum.</p>
+		          <p class="text-white">Cristhian E. López Zambrano</p>
 		        </div>
 		        <div class="col-md-3">
 		          <div class="d-inline-block">
@@ -198,6 +216,6 @@
 	</section>
 </div>
 <!-- /#wrapper -->
-
 <confirm></confirm>
+<message></message>
 

@@ -29,10 +29,9 @@ var UserService = (function () {
     };
     // private helper methods
     UserService.prototype.jwt = function () {
-        // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+            var headers = new http_1.Headers({ 'x-access-token': currentUser.token });
             return new http_1.RequestOptions({ headers: headers });
         }
     };

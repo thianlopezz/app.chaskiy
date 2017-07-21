@@ -43,7 +43,7 @@ $(document).ready(function () {
     });
 
     function hamburger_cross() {
-
+      
       if (isClosed == true) {          
         overlay.hide();
         trigger.removeClass('is-open');
@@ -55,6 +55,12 @@ $(document).ready(function () {
         trigger.addClass('is-open');
         isClosed = true;
       }
+  }
+
+
+  function _close() {
+    isClosed= true;
+    hamburger_cross();
   }
   
   $('[data-toggle="offcanvas"]').click(function () {

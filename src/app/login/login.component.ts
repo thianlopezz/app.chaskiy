@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
  
 import { AlertService, AuthenticationService } from '../_services/index';
+
+declare var jQuery:any;
  
 @Component({
     moduleId: module.id,
@@ -28,6 +30,8 @@ export class LoginComponent implements OnInit {
  
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        //jQuery('.overlay').hide();
+        jQuery('#wrapper').removeClass('toggled');
     }
  
     login() {        

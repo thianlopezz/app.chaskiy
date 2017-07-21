@@ -8,34 +8,125 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var RoomComponent = (function () {
-    function RoomComponent(roomService, alertService) {
+    function RoomComponent(authService, router, roomService, alertService, messService, confirmService, acceptService) {
+        this.authService = authService;
+        this.router = router;
         this.roomService = roomService;
         this.alertService = alertService;
+        this.messService = messService;
+        this.confirmService = confirmService;
+        this.acceptService = acceptService;
         this.model = {};
         this.rooms = [];
         this.user = {};
         this.loading = false;
-        this.user.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwic2VsZWN0ZWQiOnt9LCJnZXR0ZXJzIjp7fSwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsicGFzc3dvcmQiOiJpbml0IiwidXNlcm5hbWUiOiJpbml0IiwiX192IjoiaW5pdCIsIm5hbWUiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiX192Ijp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwidXNlcm5hbWUiOnRydWUsIm5hbWUiOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfX0sImlzTmV3IjpmYWxzZSwiX2RvYyI6eyJtZXRhIjp7fSwiX192IjowLCJwYXNzd29yZCI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJzZXZpbGF5aGEiLCJuYW1lIjoiQ2hyaXMiLCJfaWQiOiI1OGY1OWM2MmUxM2YzOTI1YTg2ZDZiYTkifSwiaWF0IjoxNDkzNzkzODI4LCJleHAiOjE0OTM3OTUyNjh9.ejjbix0MSOEiT3EPW57BsZlcn46umYMRDlDVthn35t0";
-        localStorage.setItem('currentUser', JSON.stringify(this.user));
+        this.readOnly = true;
     }
     RoomComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.isLogged();
         this.loadAllRooms();
+        this.subscription = this.acceptService.getAcceptChangeEmitter()
+            .subscribe(function (resp) { return _this.selectedVal(resp); });
     };
-    RoomComponent.prototype.guardar = function () {
+    RoomComponent.prototype.selectedVal = function (resp) {
+        if (resp == "aceptar") {
+            this["delete"]();
+        }
+        else if (resp == "cancelar") {
+            this.model = {};
+            this.readOnly = true;
+        }
+    };
+    RoomComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    RoomComponent.prototype["delete"] = function () {
         var _this = this;
         this.loading = true;
-        this.roomService.create(this.model)
+        this.model.accion = this.accion;
+        this.roomService.mantenimiento(this.model)
             .subscribe(function (data) {
-            _this.alertService.success('Registro creado con éxito', true);
-            _this.loading = false;
+            if (data.success) {
+                // this.alertService.success('Registro eliminado con éxito', true);
+                _this.messService.success('Registro eliminado con éxito');
+                _this.loading = false;
+                _this.loadAllRooms();
+            }
+            else {
+                _this.messService.error(data.mensaje);
+                _this.loading = false;
+                jQuery("#habitacionModal").modal("hide");
+            }
         }, function (error) {
-            _this.alertService.error(error);
+            _this.messService.error('Ocurrió al eliminar el registro');
+            console.log(error);
             _this.loading = false;
         });
+    };
+    RoomComponent.prototype.guardar = function (form) {
+        var _this = this;
+        this.loading = true;
+        this.model.accion = this.accion;
+        var mensaje = "";
+        var mensaje_err = "";
+        switch (this.accion) {
+            case 'I':
+                mensaje = 'Registro creado con éxito';
+                mensaje_err = 'Ocurrió al crear el registro';
+                break;
+            case 'U':
+                mensaje = 'Registro modificado con éxito';
+                mensaje_err = 'Ocurrió al modificar el registro';
+                break;
+        }
+        this.roomService.mantenimiento(this.model)
+            .subscribe(function (data) {
+            if (data.success) {
+                _this.messService.success(mensaje);
+                _this.loading = false;
+                _this.loadAllRooms();
+                form.resetForm();
+                jQuery("#habitacionModal").modal("hide");
+            }
+            else {
+                _this.alertService.error(data.mensaje);
+                _this.loading = false;
+                jQuery("#habitacionModal").modal("hide");
+            }
+        }, function (error) {
+            _this.alertService.error(mensaje_err);
+            console.log(error);
+            _this.loading = false;
+            jQuery("#habitacionModal").modal("hide");
+        });
+    };
+    RoomComponent.prototype.setNuevo = function () {
+        this.accion = 'I';
+        this.model = {};
+        this.model.idHabitacion = 0;
+        this.readOnly = false;
+    };
+    RoomComponent.prototype.setModi = function (model) {
+        this.accion = 'U';
+        this.model = Object.assign({}, model);
+        this.readOnly = false;
+    };
+    RoomComponent.prototype.setElim = function (model) {
+        this.accion = 'D';
+        this.model = Object.assign({}, model);
+        this.confirmService.go('¿Desea eliminar el registro?');
     };
     RoomComponent.prototype.loadAllRooms = function () {
         var _this = this;
         this.roomService.getAll().subscribe(function (rooms) { _this.rooms = rooms; });
+    };
+    RoomComponent.prototype.isLogged = function () {
+        var _this = this;
+        this.authService.isLogged().subscribe(function (response) {
+            if (!response.success)
+                _this.router.navigate(['/login']);
+        }, function (error) { return _this.router.navigate(['/login']); });
     };
     return RoomComponent;
 }());

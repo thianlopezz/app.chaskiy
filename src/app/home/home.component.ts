@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AlertService, AuthenticationService, ReserveService } from '../_services/index';
 import { Router, ActivatedRoute } from '@angular/router';
  
@@ -17,43 +17,32 @@ export class HomeComponent implements OnInit {
  
     constructor(private authService: AuthenticationService,
                 private router: Router,
-                private reserveService: ReserveService) { }
+                private reserveService: ReserveService,
+                private zone: NgZone) { this.zone.run(() => {}); }
  
     ngOnInit() {
         this.isLogged();
         this.getByDate();
+        this.zone.run(() => {});
     }
 
     getEstado(reserva: any){
 
-        if(reserva.estado == 'E')
-            return "Cancelada";
-        else{
-
-            if(reserva.checkin){
-
-                if(!reserva.checkout)
-                    return "Checked in";
-                else
-                    return "Checked out";
-            }
-            else
-                return "Reservada";
-        }
+        return this.reserveService.getEstado(reserva);    
     }
 
     checked(reserva: any){
 
         if(reserva.estado == 'E')
-            return {'card-inverse card-danger': true};
+            return {'': true};
         else{
 
             if(reserva.checkin){
 
                 if(!reserva.checkout)
-                    return {'card-inverse card-warning': true};
+                    return {'card-inverse card-danger': true};
                 else
-                    return {'': true};
+                    return {'card-inverse card-warning': true};
             }
             else
                 return {'card-inverse card-info': true};

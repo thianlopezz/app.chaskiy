@@ -16,6 +16,15 @@ export class AdicionalService {
         return this.http.get('/api/adicionales/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
+    mantenimiento(adicional: Adicional) {
+        
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        adicional.idHospedaje = currentUser.idHospedaje;
+        adicional.idUsuario = currentUser.idUsuario;
+        return this.http.post('/api/adicionales/', adicional, this.jwt()).map((response: Response) => response.json());
+    }
+
     // getById(id: string) {
     //     return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     // }

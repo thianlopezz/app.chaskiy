@@ -32,6 +32,16 @@ export class AuthenticationService {
                     return _response;
             });
     }
+
+    getLogin(){
+
+        return JSON.parse(localStorage.getItem('currentUser'));
+    }
+
+    isLogged(){
+
+        return this.http.get('/api/auth/islogged/', this.jwt()).map((response: Response) => response.json());
+    }
  
     isLoLogged() {
 
@@ -45,11 +55,6 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-    }
-
-    isLogged(){
-
-        return this.http.get('/api/auth/islogged/', this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {

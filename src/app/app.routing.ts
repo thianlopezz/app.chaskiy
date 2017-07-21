@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { RoomComponent } from './room/room.component';
+import { AdicionalComponent } from './adicional/adicional.component';
 
 const appRoutes: Routes = [
     { path: '', component: LandingComponent },
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
     { path: 'reserva', component: ReservaComponent, canActivate: [AuthGuard] },
     { path: 'room', component: RoomComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'adds', component: AdicionalComponent, canActivate: [AuthGuard] },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -11,14 +11,7 @@ var Subject_1 = require("rxjs/Subject");
 var ConfirmService = (function () {
     function ConfirmService() {
         this.subject = new Subject_1.Subject();
-        this.navchange = new core_1.EventEmitter();
     }
-    ConfirmService.prototype.emitNavChangeEvent = function (number) {
-        this.navchange.emit(number);
-    };
-    ConfirmService.prototype.getNavChangeEmitter = function () {
-        return this.navchange;
-    };
     ConfirmService.prototype.go = function (message) {
         this.subject.next({ text: message });
     };

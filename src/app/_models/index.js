@@ -4,4 +4,11 @@ function __export(m) {
 }
 exports.__esModule = true;
 __export(require("./user"));
-__export(require("./room"));
+__export(require("./habitacion"));
+__export(require("./current-month"));
+__export(require("./aerolinea"));
+__export(require("./passenger"));
+__export(require("./reserve"));
+__export(require("./pais"));
+__export(require("./adicional"));
+__export(require("./pathApi"));

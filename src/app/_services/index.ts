@@ -9,3 +9,4 @@ export * from './passenger.service';
 export * from './reserve.service';
 export * from './pais.service';
 export * from './adicional.service';
+export * from './message.service';

@@ -39,6 +39,24 @@ export class ReserveService {
         return this.http.post('/api/reservas', reserve, this.jwt()).map((response: Response) => response.json());
     }
 
+    getEstado(reserva: any){
+
+        if(reserva.estado == 'E')
+            return "Cancelada";
+        else{
+
+            if(reserva.checkin){
+
+                if(!reserva.checkout)
+                    return "Checked in";
+                else
+                    return "Checked out";
+            }
+            else
+                return "Reservada";
+        }
+    }
+
     // update(room: Room) {
     //     return this.http.put(_config + '/api/rooms/' + room._id, room, this.jwt()).map((response: Response) => response.json());
     // }

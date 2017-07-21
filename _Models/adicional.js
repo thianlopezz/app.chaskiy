@@ -19,18 +19,20 @@ function Adicional() {
     });
   };
 
-  this.mantenimiento = function(habitacion, res) {
+  this.mantenimiento = function(adicional, res) {
     //habitacion.idHospedaje = 1;
-    var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje 
-                    +'" idHabitacion= "'+ habitacion.idHabitacion +'" noHabitacion= "'+ habitacion.noHabitacion +'" nombre= "'+ habitacion.habitacion +'" />';
-    //console.log(param);
+    var param = '<params accion= "'+ adicional.accion +'" idHospedaje= "'+ adicional.idHospedaje 
+                    +'" idAdicional = "'+ adicional.idAdicional +'" descripcion= "'+ adicional.adicional 
+                    +'" tarifa= "'+ adicional.tarifa 
+                    +'" />';
+    console.log(param);
     connection.acquire(function(err, con) {
-      con.query('call hab_habitacion(\''+param+'\')', function(err, result) {
+      con.query('call ad_adicional(\''+param+'\')', function(err, result) {
         try{
 
           con.release();
           if (err) {
-            console.log('Error>> Habitacion.mantenimiento>>' + err);
+            console.log('Error>> Adicional.mantenimiento>>' + err);
             res.send({success: false, mensaje: err});
           } 
           else {
@@ -41,7 +43,7 @@ function Adicional() {
           }
         }
         catch(ex){
-          console.log('Error>> ex>> Habitacion.mantenimiento>>' + ex);
+          console.log('Error>> ex>> Adicional.mantenimiento>>' + ex);
           res.send({success: false, mensaje: ex});
         }
       });

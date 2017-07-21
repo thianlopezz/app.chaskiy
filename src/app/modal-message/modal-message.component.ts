@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../_services/index';
 
 @Component({
-  selector: 'app-modal-message',
+  selector: 'message',
   templateUrl: './modal-message.component.html',
   styleUrls: ['./modal-message.component.css']
 })
 export class ModalMessageComponent implements OnInit {
 
-  constructor() { }
+	message: any;
 
-  ngOnInit() {
-  }
+	constructor(private messService: MessageService) { }
 
+	ngOnInit() {
+
+		this.messService.getMessage().subscribe(message => { this.message = message; });
+	}
 }

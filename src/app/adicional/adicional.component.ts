@@ -1,36 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Habitacion } from '../_models/index';
-import { AlertService, ConfirmService, AcceptService, RoomService, AuthenticationService, MessageService } from '../_services/index';
+import { Adicional } from '../_models/index';
+import { ConfirmService, AcceptService, AdicionalService, MessageService } from '../_services/index';
 
 declare var jQuery:any;
 
 @Component({
-  selector: 'app-room',
-  templateUrl: './room.component.html',
-  styleUrls: ['./room.component.css']
+  selector: 'app-adicional',
+  templateUrl: './adicional.component.html',
+  styleUrls: ['./adicional.component.css']
 })
-export class RoomComponent implements OnInit {
+export class AdicionalComponent implements OnInit {
+
 	model: any = {};
-	rooms: Habitacion[] = [];
-  user: any = {};
+	adds: Adicional[];
+	user: any = {};
   loading = false;
   readOnly = true;
   accion: string;
 
-  subscription: any;
+	subscription: any;
 
   jQuery:any;
 
-  constructor(private roomService: RoomService,
-                private alertService: AlertService,
+  constructor(private addService: AdicionalService,
                 private messService: MessageService,
                 private confirmService: ConfirmService,
                 private acceptService: AcceptService) { }
 
   ngOnInit() {
     
-    this.loadAllRooms();    
+    this.loadAllAdds();    
     this.subscription = this.acceptService.getAcceptChangeEmitter()
       .subscribe(resp => this.selectedVal(resp));
   }
@@ -55,7 +55,7 @@ export class RoomComponent implements OnInit {
 
     this.model.accion =this.accion;
 
-    this.roomService.mantenimiento(this.model)
+    this.addService.mantenimiento(this.model)
         .subscribe(
             data => {
                 if(data.success){
@@ -63,7 +63,7 @@ export class RoomComponent implements OnInit {
                   // this.alertService.success('Registro eliminado con éxito', true);
                   this.messService.success('Registro eliminado con éxito');
                   this.loading = false;
-                  this.loadAllRooms();
+                  this.loadAllAdds();
                   this.showMess();
                 }
                 else{
@@ -102,14 +102,14 @@ export class RoomComponent implements OnInit {
       break;
     }
 
-    this.roomService.mantenimiento(this.model)
+    this.addService.mantenimiento(this.model)
         .subscribe(
             data => {
                 if(data.success){
 
                   this.messService.success(mensaje);
                   this.loading = false;
-                  this.loadAllRooms();
+                  this.loadAllAdds();
                   form.resetForm();
                   this.showMess()
                 }
@@ -149,30 +149,18 @@ export class RoomComponent implements OnInit {
     this.confirmService.go('¿Desea eliminar el registro?');
   }
  
-private loadAllRooms() {
-    this.roomService.getAll().subscribe(rooms => { this.rooms = rooms; });
+private loadAllAdds() {
+    this.addService.getAll().subscribe(adds => { this.adds = adds; });
 }
 
 private showMess(){
 
-  jQuery("#habitacionModal").modal("hide");
+	jQuery("#adicionalModal").modal("hide");
 
     setTimeout(() => {
 
       jQuery("#messModal").modal("show");
     }, 200);
 }
-
-// private isLogged(){
-
-//     this.authService.isLogged().subscribe(
-//                                 response => 
-//                                 { 
-                                    
-//                                     if(!response.success)
-//                                         this.router.navigate(['/login']);
-//                                 }, 
-//                                 error => this.router.navigate(['/login']) );
-// }
 
 }

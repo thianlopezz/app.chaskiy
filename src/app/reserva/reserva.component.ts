@@ -77,8 +77,6 @@ export class ReservaComponent implements OnInit {
 
   ngOnInit() { 
 
-    this.isLogged();
-
     var now = new Date();
 
     var dia = now.getDate();
@@ -902,6 +900,11 @@ ocultaBtnModi(op: string){
   }
 }
 
+getEstado(){
+
+    return this.reserveService.getEstado(this.model);    
+}
+
 private setDateHab(arreglo: any[]){  
 
   for(var i=0; i<arreglo.length; i++){
@@ -984,16 +987,16 @@ private getDateString(delimiter: string, date: string){
   return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
 }
 
-private isLogged(){
+// private isLogged(){
 
-    this.authService.isLogged().subscribe(
-                                response => 
-                                { 
+//     this.authService.isLogged().subscribe(
+//                                 response => 
+//                                 { 
                                     
-                                    if(!response.success)
-                                        this.router.navigate(['/login']);
-                                });
-}
+//                                     if(!response.success)
+//                                         this.router.navigate(['/login']);
+//                                 });
+// }
 
 }
 
