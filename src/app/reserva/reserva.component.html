@@ -4,11 +4,11 @@
     <button type="button" class="btn btn-secondary btn-icon" data-toggle="modal" data-target="#reservaModal" (click)="setReserva()" [disabled]="reservados.length==0" >
       <span class="badge badge-info">{{reservados.length}}</span>
       <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-    </button> 
+    </button>
     <button [hidden]="reservados.length==0" type="button" class="btn btn-outline-danger" (click)="quitRes()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
-  </div>  
+  </div>
   <div *ngIf="accion=='U'" class="btn-group mr-2" role="group" aria-label="First group">
     <button type="button" class="btn btn-outline-primary" (click)="goModi()">
       <i class="fa fa-check" aria-hidden="true"></i>
@@ -22,13 +22,13 @@
 <div class="col-md-12">
   <table class="table table-bordered">
     <thead>
-      <tr>        
+      <tr>
         <th rowspan="3"></th>
         <th rowspan="3" class="align-middle">#</th>
         <th rowspan="3" class="align-middle">Habitaciones</th>
         <th [attr.colspan]="current.days.length">
           <h3 class="center">{{current.mes}} <small>{{current.anio}}</small></h3>
-        </th>  
+        </th>
         <th rowspan="3"></th>
       </tr>
       <tr>
@@ -39,19 +39,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let room of rooms; let i = index">        
+      <tr *ngFor="let room of rooms; let i = index">
         <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah align-middle" (click)="previous()">
           <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </td>  
+        </td>
         <td>{{room.noHabitacion}}</td>
-        <td>{{room.habitacion}}</td>        
+        <td>{{room.habitacion}}</td>
         <td *ngFor="let dia of current.days" (click)="clickDay(room, dia.day + 1)" class="p-0" [ngClass]="isSelected(room, dia.day + 1)">
           <!-- <i class="fa" [ngClass]="getIco(room, current, dia.day + 1)" aria-hidden="true"></i> -->
-          <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"  (click)="getReserveDet(room, dia.day + 1)">
+          <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button" (click)="getReserveDet(room, dia.day + 1)" data-toggle="modal" data-target="#reservaModal">
             <!-- data-toggle="tooltip" data-html="true" [attr.title]="getToolTip(room, dia.day + 1)" -->
           </a>
           <a *ngIf="!isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"></a>
-        </td>              
+        </td>
         <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah align-middle" (click)="next()">
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </td>
@@ -85,10 +85,10 @@
                             <i class="fa fa-search"  aria-hidden="true"></i>
                           </button>
                         </span>
-                        <img *ngIf="goPass" src="/assets/images/loading.svg" />                    
+                        <img *ngIf="goPass" src="/assets/images/loading.svg" />
                       </div>
-                      <div *ngIf="noPass" class="help-block form-control-feedback">Pasajero no registrado</div>                    
-                  </div>      
+                      <div *ngIf="noPass" class="help-block form-control-feedback">Pasajero no registrado</div>
+                  </div>
                   <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !pasajero.valid }">
                       <label for="pasajero">Nombre</label>
                       <input type="text" class="form-control col-md-12" name="pasajero" [(ngModel)]="model.pass.pasajero" #pasajero="ngModel" [readonly]="!noPass" required />
@@ -117,27 +117,58 @@
                   <div class="form-group">
                       <label for="notas">Notas</label>
                       <textarea class="form-control" id="notas" name="notas" rows="4" [(ngModel)]="model.notas" #notas="ngModel">{{model.notas}}</textarea>
-                  </div>         
+                  </div>
                 </div>
-                <div class="col-md-6">                  
+                <div class="col-md-6">
                   <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !aerolinea.valid }">
                       <label for="aerolinea">Aerolínea</label>
                       <select class="custom-select form-control col-md-6" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
                        <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
                       </select>
                       <div *ngIf="f.submitted && !aerolinea.valid" class="help-block form-control-feedback">La aerolínea es requerida</div>
-                  </div> 
+                  </div>
                   <div class="form-group">
-                      <label for="adicional">Adicionales</label>
+                      <label for="adicional"><strong>Adicionales</strong>
+                      </label>
                       <select2 [data]="adicionales" [options]="optionsAdi" [value]="valueAd" (valueChanged)="changedAd($event)" name="adicional" width="100%"></select2>
-                  </div>                
+                  </div>
+                  <div class="form-group">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.valueAd">
+                      <div *ngIf="auxValor0.idAdicional == adi.idAdicional" class="input-group">
+                      <input type="text" class="form-control" name="adTarifa" placeholder="{{'Tarifa para ' + adi.adicional}}" [(ngModel)]="adi.tarifa" myCurrency="true" #tarifa0="ngModel" />
+                      <span class="input-group-addon">x</span>
+                      <input type="number" class="form-control" name="adCantidad" placeholder="Cantidad" [(ngModel)]="adi.cantidad" #tarifa0="ngModel" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary" (click)="goModiVal0()">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-danger" (click)="cancelTarifa0(adi)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                      </div>
+                      <div *ngIf="auxValor0.idAdicional != adi.idAdicional">
+                        <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
+                          <small>
+                            <a href="javascript:;" (click)="modiTarifa0(adi)" style="cursor:pointer">
+                            Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}}
+                            x&nbsp;{{adi.cantidad}}&nbsp;
+                            </a>
+                            <strong>= {{adi.tarifa * adi.cantidad | currency:'USD':true}}</strong>
+                          </small>
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-group">
                       <label for="habitaciones"><strong>Habitaciones</strong>
-                      </label>     
+                      </label>
                       <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
                         <button *ngIf="auxValor.idHabitacion != room.idHabitacion" type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="delReserve(room)">
                           <span aria-hidden="true">&times;</span>
-                        </button>                                         
+                        </button>
                         <div *ngIf="auxValor.idHabitacion == room.idHabitacion" class="input-group">
                         <input type="text" class="form-control" name="habitaciones" placeholder="{{'Tarifa para ' + room.habitacion}}" [(ngModel)]="room.tarifa" myCurrency="true" #tarifa="ngModel" />
                           <span class="input-group-btn">
@@ -151,7 +182,7 @@
                             </button>
                           </span>
                         </div>
-                        <div *ngIf="auxValor.idHabitacion != room.idHabitacion">                          
+                        <div *ngIf="auxValor.idHabitacion != room.idHabitacion">
                           <h6 class="alert-heading">{{' ' + room.habitacion}}&nbsp;
                             <small>
                               <a href="javascript:;" (click)="modiTarifa(room)" style="cursor:pointer">
@@ -163,30 +194,30 @@
                             </small>
                           </h6>
                           <!-- <p><strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong></p>   -->
-                          <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>             
+                          <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
                         </div>
                       </div>
                       <!-- <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length==0" class="help-block form-control-feedback">Tarifa por noche por habitación</div> -->
                       <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length>0" class="help-block form-control-feedback">Seleccione al menos una habitación</div>
-                  </div> 
+                  </div>
                   <hr class="my-4">
                   <div class="d-flex flex-row-reverse">
-                    <div class="p-2">                         
-                      <h4>{{getTotal() | currency:'USD':true}}</h4>   
+                    <div class="p-2">
+                      <h4>{{getTotal() | currency:'USD':true}}</h4>
                     </div>
-                    <div class="p-2">                                         
-                      <h4>Total</h4> 
+                    <div class="p-2">
+                      <h4>Total</h4>
                     </div>
-                  </div>                         
-                </div> 
-              </div> 
+                  </div>
+                </div>
+              </div>
           </div>
-          <div class="modal-footer">          
+          <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Guardar
               <img *ngIf="loading" src="/assets/images/loading.svg" />
             </button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
-          </div>            
+          </div>
         </div>
         <div *ngIf="!esModi">
           <div class="modal-body">
@@ -195,17 +226,17 @@
                   <div class="form-group" [ngClass]="{ 'has-warning': noPass }">
                     <label for="identificacion"><strong>Identificación</strong>
                     </label>
-                    <p name="identificacion" class="text-muted">{{model.pass.identificacion}}</p>                   
-                  </div>      
+                    <p name="identificacion" class="text-muted">{{model.pass.identificacion}}</p>
+                  </div>
                   <div class="form-group">
                     <label for="pasajero"><strong>Nombre</strong>
-                    </label>                      
-                    <p name="pasajero" class="text-muted">{{model.pass.pasajero}}</p>  
+                    </label>
+                    <p name="pasajero" class="text-muted">{{model.pass.pasajero}}</p>
                   </div>
                   <div class="form-group">
                     <label for="pais"><strong>Pais</strong>
                     </label>
-                    <p name="pais" class="text-muted">{{model.pass.pais}}</p>  
+                    <p name="pais" class="text-muted">{{model.pass.pais}}</p>
                   </div>
                   <div class="form-group">
                     <label for="noContacto"><strong>Número de contacto</strong>
@@ -226,74 +257,254 @@
                     <label for="notas"><strong>Notas</strong>
                     </label>
                     <p name="notas" class="text-muted">{{model.notas}}</p>
-                  </div>         
+                  </div>
                 </div>
-                <div class="col-md-6">                  
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="aerolinea"><strong>Aerolínea</strong>
                     </label>
                     <p name="notas" class="text-muted">{{model.aerolinea}}</p>
-                  </div> 
+                  </div>
                   <div class="form-group">
                     <label for="adicional"><strong>Adicionales</strong>
                     </label>
-                    <div class="alert alert-info fade show" role="alert" *ngFor="let adi of model.valueAdDets">
-                      <strong>{{adi.adicional}}</strong>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.valueAd">
+                      <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
+                        <small>
+                          <a href="javascript:;" style="cursor:pointer">
+                          Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}}
+                          x&nbsp;{{adi.cantidad}}&nbsp;
+                          </a>
+                          <strong>= {{adi.tarifa * adi.cantidad | currency:'USD':true}}</strong>
+                        </small>
+                      </h6>
                     </div>
-                  </div>              
+                    <!-- <div class="alert alert-info fade show" role="alert" *ngFor="let adi of model.valueAdDets">
+                      <strong>{{adi.adicional}}</strong>
+                    </div> -->
+                  </div>
                   <div class="form-group">
                     <label for="habitaciones"><strong>Habitaciones</strong>
-                    </label>     
-                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">                        
+                    </label>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
                       <h6 class="alert-heading">{{' ' + room.habitacion}}&nbsp;
                         <small>
                           <a href="javascript:;" style="cursor:pointer">
                           Tarifa &nbsp;{{room.tarifa | currency:'USD':true}}
                           x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}
                           &nbsp;noche(s) &nbsp;
-                          </a> 
+                          </a>
                           <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
                         </small>
                       </h6>
-                      <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>             
-                    </div>
-                  </div> 
-                  <hr class="my-4">
-                  <div class="d-flex flex-row-reverse">
-                    <div class="p-2">                         
-                      <h4>{{getTotal() | currency:'USD':true}}</h4>   
-                    </div>
-                    <div class="p-2">                                         
-                      <h4>Total</h4> 
+                      <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
                     </div>
                   </div>
-                </div> 
-              </div> 
+                  <hr class="my-4">
+                  <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <h4>{{getTotal() | currency:'USD':true}}</h4>
+                    </div>
+                    <div class="p-2">
+                      <h4>Total</h4>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <a [hidden]= "model.checkout == 0" href="javascript:;">
+                        <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                      </a>
+                      <a [hidden]="model.checkout == 1" href="javascript:;" (click)="getPagos()" data-dismiss="modal" data-toggle="modal" data-target="#pagosModal">
+                        <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                      </a>
+                    </div>
+                    <div class="p-2">
+                      <h5>Pagado</h5>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <h5>{{model.saldo | currency:'USD':true}}</h5>
+                    </div>
+                    <div class="p-2">
+                      <h5>Saldo</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
-          <div class="modal-footer">        
+          <div class="modal-footer">
             <div *ngIf="accion!='I'" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button *ngIf="ocultaBtnModi('Ci')" type="button" class="btn btn-outline-danger" (click)="check('Ci')">
-                  <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <button *ngIf="ocultaBtnModi('Ci')" type="button" class="btn btn-outline-danger" title="Check-in" (click)="check('Ci')">
+                  <i class="fa fa-bed" aria-hidden="true"></i>
                 </button>
-                <button *ngIf="ocultaBtnModi('Co')" type="button" class="btn btn-outline-warnig" (click)="check('Co')">
+                <button *ngIf="ocultaBtnModi('Co')" type="button" class="btn btn-outline-warnig" title="Check-out" (click)="check('Co')">
                   <i class="fa fa-external-link-square" aria-hidden="true"></i>
                 </button>
-                <button *ngIf="ocultaBtnModi('U')" type="button" class="btn btn-outline-danger" (click)="setModi()">
+                <button *ngIf="ocultaBtnModi('U')" type="button" class="btn btn-outline-danger" title="Modificar" (click)="setModi()">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button *ngIf="ocultaBtnModi('D')" type="button" class="btn btn-outline-danger" (click)="setCancel()" data-toggle="modal" data-target="#confirmModal">
+                <button *ngIf="ocultaBtnModi('D')" type="button" class="btn btn-outline-danger" title="Cancelar" (click)="setCancel()" data-toggle="modal" data-target="#confirmModal">
                   <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="quitRes()">Cerrar</button>
-          </div>            
+          </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-
-  
+<!-- MODAL CANCELACION -->
+<div *ngIf="model" class="modal fade" id="cancelaModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cancelación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && delete()" #f="ngForm" novalidate>
+					<div class="form-group">
+							<label for="motivo">Motivo de cancelación</label>
+							<textarea class="form-control" id="motivo" name="motivo" rows="5" [(ngModel)]="model.motivo" #motivo="ngModel" required>{{model.motivo}}</textarea>
+              <div *ngIf="f.submitted && !motivo.valid" class="help-block form-control-feedback">La descripción del motivo es requerida</div>
+					</div>
+	        <div class="modal-footer">
+	          <button type="submit" class="btn btn-primary">Guardar
+	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
+	          </button>
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        </div>
+	    </form>
+    </div>
+  </div>
 </div>
+<!-- MODAL PAGOS -->
+<div *ngIf="model.pago" style="z-index: 1048;" class="modal fade" data-backdrop="static" data-keyboard="false" id="pagosModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pagos
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="col-md-12">
+        <div class="row mt-1">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-danger pull-right" (click)="setNuevoPago()" data-toggle="modal" data-target="#pagoModal">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="card-deck mt-2">
+            <div class="card text-center">
+              <div class="card-header card-info">
+                <h3>Total</h3>
+              </div>
+              <div class="card-block">
+                <h1 class="card-title">{{model.total | currency:'USD':true}}</h1>
+              </div>
+            </div>
+            <div class="card text-center">
+              <div class="card-header card-success">
+                <h3>Pagado</h3>
+              </div>
+              <div class="card-block">
+                <h1 class="card-title">{{model.totalPagado | currency:'USD':true}}</h1>
+              </div>
+            </div>
+            <div class="card text-center">
+              <div class="card-header card-warning">
+                <h3>Saldo</h3>
+              </div>
+              <div class="card-block">
+                <h1 class="card-title">{{model.saldo | currency:'USD':true}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+    			<table class="table table-hover">
+    			  <thead>
+    			    <tr>
+    			      <th>Forma de Pago</th>
+    			      <th>Monto</th>
+    			      <th>Usuario</th>
+    			      <th>Eliminar</th>
+    			    </tr>
+    			  </thead>
+    			  <tbody>
+              <tr *ngIf="pagos.length==0">
+                <td colspan="4" align="center">No se han efectuado pagos</td>
+              </tr>
+    			    <tr *ngFor="let pago of pagos">
+    			      <td width="35%">{{pago.formaPago}}</td>
+    			      <td width="25%">{{pago.monto | currency:'USD':true}}</td>
+    			      <td width="25%">{{pago.usuario}}</td>
+    			      <td width="15%">
+    			      	<div class="btn-group grid-btn" role="group">
+      						  <button type="button" (click)="setElimPago(pago)" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+      						  	<i class="fa fa-trash" aria-hidden="true"></i>
+      						  </button>
+                  </div>
+    			      </td>
+    			    </tr>
+    			  </tbody>
+    			</table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#reservaModal">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL PAGO -->
+<div *ngIf="model.pago" class="modal fade"  id="pagoModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registro de pago
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardarPago(f)" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !formaPago.valid }">
+            <label for="formaPago">Forma de pago</label>
+            <select class="form-control col-md-5" name="formaPago" [(ngModel)]="model.pago.idFormaPago" #formaPago="ngModel" required>
+             <option *ngFor="let op of formaPagos" [value]="op.idFormaPago">{{op.formaPago}}</option>
+            </select>
+            <div *ngIf="f.submitted && !formaPago.valid" class="help-block form-control-feedback">La forma de pago es requerida</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !monto.valid }">
+            <label for="monto">Monto</label>
+            <input type="text" class="form-control  col-md-5" name="monto" [(ngModel)]="model.pago.monto" #monto="ngModel" myCurrency="true" required />
+            <div *ngIf="f.submitted && !monto.valid" class="help-block">El monto es requeido</div>
+        </div>
+				<div class="form-group">
+						<label for="notasp">Notas</label>
+						<textarea class="form-control" id="notasp" name="notasp" rows="2" [(ngModel)]="model.pago.notas" #notasp="ngModel">{{model.pago.notas}}</textarea>
+				</div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
+          </button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+	    </form>
+    </div>
+  </div>
+</div>
+
+</div><!-- FIN CONTAINER -->

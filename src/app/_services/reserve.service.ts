@@ -5,7 +5,7 @@ import { Reserve, CurrentMonth } from '../_models/index';
 
 @Injectable()
 export class ReserveService {
-    
+
     constructor(private http: Http) { }
 
     // getAll() {
@@ -13,7 +13,7 @@ export class ReserveService {
     // }
 
     getById(id: number) {
-        
+
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         var param = encodeURIComponent('<params accion = "C1" idReserva= "'+ id +'" idHospedaje="'+ currentUser.idHospedaje +'" />');
@@ -21,17 +21,17 @@ export class ReserveService {
     }
 
     getByDate(consulta: string, feDesde: string, feHasta: string) { //DD/MM/AAAA Y DD/MM/AAAA
-        
+
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        var param = encodeURIComponent('<params accion = "'+ consulta +'" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta 
+        var param = encodeURIComponent('<params accion = "'+ consulta +'" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta
                                             +'" idHospedaje= "'+ currentUser.idHospedaje +'" />');
 
         return this.http.get('/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     mantenimiento(reserve: Reserve) {
-        
+
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         reserve.idHospedaje = currentUser.idHospedaje;
@@ -41,16 +41,16 @@ export class ReserveService {
 
     getEstado(reserva: any){
 
-        if(reserva.estado == 'E')
+        if(reserva.estado == 'I')
             return "Cancelada";
         else{
 
-            if(reserva.checkin){
+            if(reserva.checkin == 1){
 
-                if(!reserva.checkout)
-                    return "Checked in";
+                if(reserva.checkout == 0)
+                    return "Checked-in";
                 else
-                    return "Checked out";
+                    return "Checked-out";
             }
             else
                 return "Reservada";

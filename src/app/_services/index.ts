@@ -10,3 +10,5 @@ export * from './reserve.service';
 export * from './pais.service';
 export * from './adicional.service';
 export * from './message.service';
+export * from './formapago.service';
+export * from './pago.service';

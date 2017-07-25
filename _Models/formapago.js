@@ -1,47 +1,42 @@
 var connection = require('../server/connection');
 
-function Habitacion() {
+function FormaPago() {
 
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
-      con.query('call hab_habitacion(\''+params+'\')', function(err, result) {
+      con.query('call pg_formapago(\''+params+'\')', function(err, result) {
         try{
 
           con.release();
 
           if(err){
 
-            console.log('Error>> Habitacion.get>>' + err);
+            console.log('Error>> FormaPago.get>>' + err);
             res.send({success: false, mensaje: '' + err});
           }
           res.send(result[0]);
         }
         catch(ex){
 
-          console.log('Error>> ex>> Habitacion.get>> ' + ex);
+          console.log('Error>> ex>> FormaPago.get>> ' + ex);
           res.send({success: false, mensaje: ex});
         }
       });
     });
   };
 
-  this.mantenimiento = function(habitacion, res) {
-
-    habitacion.idHabitacion = habitacion.idHabitacion || 0;
-
-    var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje
-                    +'" idHabitacion= "'+ habitacion.idHabitacion
-                    +'" noHabitacion= "'+ habitacion.noHabitacion
-                    +'" tarifa= "'+ habitacion.tarifa
-                    +'" nombre= "'+ habitacion.habitacion +'" />';
+  this.mantenimiento = function(formaPago, res) {
+    //habitacion.idHospedaje = 1;
+    var param = '<params accion= "'+ formaPago.accion +'" formaPago= "'+ formaPago.formaPago
+                  +'" />';
     //console.log(param);
     connection.acquire(function(err, con) {
-      con.query('call hab_habitacion(\''+param+'\')', function(err, result) {
+      con.query('call pg_formapago(\''+param+'\')', function(err, result) {
         try{
 
           con.release();
           if (err) {
-            console.log('Error>> Habitacion.mantenimiento>>' + err);
+            console.log('Error>> FormaPago.mantenimiento>>' + err);
             res.send({success: false, mensaje: err});
           }
           else {
@@ -52,7 +47,7 @@ function Habitacion() {
           }
         }
         catch(ex){
-          console.log('Error>> ex>> Habitacion.mantenimiento>>' + ex);
+          console.log('Error>> ex>> FormaPago.mantenimiento>>' + ex);
           res.send({success: false, mensaje: ex});
         }
       });
@@ -61,4 +56,4 @@ function Habitacion() {
 
 }
 
-module.exports = new Habitacion();
+module.exports = new FormaPago();

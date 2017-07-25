@@ -17,8 +17,9 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LandingComponent } from './landing/landing.component';
 
-import { AlertService, ConfirmService, AuthenticationService, AcceptService, 
-          RoomService, AerolineaService, PassengerService, ReserveService, PaisService, AdicionalService, MessageService } from './_services/index';
+import { AlertService, ConfirmService, AuthenticationService, AcceptService,
+          RoomService, AerolineaService, PassengerService, ReserveService, PaisService,
+          AdicionalService, MessageService, FormaPagoService, PagoService } from './_services/index';
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
 import { ReservaComponent } from './reserva/reserva.component';
@@ -67,7 +68,9 @@ import { AdicionalComponent } from './adicional/adicional.component';
               PaisService,
               AdicionalService,
               MessageService,
-              CurrencyPipePipe],
+              CurrencyPipePipe,
+              FormaPagoService,
+              PagoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

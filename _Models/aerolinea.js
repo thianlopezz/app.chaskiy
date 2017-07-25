@@ -4,10 +4,16 @@ function Aerolinea() {
 
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
-      con.query('call ae_aerolinea(\''+params+'\')', function(err, result) {        
+      con.query('call ae_aerolinea(\''+params+'\')', function(err, result) {
         try{
 
           con.release();
+
+          if(err){
+
+            console.log('Error>> Aerolinea.get>>' + err);
+            res.send({success: false, mensaje: '' + err});
+          }
           res.send(result[0]);
         }
         catch(ex){
@@ -21,7 +27,7 @@ function Aerolinea() {
 
   this.mantenimiento = function(habitacion, res) {
     //habitacion.idHospedaje = 1;
-    var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje 
+    var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje
                     +'" idHabitacion= "'+ habitacion.idHabitacion +'" noHabitacion= "'+ habitacion.noHabitacion +'" nombre= "'+ habitacion.habitacion +'" />';
     //console.log(param);
     connection.acquire(function(err, con) {
@@ -32,10 +38,10 @@ function Aerolinea() {
           if (err) {
             console.log('Error>> Habitacion.mantenimiento>>' + err);
             res.send({success: false, mensaje: err});
-          } 
+          }
           else {
             if(result[0][0].err == undefined)
-              res.send({success: true, mensaje: result[0][0].mensaje});              
+              res.send({success: true, mensaje: result[0][0].mensaje});
             else
               res.send({success: false, mensaje: result[0][0].mensaje});
           }

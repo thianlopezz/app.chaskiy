@@ -1,12 +1,11 @@
 export class Adicional {
 
 	accion: string;
+	idAdicional: number;
+	idHospedaje: number;
+	adicional: string;
 
-    idAdicional: number;
-    idHospedaje: number;
-    adicional: string;
-
-    tarifa: number;
+	tarifa: number;
 
 	idUsuario: number;
 }

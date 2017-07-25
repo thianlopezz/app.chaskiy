@@ -1,50 +1,50 @@
 <div class="container default-container">
-	<div class="col-md-12">		
+	<div class="col-md-12">
 		<div class="card">
-		  <div class="card-block">		  	
+		  <div class="card-block">
 		    <h2>Habitaciones</h2>
 		  </div>
 		</div>
-	</div>	
+	</div>
 	<div class="col-md-12">
 		<div class="card">
-		  <div class="card-block">		  	
-		    <h2>Registros 
+		  <div class="card-block">
+		    <h2>Registros
 		    	<small>Habitaciones</small>
 		    	<!-- <a class="bg-circle bg-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
 		    		<i class="fa fa-plus" aria-hidden="true"></i>
 		    	</a> -->
 			    <button type="button" class="btn btn-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
 			      <i class="fa fa-plus" aria-hidden="true"></i>
-			    </button>		    
+			    </button>
 		    </h2>
-			<table class="table table-hover">
-			  <thead>
-			    <tr>
-			      <th>#Habitación</th>
-			      <th>Nombre</th>
-			      <th>Tarifa</th>
-			      <th>Editar/Eliminar</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr *ngFor="let room of rooms">
-			      <td width="15%">{{room.noHabitacion}}</td>
-			      <td width="50%">{{room.habitacion}}</td>
-			      <td width="15%">{{room.tarifa | currency:'USD':true}}</td>
-			      <td width="20%">
-			      	<div class="btn-group grid-btn" role="group">
-					  <button type="button" (click)="setModi(room)" class="btn btn-primary" data-toggle="modal" data-target="#habitacionModal">
-					  	<i class="fa fa-pencil" aria-hidden="true"></i>
-					  </button>
-					  <button type="button" (click)="setElim(room)" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
-					  	<i class="fa fa-trash" aria-hidden="true"></i>
-					  </button>
-					</div>
-			      </td>
-			    </tr>
-			  </tbody>
-			</table>
+				<table class="table table-hover">
+				  <thead>
+				    <tr>
+				      <th>#Habitación</th>
+				      <th>Nombre</th>
+				      <th>Tarifa</th>
+				      <th>Editar/Eliminar</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr *ngFor="let room of rooms">
+				      <td width="15%">{{room.noHabitacion}}</td>
+				      <td width="50%">{{room.habitacion}}</td>
+				      <td width="15%">{{room.tarifa | currency:'USD':true}}</td>
+				      <td width="20%">
+				      	<div class="btn-group grid-btn" role="group">
+						  <button type="button" (click)="setModi(room)" class="btn btn-primary" data-toggle="modal" data-target="#habitacionModal">
+						  	<i class="fa fa-pencil" aria-hidden="true"></i>
+						  </button>
+						  <button type="button" (click)="setElim(room)" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+						  	<i class="fa fa-trash" aria-hidden="true"></i>
+						  </button>
+						</div>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
 		  </div>
 		</div>
 	</div>
@@ -58,8 +58,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>  	
-	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate><!-- 
+      </div>
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate><!--
 	    	<div class="btn-group grid-btn" role="group">
 			  <button type="button" (click)="setNuevo()" class="btn btn-outline-primary">
 			  	<i class="fa fa-file-text-o" aria-hidden="true"></i>
@@ -85,17 +85,17 @@
 	        </div>
 	        <!-- <div class="form-group">
 	            <button [disabled]="readOnly" class="btn btn-primary pull-right">
-	            	<i class="fa fa-floppy-o" aria-hidden="true"></i>		            	
+	            	<i class="fa fa-floppy-o" aria-hidden="true"></i>
 	            	Guardar
 	            </button>
 	            <img *ngIf="loading" src="/assets/images/loading.svg" />
 	        </div> -->
-	        <div class="modal-footer">	          
+	        <div class="modal-footer">
 	          <button type="submit" class="btn btn-primary">Guardar
 	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          </button>
 	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	        </div> 
+	        </div>
 	    </form>
     </div>
   </div>

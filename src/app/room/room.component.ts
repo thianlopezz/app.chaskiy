@@ -29,8 +29,8 @@ export class RoomComponent implements OnInit {
                 private acceptService: AcceptService) { }
 
   ngOnInit() {
-    
-    this.loadAllRooms();    
+
+    this.loadAllRooms();
     this.subscription = this.acceptService.getAcceptChangeEmitter()
       .subscribe(resp => this.selectedVal(resp));
   }
@@ -71,7 +71,7 @@ export class RoomComponent implements OnInit {
                   this.messService.error(data.mensaje);
                   this.loading = false;
                   this.showMess();
-                }                    
+                }
             },
             error => {
 
@@ -79,7 +79,7 @@ export class RoomComponent implements OnInit {
                 console.log(error);
                 this.loading = false;
                 this.showMess();
-            }); 
+            });
   }
 
   guardar(form: NgForm){
@@ -118,7 +118,7 @@ export class RoomComponent implements OnInit {
                   this.messService.error(data.mensaje);
                   this.loading = false;
                   this.showMess()
-                }                    
+                }
             },
             error => {
 
@@ -126,11 +126,12 @@ export class RoomComponent implements OnInit {
                 console.log(error);
                 this.loading = false;
                 this.showMess()
-            }); 
- 
+            });
+
   }
 
   setNuevo(){
+    
     this.accion = 'I';
     this.model = {};
     this.model.idHabitacion = 0;
@@ -138,17 +139,19 @@ export class RoomComponent implements OnInit {
   }
 
   setModi(model: any){
+
     this.accion = 'U';
     this.model = Object.assign({}, model);
     this.readOnly = false;
   }
 
   setElim(model: any){
+
     this.accion = 'D';
     this.model = Object.assign({}, model);
     this.confirmService.go('¿Desea eliminar el registro?');
   }
- 
+
 private loadAllRooms() {
     this.roomService.getAll().subscribe(rooms => { this.rooms = rooms; });
 }
@@ -166,12 +169,12 @@ private showMess(){
 // private isLogged(){
 
 //     this.authService.isLogged().subscribe(
-//                                 response => 
-//                                 { 
-                                    
+//                                 response =>
+//                                 {
+
 //                                     if(!response.success)
 //                                         this.router.navigate(['/login']);
-//                                 }, 
+//                                 },
 //                                 error => this.router.navigate(['/login']) );
 // }
 

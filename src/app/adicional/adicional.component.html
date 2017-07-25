@@ -1,22 +1,22 @@
 <div class="container default-container">
-	<div class="col-md-12">		
+	<div class="col-md-12">
 		<div class="card">
-		  <div class="card-block">		  	
+		  <div class="card-block">
 		    <h2>Adicionales</h2>
 		  </div>
 		</div>
-	</div>	
+	</div>
 	<div class="col-md-12">
 		<div class="card">
-		  <div class="card-block">		  	
-		    <h2>Registros 
+		  <div class="card-block">
+		    <h2>Registros
 		    	<small>Adicionales</small>
 		    	<!-- <a class="bg-circle bg-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
 		    		<i class="fa fa-plus" aria-hidden="true"></i>
 		    	</a> -->
 			    <button type="button" class="btn btn-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#adicionalModal">
 			      <i class="fa fa-plus" aria-hidden="true"></i>
-			    </button>		    
+			    </button>
 		    </h2>
 			<table class="table table-hover">
 			  <thead>
@@ -56,11 +56,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>  	
+      </div>
 	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate>
 	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !adicional.valid }">
 	            <label for="adicional">Nombre</label>
-	            <input type="text" class="form-control col-md-8" name="adicional" [(ngModel)]="model.adicional" #adicional="ngModel" required />
+	            <input type="text" class="form-control col-md-8" name="adicional" [(ngModel)]="model.adicional" #adicional="ngModel" myCurrency="true" required />
 	            <div *ngIf="f.submitted && !adicional.valid" class="help-block">El nombre del servicio adicional es requerido</div>
 	        </div>
 	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !adicional.valid }">
@@ -68,12 +68,12 @@
 	            <input type="text" class="form-control col-md-4" name="tarifa" [(ngModel)]="model.tarifa" #adicional="ngModel" myCurrency="true" required />
 	            <div *ngIf="f.submitted && !adicional.valid" class="help-block">La tarifa es requerida</div>
 	        </div>
-	        <div class="modal-footer">	          
+	        <div class="modal-footer">
 	          <button type="submit" class="btn btn-primary">Guardar
 	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          </button>
 	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	        </div> 
+	        </div>
 	    </form>
     </div>
   </div>

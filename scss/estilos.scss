@@ -2,7 +2,7 @@ html{
 	font-size:15px;
 }
 
-.modal-header {  
+.modal-header {
     background: rgba(0, 34, 51, 0.88);
     color: white;
 }
@@ -27,10 +27,6 @@ html{
   width: auto;
 }
 
-// .default-container{
-//     margin-top: 4rem;
-// }
-
 .navbar-light{
 	background: rgba(0, 34, 51, 0.88);
     font-size: 1.35rem;
@@ -44,69 +40,10 @@ html{
     color: rgba(229, 150, 5, 1);
 }
 
-// .navbar {
-//     padding: .8rem 1rem;
-// }
-
-// .navbar-brand {
-//     font-size: 1.4rem;
-//     text-transform: uppercase;
-// }
-
-// .navbar-toggler {
-//     padding: 0rem .75rem;
-//     font-size: 1.6rem;
-//     color: rgba(255, 255, 255, 0.9);
-// }
-
-// .navbar-light .navbar-toggler {
-//     border-color: rgba(0,0,0,0);
-// }
-
-// .navbar-light .navbar-brand, .navbar-light .navbar-toggler {
-//     color: rgba(255, 255, 255, 0.9);
-// }
-
-// .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover, .navbar-light .navbar-toggler:focus, .navbar-light .navbar-toggler:hover {
-//     color: rgb(255, 255, 255);
-// }
-// .navbar-light .navbar-nav .nav-link {
-//     color: rgb(255, 255, 255);
-//     text-align: center;
-// }
-
-// .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .open>.nav-link {
-//     color: rgba(0,0,0,.9);
-//     background: rgba(34, 189, 97, 0.81);
-// }
-// .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-//     color: rgba(0,0,0,.7);
-//     background: rgba(34, 189, 97, 0.81);
-// }
-
 .texto-bienvenido {
     color: white;
     margin-top: 6rem;
 }
-
-// .btn-primary {
-//     background-color: #1fa25d;
-//     border-color: #357b56;
-//     transition: all .5s ease;
-//     text-transform:uppercase;
-// }
-
-// .btn-primary:hover {
-//     color: #fff;
-//     background-color: #33bd74;
-//     border-color: #357b56;
-// }
-
-// .btn-secondary {
-//     transition: all .5s ease;
-//     background-color: #f7f4ef;
-//     text-transform:uppercase;
-// }
 
 #navbar0{
     margin-left: 5rem;
@@ -165,3 +102,16 @@ html{
   outline: none;
   color: #ececec;
 }
+
+// button.close {
+//     color: white;
+// }
+//
+// .navbar {
+//     flex-direction: row;
+// }
+//
+// @media (max-width: 991px)
+// .navbar-toggleable-md .navbar-nav .dropdown-menu {
+//     position: absolute;
+// }

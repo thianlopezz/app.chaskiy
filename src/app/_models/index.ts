@@ -7,3 +7,5 @@ export * from './reserve';
 export * from './pais';
 export * from './adicional';
 export * from './pathApi';
+export * from './formapago';
+export * from './pago';

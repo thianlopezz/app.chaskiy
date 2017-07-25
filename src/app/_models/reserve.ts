@@ -11,6 +11,8 @@ valueAd: any[];
 habitaciones: any[];
 pass: any;
 
+total: number;
+
 idHospedaje: number;
 idUsuario: number;
 

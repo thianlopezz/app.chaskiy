@@ -4,10 +4,16 @@ function Adicional() {
 
   this.get = function(params, res) {
     connection.acquire(function(err, con) {
-      con.query('call ad_adicional(\''+params+'\')', function(err, result) {        
+      con.query('call ad_adicional(\''+params+'\')', function(err, result) {
         try{
 
         con.release();
+
+        if(err){
+
+          console.log('Error>> Adicional.get>>' + err);
+          res.send({success: false, mensaje: '' + err});
+        }
         res.send(result[0]);
         }
         catch(ex){
@@ -21,9 +27,9 @@ function Adicional() {
 
   this.mantenimiento = function(adicional, res) {
     //habitacion.idHospedaje = 1;
-    var param = '<params accion= "'+ adicional.accion +'" idHospedaje= "'+ adicional.idHospedaje 
-                    +'" idAdicional = "'+ adicional.idAdicional +'" descripcion= "'+ adicional.adicional 
-                    +'" tarifa= "'+ adicional.tarifa 
+    var param = '<params accion= "'+ adicional.accion +'" idHospedaje= "'+ adicional.idHospedaje
+                    +'" idAdicional = "'+ adicional.idAdicional +'" descripcion= "'+ adicional.adicional
+                    +'" tarifa= "'+ adicional.tarifa
                     +'" />';
     console.log(param);
     connection.acquire(function(err, con) {
@@ -34,10 +40,10 @@ function Adicional() {
           if (err) {
             console.log('Error>> Adicional.mantenimiento>>' + err);
             res.send({success: false, mensaje: err});
-          } 
+          }
           else {
             if(result[0][0].err == undefined)
-              res.send({success: true, mensaje: result[0][0].mensaje});              
+              res.send({success: true, mensaje: result[0][0].mensaje});
             else
               res.send({success: false, mensaje: result[0][0].mensaje});
           }
