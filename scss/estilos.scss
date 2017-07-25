@@ -103,15 +103,15 @@ html{
   color: #ececec;
 }
 
-// button.close {
-//     color: white;
-// }
-//
-// .navbar {
-//     flex-direction: row;
-// }
-//
-// @media (max-width: 991px)
-// .navbar-toggleable-md .navbar-nav .dropdown-menu {
-//     position: absolute;
-// }
+button.close {
+    color: white;
+}
+
+.navbar {
+    flex-direction: row;
+}
+
+@media (max-width: 991px)
+.navbar-toggleable-md .navbar-nav .dropdown-menu {
+    position: absolute;
+}
