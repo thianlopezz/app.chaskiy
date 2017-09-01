@@ -3,34 +3,53 @@
 ._selected{
 
 	height: 100%;
-}
-
-._selected a {
-
 	background: rgba(92, 184, 92, 0.57);
 	transition: opacity 0.3s;
+	cursor: pointer;
 }
 
-._reserved{	
+._selected:hover {
+
+  opacity: 0.5;
+}
+
+._reserved{
 
 	height: 100%;
-}
-
-._reserved a {
-
 	background-color: #5bc0de;
 	transition: opacity 0.3s;
+	cursor: pointer;
+}
+
+._reserved:hover {
+
+	opacity: 0.5;
 }
 
 ._occupied{
 
 	height: 100%;
-}
-
-._occupied a {
-
 	background-color: #f0ad4e;
 	transition: opacity 0.3s;
+	cursor: pointer;
+}
+
+._occupied:hover {
+
+	opacity: 0.5;
+}
+
+._proform{
+
+	height: 100%;
+	background-color: #fbcdcd;
+	transition: opacity 0.3s;
+	cursor: pointer;
+}
+
+._proform:hover {
+
+	opacity: 0.5;
 }
 
 ._blocked{
@@ -39,37 +58,17 @@
 	height: 100%;
 }
 
-._blocked a{
-
-	background: #ddd;
-}
-
 ._nah{
 
 	height: 100%;
-}
-
-._nah a{
-
 	opacity: 0;
 	background: #f1f1f1;
 	transition: opacity 0.3s;
+	cursor: pointer;
 }
 
-._nah a:hover{
+._nah:hover {
 
-	opacity: 1;	
+	opacity: 1;
 	box-shadow: none;
 }
-
-.day :hover{
-
-    opacity: 0.5;    
-	box-shadow: none;
-}
-
-.day>.btn.focus, .btn:focus {
-    outline: 0;
-    box-shadow: none;
-}
-    

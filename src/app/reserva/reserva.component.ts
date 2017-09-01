@@ -214,6 +214,11 @@ export class ReservaComponent implements OnInit {
       break;
     }
 
+    if(this.model.esProforma)
+      this.model.estado = "Pr";
+    else
+      this.model.estado = "Re";
+
     this.reserveService.mantenimiento(this.model)
         .subscribe(
             data => {
@@ -388,7 +393,8 @@ deletePago(){
 
     this.loading = true;
 
-    this.model.accion = check;
+    this.model.accion = 'Es';
+    this.model.estado = check;
 
     var mensaje = "";
     var mensaje_err = "";
@@ -401,6 +407,14 @@ deletePago(){
       case 'Co':
         mensaje = 'Check-out éxitoso';
         mensaje_err = 'Ocurrió un error en el check-out';
+      break;
+      case 'Re':
+        mensaje = 'Reserva confirmada con exito';
+        mensaje_err = 'Ocurrió un error al confirmar la reserva';
+      break;
+      case 'Ca':
+        mensaje = 'Reserva cancelada con exito';
+        mensaje_err = 'Ocurrió un error al cancelar la reserva';
       break;
     }
 
@@ -441,6 +455,9 @@ deletePago(){
 
   clickDay(_room: Habitacion, dia: number){
 
+    if(this.isReserved(_room, dia))
+      this.getReserveDet(_room, dia);
+
     var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     if(indexDb!=-1)
@@ -460,6 +477,8 @@ deletePago(){
       this.marco(_room, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
       _room.noClick++;
+
+      return;
     }
     else
       if(_room.noClick == 2){
@@ -467,6 +486,8 @@ deletePago(){
         this.marco(_room, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
         _room.noClick=1;
+
+        return;
       }
 
     this.noReserve = this.reservados.length;
@@ -584,11 +605,14 @@ deletePago(){
       if(new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0) >= this.getDateString('/', this.reservadosDb[indexDb].feDesde)
           && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0) <= this.getDateString('/', this.reservadosDb[indexDb].feHasta)){
 
-        if(!this.reservadosDb[indexDb].checkin)
-          return {'day': true, '_reserved': true};
+        if(this.reservadosDb[indexDb].estado == 'Re')
+          return { '_reserved': true};
         else
-          if(this.reservadosDb[indexDb].checkin)
-            return {'day': true, '_occupied': true};
+          if(this.reservadosDb[indexDb].estado == 'Ci')
+            return { '_occupied': true};
+          else
+            if(this.reservadosDb[indexDb].estado == 'Pr')
+              return { '_proform': true};
       }
     }
 
@@ -600,7 +624,7 @@ deletePago(){
 
       if(new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0) >= this.reservados[index].feDesde
           && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0) <= this.reservados[index].feHasta)
-        return {'day': true, '_selected': true};
+        return { '_selected': true};
     }
 
     return {'_nah': true};
@@ -1042,7 +1066,7 @@ getReserveDet(_room: Habitacion, dia: number){
 
         this.getPagos();
 
-        //jQuery("#reservaModal").modal("show");
+        jQuery("#reservaModal").modal("show");
         console.log(this.model);
       }
       else{
@@ -1099,7 +1123,7 @@ ocultaBtnModi(op: string){
 
     case 'Ci':
 
-      if(this.model.checkin)
+      if(this.model.estado == 'Ci')
         return false;
 
       if(this.model.habitaciones[0].feDesde.getTime()
@@ -1109,14 +1133,14 @@ ocultaBtnModi(op: string){
       return false;
     case 'Co':
 
-      if(this.model.checkin
-        && !this.model.checkout)
+      if(this.model.estado == 'Ci'
+        && !(this.model.estado == 'Co'))
         return true;
 
       return false;
     case 'D':
 
-      if(this.model.checkin)
+      if(this.model.estado == 'Ci')
         return false;
 
       return true;

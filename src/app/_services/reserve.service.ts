@@ -41,20 +41,22 @@ export class ReserveService {
 
     getEstado(reserva: any){
 
-        if(reserva.estado == 'I')
+        if(reserva.estado == 'Ca')
             return "Cancelada";
-        else{
-
-            if(reserva.checkin == 1){
-
-                if(reserva.checkout == 0)
-                    return "Checked-in";
-                else
-                    return "Checked-out";
-            }
+        else
+          if(reserva.estado == 'Ci')
+            return "Checked-in";
+          else
+            if(reserva.estado == 'Co')
+              return "Checked-out";
             else
+              if(reserva.estado == 'Re')
                 return "Reservada";
-        }
+              else
+                if(reserva.estado == 'Pr')
+                  return "Proforma";
+                else
+                  return "N/A";
     }
 
     // update(room: Room) {

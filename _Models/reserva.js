@@ -62,6 +62,7 @@ function Reserva() {
     reserva.pass.valuePa = reserva.pass.valuePa || 0;
     reserva.valueAd = reserva.valueAd || [];
     reserva.motivo = reserva.motivo || '';
+    reserva.estado = reserva.estado || '';
 
     var param = '<params accion= "'+ reserva.accion +'" idHospedaje= "'+ reserva.idHospedaje
                     +'" idAerolinea= "'+ reserva.idAerolinea +'" idReserva= "'+ reserva.idReserva
@@ -74,6 +75,7 @@ function Reserva() {
                     +'" total= "'+ reserva.total
                     +'" motivo= "'+ reserva.motivo
                     +'" idUsuario= "'+ reserva.idUsuario
+                    +'" estado= "'+ reserva.estado
                     +'" />';
 
     connection.acquire(function(err, con) {

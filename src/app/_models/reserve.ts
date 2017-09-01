@@ -7,6 +7,8 @@ aerolinea: number;
 noPersonas: number;
 notas: string;
 
+estado: string = "";
+
 valueAd: any[];
 habitaciones: any[];
 pass: any;

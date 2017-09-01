@@ -1,25 +1,25 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AlertService, AuthenticationService, ReserveService } from '../_services/index';
 import { Router, ActivatedRoute } from '@angular/router';
- 
+
 //import { User } from '../_models/index';
 //import { UserService } from '../_services/index';
- 
+
 @Component({
     moduleId: module.id,
     templateUrl: 'home.component.html',
     styleUrls: ['./home.component.css']
 })
- 
+
 export class HomeComponent implements OnInit {
 
     reservadosDb: any[] = [];
- 
+
     constructor(private authService: AuthenticationService,
                 private router: Router,
                 private reserveService: ReserveService,
                 private zone: NgZone) { this.zone.run(() => {}); }
- 
+
     ngOnInit() {
         this.isLogged();
         this.getByDate();
@@ -28,30 +28,30 @@ export class HomeComponent implements OnInit {
 
     getEstado(reserva: any){
 
-        return this.reserveService.getEstado(reserva);    
+        return this.reserveService.getEstado(reserva);
     }
 
     checked(reserva: any){
 
-        if(reserva.estado == 'E')
+        if(reserva.estado == 'Ca')
             return {'': true};
-        else{
-
-            if(reserva.checkin){
-
-                if(!reserva.checkout)
-                    return {'card-inverse card-danger': true};
-                else
-                    return {'card-inverse card-warning': true};
-            }
+        else
+          if(reserva.estado == 'Ci')
+            return {'card-inverse card-danger': true};
+          else
+            if(reserva.estado == 'Co')
+              return {'card-inverse card-warning': true};
             else
+              if(reserva.estado == 'Re')
                 return {'card-inverse card-info': true};
-        }
+              else
+                if(reserva.estado == 'Pr')
+                  return {'card-inverse card-info': true};
     }
 
     private getByDate() {
 
-        var dia = 1000 * 60 * 60 * 24;        
+        var dia = 1000 * 60 * 60 * 24;
 
         var _feDesde = new Date();
         var feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
                 }
                 else
                 {
-                    
+
                     console.log('Error>> getByDate>> ' + reservas.mensaje);
                 }
         });
@@ -78,12 +78,12 @@ export class HomeComponent implements OnInit {
     private isLogged(){
 
         this.authService.isLogged().subscribe(
-                                    response => 
-                                    { 
-                                        
+                                    response =>
+                                    {
+
                                         if(!response.success)
                                             this.router.navigate(['/login']);
-                                    }, 
+                                    },
                                     error => this.router.navigate(['/login']) );
     }
 }

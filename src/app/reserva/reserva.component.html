@@ -47,10 +47,10 @@
         <td>{{room.habitacion}}</td>
         <td *ngFor="let dia of current.days" (click)="clickDay(room, dia.day + 1)" class="p-0" [ngClass]="isSelected(room, dia.day + 1)">
           <!-- <i class="fa" [ngClass]="getIco(room, current, dia.day + 1)" aria-hidden="true"></i> -->
-          <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button" (click)="getReserveDet(room, dia.day + 1)" data-toggle="modal" data-target="#reservaModal">
-            <!-- data-toggle="tooltip" data-html="true" [attr.title]="getToolTip(room, dia.day + 1)" -->
-          </a>
-          <a *ngIf="!isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"></a>
+          <!-- <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"  data-toggle="modal" data-target="#reservaModal">
+            data-toggle="tooltip" data-html="true" [attr.title]="getToolTip(room, dia.day + 1)"
+          </a> -->
+          <!-- <a *ngIf="!isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"></a> -->
         </td>
         <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah align-middle" (click)="next()">
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
@@ -64,7 +64,16 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Reserva</h4>
+        <h4 class="modal-title">Reserva
+          &nbsp;
+          <small *ngIf="esModi && accion=='I'">
+            <label class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="model.esProforma">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Proforma</span>
+            </label>
+          </small>
+        </h4>
         <font>{{'Estado: ' + getEstado()}}</font>
       </div>
       <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate>
@@ -309,7 +318,7 @@
                       <h4>Total</h4>
                     </div>
                   </div>
-                  <div class="d-flex flex-row-reverse">
+                  <div *ngIf="!model.estado == 'Pr'" class="d-flex flex-row-reverse">
                     <div class="p-2">
                       <a [hidden]= "model.checkout == 0" href="javascript:;">
                         <h5>{{model.totalPagado | currency:'USD':true}}</h5>
@@ -322,7 +331,7 @@
                       <h5>Pagado</h5>
                     </div>
                   </div>
-                  <div class="d-flex flex-row-reverse">
+                  <div *ngIf="!model.estado == 'Pr'" class="d-flex flex-row-reverse">
                     <div class="p-2">
                       <h5>{{model.saldo | currency:'USD':true}}</h5>
                     </div>
@@ -334,7 +343,17 @@
               </div>
           </div>
           <div class="modal-footer">
-            <div *ngIf="accion!='I'" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div *ngIf="model.estado=='Pr'" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-primary" title="Confirmar" (click)="check('Re')">
+                  <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-outline-danger" title="Cancelar" (click)="check('Ca')">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="accion!='I' && model.estado!='Pr'" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button *ngIf="ocultaBtnModi('Ci')" type="button" class="btn btn-outline-danger" title="Check-in" (click)="check('Ci')">
                   <i class="fa fa-bed" aria-hidden="true"></i>
