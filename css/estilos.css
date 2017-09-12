@@ -15,7 +15,7 @@ html {
   top: 50%;
   margin-left: -50px;
   /*half the image width*/
-  margin-top: -50px
+  margin-top: -50px;
   /*half the image height*/ }
 
 .navbar-brand {
@@ -83,5 +83,20 @@ html {
   text-decoration: none !important;
   outline: none;
   color: #ececec; }
+
+button.close {
+  color: white; }
+
+.navbar {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap; }
+
+.navbar-nav .dropdown-menu {
+  position: absolute;
+  float: none; }
 
 /*# sourceMappingURL=estilos.css.map */

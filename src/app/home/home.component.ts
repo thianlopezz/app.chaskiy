@@ -37,16 +37,16 @@ export class HomeComponent implements OnInit {
             return {'': true};
         else
           if(reserva.estado == 'Ci')
-            return {'card-inverse card-danger': true};
+            return {'card bg-danger': true};
           else
             if(reserva.estado == 'Co')
-              return {'card-inverse card-warning': true};
+              return {'card bg-warning': true};
             else
               if(reserva.estado == 'Re')
-                return {'card-inverse card-info': true};
+                return {'card bg-info': true};
               else
                 if(reserva.estado == 'Pr')
-                  return {'card-inverse card-info': true};
+                  return {'card bg-info': true};
     }
 
     private getByDate() {

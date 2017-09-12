@@ -109,9 +109,10 @@ button.close {
 
 .navbar {
     flex-direction: row;
+		flex-wrap: nowrap;
 }
 
-@media (max-width: 991px)
-.navbar-toggleable-md .navbar-nav .dropdown-menu {
+.navbar-nav .dropdown-menu {
     position: absolute;
+    float: none;
 }

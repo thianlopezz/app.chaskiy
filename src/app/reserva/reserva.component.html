@@ -1,19 +1,20 @@
 <div class="container-fluid">
 <div class="col-md-12">
-  <div *ngIf="accion=='I'" class="btn-group" role="group" aria-label="b-group">
-    <button type="button" class="btn btn-secondary btn-icon" data-toggle="modal" data-target="#reservaModal" (click)="setReserva()" [disabled]="reservados.length==0" >
-      <span class="badge badge-info">{{reservados.length}}</span>
+  <div *ngIf="accion=='I'" class="add btn-group" role="group" aria-label="b-group">
+    <button type="button" class="btn btn-sm btn-outline-primary btn-icon" data-toggle="modal" data-target="#reservaModal" (click)="setReserva()" [disabled]="reservados.length==0" >
+      <!-- <span class="badge badge-info">{{reservados.length}}</span> -->
+      {{reservados.length}}
       <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
     </button>
-    <button [hidden]="reservados.length==0" type="button" class="btn btn-outline-danger" (click)="quitRes()">
+    <button [disabled]="reservados.length==0" type="button" class="btn btn-sm btn-outline-danger" (click)="quitRes()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
   </div>
-  <div *ngIf="accion=='U'" class="btn-group mr-2" role="group" aria-label="First group">
-    <button type="button" class="btn btn-outline-primary" (click)="goModi()">
+  <div *ngIf="accion=='U'" class="add btn-smbtn-group mr-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="goModi()">
       <i class="fa fa-check" aria-hidden="true"></i>
     </button>
-    <button type="button" class="btn btn-outline-danger" (click)="quitModi()">
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="quitModi()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
   </div>
@@ -24,8 +25,8 @@
     <thead>
       <tr>
         <th rowspan="3"></th>
-        <th rowspan="3" class="align-middle">#</th>
-        <th rowspan="3" class="align-middle">Habitaciones</th>
+        <th rowspan="3" class="align-buttom">#</th>
+        <th rowspan="3" class="align-buttom">Habitaciones</th>
         <th [attr.colspan]="current.days.length">
           <h3 class="center">{{current.mes}} <small>{{current.anio}}</small></h3>
         </th>
