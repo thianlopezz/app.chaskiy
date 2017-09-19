@@ -186,6 +186,8 @@ export class HomeComponent implements OnInit {
         this.reserveService.getByDate('C3', feDesde, feDesde).subscribe(
             reservas => {
 
+                            debugger;
+
                 if(reservas.success){
 
                     this.llegadas = reservas.data;
@@ -208,6 +210,8 @@ debugger;
         this.reserveService.getByDate('C4', feHasta, feHasta).subscribe(
             reservas => {
 
+                            debugger;
+
                 if(reservas.success){
 
                     this.salidas = reservas.data;
@@ -227,6 +231,8 @@ debugger;
 
         this.reserveService.getByDate('C5', feDesde, feDesde).subscribe(
             reservas => {
+
+              debugger;
 
                 if(reservas.success){
 
