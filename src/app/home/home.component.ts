@@ -38,6 +38,8 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
+        debugger;
+
         this.isLogged();
 
         this.getByDate();
@@ -176,6 +178,8 @@ export class HomeComponent implements OnInit {
 
     private getLlegadas(_feDesde: Date) {
 
+      debugger;
+
         var feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
 
@@ -195,7 +199,7 @@ export class HomeComponent implements OnInit {
     }
 
     private getSalidas(_feHasta: Date) {
-
+debugger;
         _feHasta = new Date(_feHasta.getTime() - (1000 * 60 * 60 * 24));
 
         var feHasta = _feHasta.getDate() + '/' + (_feHasta.getMonth() + 1) + '/' + _feHasta.getFullYear();
@@ -217,6 +221,7 @@ export class HomeComponent implements OnInit {
     }
 
     private getEstancias(_feDesde: Date) {
+      debugger;
 
         var feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
