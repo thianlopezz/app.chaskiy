@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
 
         this.isLogged();
 
-        //this.getByDate();
+        this.getByDate();
         //this.zone.run(() => {});
 
         this.user = this.authService.getLogin();
