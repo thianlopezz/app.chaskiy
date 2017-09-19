@@ -60,7 +60,7 @@ export class ReserveService {
     }
 
     getNights(feDesde: Date, feHasta: Date){
-      
+      debugger;
         var cont = 0;
 
         if(feDesde > feHasta)
