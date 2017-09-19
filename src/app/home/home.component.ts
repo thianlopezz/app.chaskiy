@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
 
         debugger;
 
-        this.isLogged();
+        //this.isLogged();
 
         this.getByDate();
         this.zone.run(() => {});
