@@ -34,16 +34,16 @@ export class HomeComponent implements OnInit {
     constructor(private authService: AuthenticationService,
                 private router: Router,
                 private reserveService: ReserveService,
-                private zone: NgZone) { this.zone.run(() => {}); }
+                private zone: NgZone) {  }//this.zone.run(() => {});
 
     ngOnInit() {
 
         debugger;
 
-        //this.isLogged();
+        this.isLogged();
 
         this.getByDate();
-        this.zone.run(() => {});
+        //this.zone.run(() => {});
 
         this.user = this.authService.getLogin();
 
