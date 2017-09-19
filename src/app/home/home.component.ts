@@ -55,9 +55,9 @@ export class HomeComponent implements OnInit {
                         day: date.getDate() }
                       }
 
-        this.getLlegadas(new Date());
-        this.getSalidas(new Date());
-        this.getEstancias(new Date());
+        // this.getLlegadas(new Date());
+        // this.getSalidas(new Date());
+        // this.getEstancias(new Date());
     }
 
     onDateChanged(event: IMyDateModel) {
