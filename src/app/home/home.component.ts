@@ -38,8 +38,6 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
-        debugger;
-
         this.isLogged();
 
         this.getByDate();
@@ -178,15 +176,11 @@ export class HomeComponent implements OnInit {
 
     private getLlegadas(_feDesde: Date) {
 
-      debugger;
-
         var feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
 
         this.reserveService.getByDate('C3', feDesde, feDesde).subscribe(
             reservas => {
-
-                            debugger;
 
                 if(reservas.success){
 
@@ -201,7 +195,7 @@ export class HomeComponent implements OnInit {
     }
 
     private getSalidas(_feHasta: Date) {
-debugger;
+
         _feHasta = new Date(_feHasta.getTime() - (1000 * 60 * 60 * 24));
 
         var feHasta = _feHasta.getDate() + '/' + (_feHasta.getMonth() + 1) + '/' + _feHasta.getFullYear();
@@ -209,8 +203,6 @@ debugger;
 
         this.reserveService.getByDate('C4', feHasta, feHasta).subscribe(
             reservas => {
-
-                            debugger;
 
                 if(reservas.success){
 
@@ -225,14 +217,11 @@ debugger;
     }
 
     private getEstancias(_feDesde: Date) {
-      debugger;
 
         var feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
         this.reserveService.getByDate('C5', feDesde, feDesde).subscribe(
             reservas => {
-
-              debugger;
 
                 if(reservas.success){
 

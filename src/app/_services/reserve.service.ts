@@ -60,19 +60,20 @@ export class ReserveService {
     }
 
     getNights(feDesde: Date, feHasta: Date){
-      debugger;
+
+        var diaDesde = feDesde.getDate();
+        var mesDesde = feDesde.getMonth();
+        var anioDesde = feDesde.getFullYear();
+
+        feHasta = new Date(feHasta.getFullYear(), feHasta.getMonth(), feHasta.getDate(), 0, 0, 0, 0);
+        feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
+
         var cont = 0;
 
         if(feDesde > feHasta)
           return 0;
         else{
 
-          var diaDesde = feDesde.getDate();
-          //var diaHasta = feHasta.getDay();
-          var mesDesde = feDesde.getMonth();
-          //var mesHasta = feHasta.getMonth();
-          var anioDesde = feDesde.getFullYear();
-          //var anioHasta = feHasta.getFullYear();
 
           while(feDesde.getTime() != feHasta.getTime()){
 

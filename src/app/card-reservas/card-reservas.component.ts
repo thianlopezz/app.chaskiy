@@ -17,8 +17,6 @@ export class CardReservasComponent implements OnInit {
 
   nightDiff(reserva: any) {
 
-    debugger;
-
     return this.reserveService.getNights(new Date(reserva.feDesde), new Date(reserva.feHasta));
   }
 
