@@ -90,7 +90,7 @@
                           <input type="checkbox" aria-label="Checkbox for following text input" [checked]="model.ident" (change)="lockIdent()">
                         </span>
                         <span *ngIf="accion=='I'" class="input-group-btn">
-                          <button class="btn btn-secondary" type="button" [disabled]="!model.ident " (click)="getPasse()">
+                          <button class="btn btn-light" type="button" [disabled]="!model.ident " (click)="getPasse()">
                             <!-- <i [ngClass]="{ 'fa fa-search': noPass, 'fa fa-repeat': noPass }" aria-hidden="true"></i> -->
                             <i class="fa fa-search"  aria-hidden="true"></i>
                           </button>
@@ -226,7 +226,7 @@
             <button type="submit" class="btn btn-primary">Guardar
               <img *ngIf="loading" src="/assets/images/loading.svg" />
             </button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
           </div>
         </div>
         <div *ngIf="!esModi">
@@ -370,7 +370,7 @@
                 </button>
               </div>
             </div>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="quitRes()">Cerrar</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cerrar</button>
           </div>
         </div>
       </form>
@@ -397,7 +397,7 @@
 	          <button type="submit" class="btn btn-primary">Guardar
 	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          </button>
-	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 	        </div>
 	    </form>
     </div>
@@ -481,7 +481,7 @@
     			</table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#reservaModal">Cerrar</button>
+          <button type="button" class="btn btn-light" data-dismiss="modal" data-toggle="modal" data-target="#reservaModal">Cerrar</button>
         </div>
       </form>
     </div>
@@ -520,7 +520,7 @@
           <button type="submit" class="btn btn-primary">Guardar
             <img *ngIf="loading" src="/assets/images/loading.svg" />
           </button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
         </div>
 	    </form>
     </div>

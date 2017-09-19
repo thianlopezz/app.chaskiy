@@ -32,6 +32,9 @@ import { CurrencyDirective } from './_directives/currency.directive';
 import { CurrencyPipePipe } from './_pipes/currency-pipe.pipe';
 import { AdicionalComponent } from './adicional/adicional.component';
 
+import { MyDatePickerModule } from 'mydatepicker';
+import { CardReservasComponent } from './card-reservas/card-reservas.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,13 +49,15 @@ import { AdicionalComponent } from './adicional/adicional.component';
     ModalMessageComponent,
     CurrencyDirective,
     CurrencyPipePipe,
-    AdicionalComponent
+    AdicionalComponent,
+    CardReservasComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     Select2Module,
+    MyDatePickerModule,
     routing// Add routes to the app
   ],
   providers: [LoginService,

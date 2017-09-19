@@ -88,6 +88,8 @@ export class ReservaComponent implements OnInit {
 
   ngOnInit() {
 
+    this.isLogged();
+
     var now = new Date();
 
     var dia = now.getDate();
@@ -848,28 +850,7 @@ cancelTarifa0(adi: any){
 
 private nightDiff(feDesde: Date, feHasta: Date) {
 
-  var cont = 0;
-
-  if(feDesde > feHasta)
-    return 0;
-  else{
-
-    var diaDesde = feDesde.getDate();
-    //var diaHasta = feHasta.getDay();
-    var mesDesde = feDesde.getMonth();
-    //var mesHasta = feHasta.getMonth();
-    var anioDesde = feDesde.getFullYear();
-    //var anioHasta = feHasta.getFullYear();
-
-    while(feDesde.getTime() != feHasta.getTime()){
-
-      diaDesde++;
-      feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
-      cont ++;
-    }
-
-    return cont + 1;
-  }
+  return this.reserveService.getNights(feDesde, feHasta);
 }
 
 
@@ -1269,15 +1250,16 @@ private showMessPago(){
     }, 200);
 }
 
-// private isLogged(){
+private isLogged(){
 
-//     this.authService.isLogged().subscribe(
-//                                 response =>
-//                                 {
+    this.authService.isLogged().subscribe(
+                                response =>
+                                {
 
-//                                     if(!response.success)
-//                                         this.router.navigate(['/login']);
-//                                 });
-// }
+                                    if(!response.success)
+                                        this.router.navigate(['/login']);
+                                },
+                                error => this.router.navigate(['/login']) );
+}
 
 }

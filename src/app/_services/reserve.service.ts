@@ -59,6 +59,32 @@ export class ReserveService {
                   return "N/A";
     }
 
+    getNights(feDesde: Date, feHasta: Date){
+      
+        var cont = 0;
+
+        if(feDesde > feHasta)
+          return 0;
+        else{
+
+          var diaDesde = feDesde.getDate();
+          //var diaHasta = feHasta.getDay();
+          var mesDesde = feDesde.getMonth();
+          //var mesHasta = feHasta.getMonth();
+          var anioDesde = feDesde.getFullYear();
+          //var anioHasta = feHasta.getFullYear();
+
+          while(feDesde.getTime() != feHasta.getTime()){
+
+            diaDesde++;
+            feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
+            cont ++;
+          }
+
+          return cont + 1;
+        }
+    }
+
     // update(room: Room) {
     //     return this.http.put(_config + '/api/rooms/' + room._id, room, this.jwt()).map((response: Response) => response.json());
     // }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Habitacion } from '../_models/index';
-import { AlertService, ConfirmService, AcceptService, RoomService, AuthenticationService, MessageService } from '../_services/index';
+import { AlertService, ConfirmService, AcceptService,
+          RoomService, AuthenticationService, MessageService } from '../_services/index';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var jQuery:any;
 
@@ -22,13 +24,17 @@ export class RoomComponent implements OnInit {
 
   jQuery:any;
 
-  constructor(private roomService: RoomService,
+  constructor(private authService: AuthenticationService,
+                private router: Router,
+                private roomService: RoomService,
                 private alertService: AlertService,
                 private messService: MessageService,
                 private confirmService: ConfirmService,
                 private acceptService: AcceptService) { }
 
   ngOnInit() {
+
+    this.isLogged();
 
     this.loadAllRooms();
     this.subscription = this.acceptService.getAcceptChangeEmitter()
@@ -131,7 +137,7 @@ export class RoomComponent implements OnInit {
   }
 
   setNuevo(){
-    
+
     this.accion = 'I';
     this.model = {};
     this.model.idHabitacion = 0;
@@ -166,16 +172,16 @@ private showMess(){
     }, 200);
 }
 
-// private isLogged(){
+private isLogged(){
 
-//     this.authService.isLogged().subscribe(
-//                                 response =>
-//                                 {
+    this.authService.isLogged().subscribe(
+                                response =>
+                                {
 
-//                                     if(!response.success)
-//                                         this.router.navigate(['/login']);
-//                                 },
-//                                 error => this.router.navigate(['/login']) );
-// }
+                                    if(!response.success)
+                                        this.router.navigate(['/login']);
+                                },
+                                error => this.router.navigate(['/login']) );
+}
 
 }

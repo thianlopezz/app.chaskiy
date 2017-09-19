@@ -1,0 +1,99 @@
+<div class="card mt-1 mb-2" style="height:120px;" *ngIf="reservas.length==0">
+  <div class="row mb-auto mt-auto">
+    <div class="col-md-auto mr-auto ml-auto">
+      <i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+      No existen reservas
+    </div>
+  </div>
+</div>
+<div *ngFor="let reserva of reservas; let i = index">
+  <div class="card mb-2">
+    <div class="row">
+      <div class="col-md-auto pr-0">
+        <div class="reservation-dates mb-1 mt-1">
+          <div class="dashboard-arrival-date">
+            <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
+            <p class="stacked-dates-day">{{reserva.feDesde | date : 'dd'}}</p>
+          </div>
+          <div class="dashboard-departure-date">
+            <p class="stacked-dates-month">{{addDay(reserva.feHasta) | date : 'MMM'}}</p>
+            <p class="stacked-dates-day">{{addDay(reserva.feHasta) | date : 'dd'}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 pl-2 mt-auto mb-auto">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="mb-0">{{reserva.pasajero}}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            {{reserva.noPersonas}}&nbsp;personas
+            &nbsp;-&nbsp;{{nightDiff(reserva)}}&nbsp;noches
+            <span *ngIf="reserva.estado" [ngClass]="getEstadoStyle(reserva)" class="badge badge-pill">{{getEstado(reserva)}}</span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <label [for]="'correo' + i" class="mb-0">
+              <small class="form-text text-muted">
+                Correo
+              </small>
+            </label>
+            <p [id]="'correo' + i" class="mb-0">
+              <a [href]="'mailto:' + reserva.correo + '?Subject=Reserva%20' + reserva.idReserva" target="_top">{{reserva.correo}}</a>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label [for]="'contacto' + i" class="mb-0">
+              <small class="form-text text-muted">
+                Contacto
+              </small>
+            </label>
+            <p [id]="'contacto' + i" class="mb-0">{{reserva.noContacto}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 mt-auto mb-auto">
+        <div class="row">
+          <div class="col-md-12">
+            <label [for]="'habitacion' + i" class="mb-0">
+              <small class="form-text text-muted">
+                Habitaciones
+              </small>
+            </label>
+            <p [id]="'habitacion' + i" class="mb-0">{{reserva.habitaciones}}</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="reserva.adicionales!=''">
+          <div class="col-md-12">
+            <label [for]="'adicionales' + i" class="mb-0">
+              <small class="form-text text-muted">
+                Adicionales
+              </small>
+            </label>
+            <p [id]="'adicionales' + i" class="mb-0">{{reserva.adicionales}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto mt-1">
+        <div class="row">
+          <div class="col-md-12">
+            <a href="javascript:;" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title="Check-in">
+              <i class="fa fa-bed" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:;" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Check-in">
+              <i class="fa fa-external-link-square" aria-hidden="true"></i>
+            </a>
+            <a  href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.feModificacion | date : 'dd/MM/yyyy')">
+              <i class="fa fa-info" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

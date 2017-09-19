@@ -5,5 +5,26 @@
 
 .cardhome :hover{
 
-  opacity: 0.5;    
+  opacity: 0.5;
 }*/
+
+@media (min-width: 1200px).container {
+    max-width: 860px;
+}
+
+.btn-side {
+
+    color: #007bff;
+    background-color: rgba(134, 142, 150, 0);
+    transition: color 0.3s;
+  }
+
+.btn-side:hover {
+
+    color: #6c757d;
+  }
+
+  .btn-side.focus, .btn-side:focus {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0);
+}

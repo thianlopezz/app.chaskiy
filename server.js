@@ -11,6 +11,7 @@ const app = express();
 
 var mongoose    = require('mongoose');
 var connection = require('./server/connection');
+var conne_generico = require('./server/conne_generico');
 var config = require('./config.json');
 
 // Parsers for POST data
@@ -36,6 +37,7 @@ app.set('port', port);
 
 //mongoose.connect('mongodb://'+config.mongodb.user+':'+config.mongodb.password+'@'+config.mongodb.host+':'+config.mongodb.port+'/'+config.mongodb.db);
 connection.init();
+conne_generico.init();
 
 /**
  * Create HTTP server.

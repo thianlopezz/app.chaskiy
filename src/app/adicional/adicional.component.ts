@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Adicional } from '../_models/index';
-import { ConfirmService, AcceptService, AdicionalService, MessageService } from '../_services/index';
+import { AuthenticationService, ConfirmService,
+          AcceptService, AdicionalService, MessageService } from '../_services/index';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var jQuery:any;
 
@@ -23,14 +25,18 @@ export class AdicionalComponent implements OnInit {
 
   jQuery:any;
 
-  constructor(private addService: AdicionalService,
+  constructor(private authService: AuthenticationService,
+                private router: Router,
+                private addService: AdicionalService,
                 private messService: MessageService,
                 private confirmService: ConfirmService,
                 private acceptService: AcceptService) { }
 
   ngOnInit() {
-    
-    this.loadAllAdds();    
+
+    this.isLogged();
+
+    this.loadAllAdds();
     this.subscription = this.acceptService.getAcceptChangeEmitter()
       .subscribe(resp => this.selectedVal(resp));
   }
@@ -71,7 +77,7 @@ export class AdicionalComponent implements OnInit {
                   this.messService.error(data.mensaje);
                   this.loading = false;
                   this.showMess();
-                }                    
+                }
             },
             error => {
 
@@ -79,7 +85,7 @@ export class AdicionalComponent implements OnInit {
                 console.log(error);
                 this.loading = false;
                 this.showMess();
-            }); 
+            });
   }
 
   guardar(form: NgForm){
@@ -118,7 +124,7 @@ export class AdicionalComponent implements OnInit {
                   this.messService.error(data.mensaje);
                   this.loading = false;
                   this.showMess()
-                }                    
+                }
             },
             error => {
 
@@ -126,8 +132,8 @@ export class AdicionalComponent implements OnInit {
                 console.log(error);
                 this.loading = false;
                 this.showMess()
-            }); 
- 
+            });
+
   }
 
   setNuevo(){
@@ -148,7 +154,7 @@ export class AdicionalComponent implements OnInit {
     this.model = Object.assign({}, model);
     this.confirmService.go('¿Desea eliminar el registro?');
   }
- 
+
 private loadAllAdds() {
     this.addService.getAll().subscribe(adds => { this.adds = adds; });
 }
@@ -161,6 +167,18 @@ private showMess(){
 
       jQuery("#messModal").modal("show");
     }, 200);
+}
+
+private isLogged(){
+
+    this.authService.isLogged().subscribe(
+                                response =>
+                                {
+
+                                    if(!response.success)
+                                        this.router.navigate(['/login']);
+                                },
+                                error => this.router.navigate(['/login']) );
 }
 
 }
