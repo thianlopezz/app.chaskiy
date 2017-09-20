@@ -18,4 +18,7 @@ total: number;
 idHospedaje: number;
 idUsuario: number;
 
+feDesde: Date;
+feHasta: Date;
+
 }

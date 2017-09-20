@@ -36,6 +36,14 @@ export class ReserveService {
 
         reserve.idHospedaje = currentUser.idHospedaje;
         reserve.idUsuario = currentUser.idUsuario;
+
+        if(reserve.estado == 'Co'){
+
+          var today = new Date();
+
+          reserve.feHasta = new Date(new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24));
+        }
+
         return this.http.post('/api/reservas', reserve, this.jwt()).map((response: Response) => response.json());
     }
 

@@ -66,6 +66,8 @@ export class ReservaComponent implements OnInit {
 
   pagos: any[] = [];
 
+  goPass = false;
+
   constructor(private authService: AuthenticationService,
                 private router: Router,
                 private roomService: RoomService,
@@ -80,10 +82,6 @@ export class ReservaComponent implements OnInit {
                 private formaService: FormaPagoService,
                 private pagoService: PagoService) {
 
-//   	this.user.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWNjZXNzIjp0cnVlLCJ1c3VhcmlvIjp7ImlkIjoxLCJ1c3VhcmlvIjoidGhpYW5sb3BlenoiLCJub21icmUiOiJDcmlzdGhpYW4gTG9wZXogWmFtcmJhbm8iLCJjb3JyZW8iOiJ0aGlhbmxvcGV6ekBnbWFpbC5jb20ifSwiaWF0IjoxNDk5OTAwMDI1LCJleHAiOjE0OTk5MDcyMjV9.kHoM3E4fli5leKTKAOIOEVDE-czFThXQhbg51AQBd7U";
-// //};
-
-// 	  localStorage.setItem('currentUser', JSON.stringify(this.user));
   }
 
   ngOnInit() {
@@ -161,7 +159,8 @@ export class ReservaComponent implements OnInit {
 
   getPasse(){
 
-    this.loading = true;
+    //this.loading = true;
+    this.goPass = true;
 
     var ident = this.model.pass.identificacion;
 
@@ -191,7 +190,7 @@ export class ReservaComponent implements OnInit {
 
       }
 
-      this.loading = false;
+      this.goPass = false;
     });
 
   }
@@ -613,8 +612,11 @@ deletePago(){
           if(this.reservadosDb[indexDb].estado == 'Ci')
             return { '_occupied': true};
           else
-            if(this.reservadosDb[indexDb].estado == 'Pr')
-              return { '_proform': true};
+            if(this.reservadosDb[indexDb].estado == 'Co')
+              return { '_checked-out': true};
+            else
+              if(this.reservadosDb[indexDb].estado == 'Pr')
+                return { '_proform': true};
       }
     }
 
@@ -1040,15 +1042,16 @@ getReserveDet(_room: Habitacion, dia: number){
         this.setPa(this.model.pass.idPais);
         this.model.habitaciones = this.setDateHab(this.model.habitaciones);
 
-        if(this.model.habitaciones[0].feDesde.getTime() >= this.toDay.getTime())
-          this.accion = 'U';
+        // if(this.model.habitaciones[0].feDesde.getTime() >= this.toDay.getTime())
+        //   this.accion = 'U';
+
+        this.accion = 'U';
 
         this.model.pago = {};
 
         this.getPagos();
 
         jQuery("#reservaModal").modal("show");
-        console.log(this.model);
       }
       else{
 
@@ -1104,6 +1107,9 @@ ocultaBtnModi(op: string){
 
     case 'Ci':
 
+      if(this.model.estado == 'Co')
+        return false;
+
       if(this.model.estado == 'Ci')
         return false;
 
@@ -1114,14 +1120,21 @@ ocultaBtnModi(op: string){
       return false;
     case 'Co':
 
-      if(this.model.estado == 'Ci'
-        && !(this.model.estado == 'Co'))
+      // if(this.model.estado == 'Ci'
+      //   && !(this.model.estado == 'Co'))
+      //   return true;
+      //
+      // return false;
+      if(this.model.estado == 'Ci')
         return true;
 
       return false;
     case 'D':
 
       if(this.model.estado == 'Ci')
+        return false;
+
+      if(this.model.estado == 'Co')
         return false;
 
       return true;

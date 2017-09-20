@@ -223,8 +223,8 @@
               </div>
           </div>
           <div class="modal-footer">
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
             <button type="submit" class="btn btn-primary">Guardar
-              <img *ngIf="loading" src="/assets/images/loading.svg" />
             </button>
             <button type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
           </div>
@@ -344,7 +344,8 @@
               </div>
           </div>
           <div class="modal-footer">
-            <div *ngIf="model.estado=='Pr'" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
+            <div *ngIf="model.estado=='Pr'" [hidden]="loading" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button type="button" class="btn btn-primary" title="Confirmar" (click)="check('Re')">
                   <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
@@ -354,7 +355,7 @@
                 </button>
               </div>
             </div>
-            <div *ngIf="accion!='I' && model.estado!='Pr'" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div *ngIf="accion!='I' && model.estado!='Pr'" [hidden]="loading" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button *ngIf="ocultaBtnModi('Ci')" type="button" class="btn btn-outline-danger" title="Check-in" (click)="check('Ci')">
                   <i class="fa fa-bed" aria-hidden="true"></i>
@@ -394,8 +395,8 @@
               <div *ngIf="f.submitted && !motivo.valid" class="help-block form-control-feedback">La descripción del motivo es requerida</div>
 					</div>
 	        <div class="modal-footer">
+          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          <button type="submit" class="btn btn-primary">Guardar
-	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          </button>
 	          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 	        </div>
@@ -517,8 +518,8 @@
 						<textarea class="form-control" id="notasp" name="notasp" rows="2" [(ngModel)]="model.pago.notas" #notasp="ngModel">{{model.pago.notas}}</textarea>
 				</div>
         <div class="modal-footer">
+          <img *ngIf="loading" src="/assets/images/loading.svg" />
           <button type="submit" class="btn btn-primary">Guardar
-            <img *ngIf="loading" src="/assets/images/loading.svg" />
           </button>
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
         </div>

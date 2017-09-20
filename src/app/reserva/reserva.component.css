@@ -59,7 +59,7 @@ tbody{
 ._occupied{
 
 	height: 100%;
-	background-color: #f0ad4e;
+	background-color: #dc3545;;
 	transition: opacity 0.3s;
 	cursor: pointer;
 }
@@ -72,12 +72,25 @@ tbody{
 ._proform{
 
 	height: 100%;
-	background-color: #fbcdcd;
+	background-color: #f8f9fa;;
 	transition: opacity 0.3s;
 	cursor: pointer;
 }
 
 ._proform:hover {
+
+	opacity: 0.5;
+}
+
+._checked-out {
+
+	height: 100%;
+	background-color: #ffc107;
+	transition: opacity 0.3s;
+	cursor: pointer;
+}
+
+._checked-out:hover {
 
 	opacity: 0.5;
 }
@@ -104,6 +117,6 @@ tbody{
 }
 
 .dropdown-menu {
-	
+
     font-size: .9rem;
 }

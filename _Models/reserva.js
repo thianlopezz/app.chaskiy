@@ -64,6 +64,8 @@ function Reserva() {
     reserva.valueAd = reserva.valueAd || [];
     reserva.motivo = reserva.motivo || '';
     reserva.estado = reserva.estado || '';
+    reserva.feDesde = moment(reserva.feDesde).format('DD[/]MM[/]YYYY') || '';
+    reserva.feHasta = moment(reserva.feHasta).format('DD[/]MM[/]YYYY') || '';
 
     var param = '<params accion= "'+ reserva.accion +'" idHospedaje= "'+ reserva.idHospedaje
                     +'" idAerolinea= "'+ reserva.idAerolinea +'" idReserva= "'+ reserva.idReserva
@@ -77,7 +79,11 @@ function Reserva() {
                     +'" motivo= "'+ reserva.motivo
                     +'" idUsuario= "'+ reserva.idUsuario
                     +'" estado= "'+ reserva.estado
+                    +'" feDesde= "'+ reserva.feDesde
+                    +'" feHasta= "'+ reserva.feHasta
                     +'" />';
+
+    console.log('call res_reserva>> ' + param);
 
     connection.acquire(function(err, con) {
       con.query('call res_reserva(\''+param+'\')', function(err, result) {
