@@ -62,8 +62,8 @@ function Reserva() {
     reserva.notas = reserva.notas || '';
     reserva.pass.valuePa = reserva.pass.valuePa || 0;
     reserva.valueAd = reserva.valueAd || [];
-    reserva.motivo = reserva.motivo || '';
     reserva.estado = reserva.estado || '';
+    reserva.estadoDetalle = reserva.estadoDetalle || '';
     reserva.feDesde = moment(reserva.feDesde).format('DD[/]MM[/]YYYY') || '';
     reserva.feHasta = moment(reserva.feHasta).format('DD[/]MM[/]YYYY') || '';
 
@@ -76,11 +76,11 @@ function Reserva() {
                     +'" correo= "'+ reserva.pass.correo +'" habLength= "'+ reserva.habitaciones.length
                     +'" adLength= "'+ reserva.valueAd.length
                     +'" total= "'+ reserva.total
-                    +'" motivo= "'+ reserva.motivo
                     +'" idUsuario= "'+ reserva.idUsuario
                     +'" estado= "'+ reserva.estado
                     +'" feDesde= "'+ reserva.feDesde
                     +'" feHasta= "'+ reserva.feHasta
+                    +'" detalleEstado= "'+ reserva.estadoDetalle
                     +'" />';
 
     console.log('call res_reserva>> ' + param);

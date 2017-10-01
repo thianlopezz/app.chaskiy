@@ -13,6 +13,7 @@ var adicionales = require('../../_Models/adicional');
 var reservas = require('../../_Models/reserva');
 var formas = require('../../_Models/formapago');
 var pagos = require('../../_Models/pago');
+var register = require('../../_Models/register');
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -42,6 +43,17 @@ router.post('/auth/login', (req, res) => {
 
   });
 
+});
+
+//R E G I S T R O
+router.post('/register', (req, res) => {
+
+  register.registro(req.body, res);
+});
+
+router.post('/register/isregister', (req, res) => {
+
+  register.isRegister(req.body.correo, res);
 });
 
 //P A I S E S

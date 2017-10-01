@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ReserveService } from '../_services/index';
+import { ReserveService, AcceptService } from '../_services/index';
 
 @Component({
   selector: 'card-reservas',
@@ -10,9 +10,20 @@ export class CardReservasComponent implements OnInit {
 
   @Input() reservas: any[];
 
-  constructor(private reserveService: ReserveService) { }
+  toDay: Date;
+
+  constructor(private reserveService: ReserveService,
+              private acceptService:AcceptService) { }
 
   ngOnInit() {
+
+    let now = new Date();
+
+    let dia = now.getDate();
+    let mes = now.getMonth();
+    let anio = now.getFullYear();
+
+    this.toDay = new Date(anio, mes, dia, 0, 0, 0, 0);
   }
 
   nightDiff(reserva: any) {
@@ -46,6 +57,43 @@ export class CardReservasComponent implements OnInit {
             else
               if(reserva.estado == 'Pr')
                 return {'badge-light': true};
+  }
+
+  ocultaBtnModi(op: string, reserva: any){
+
+    switch(op){
+
+      case 'Ci':
+
+        if(reserva.estado == 'Co')
+          return false;
+
+        if(reserva.estado == 'Ci')
+          return false;
+
+        if(new Date(reserva.feDesde).getTime()
+            == this.toDay.getTime())
+          return true;
+
+        return false;
+      case 'Co':
+        if(reserva.estado == 'Ci')
+          return true;
+
+        return false;
+    }
+  }
+
+  go(a_estado: string, reserva: any){
+
+    reserva.a_estado = a_estado;
+    let retorno = { model: reserva};
+
+    this.selectedVal(retorno);
+  }
+
+  selectedVal(resp) {
+    this.acceptService.emitAcceptChangeEvent(resp);
   }
 
 }

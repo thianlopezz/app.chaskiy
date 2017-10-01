@@ -20,7 +20,7 @@ export class ModalConfirmComponent {
 
   //item = 1;
 
-  selectedVal(resp: string) {
+  selectedVal(resp) {
     this.acceptService.emitAcceptChangeEvent(resp);
   }
 

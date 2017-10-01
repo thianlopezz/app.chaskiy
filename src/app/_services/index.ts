@@ -12,3 +12,4 @@ export * from './adicional.service';
 export * from './message.service';
 export * from './formapago.service';
 export * from './pago.service';
+export * from './register.service';

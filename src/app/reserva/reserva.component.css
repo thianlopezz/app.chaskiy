@@ -116,6 +116,21 @@ tbody{
 	box-shadow: none;
 }
 
+._nah0{
+
+	height: 100%;
+  color: black;
+	background: white;
+	transition: background 0.3s;
+	cursor: pointer;
+}
+
+._nah0:hover {
+
+	background: rgba(221, 221, 221, 0.32);
+	box-shadow: none;
+}
+
 .dropdown-menu {
 
     font-size: .9rem;

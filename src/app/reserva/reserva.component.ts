@@ -117,14 +117,29 @@ export class ReservaComponent implements OnInit {
       .subscribe(resp => this.selectedVal(resp));
   }
 
-  selectedVal(resp: string) {
+  selectedVal(resp) {
+
     if(resp == "aceptar"){
 
       if(this.accion == 'D')
-        jQuery("#cancelaModal").modal("show");
+        jQuery("#detalleEstadosModal").modal("show");
         else
           if(this.accion == 'DP')
-          this.deletePago();
+            this.deletePago();
+    }
+    else{
+
+      if(resp.modo == 'Ci' || resp.modo == 'Co'){
+
+        this.model.estadoDetalle = resp.model.observacion;
+        this.check(resp.modo);
+      }
+      else
+        if(resp.modo == 'Ca'){
+
+          this.model.estadoDetalle = resp.model.observacion;
+          this.delete();
+        }
     }
   }
 
@@ -256,7 +271,7 @@ export class ReservaComponent implements OnInit {
 
       this.loading = true;
 
-      this.model.pago.accion = this.accion;
+      //this.model.pago.accion = this.accion;
       this.model.pago.idReserva = this.model.idReserva;
 
       var mensaje = "";
@@ -280,7 +295,7 @@ export class ReservaComponent implements OnInit {
                   if(data.success){
 
                     this.loading = false;
-                    form.resetForm();
+                    //form.resetForm();
                     this.getPagos();
 
                     this.messService.success(mensaje);
@@ -323,7 +338,7 @@ export class ReservaComponent implements OnInit {
                   this.getByDate();
                   this.quitRes();
 
-                  jQuery("#cancelaModal").modal("hide");
+                  jQuery("#detalleEstadosModal").modal("hide");
 
                   this.messService.success(mensaje);
                   this.showMess();
@@ -332,7 +347,7 @@ export class ReservaComponent implements OnInit {
 
                   this.loading = false;
 
-                  jQuery("#cancelaModal").modal("hide");
+                  jQuery("#detalleEstadosModal").modal("hide");
 
                   this.messService.error(data.mensaje);
                   this.showMess();
@@ -343,7 +358,7 @@ export class ReservaComponent implements OnInit {
                 console.log(error);
                 this.loading = false;
 
-                jQuery("#cancelaModal").modal("hide");
+                jQuery("#detalleEstadosModal").modal("hide");
 
                 this.messService.error(mensaje_err);
                 this.showMess();
@@ -395,7 +410,6 @@ deletePago(){
     this.loading = true;
 
     this.model.accion = 'Es';
-    this.model.estado = check;
 
     var mensaje = "";
     var mensaje_err = "";
@@ -419,14 +433,24 @@ deletePago(){
       break;
     }
 
-    if(check == 'Co' && this.model.saldo > 0)
-          this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
+    if(check == 'Co' && (this.model.total - this.model.totalPagado) > 0){
+
+      jQuery("#detalleEstadosModal").modal("hide");
+
+      this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
+      this.showMess();
+      return;
+    }
+
+    this.model.estado = check;
 
     this.reserveService.mantenimiento(this.model)
         .subscribe(
             data => {
 
                 if(data.success){
+
+                  jQuery("#detalleEstadosModal").modal("hide");
 
                   this.loading = false;
                   this.loadAllRooms();
@@ -438,6 +462,8 @@ deletePago(){
                 }
                 else{
 
+                  jQuery("#detalleEstadosModal").modal("hide");
+
                   this.loading = false;
 
                   this.messService.error(data.mensaje);
@@ -445,6 +471,8 @@ deletePago(){
                 }
             },
             error => {
+
+                jQuery("#detalleEstadosModal").modal("hide");
 
                 console.log(error);
                 this.loading = false;
@@ -792,16 +820,16 @@ getTotal(){
     sum = sum + (adicionales[i].tarifa * adicionales[i].cantidad);
   }
 
-  var sumPagado = 0;
-  //TOTAL PAGADO
-  for(var i=0; i<this.pagos.length; i++){
-
-    sumPagado = sumPagado + this.pagos[i].monto;
-  }
+  // var sumPagado = 0;
+  // //TOTAL PAGADO
+  // for(var i=0; i<this.pagos.length; i++){
+  //
+  //   sumPagado = sumPagado + this.pagos[i].monto;
+  // }
 
   this.model.total = sum;
-  this.model.totalPagado = sumPagado;
-  this.model.saldo = sum - sumPagado;
+  // this.model.totalPagado = sumPagado;
+  // this.model.saldo = sum - sumPagado;
 
   return this.model.total;
 }
@@ -963,8 +991,9 @@ setModi(){
 
 setNuevoPago(){
 
-  this.accion = 'I';
+  //this.accion = 'I';
   this.model.pago = {};
+  this.model.pago.accion = 'I';
 }
 
 goModi(){
@@ -1008,6 +1037,7 @@ quitRes(){
 setCancel(){
 
   this.accion = 'D';
+  this.model.a_estado = 'Ca'
   this.confirmService.go('¿Está seguro de cancelar la reserva?');
 }
 
@@ -1074,6 +1104,15 @@ getPagos(){
                             {
                               this.model.pago = {};
                               this.pagos = pagos;
+
+                              let sum = 0;
+
+                              for(var i=0; i<pagos.length; i++){
+
+                                sum+=pagos[i].monto;
+                              }
+
+                              this.model.totalPagado = sum;
                             });
 }
 
@@ -1236,6 +1275,17 @@ private getByDate() {
       }
     });
 }
+
+// cierraPagos(){
+//
+//   jQuery("#pagosModal").modal("hide");
+//
+//   setTimeout(() => {
+//
+//     jQuery("#reservaModal").modal("show");
+//   }, 200);
+//
+// }
 
 private getDateString(delimiter: string, date: string){
 

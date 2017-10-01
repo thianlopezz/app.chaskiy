@@ -1,0 +1,27 @@
+<!-- MODAL CANCELACION -->
+<div *ngIf="model" class="modal fade" id="detalleEstadosModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{getTipoDesc()}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && go()" #f="ngForm" novalidate>
+					<div class="form-group">
+							<label for="motivo">{{getDescripcion()}}</label>
+							<textarea class="form-control" id="observacion" name="observacion" rows="5" [(ngModel)]="model.observacion" #observacion="ngModel" required>{{model.observacion}}</textarea>
+              <div *ngIf="f.submitted && !observacion.valid" class="help-block form-control-feedback">El detalle es requerido</div>
+					</div>
+	        <div class="modal-footer">
+          	<img *ngIf="loading" src="/assets/images/loading.svg" />
+            <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="">Aceptar</button> -->
+	          <button type="submit" class="btn btn-primary">Guardar
+	          </button>
+	          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+	        </div>
+	    </form>
+    </div>
+  </div>
+</div>

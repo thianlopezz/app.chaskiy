@@ -2,6 +2,15 @@ html{
 	font-size:15px;
 }
 
+// .modal-open {
+//     overflow: scroll;
+// }
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .modal-header {
     background: rgba(0, 34, 51, 0.88);
     color: white;

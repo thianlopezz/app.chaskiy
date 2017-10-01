@@ -1,8 +1,11 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AlertService, AuthenticationService, ReserveService } from '../_services/index';
+import { AlertService, AuthenticationService,
+          ReserveService, AcceptService, MessageService } from '../_services/index';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+
+declare var jQuery:any;
 
 @Component({
     moduleId: module.id,
@@ -30,10 +33,14 @@ export class HomeComponent implements OnInit {
     };
 
     public fecha: any;
+    subscription: any;
+    model: any;
 
     constructor(private authService: AuthenticationService,
                 private router: Router,
                 private reserveService: ReserveService,
+                private acceptService: AcceptService,
+                private messService: MessageService,
                 private zone: NgZone) {  }//this.zone.run(() => {});
 
     ngOnInit() {
@@ -56,7 +63,109 @@ export class HomeComponent implements OnInit {
         this.getLlegadas(new Date());
         this.getSalidas(new Date());
         this.getEstancias(new Date());
+
+        this.subscription = this.acceptService.getAcceptChangeEmitter()
+          .subscribe(resp => this.selectedVal(resp));
     }
+
+    selectedVal(resp){
+
+      if(resp.model)
+        this.model = resp.model;
+
+      if(resp.modo == 'Ci' || resp.modo == 'Co'){
+
+        this.model.estadoDetalle = resp.model.observacion;
+        this.check(resp.modo);
+      }
+    }
+
+      check(check: string){
+
+        this.model.accion = 'Es';
+        this.model.pass = {};
+
+        var mensaje = "";
+        var mensaje_err = "";
+
+        switch (check){
+          case 'Ci':
+            mensaje = 'Check-in éxitoso';
+            mensaje_err = 'Ocurrió un error en el check in';
+          break;
+          case 'Co':
+            mensaje = 'Check-out éxitoso';
+            mensaje_err = 'Ocurrió un error en el check-out';
+          break;
+        }
+
+        if(check == 'Co' && (this.model.total - this.model.totalPagado) > 0){
+
+          jQuery("#detalleEstadosModal").modal("hide");
+
+          this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
+          this.showMess();
+          return;
+        }
+
+        this.model.estado = check;
+
+
+        this.reserveService.mantenimiento(this.model)
+            .subscribe(
+                data => {
+
+                    if(data.success){
+
+                      this.refresca();
+
+                      jQuery("#detalleEstadosModal").modal("hide");
+                      this.getByDate();
+
+                      this.messService.success(mensaje);
+                      this.showMess();
+                    }
+                    else{
+
+                      jQuery("#detalleEstadosModal").modal("hide");
+
+                      this.messService.error(data.mensaje);
+                      this.showMess();
+                    }
+                },
+                error => {
+
+                    jQuery("#detalleEstadosModal").modal("hide");
+
+                    console.log(error);
+
+                    this.messService.error(mensaje_err);
+                    this.showMess();
+                });
+      }
+
+      private refresca(){
+
+        var _fecha = new Date(new Date(this.fecha.date.year, this.fecha.date.month -1, this.fecha.date.day, 0, 0, 0, 0).getTime());
+
+        this.fecha = { date: {
+                        year: _fecha.getFullYear(),
+                        month: _fecha.getMonth() + 1,
+                        day: _fecha.getDate() }
+                      };
+
+        this.getLlegadas(_fecha);
+        this.getSalidas(_fecha);
+        this.getEstancias(_fecha);
+      }
+
+      private showMess(){
+
+          setTimeout(() => {
+
+            jQuery("#messModal").modal("show");
+          }, 200);
+      }
 
     onDateChanged(event: IMyDateModel) {
 

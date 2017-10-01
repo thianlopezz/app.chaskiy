@@ -19,7 +19,7 @@ import { LandingComponent } from './landing/landing.component';
 
 import { AlertService, ConfirmService, AuthenticationService, AcceptService,
           RoomService, AerolineaService, PassengerService, ReserveService, PaisService,
-          AdicionalService, MessageService, FormaPagoService, PagoService } from './_services/index';
+          AdicionalService, MessageService, FormaPagoService, PagoService, RegisterService } from './_services/index';
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
 import { ReservaComponent } from './reserva/reserva.component';
@@ -34,6 +34,8 @@ import { AdicionalComponent } from './adicional/adicional.component';
 
 import { MyDatePickerModule } from 'mydatepicker';
 import { CardReservasComponent } from './card-reservas/card-reservas.component';
+import { DetalleEstadosComponent } from './detalle-estados/detalle-estados.component';
+import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { CardReservasComponent } from './card-reservas/card-reservas.component';
     CurrencyDirective,
     CurrencyPipePipe,
     AdicionalComponent,
-    CardReservasComponent
+    CardReservasComponent,
+    DetalleEstadosComponent,
+    RegistrosuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,8 @@ import { CardReservasComponent } from './card-reservas/card-reservas.component';
               MessageService,
               CurrencyPipePipe,
               FormaPagoService,
-              PagoService],
+              PagoService,
+              RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

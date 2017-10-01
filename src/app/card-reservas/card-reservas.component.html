@@ -8,16 +8,22 @@
 </div>
 <div *ngFor="let reserva of reservas; let i = index">
   <div class="card mb-2">
+    <!-- <div class="row">
+      <div class="col-md-auto">
+        {{reserva.feDesde | date : 'dd/MMM'}}&nbsp;-&nbsp;
+        {{reserva.feHasta | date : 'dd/MMM'}}
+      </div>
+    </div> -->
     <div class="row">
-      <div class="col-md-auto pr-0">
+      <div class="col-md-auto pr-0 hidden-md-down">
         <div class="reservation-dates mb-1 mt-1">
           <div class="dashboard-arrival-date">
-            <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
             <p class="stacked-dates-day">{{reserva.feDesde | date : 'dd'}}</p>
+            <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
           </div>
           <div class="dashboard-departure-date">
-            <p class="stacked-dates-month">{{addDay(reserva.feHasta) | date : 'MMM'}}</p>
             <p class="stacked-dates-day">{{addDay(reserva.feHasta) | date : 'dd'}}</p>
+            <p class="stacked-dates-month">{{addDay(reserva.feHasta) | date : 'MMM'}}</p>
           </div>
         </div>
       </div>
@@ -82,13 +88,13 @@
       <div class="col-md-auto mt-1">
         <div class="row">
           <div class="col-md-12">
-            <a href="javascript:;" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title="Check-in">
+            <a *ngIf="ocultaBtnModi('Ci', reserva)" href="javascript:;" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title="Check-in" (click)="go('Ci', reserva)" data-toggle="modal" data-target="#detalleEstadosModal">
               <i class="fa fa-bed" aria-hidden="true"></i>
             </a>
-            <a href="javascript:;" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Check-in">
+            <a *ngIf="ocultaBtnModi('Co', reserva)" href="javascript:;" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Check-out" (click)="go('Co', reserva)" data-toggle="modal" data-target="#detalleEstadosModal">
               <i class="fa fa-external-link-square" aria-hidden="true"></i>
             </a>
-            <a  href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.feModificacion | date : 'dd/MM/yyyy')">
+            <a href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.feModificacion | date : 'dd/MM/yyyy')">
               <i class="fa fa-info" aria-hidden="true"></i>
             </a>
           </div>
