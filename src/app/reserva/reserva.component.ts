@@ -387,12 +387,13 @@ export class ReservaComponent implements OnInit {
                   this.loading = false;
                   this.loadAllRooms();
                   this.getByDate();
-                  this.quitRes();
 
                   jQuery("#detalleEstadosModal").modal("hide");
 
                   this.messService.success(mensaje);
                   this.showMess();
+                  
+                  this.quitRes();
                 }
                 else{
 
@@ -670,6 +671,22 @@ deletePago(){
     }, 600);
 
 
+  }
+
+  getLim(_op:string, _room: Habitacion, dia: number){
+
+    var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+
+    if(indexDb!=-1){
+
+      if(new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
+            == this.getDateString('/', this.reservadosDb[indexDb].feDesde).getTime() && _op == 'I')
+            return true;
+
+      if(new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
+            == this.getDateString('/', this.reservadosDb[indexDb].feHasta).getTime() && _op == 'O')
+            return true;
+    }
   }
 
   isSelected(_room: Habitacion, dia: number){
@@ -1167,12 +1184,17 @@ getPagos(){
                             });
 }
 
-getToolTip(_room: Habitacion, dia: number){
+getToolTip(_op, _room: Habitacion, dia: number){
 
   var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
   var reserva = this.reservadosDb[indexDb];
 
-  return reserva.pasajero;
+  if(_op == 'I')
+    return 'In ' + reserva.pasajero;
+
+  if(_op == 'O')
+    return 'Out ' + reserva.pasajero;
+
 }
 
 isReserved(_room: Habitacion, dia: number){

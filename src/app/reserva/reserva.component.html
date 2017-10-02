@@ -21,7 +21,7 @@
 </div>
 <br/>
 <div class="col-md-12">
-  <table class="table table-bordered">
+  <table class="table table-bordered table-responsive">
     <thead>
       <tr>
         <th rowspan="3"></th>
@@ -53,12 +53,17 @@
         </td>
         <td>{{room.noHabitacion}}</td>
         <td>{{room.habitacion}}</td>
-        <td *ngFor="let dia of current.days" (click)="clickDay(room, dia.day + 1)" class="p-0" [ngClass]="isSelected(room, dia.day + 1)">
+        <td *ngFor="let dia of current.days" (click)="clickDay(room, dia.day + 1)" class="p-0 align-bottom" [ngClass]="isSelected(room, dia.day + 1)">
           <!-- <i class="fa" [ngClass]="getIco(room, current, dia.day + 1)" aria-hidden="true"></i> -->
           <!-- <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"  data-toggle="modal" data-target="#reservaModal">
             data-toggle="tooltip" data-html="true" [attr.title]="getToolTip(room, dia.day + 1)"
           </a> -->
-          <!-- <a *ngIf="!isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"></a> -->
+            <a *ngIf="getLim('I', room, dia.day + 1)" tabindex="0" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('I', room, dia.day + 1)">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </a>
+            <a *ngIf="getLim('O', room, dia.day + 1)" tabindex="0" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('O', room, dia.day + 1)">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </a>
         </td>
         <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah0 align-middle" (click)="next()">
           <i class="fa fa-chevron-right" aria-hidden="true"></i>

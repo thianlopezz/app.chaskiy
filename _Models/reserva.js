@@ -2,6 +2,9 @@ var connection = require('../server/connection');
 var conne_generico = require('../server/conne_generico');
 var moment = require('moment');
 
+const axios = require('axios');
+const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+
 function Reserva() {
 
   this.get = function(params, res) {
@@ -181,41 +184,23 @@ function Reserva() {
         if(accion == 'Es')
             return callback({success: true, mensaje: 'Reserva cancelada con éxito'});
 
-    var param = '<params accion= "I" idHospedaje= "'+ datos.idHospedaje
-                    +'" asunto= "'+ asunto
-                    +'" destinatario= "'+ destinatario
-                    +'" claves= "'+ claves
-                    +'" plantilla= "'+ plantilla
-                    +'" />';
+        var correo = {
+          idHospedaje: datos.idHospedaje,
+          asunto: asunto,
+          destinatario: destinatario,
+          claves: claves,
+          plantilla: plantilla
+        };
 
-    conne_generico.acquire(function(err, con) {
-      con.query('call co_correo(\''+param+'\')', function(err, result) {
-      try{
+        axios.post(`${API}/api/send`, correo)
+        .then(result => {
+          callback(result.data);
+        })
+        .catch(error => {
 
-      con.release();
-
-      if (err) {
-
-      console.log('Error>> Reserva.enviaCorreo>>' + err);
-      return callback({success: false, mensaje: '' + err});
-      }
-      else {
-
-        if(result[0][0].err == undefined){
-
-        return callback({success: true, mensaje: result[0][0].mensaje});
-        }
-        else
-          return callback({success: false, mensaje: result[0][0].mensaje});
-      }
-      }
-      catch(ex){
-
-      console.log('Error>> ex>> Reserva.enviaCorreo>>' + ex);
-      return callback({success: false, mensaje: ex});
-      }
-      });
-    });
+          console.log("Err>>" + error);
+          callback(error);
+        });
 
 
   }

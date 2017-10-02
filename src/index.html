@@ -19,10 +19,6 @@
 
 var _zIndex = 1040;
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
-
 $(document).on('show.bs.modal', '.modal', function () {
     var zIndex = _zIndex + (10 * $('.modal:visible').length);
     _zIndex = _zIndex + 1;
@@ -38,6 +34,7 @@ $("#menu-toggle").click(function(e) {
 });
 
 $(document).ready(function () {
+
   var trigger = $('.hamburger'),
       overlay = $('.overlay'),
      isClosed = false;
@@ -70,6 +67,11 @@ $(document).ready(function () {
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
   });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
 });
 
 </script>
