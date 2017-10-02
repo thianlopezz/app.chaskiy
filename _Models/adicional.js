@@ -14,7 +14,8 @@ function Adicional() {
           console.log('Error>> Adicional.get>>' + err);
           res.send({success: false, mensaje: '' + err});
         }
-        res.send(result[0]);
+        else
+          res.send(result[0]);
         }
         catch(ex){
 
@@ -31,7 +32,7 @@ function Adicional() {
                     +'" idAdicional = "'+ adicional.idAdicional +'" descripcion= "'+ adicional.adicional
                     +'" tarifa= "'+ adicional.tarifa
                     +'" />';
-    console.log(param);
+    // console.log(param);
     connection.acquire(function(err, con) {
       con.query('call ad_adicional(\''+param+'\')', function(err, result) {
         try{

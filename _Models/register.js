@@ -26,6 +26,40 @@ function Register() {
   //   });
   // };
 
+  this.password = function(_registro, res) {
+
+  var param = '<params idUsuario= "'+ _registro.idUsuario
+                  +'" pass= "'+ md5(_registro.password1)
+                  +'" pass0= "'+ md5(_registro.password)
+                  +'" />';
+
+    console.log('reg_password>> ' + param);
+
+    connection.acquire(function(err, con) {
+      con.query('call reg_password(\''+param+'\')', function(err, result) {
+        try{
+
+          con.release();
+          if (err) {
+            console.log('Error>> Register.password>>' + err);
+            res.send({success: false, mensaje: err});
+          }
+          else {
+            if(result[0][0].err == undefined)
+              res.send({success: true, mensaje: result[0][0].mensaje});
+            else
+              res.send({success: false, mensaje: result[0][0].mensaje});
+          }
+        }
+        catch(ex){
+
+          console.log('Error>> ex>> Register.registro>>' + ex);
+          res.send({success: false, mensaje: ex});
+        }
+      });
+    });
+  };
+
   this.registro = function(_registro, res) {
 
   var param = '<params idPais= "'+ _registro.valuePa

@@ -36,6 +36,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { CardReservasComponent } from './card-reservas/card-reservas.component';
 import { DetalleEstadosComponent } from './detalle-estados/detalle-estados.component';
 import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
+import { PasswordComponent } from './password/password.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.comp
     CardReservasComponent,
     DetalleEstadosComponent,
     RegistrosuccessComponent,
+    PasswordComponent,
   ],
   imports: [
     BrowserModule,

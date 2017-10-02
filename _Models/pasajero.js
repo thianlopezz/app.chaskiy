@@ -14,8 +14,8 @@ function Pasajero() {
             console.log('Error>> Pasajero.get>>' + err);
             res.send({success: false, mensaje: '' + err});
           }
-
-          res.send({success: true, data: result[0]});
+          else
+            res.send({success: true, data: result[0]});
         }
         catch(ex){
 
@@ -26,23 +26,31 @@ function Pasajero() {
     });
   };
 
-  this.mantenimiento = function(habitacion, res) {
-    
-    var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje 
-                    +'" idHabitacion= "'+ habitacion.idHabitacion +'" noHabitacion= "'+ habitacion.noHabitacion +'" nombre= "'+ habitacion.habitacion +'" />';
-    //console.log(param);
+  this.mantenimiento = function(pass, res) {
+
+    var param = '<params accion= "'+ pass.accion
+                    +'" idUsuario= "'+ pass.idUsuario
+                    +'" idPasajero= "'+ pass.idPasajero
+                    +'" nombre= "'+ pass.pasajero
+                    +'" correo= "'+ pass.correo
+                    +'" idPais= "'+ pass.valuePa
+                    +'" noContacto= "'+ pass.noContacto
+                    +'" idHospedaje= "'+ pass.idHospedaje
+                    +'" />';
+
+    // console.log(param);
     connection.acquire(function(err, con) {
-      con.query('call hab_habitacion(\''+param+'\')', function(err, result) {
+      con.query('call pa_pasajero(\''+param+'\')', function(err, result) {
         try{
 
           con.release();
           if (err) {
             console.log('Error>> Habitacion.mantenimiento>>' + err);
             res.send({success: false, mensaje: ''+ err});
-          } 
+          }
           else {
             if(result[0][0].err == undefined)
-              res.send({success: true, mensaje: result[0][0].mensaje});              
+              res.send({success: true, mensaje: result[0][0].mensaje});
             else
               res.send({success: false, mensaje: result[0][0].mensaje});
           }

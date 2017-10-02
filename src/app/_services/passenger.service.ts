@@ -5,19 +5,27 @@ import { Passenger } from '../_models/index';
 
 @Injectable()
 export class PassengerService {
-    
+
     constructor(private http: Http) { }
 
     // getAll() {
     //     return this.http.get(_config + '/api/rooms', this.jwt()).map((response: Response) => response.json());
     // }
 
-    getById(id: string) {
-        
+    getById(correo: string) {
+
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        var param = encodeURIComponent('<params accion="C1" identificacion = "'+ id +'" idHospedaje = "'+ currentUser.idHospedaje +'" />');
+        var param = encodeURIComponent('<params accion="C1" correo = "'+ correo +'" idHospedaje = "'+ currentUser.idHospedaje +'" />');
         return this.http.get('/api/pasajeros/all/' + param, this.jwt()).map((response: Response) => response.json());
+    }
+
+    mantenimiento(pass) {
+
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        pass.idUsuario = currentUser.idUsuario;
+        return this.http.post('/api/pasajeros/', pass, this.jwt()).map((response: Response) => response.json());
     }
 
     // create(room: Room) {

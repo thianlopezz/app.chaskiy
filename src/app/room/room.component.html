@@ -14,7 +14,7 @@
 		    	<!-- <a class="bg-circle bg-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
 		    		<i class="fa fa-plus" aria-hidden="true"></i>
 		    	</a> -->
-			    <button type="button" class="btn btn-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
+			    <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
 			      <i class="fa fa-plus" aria-hidden="true"></i>
 			    </button>
 		    </h2>
@@ -59,7 +59,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate><!--
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate><!--
 	    	<div class="btn-group grid-btn" role="group">
 			  <button type="button" (click)="setNuevo()" class="btn btn-outline-primary">
 			  	<i class="fa fa-file-text-o" aria-hidden="true"></i>
@@ -68,20 +68,20 @@
 			  	<i class="fa fa-repeat" aria-hidden="true"></i>
 			  </button>
 			</div> -->
-	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !noHabitacion.valid }">
+	        <div class="form-group">
 	            <label for="noHabitacion">#Habitación</label>
 	            <input type="number" class="form-control col-md-4" name="noHabitacion" [(ngModel)]="model.noHabitacion" #noHabitacion="ngModel" required />
-	            <div *ngIf="f.submitted && !noHabitacion.valid" class="help-block">El número de la habitación es requerido</div>
+	            <div *ngIf="f.submitted && !noHabitacion.valid" class="invalid-feedback">El número de la habitación es requerido</div>
 	        </div>
-	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !habitacion.valid }">
+	        <div class="form-group">
 	            <label for="habitacion">Nombre</label>
 	            <input type="text" class="form-control col-md-8" name="habitacion" [(ngModel)]="model.habitacion" #habitacion="ngModel" required />
-	            <div *ngIf="f.submitted && !habitacion.valid" class="help-block">El nombre de la habitación es requerido</div>
+	            <div *ngIf="f.submitted && !habitacion.valid" class="invalid-feedback">El nombre de la habitación es requerido</div>
 	        </div>
-	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !habitacion.valid }">
+	        <div class="form-group">
 	            <label for="tarifa">Tarifa</label>
 	            <input type="text" class="form-control col-md-4" name="tarifa" [(ngModel)]="model.tarifa" #habitacion="ngModel" myCurrency="true" required />
-	            <div *ngIf="f.submitted && !habitacion.valid" class="help-block">La tarifa por noche es requerida</div>
+	            <div *ngIf="f.submitted && !habitacion.valid" class="invalid-feedback">La tarifa por noche es requerida</div>
 	        </div>
 	        <!-- <div class="form-group">
 	            <button [disabled]="readOnly" class="btn btn-primary pull-right">
@@ -91,8 +91,8 @@
 	            <img *ngIf="loading" src="/assets/images/loading.svg" />
 	        </div> -->
 	        <div class="modal-footer">
+						<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          <button type="submit" class="btn btn-primary">Guardar
-	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          </button>
 	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	        </div>

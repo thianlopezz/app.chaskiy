@@ -14,7 +14,7 @@
 		    	<!-- <a class="bg-circle bg-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
 		    		<i class="fa fa-plus" aria-hidden="true"></i>
 		    	</a> -->
-			    <button type="button" class="btn btn-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#adicionalModal">
+			    <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#adicionalModal">
 			      <i class="fa fa-plus" aria-hidden="true"></i>
 			    </button>
 		    </h2>
@@ -57,20 +57,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" novalidate>
-	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !adicional.valid }">
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+	        <div class="form-group">
 	            <label for="adicional">Nombre</label>
 	            <input type="text" class="form-control col-md-8" name="adicional" [(ngModel)]="model.adicional" #adicional="ngModel" myCurrency="true" required />
-	            <div *ngIf="f.submitted && !adicional.valid" class="help-block">El nombre del servicio adicional es requerido</div>
+	            <div *ngIf="f.submitted && !adicional.valid" class="invalid-feedback">El nombre del servicio adicional es requerido</div>
 	        </div>
-	        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !adicional.valid }">
+	        <div class="form-group">
 	            <label for="tarifa">Tarifa</label>
 	            <input type="text" class="form-control col-md-4" name="tarifa" [(ngModel)]="model.tarifa" #adicional="ngModel" myCurrency="true" required />
-	            <div *ngIf="f.submitted && !adicional.valid" class="help-block">La tarifa es requerida</div>
+	            <div *ngIf="f.submitted && !adicional.valid" class="invalid-feedback">La tarifa es requerida</div>
 	        </div>
 	        <div class="modal-footer">
+						<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          <button type="submit" class="btn btn-primary">Guardar
-	          	<img *ngIf="loading" src="/assets/images/loading.svg" />
 	          </button>
 	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	        </div>

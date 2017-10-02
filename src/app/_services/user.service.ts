@@ -7,7 +7,7 @@ import { User } from '../_models/index';
 export class UserService {
 
     currentUser: any;
-    
+
     constructor(private http: Http) { }
 
     getAll() {
@@ -31,7 +31,7 @@ export class UserService {
     }
 
     delete(id: number) {
-        
+
         return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 

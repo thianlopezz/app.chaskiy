@@ -18,6 +18,14 @@ export class RegisterService {
         return this.http.post('/api/register/isregister', registro, this.jwt()).map((response: Response) => response.json());
     }
 
+    password(model: any){
+
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      model.idUsuario = currentUser.idUsuario;
+
+      return this.http.post('/api/register/password', model, this.jwt()).map((response: Response) => response.json());
+    }
+
     // getById(id: string) {
     //     return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     // }

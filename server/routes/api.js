@@ -98,6 +98,12 @@ router.use(function(req, res, next) {
 
 // R U T A S  P R I V A D A S
 
+// P A S S W O R D
+router.post('/register/password', (req, res) => {
+
+  register.password(req.body, res);
+});
+
 //H A B I T A C I O N E S
 router.get('/auth/islogged/', (req, res) => {
 

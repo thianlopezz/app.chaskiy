@@ -14,7 +14,8 @@ function Aerolinea() {
             console.log('Error>> Aerolinea.get>>' + err);
             res.send({success: false, mensaje: '' + err});
           }
-          res.send(result[0]);
+          else
+            res.send(result[0]);
         }
         catch(ex){
 

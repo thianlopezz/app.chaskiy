@@ -35,7 +35,6 @@ export class ReservaComponent implements OnInit {
 
   noReserve: number= 0;
 
-  noPass:boolean = false;
   loading:boolean = false;
 
   accion:string = "I";
@@ -67,6 +66,11 @@ export class ReservaComponent implements OnInit {
   pagos: any[] = [];
 
   goPass = false;
+  editaPass_ = false;
+  esPass;
+  editedPass;
+
+  passOd: any;
 
   constructor(private authService: AuthenticationService,
                 private router: Router,
@@ -164,38 +168,84 @@ export class ReservaComponent implements OnInit {
     this.model.ident = !this.model.ident;
 
     if(!this.model.ident){
-      this.noPass = true;
+      this.esPass = false;
       this.model.pass.identificacion = "";
     }
     else{
-      this.noPass = false;
+      this.esPass = true;
     }
   }
 
-  getPasse(){
+  editaPass(){
+
+    this.editaPass_ = true;
+    this.editedPass = false;
+    this.passOd = Object.assign({}, this.model.pass);
+  }
+
+  goEditaPass(){
+
+    this.editaPass_ = false;
+    this.goPass = true;
+    this.model.pass.accion =  'U';
+    this.model.pass.valuePa = this.valuePa;
+
+    this.passengerService.mantenimiento(this.model.pass)
+        .subscribe(
+            data => {
+
+                if(data.success){
+
+                  this.goPass = false;
+                  this.editedPass = true;
+                }
+                else{
+
+                  this.goPass = false;
+                  this.messService.error(data.mensaje);
+                  this.showMess();
+                }
+            },
+            error => {
+
+                console.log(error);
+                this.goPass = false;
+
+                this.messService.error("Hubo un error al actualizar el pasajero");
+                this.showMess();
+            });
+  }
+
+  cancelEditaPass(){
+
+    this.editaPass_ = false;
+    this.model.pass = Object.assign({}, this.passOd);
+  }
+
+  getPasse(form: NgForm){
 
     //this.loading = true;
     this.goPass = true;
 
-    var ident = this.model.pass.identificacion;
+    var correo = this.model.pass.correo;
 
-    this.passengerService.getById(ident).subscribe(passenger => {
+    this.passengerService.getById(correo).subscribe(passenger => {
 
       if(passenger.success){
 
         if(passenger.data.length == 0){
 
-          this.noPass = true;
+          this.esPass = false;
           this.model.pass = {};
           this.defaultPa();
-          this.model.pass.identificacion = ident;
+          this.model.pass.correo = correo;
           this.model.notas = "";
           this.model.pass.ident = true;
         }
          else
            if(passenger.data.length > 0){
 
-              this.noPass = false;
+              this.esPass = true;
               this.model.pass = passenger.data[0];
               this.model.pass.valuePa = this.model.pass.idPais;
               this.model.pass.ident = true;
@@ -242,6 +292,7 @@ export class ReservaComponent implements OnInit {
                 if(data.success){
 
                   this.loading = false;
+                  this.esPass = false;
                   this.loadAllRooms();
                   form.resetForm();
                   this.getByDate();
@@ -1022,7 +1073,7 @@ quitRes(){
     this.model
   }
 
-  this.noPass = false;
+  this.esPass = false;
   this.model = {};
   this.model.pass = {};
   this.model.notas = "";
@@ -1050,7 +1101,7 @@ getReserveDet(_room: Habitacion, dia: number){
                                   new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
   this.esModi = false;
 
-  this.noPass = false;
+  this.esPass = true;
   this.model = {};
   this.model.pass = {};
   this.model.notas = "";
