@@ -25,6 +25,8 @@ export class RegisterComponent implements OnInit {
     valid_pass0;
     valid_correo;
 
+    goCorreo = false;
+
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
@@ -103,6 +105,8 @@ export class RegisterComponent implements OnInit {
 
     getUser(){
 
+      this.goCorreo = true;
+
       this.registerService.isRegister(this.model)
           .subscribe(
               data => {
@@ -115,9 +119,12 @@ export class RegisterComponent implements OnInit {
 
                     this.valid_correo = true;
                   }
+
+                  this.goCorreo = false;
               },
               error => {
 
+                  this.goCorreo = false;
                   console.log(error);
               });
     }

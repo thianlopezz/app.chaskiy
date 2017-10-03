@@ -117,13 +117,14 @@ export class RoomComponent implements OnInit {
                   this.loading = false;
                   this.loadAllRooms();
                   form.resetForm();
-                  this.showMess()
+                  this.showMess();
                 }
                 else{
 
                   this.messService.error(data.mensaje);
                   this.loading = false;
-                  this.showMess()
+                  jQuery("#messModal").modal("show");
+                  //this.showMess();
                 }
             },
             error => {
@@ -131,7 +132,8 @@ export class RoomComponent implements OnInit {
                 this.messService.error(mensaje_err);
                 console.log(error);
                 this.loading = false;
-                this.showMess()
+                //this.showMess();
+                jQuery("#messModal").modal("show");
             });
 
   }

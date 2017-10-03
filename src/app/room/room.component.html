@@ -75,13 +75,13 @@
 	        </div>
 	        <div class="form-group">
 	            <label for="habitacion">Nombre</label>
-	            <input type="text" class="form-control col-md-8" name="habitacion" [(ngModel)]="model.habitacion" #habitacion="ngModel" required />
+	            <input type="text" class="form-control col-md-8" name="habitacion" [(ngModel)]="model.habitacion" #habitacion="ngModel" maxlength="100" required />
 	            <div *ngIf="f.submitted && !habitacion.valid" class="invalid-feedback">El nombre de la habitación es requerido</div>
 	        </div>
 	        <div class="form-group">
 	            <label for="tarifa">Tarifa</label>
-	            <input type="text" class="form-control col-md-4" name="tarifa" [(ngModel)]="model.tarifa" #habitacion="ngModel" myCurrency="true" required />
-	            <div *ngIf="f.submitted && !habitacion.valid" class="invalid-feedback">La tarifa por noche es requerida</div>
+	            <input type="text" class="form-control col-md-4" name="tarifa" [(ngModel)]="model.tarifa" #tarifa="ngModel" myCurrency="true" required />
+	            <div *ngIf="f.submitted && !tarifa.valid" class="invalid-feedback">La tarifa por noche es requerida</div>
 	        </div>
 	        <!-- <div class="form-group">
 	            <button [disabled]="readOnly" class="btn btn-primary pull-right">
@@ -92,9 +92,9 @@
 	        </div> -->
 	        <div class="modal-footer">
 						<img *ngIf="loading" src="/assets/images/loading.svg" />
-	          <button type="submit" class="btn btn-primary">Guardar
+	          <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar
 	          </button>
-	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	          <button *ngIf="!loading" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	        </div>
 	    </form>
     </div>

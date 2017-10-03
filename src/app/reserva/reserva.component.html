@@ -128,7 +128,7 @@
                   <div class="form-group">
                       <label for="pasajero">Nombre</label>
                       <div class="input-group">
-                        <input type="text" class="form-control col-md-12" name="pasajero" [(ngModel)]="model.pass.pasajero" #pasajero="ngModel" [readonly]="esPass && !editaPass_" required />
+                        <input type="text" class="form-control col-md-12" name="pasajero" [(ngModel)]="model.pass.pasajero" #pasajero="ngModel" [readonly]="esPass && !editaPass_" maxlength="100" required />
                         <span class="input-group-btn">
                           <button *ngIf="esPass && !editaPass_ && accion=='I'" class="btn btn-outline-danger" type="button" (click)="editaPass()">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -152,11 +152,11 @@
                   <div class="form-group">
                       <label for="pais">Pais</label>
                       <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2><!--  [readonly]="!noPass" -->
-                      <div *ngIf="f.submitted && !pais.valid" class="invalid-feedback">El país es requerido</div>
+                      <!-- <div *ngIf="f.submitted && !pais.valid" class="invalid-feedback">El país es requerido</div> -->
                   </div>
                   <div class="form-group">
                       <label for="correo">Número de contacto</label>
-                      <input type="text" class="form-control col-md-8" name="noContacto" [(ngModel)]="model.pass.noContacto" #noContacto="ngModel" [readonly]="esPass && !editaPass_"/>
+                      <input type="text" class="form-control col-md-8" name="noContacto" [(ngModel)]="model.pass.noContacto" #noContacto="ngModel" [readonly]="esPass && !editaPass_" maxlength="15" />
                       <!-- <div *ngIf="f.submitted && !noContacto.valid" class="invalid-feedback">El número de contacto es requerido</div> -->
                   </div>
                   <div class="form-group">
@@ -166,7 +166,7 @@
                   </div>
                   <div class="form-group">
                       <label for="notas">Notas</label>
-                      <textarea class="form-control" id="notas" name="notas" rows="4" [(ngModel)]="model.notas" #notas="ngModel">{{model.notas}}</textarea>
+                      <textarea class="form-control" id="notas" name="notas" rows="4" [(ngModel)]="model.notas" #notas="ngModel" maxlength="600">{{model.notas}}</textarea>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -264,9 +264,8 @@
           </div>
           <div class="modal-footer">
             <img *ngIf="loading" src="/assets/images/loading.svg" />
-            <button type="submit" class="btn btn-primary">Guardar
-            </button>
-            <button type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
+            <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar</button>
+            <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
           </div>
         </div>
         <div *ngIf="!esModi">
@@ -413,7 +412,7 @@
                 </button>
               </div>
             </div>
-            <button type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cerrar</button>
+            <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cerrar</button>
           </div>
         </div>
       </form>
@@ -537,9 +536,8 @@
 				</div>
         <div class="modal-footer">
           <img *ngIf="loading" src="/assets/images/loading.svg" />
-          <button type="submit" class="btn btn-primary">Guardar
-          </button>
-          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+          <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar</button>
+          <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
         </div>
 	    </form>
     </div>

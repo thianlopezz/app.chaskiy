@@ -5,7 +5,7 @@ function Connection() {
 
   this.init = function() {
     this.pool = mysql.createPool({
-      connectionLimit: 5,
+      connectionLimit: 10,
       host: 'vvfv20el7sb2enn3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
       port:3306,
       user: 'p5vt0h10xev9w1r4',

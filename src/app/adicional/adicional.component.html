@@ -60,7 +60,7 @@
 	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
 	        <div class="form-group">
 	            <label for="adicional">Nombre</label>
-	            <input type="text" class="form-control col-md-8" name="adicional" [(ngModel)]="model.adicional" #adicional="ngModel" myCurrency="true" required />
+	            <input type="text" class="form-control col-md-8" name="adicional" [(ngModel)]="model.adicional" #adicional="ngModel" myCurrency="true" maxlength="100" required />
 	            <div *ngIf="f.submitted && !adicional.valid" class="invalid-feedback">El nombre del servicio adicional es requerido</div>
 	        </div>
 	        <div class="form-group">
@@ -70,9 +70,9 @@
 	        </div>
 	        <div class="modal-footer">
 						<img *ngIf="loading" src="/assets/images/loading.svg" />
-	          <button type="submit" class="btn btn-primary">Guardar
+	          <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar
 	          </button>
-	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	          <button *ngIf="!loading" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	        </div>
 	    </form>
     </div>

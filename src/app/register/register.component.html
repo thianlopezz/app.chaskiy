@@ -13,12 +13,14 @@
               </div>
               <div class="form-group">
                   <label for="correo">Correo</label>
-                  <input type="email" class="form-control col-md-11" name="correo" [(ngModel)]="model.correo" #correo="ngModel" aria-describedby="passwordHelpInline" (blur)="getUser()" required />
-                  <!-- <img class="col-md-2" src="/assets/images/loading.svg" /> -->
-                  <!-- <small id="passwordHelpInline" class="text-muted">
-                    adsadasdad
-                  </small> -->
-                  <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">El correo es requerido</div>
+                  <div class="input-group">
+                    <input type="email" class="form-control col-md-11" name="correo" [(ngModel)]="model.correo" #correo="ngModel" (blur)="correo.valid && getUser()" [email]="true" required />
+                    <img *ngIf="goCorreo" class="col-md-2" src="/assets/images/loading.svg" />
+                  </div>
+                  <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
+                  <div *ngIf="correo.touched && !correo.valid && !f.submitted">
+                    <p class="text-danger">Ingrese un electrónico válido</p>
+                  </div>
                   <div *ngIf="valid_correo">
                     <p class="text-warning">Usuario ya registrado</p>
                   </div>
@@ -62,8 +64,8 @@
                   </div>
               </div>
               <div class="form-group">
-                  <button [disabled]="loading" class="btn btn-primary">Registrar</button>
                   <img *ngIf="loading" src="/assets/images/loading.svg" />
+                  <button *ngIf="!loading" class="btn btn-primary">Registrar</button>
                   <a *ngIf="!loading" [routerLink]="['/login']" class="btn btn-link">Cancel</a>
               </div>
           </form>

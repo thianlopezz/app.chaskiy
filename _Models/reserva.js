@@ -1,5 +1,4 @@
 var connection = require('../server/connection');
-var conne_generico = require('../server/conne_generico');
 var moment = require('moment');
 
 const axios = require('axios');
