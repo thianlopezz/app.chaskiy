@@ -435,7 +435,7 @@
       <form class="col-md-12">
         <div class="row mt-1">
           <div class="col-md-12">
-            <button type="button" class="btn btn-danger pull-right" (click)="setNuevoPago()" data-toggle="modal" data-target="#pagoModal">
+            <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevoPago()" data-toggle="modal" data-target="#pagoModal">
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
           </div>
@@ -517,18 +517,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardarPago(f)" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !formaPago.valid }">
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardarPago(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+        <div class="form-group">
             <label for="formaPago">Forma de pago</label>
             <select class="form-control col-md-5" name="formaPago" [(ngModel)]="model.pago.idFormaPago" #formaPago="ngModel" required>
              <option *ngFor="let op of formaPagos" [value]="op.idFormaPago">{{op.formaPago}}</option>
             </select>
-            <div *ngIf="f.submitted && !formaPago.valid" class="help-block form-control-feedback">La forma de pago es requerida</div>
+            <div *ngIf="f.submitted && !formaPago.valid" class="invalid-feedback">La forma de pago es requerida</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !monto.valid }">
+        <div class="form-group">
             <label for="monto">Monto</label>
             <input type="text" class="form-control  col-md-5" name="monto" [(ngModel)]="model.pago.monto" #monto="ngModel" myCurrency="true" required />
-            <div *ngIf="f.submitted && !monto.valid" class="help-block">El monto es requeido</div>
+            <div *ngIf="f.submitted && !monto.valid" class="invalid-feedback">El monto es requerido</div>
         </div>
 				<div class="form-group">
 						<label for="notasp">Notas</label>

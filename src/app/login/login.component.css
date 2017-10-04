@@ -1,13 +1,28 @@
-.jumbotron {
+.jumbotron{
     background-color: rgba(237, 249, 255, 0.86);
 }
-.card {
+
+.card{
 	background-color: rgba(237, 249, 255, 0.86);
 }
+
 .login{
-    background: url("/assets/images/back_login.jpg")no-repeat center center fixed;
+    /*background: url("/assets/images/back_login.jpg")no-repeat center center fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;   
+    background-size: cover;
 }
+
+/*.container-fluid-login{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.page-content-wrapper-login{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+}*/
