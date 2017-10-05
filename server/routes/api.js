@@ -56,6 +56,11 @@ router.post('/register/isregister', (req, res) => {
   register.isRegister(req.body.correo, res);
 });
 
+router.post('/register/activa', (req, res) => {
+
+  register.activaToken(req.body.token, res);
+});
+
 //P A I S E S
 router.get('/paises/all/:param', (req, res) => {
 

@@ -26,6 +26,11 @@ export class RegisterService {
       return this.http.post('/api/register/password', model, this.jwt()).map((response: Response) => response.json());
     }
 
+    activa(token) {
+
+        return this.http.post('/api/register/activa', {token: token}, this.jwt()).map((response: Response) => response.json());
+    }
+
     // getById(id: string) {
     //     return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     // }

@@ -1,0 +1,15 @@
+<section class="mensaje">
+  <div class="card ml-auto mr-auto">
+    <div class="card-body">
+      <div *ngIf="!muestra" class="row mr-auto ml-auto" style="width:100%;" >
+        <img style="height:3rem;" src="/assets/images/loading.svg" />
+      </div>
+      <div *ngIf="muestra">
+        <p>Tu cuenta ha sido activada correctamente, ahora puedes disfrutar de Chaskiy Qurpa</p>
+        <p>Inicia sesión dando click
+          <a [routerLink]="['/login']">aquí</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

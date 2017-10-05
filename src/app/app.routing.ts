@@ -10,6 +10,7 @@ import { RoomComponent } from './room/room.component';
 import { AdicionalComponent } from './adicional/adicional.component';
 import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
 import { PasswordComponent } from './password/password.component';
+import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
 
 const appRoutes: Routes = [
     { path: '', component: LandingComponent },
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'adds', component: AdicionalComponent, canActivate: [AuthGuard] },
     { path: 'pass', component: PasswordComponent, canActivate: [AuthGuard] },
+    { path: 'confirmachaskiy', component: ActivaCuentaComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

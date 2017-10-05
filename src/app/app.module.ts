@@ -37,6 +37,7 @@ import { CardReservasComponent } from './card-reservas/card-reservas.component';
 import { DetalleEstadosComponent } from './detalle-estados/detalle-estados.component';
 import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
 import { PasswordComponent } from './password/password.component';
+import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { PasswordComponent } from './password/password.component';
     DetalleEstadosComponent,
     RegistrosuccessComponent,
     PasswordComponent,
+    ActivaCuentaComponent,
   ],
   imports: [
     BrowserModule,

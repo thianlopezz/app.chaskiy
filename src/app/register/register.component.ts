@@ -148,8 +148,6 @@ export class RegisterComponent implements OnInit {
 
     private showMess(){
 
-      jQuery("#reservaModal").modal("hide");
-
         setTimeout(() => {
 
           jQuery("#messModal").modal("show");
