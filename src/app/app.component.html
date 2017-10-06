@@ -5,19 +5,19 @@
 			  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar0" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
-			  <a class="navbar-brand" href="#">
-			  	<img src="/assets/images/chaskiy-brand.png" alt="">
+			  <a class="navbar-brand" [routerLink]="['/']">
+			  	<img src="/assets/images/chaskiy-brand.svg" alt="chaskiy-brand">
 			  </a>
 			  <div *ngIf="!isLogged()" class="collapse navbar-collapse" id="navbar0">
 			    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
 			      <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/index']">Inicio</a>
 			      </li>
-			      <li class="nav-item">
+			      <!-- <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/register']">Precios</a>
-			      </li>
+			      </li> -->
 			      <li class="nav-item">
-			        <a class="nav-link" [routerLink]="['/register']">Registrate</a>
+			        <a class="nav-link" [routerLink]="['/register']">Registro</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" [routerLink]="['/login']">Login</a>
@@ -183,17 +183,17 @@
 				        <div class="col-md-3">
 				          <div class="d-inline-block">
 				            <div class="bg-circle-outline d-inline-block">
-				              <a href="https://www.facebook.com/" class="text-white">
+				              <a href="https://www.facebook.com/thianlopezz" class="text-white">
 												<i class="fa fa-2x fa-fw fa-facebook"></i>
 											</a>
 				            </div>
 				            <div class="bg-circle-outline d-inline-block">
-				              <a href="https://twitter.com/" class="text-white">
+				              <a href="https://twitter.com/thianlopezz" class="text-white">
 				                <i class="fa fa-2x fa-fw fa-twitter"></i>
 											</a>
 				            </div>
 				            <div class="bg-circle-outline d-inline-block">
-				              <a href="https://www.linkedin.com/company/" class="text-white">
+				              <a href="https://www.linkedin.com/in/thianlopezz/" class="text-white">
 				                <i class="fa fa-2x fa-fw fa-linkedin"></i></a>
 				            </div>
 				          </div>

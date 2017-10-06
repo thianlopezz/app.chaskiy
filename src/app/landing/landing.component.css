@@ -1,11 +1,41 @@
 /*// B L O Q U E  B I E N V E N I D O S*/
-.bienvenidos{
-    background: #f7f7f7;
-	background-size:cover;
-	height: 70vh;
-    overflow: hidden;
+.cuadro-img{
+    background: rgba(247, 247, 247, 0.44);
+	  background-size:cover;
+	  /*height: 70vh;
+    overflow: hidden;*/
 }
 
-.carousel {
-    margin-top: 5rem;
+/*.bienvenidos .container{
+  margin-top: 4.5rem;
+}*/
+
+.cuadro-img .texto{
+  margin-top: auto!important;
+  margin-bottom: auto!important;
+}
+
+.cuadro-img p{
+  font-size: 2rem;
+  color: #565b63;
+}
+
+.cuadro-img h1{
+  color: #38557b;
+}
+
+.cuadro-img .img{
+  font-size: 7rem;
+  color: #658dc1;
+  text-align: center;
+}
+
+.caracteristicas .img{
+  font-size: 6rem;
+  color: #658dc1;
+  text-align: center;
+}
+
+.caracteristicas h2{
+  color: #38557b;
 }
