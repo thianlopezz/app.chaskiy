@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from './_services/index';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { AuthenticationService, GoogleAnalyticsEventsService } from './_services/index';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,16 @@ export class AppComponent {
 
 	currentUser: any;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService,
+              public router: Router,
+              public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
+    });
+  }
 
   ngOnInit() {
 

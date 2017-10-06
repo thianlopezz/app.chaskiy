@@ -19,7 +19,9 @@ import { LandingComponent } from './landing/landing.component';
 
 import { AlertService, ConfirmService, AuthenticationService, AcceptService,
           RoomService, AerolineaService, PassengerService, ReserveService, PaisService,
-          AdicionalService, MessageService, FormaPagoService, PagoService, RegisterService } from './_services/index';
+          AdicionalService, MessageService, FormaPagoService, PagoService, RegisterService,
+          GoogleAnalyticsEventsService } from './_services/index';
+
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
 import { ReservaComponent } from './reserva/reserva.component';
@@ -84,7 +86,8 @@ import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
               CurrencyPipePipe,
               FormaPagoService,
               PagoService,
-              RegisterService],
+              RegisterService,
+              GoogleAnalyticsEventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
