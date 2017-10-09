@@ -7,16 +7,17 @@
           <hr class="my-2">
           <form name="form" (ngSubmit)="f.form.valid && guardar()" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
               <div class="form-group">
-                  <label for="hospedaje">Nombre</label>
+                  <label for="hospedaje">Nombre del hopedaje</label>
                   <input type="text" class="form-control" name="hospedaje" [(ngModel)]="model.hospedaje" #hospedaje="ngModel" required />
                   <div *ngIf="f.submitted && !hospedaje.valid" class="invalid-feedback">El nombre del hospedaje es requerido</div>
               </div>
               <div class="form-group">
                   <label for="correo">Correo</label>
                   <div class="input-group">
-                    <input type="email" class="form-control col-md-11" name="correo" [(ngModel)]="model.correo" #correo="ngModel" (blur)="correo.valid && getUser()" [email]="true" required />
+                    <input type="email" class="form-control col-md-11" name="correo" [(ngModel)]="model.correo" #correo="ngModel" (blur)="correo.valid && getUser()" [email]="true" aria-describedby="hbmail" required />
                     <img *ngIf="goCorreo" class="col-md-2" src="/assets/images/loading.svg" />
                   </div>
+                  <small id="hbmail" class="form-text text-muted">Este correo servirá para el inicio de sesión del administrador del hospedaje</small>
                   <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
                   <div *ngIf="correo.touched && !correo.valid && !f.submitted">
                     <p class="text-danger">Ingrese un electrónico válido</p>
@@ -43,9 +44,13 @@
               <h4 class="card-subtitle mb-2 text-muted">Administrador</h4>
               <hr class="my-2">
               <div class="form-group">
-                  <label for="nombre">Nombre</label>
+                  <label for="nombre">Nombre del administrador</label>
                   <input type="text" class="form-control" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required />
                   <div *ngIf="f.submitted && !nombre.valid" class="invalid-feedback">El nombre del administrador es requerido</div>
+              </div>
+              <div class="form-group">
+                  <label for="nombre">Usuario</label>
+                  <input type="email" class="form-control" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true" readonly="true" />
               </div>
               <div class="form-group">
                   <label for="password">Contraseña</label>

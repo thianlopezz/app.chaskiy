@@ -157,15 +157,20 @@ export class RegisterComponent implements OnInit {
     private setSelect2Paises(){
 
       this.paisService.getAll().subscribe(
-        paises =>
-        {
-          this.paises = new Array<Select2OptionData>();
+        paises => {
 
-          for(var i=0; i<paises.length; i++){
-            this.paises.push({id: "" + paises[i].idPais, text: paises[i].pais});
+          if(paises.success){
+
+            this.paises = new Array<Select2OptionData>();
+
+            for(var i=0; i<paises.data.length; i++){
+              this.paises.push({id: "" + paises.data[i].idPais, text: paises.data[i].pais});
+            }
+
+            this.defaultPa();
           }
-
-          this.defaultPa();
+          else
+            console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
         });
     }
 
