@@ -14,3 +14,4 @@ export * from './formapago.service';
 export * from './pago.service';
 export * from './register.service';
 export * from './google-analytics-events.service';
+export * from './statistic.service';

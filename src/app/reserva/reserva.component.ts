@@ -392,7 +392,7 @@ export class ReservaComponent implements OnInit {
 
                   this.messService.success(mensaje);
                   this.showMess();
-                  
+
                   this.quitRes();
                 }
                 else{
@@ -1170,17 +1170,24 @@ getPagos(){
   this.pagoService.getAll(this.model.idReserva)
                           .subscribe(pagos =>
                             {
-                              this.model.pago = {};
-                              this.pagos = pagos;
+                              if(pagos.success){
 
-                              let sum = 0;
+                                this.model.pago = {};
+                                this.pagos = pagos.data;
 
-                              for(var i=0; i<pagos.length; i++){
+                                let sum = 0;
 
-                                sum+=pagos[i].monto;
+                                for(var i=0; i<pagos.data.length; i++){
+
+                                  sum+=pagos.data[i].monto;
+                                }
+
+                                this.model.totalPagado = sum;
                               }
+                              else{
 
-                              this.model.totalPagado = sum;
+                                console.log('Error>> pagoService>> ' + pagos.mensaje);
+                              }
                             });
 }
 
@@ -1190,10 +1197,10 @@ getToolTip(_op, _room: Habitacion, dia: number){
   var reserva = this.reservadosDb[indexDb];
 
   if(_op == 'I')
-    return 'In ' + reserva.pasajero;
+    return '' + reserva.pasajero;
 
   if(_op == 'O')
-    return 'Out ' + reserva.pasajero;
+    return '' + reserva.pasajero;
 
 }
 
@@ -1286,31 +1293,54 @@ private defaultPa(){
 
 private loadAllRooms() {
 
-  this.roomService.getAll().subscribe(rooms => { this.rooms = rooms; });
+  this.roomService.getAll().subscribe(rooms => {
+
+    if(rooms.success)
+      this.rooms = rooms.data;
+    else
+      console.log('Error>> loadAllRooms>> ' + rooms.mensaje);
+  });
 }
 
 private loadAllAirlines() {
 
-  this.aerolineaService.getAll().subscribe(aerolineas => { this.aerolineas = aerolineas; });
+  this.aerolineaService.getAll().subscribe(aerolineas => {
+
+    if(aerolineas.success)
+      this.aerolineas = aerolineas.data;
+    else
+      console.log('Error>> loadAllAirlines>> ' + aerolineas.mensaje);
+  });
 }
 
 private loadAllFormaPagos() {
 
-  this.formaService.getAll().subscribe(formas => { this.formaPagos = formas; });
+  this.formaService.getAll().subscribe(formas => {
+
+    if(formas.success)
+      this.formaPagos = formas.data;
+    else
+      console.log('Error>> loadAllFormaPagos>> ' + formas.mensaje);
+  });
 }
 
 private setSelect2Paises(){
 
   this.paisService.getAll().subscribe(
-    paises =>
-    {
-      this.paises = new Array<Select2OptionData>();
+    paises => {
 
-      for(var i=0; i<paises.length; i++){
-        this.paises.push({id: "" + paises[i].idPais, text: paises[i].pais});
+      if(paises.success){
+
+        this.paises = new Array<Select2OptionData>();
+
+        for(var i=0; i<paises.data.length; i++){
+          this.paises.push({id: "" + paises.data[i].idPais, text: paises.data[i].pais});
+        }
+
+        this.defaultPa();
       }
-
-      this.defaultPa();
+      else
+        console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
     });
 }
 
@@ -1319,14 +1349,20 @@ private setSelect2Adicionales(){
   this.optionsAdi = { multiple: true };
 
   this.adicionalService.getAll().subscribe(
-    adicionales =>
-    {
-      this.adicionales = new Array<Select2OptionData>();
-      this._adicionales = adicionales;
+    adicionales => {
 
-      for(var i=0; i<adicionales.length; i++){
-        this.adicionales.push({id: "" + adicionales[i].idAdicional, text: adicionales[i].adicional});
+      if(adicionales.success){
+
+        this.adicionales = new Array<Select2OptionData>();
+        this._adicionales = adicionales.data;
+
+        for(var i=0; i<adicionales.data.length; i++){
+          this.adicionales.push({id: "" + adicionales.data[i].idAdicional, text: adicionales.data[i].adicional});
+        }
+
       }
+      else
+        console.log('Error>> loadAllFormaPagos>> ' + adicionales.mensaje);
     });
 }
 

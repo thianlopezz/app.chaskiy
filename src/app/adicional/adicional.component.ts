@@ -158,7 +158,13 @@ export class AdicionalComponent implements OnInit {
   }
 
 private loadAllAdds() {
-    this.addService.getAll().subscribe(adds => { this.adds = adds; });
+    this.addService.getAll().subscribe(adds => {
+
+      if(adds.success)
+        this.adds = adds.data;
+      else
+        console.log('Error>> loadAllAdds>> ' + adds.mensaje);
+    });
 }
 
 private showMess(){

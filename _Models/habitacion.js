@@ -15,7 +15,7 @@ function Habitacion() {
             res.send({success: false, mensaje: '' + err});
           }
           else
-            res.send(result[0]);
+            res.send({success: true, data: result[0]});
         }
         catch(ex){
 

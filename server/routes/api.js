@@ -14,6 +14,7 @@ var reservas = require('../../_Models/reserva');
 var formas = require('../../_Models/formapago');
 var pagos = require('../../_Models/pago');
 var register = require('../../_Models/register');
+var statistic = require('../../_Models/statistic');
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -102,6 +103,12 @@ router.use(function(req, res, next) {
 });
 
 // R U T A S  P R I V A D A S
+
+//P A I S E S
+router.get('/statistic/:param', (req, res) => {
+
+  statistic.get(req.params.param, res);
+});
 
 // P A S S W O R D
 router.post('/register/password', (req, res) => {

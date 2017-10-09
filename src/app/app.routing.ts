@@ -11,6 +11,7 @@ import { AdicionalComponent } from './adicional/adicional.component';
 import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
 import { PasswordComponent } from './password/password.component';
 import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
+import { PagosComponent } from './pagos/pagos.component';
 
 const appRoutes: Routes = [
     { path: '', component: LandingComponent },
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'adds', component: AdicionalComponent, canActivate: [AuthGuard] },
     { path: 'pass', component: PasswordComponent, canActivate: [AuthGuard] },
+    { path: 'pagos', component: PagosComponent, canActivate: [AuthGuard] },
     { path: 'confirmachaskiy', component: ActivaCuentaComponent },
 
     // otherwise redirect to home

@@ -160,8 +160,17 @@ export class RoomComponent implements OnInit {
     this.confirmService.go('¿Desea eliminar el registro?');
   }
 
+
+
 private loadAllRooms() {
-    this.roomService.getAll().subscribe(rooms => { this.rooms = rooms; });
+
+  this.roomService.getAll().subscribe(rooms => {
+
+    if(rooms.success)
+      this.rooms = rooms.data;
+    else
+      console.log('Error>> loadAllRooms>> ' + rooms.mensaje);
+  });
 }
 
 private showMess(){

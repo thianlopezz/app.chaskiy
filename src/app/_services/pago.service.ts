@@ -14,6 +14,19 @@ export class PagoService {
         return this.http.get('/api/pago/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
+    getByDate(feDesde: string, feHasta: string) {
+
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      var param = encodeURIComponent('<params accion="C0"'
+                                    +' idHospedaje = "'+ currentUser.idHospedaje
+                                    +'" feDesde = "'+ feDesde
+                                    +'" feHasta = "'+ feHasta
+                                    +'" />');
+
+      return this.http.get('/api/pago/all/' + param, this.jwt()).map((response: Response) => response.json());
+    }
+
     mantenimiento(pago: Pago) {
 
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));

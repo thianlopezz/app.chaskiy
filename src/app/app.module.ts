@@ -20,7 +20,7 @@ import { LandingComponent } from './landing/landing.component';
 import { AlertService, ConfirmService, AuthenticationService, AcceptService,
           RoomService, AerolineaService, PassengerService, ReserveService, PaisService,
           AdicionalService, MessageService, FormaPagoService, PagoService, RegisterService,
-          GoogleAnalyticsEventsService } from './_services/index';
+          GoogleAnalyticsEventsService, StatisticService } from './_services/index';
 
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
@@ -40,6 +40,8 @@ import { DetalleEstadosComponent } from './detalle-estados/detalle-estados.compo
 import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
 import { PasswordComponent } from './password/password.component';
 import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
+import { PagosComponent } from './pagos/pagos.component';
+import { CardChartComponent } from './card-chart/card-chart.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
     RegistrosuccessComponent,
     PasswordComponent,
     ActivaCuentaComponent,
+    PagosComponent,
+    CardChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +91,8 @@ import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
               FormaPagoService,
               PagoService,
               RegisterService,
-              GoogleAnalyticsEventsService],
+              GoogleAnalyticsEventsService,
+              StatisticService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

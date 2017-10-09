@@ -8,3 +8,4 @@ export * from './pais';
 export * from './adicional';
 export * from './formapago';
 export * from './pago';
+export * from './chart_op';
