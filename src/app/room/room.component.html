@@ -1,24 +1,20 @@
 <div class="container default-container">
 	<div class="col-md-12">
-		<div class="card">
-		  <div class="card-body">
-		    <h2>Habitaciones</h2>
-		  </div>
-		</div>
+			<h2>
+				Habitaciones
+				<button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
+					<i class="fa fa-plus" aria-hidden="true"></i>
+				</button>
+			</h2>
+			<hr class="my-2">
 	</div>
 	<div class="col-md-12">
 		<div class="card">
 		  <div class="card-body">
-		    <h2>Registros
+		    <h2>Registro
 		    	<small>Habitaciones</small>
-		    	<!-- <a class="bg-circle bg-danger pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
-		    		<i class="fa fa-plus" aria-hidden="true"></i>
-		    	</a> -->
-			    <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#habitacionModal">
-			      <i class="fa fa-plus" aria-hidden="true"></i>
-			    </button>
 		    </h2>
-				<table class="table table-hover table-responsive">
+				<table class="table table-striped table-responsive">
 				  <thead>
 				    <tr>
 				      <th>#Habitación</th>
@@ -31,13 +27,13 @@
 				    <tr *ngFor="let room of rooms">
 				      <td width="15%">{{room.noHabitacion}}</td>
 				      <td width="50%">{{room.habitacion}}</td>
-				      <td width="15%">{{room.tarifa | currency:'USD':true}}</td>
-				      <td width="20%">
+				      <td width="25%">{{room.tarifa | currency:'USD':true}}</td>
+				      <td width="10%" class="text-center">
 				      	<div class="btn-group grid-btn" role="group">
-						  <button type="button" (click)="setModi(room)" class="btn btn-primary" data-toggle="modal" data-target="#habitacionModal">
+						  <button type="button" (click)="setModi(room)" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#habitacionModal">
 						  	<i class="fa fa-pencil" aria-hidden="true"></i>
 						  </button>
-						  <button type="button" (click)="setElim(room)" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+						  <button type="button" (click)="setElim(room)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
 						  	<i class="fa fa-trash" aria-hidden="true"></i>
 						  </button>
 						</div>

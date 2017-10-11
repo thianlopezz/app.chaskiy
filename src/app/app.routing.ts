@@ -12,6 +12,8 @@ import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.comp
 import { PasswordComponent } from './password/password.component';
 import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
 import { PagosComponent } from './pagos/pagos.component';
+import { RecuperaPassComponent } from './recupera-pass/recupera-pass.component';
+import { UpPasswordComponent } from './up-password/up-password.component';
 
 const appRoutes: Routes = [
     { path: '', component: LandingComponent },
@@ -26,6 +28,8 @@ const appRoutes: Routes = [
     { path: 'pass', component: PasswordComponent, canActivate: [AuthGuard] },
     { path: 'pagos', component: PagosComponent, canActivate: [AuthGuard] },
     { path: 'confirmachaskiy', component: ActivaCuentaComponent },
+    { path: 'recupera', component: RecuperaPassComponent },
+    { path: 'uppass', component: UpPasswordComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

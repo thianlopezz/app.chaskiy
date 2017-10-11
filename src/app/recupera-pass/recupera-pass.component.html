@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="col-md-6 ml-auto mr-auto">
+      <h2>Recuperar contraseña</h2>
+      <div class="card mt-4">
+        <div class="card-body">
+          <form name="form" (ngSubmit)="f.form.valid && recupera()" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+              <h4 class="card-subtitle mb-2 text-muted">Usuario</h4>
+              <hr class="my-2">
+              <div class="form-group">
+                  <label for="correo">Correo electrónico</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control col-md-11" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true" required />
+                  </div>
+                  <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
+                  <div *ngIf="correo.touched && !correo.valid && !f.submitted">
+                    <p class="text-danger">Ingrese un electrónico válido</p>
+                  </div>
+              </div>
+              <div class="form-group">
+                <img *ngIf="loading" src="/assets/images/loading.svg" />
+                <button [disabled]="loading0" class="btn btn-primary">Recuperar</button>
+                <a *ngIf="!loading0" [routerLink]="['/home']" class="btn btn-link">Cancelar</a>
+              </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

@@ -26,28 +26,20 @@ export class RegisterService {
       return this.http.post('/api/register/password', model, this.jwt()).map((response: Response) => response.json());
     }
 
+    enviaRecupera(correo: any) {
+
+        return this.http.post('/api/register/enviarecupera', correo, this.jwt()).map((response: Response) => response.json());
+    }
+
+    upRecupera(registro) {
+
+        return this.http.post('/api/register/uprecupera', registro, this.jwt()).map((response: Response) => response.json());
+    }
+
     activa(token) {
 
         return this.http.post('/api/register/activa', {token: token}, this.jwt()).map((response: Response) => response.json());
     }
-
-    // getById(id: string) {
-    //     return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
-    // }
-
-    // create(room: Room) {
-    //     return this.http.post(_config + '/api/rooms', room, this.jwt()).map((response: Response) => response.json());
-    // }
-
-    // update(room: Room) {
-    //     return this.http.put(_config + '/api/rooms/' + room._id, room, this.jwt()).map((response: Response) => response.json());
-    // }
-
-    // delete(room: Room) {
-    //     return this.http.delete(_config + '/api/rooms/' + room._id, this.jwt()).map((response: Response) => response.json());
-    // }
-
-    // private helper methodsz
 
     private jwt() {
 

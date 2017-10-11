@@ -42,6 +42,8 @@ import { PasswordComponent } from './password/password.component';
 import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { CardChartComponent } from './card-chart/card-chart.component';
+import { RecuperaPassComponent } from './recupera-pass/recupera-pass.component';
+import { UpPasswordComponent } from './up-password/up-password.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { CardChartComponent } from './card-chart/card-chart.component';
     ActivaCuentaComponent,
     PagosComponent,
     CardChartComponent,
+    RecuperaPassComponent,
+    UpPasswordComponent,
   ],
   imports: [
     BrowserModule,

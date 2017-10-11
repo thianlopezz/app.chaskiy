@@ -31,6 +31,87 @@ function Register() {
   //   });
   // };
 
+  this.enviaRecupera = function(_registro, res) {
+
+  var tokenRecupera = md5(_registro.correo + '' + moment().format('DDMMYYYYhhmmss'));
+  var accion = 'R';
+
+  var param = '<params accion= "'+ accion
+                  +'" correo= "'+ _registro.correo
+                  +'" tokenRecupera= "'+ tokenRecupera
+                  +'" />';
+
+    console.log('recupera_pass>> ' + param);
+
+    connection.acquire(function(err, con) {
+      con.query('call reg_recupera(\''+param+'\')', function(err, result) {
+        try{
+
+          con.release();
+          if (err) {
+            console.log('Error>> Register.enviaRecupera>>' + err);
+            res.send({success: false, mensaje: err});
+          }
+          else {
+            if(result[0][0].err == undefined){
+
+                var claves = 'nombre_usuario:' + result[0][0].nombre + ';tokenRecupera:' + tokenRecupera;
+
+                enviaCorreo(result[0][0].idHospedaje, claves, 'Recuperacion de contraseña', './plantillas/recupera_pass', _registro.correo, function(result){
+
+                  if(!result.success)
+                    console.log("Error>> Register.enviaRecupera>> Error en el registro de envio de correo");
+
+                  res.send({success: true, mensaje: ''});
+                });
+            }
+            else
+              res.send({success: false, mensaje: result[0][0].mensaje});
+          }
+        }
+        catch(ex){
+
+          console.log('Error>> ex>> Register.enviaRecupera>>' + ex);
+          res.send({success: false, mensaje: ex});
+        }
+      });
+    });
+  };
+
+  this.recuperaPassword = function(_registro, res) {
+
+  var accion = 'R0';
+
+  var param = '<params accion= "'+ accion
+                  +'" tokenRecupera= "'+ _registro.tokenRecupera
+                  +'" pass= "'+ md5(_registro.password)
+                  +'" />';
+
+    connection.acquire(function(err, con) {
+      con.query('call reg_recupera(\''+param+'\')', function(err, result) {
+        try{
+
+          con.release();
+          if (err) {
+            console.log('Error>> Register.recuperaPassword>>' + err);
+            res.send({success: false, mensaje: err});
+          }
+          else {
+            if(result[0][0].err == undefined)
+              res.send({success: true, mensaje: result[0][0].mensaje});
+            else
+              res.send({success: false, mensaje: result[0][0].mensaje});
+          }
+        }
+        catch(ex){
+
+          console.log('Error>> ex>> Register.recuperaPassword>>' + ex);
+          res.send({success: false, mensaje: ex});
+        }
+      });
+    });
+  };
+
   this.password = function(_registro, res) {
 
   var param = '<params idUsuario= "'+ _registro.idUsuario
@@ -93,7 +174,9 @@ function Register() {
           else {
             if(result[0][0].err == undefined){
 
-              enviaCorreo(result[0][0].idHospedaje, tokenRegistro, _registro.nombre, _registro.correo, function(result){
+              var claves = 'nombre_usuario:' + _registro.nombre + ';tokenRegistro:' + tokenRegistro;
+
+              enviaCorreo(result[0][0].idHospedaje, claves, 'Confirmación de registro', './plantillas/confirmacion_cuenta', _registro.correo, function(result){
 
                 if(!result.success)
                   console.log("Error>> Register.registro>> Error en el registro de envio de correo");
@@ -169,16 +252,14 @@ function Register() {
     });
   };
 
-  function enviaCorreo(idHospedaje, tokenRegistro, nombre, destinatario, callback){
-
-        var claves = 'nombre_usuario:' + nombre + ';tokenRegistro:' + tokenRegistro;
+  function enviaCorreo(idHospedaje, claves, asunto, plantilla, destinatario, callback){
 
         var correo = {
           idHospedaje: idHospedaje,
-          asunto: 'Confirmación de registro',
+          asunto: asunto,
           destinatario: destinatario,
           claves: claves,
-          plantilla: './plantillas/confirmacion_cuenta'
+          plantilla: plantilla
         };
 
         axios.post(`${API}/api/send`, correo)

@@ -62,6 +62,16 @@ router.post('/register/activa', (req, res) => {
   register.activaToken(req.body.token, res);
 });
 
+router.post('/register/enviarecupera', (req, res) => {
+
+  register.enviaRecupera(req.body, res);
+});
+
+router.post('/register/uprecupera', (req, res) => {
+
+  register.recuperaPassword(req.body, res);
+});
+
 //P A I S E S
 router.get('/paises/all/:param', (req, res) => {
 

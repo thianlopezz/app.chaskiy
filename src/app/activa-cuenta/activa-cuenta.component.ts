@@ -20,12 +20,16 @@ export class ActivaCuentaComponent implements OnInit {
               private messService: MessageService) { }
 
   ngOnInit() {
-    debugger;
 
     this.route
         .queryParams
         .subscribe(params => {
-          debugger;
+
+          if(params['token'] == undefined){
+            
+            this.router.navigate(['/']);
+            return;
+          }
 
           this.registerService.activa(params['token'])
               .subscribe(

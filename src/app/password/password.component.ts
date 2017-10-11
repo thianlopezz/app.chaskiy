@@ -54,7 +54,7 @@ export class PasswordComponent implements OnInit {
                 if(data.success){
 
                   this.loading = false;
-                  this.messService.error('Contraseña actualizada exitosamente');
+                  this.messService.success(data.mensaje);
                   this.showMess();
 
                   setTimeout(() => {
@@ -80,8 +80,6 @@ export class PasswordComponent implements OnInit {
   }
 
   private showMess(){
-
-    jQuery("#reservaModal").modal("hide");
 
       setTimeout(() => {
 
