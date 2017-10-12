@@ -15,6 +15,8 @@ var formas = require('../../_Models/formapago');
 var pagos = require('../../_Models/pago');
 var register = require('../../_Models/register');
 var statistic = require('../../_Models/statistic');
+var hospedaje = require('../../_Models/hospedaje');
+var social = require('../../_Models/social');
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -113,6 +115,23 @@ router.use(function(req, res, next) {
 });
 
 // R U T A S  P R I V A D A S
+
+//S O C I A L
+router.get('/social/all/:param', (req, res) => {
+
+  social.get(req.params.param, res);
+});
+
+//H O S P E D A J E
+router.get('/hospedaje/all/:param', (req, res) => {
+
+  hospedaje.get(req.params.param, res);
+});
+
+router.post('/hospedaje', (req, res) => {
+
+  hospedaje.mantenimiento(req.body, res);
+});
 
 //P A I S E S
 router.get('/statistic/:param', (req, res) => {

@@ -20,7 +20,7 @@ import { LandingComponent } from './landing/landing.component';
 import { AlertService, ConfirmService, AuthenticationService, AcceptService,
           RoomService, AerolineaService, PassengerService, ReserveService, PaisService,
           AdicionalService, MessageService, FormaPagoService, PagoService, RegisterService,
-          GoogleAnalyticsEventsService, StatisticService } from './_services/index';
+          GoogleAnalyticsEventsService, StatisticService, HospedajeService, SocialService } from './_services/index';
 
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
@@ -44,6 +44,7 @@ import { PagosComponent } from './pagos/pagos.component';
 import { CardChartComponent } from './card-chart/card-chart.component';
 import { RecuperaPassComponent } from './recupera-pass/recupera-pass.component';
 import { UpPasswordComponent } from './up-password/up-password.component';
+import { HospedajeComponent } from './hospedaje/hospedaje.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { UpPasswordComponent } from './up-password/up-password.component';
     CardChartComponent,
     RecuperaPassComponent,
     UpPasswordComponent,
+    HospedajeComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,9 @@ import { UpPasswordComponent } from './up-password/up-password.component';
               PagoService,
               RegisterService,
               GoogleAnalyticsEventsService,
-              StatisticService],
+              StatisticService,
+              HospedajeService,
+              SocialService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,7 @@
       <h2>Registro</h2>
       <div class="card mt-4">
         <div class="card-body">
-          <h4 class="card-subtitle mb-2 text-muted">Hospedaje</h4>
+          <h4 class="card-subtitle mb-2 sub">Hospedaje</h4>
           <hr class="my-2">
           <form name="form" (ngSubmit)="f.form.valid && guardar()" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
               <div class="form-group">
@@ -41,7 +41,7 @@
                   <input type="text" class="form-control" name="direccion" [(ngModel)]="model.direccion" #direccion="ngModel" required />
                   <div *ngIf="f.submitted && !direccion.valid" class="invalid-feedback">La dirección es requerida</div>
               </div>
-              <h4 class="card-subtitle mb-2 text-muted">Administrador</h4>
+              <h4 class="card-subtitle mb-2 sub">Administrador</h4>
               <hr class="my-2">
               <div class="form-group">
                   <label for="nombre">Nombre del administrador</label>

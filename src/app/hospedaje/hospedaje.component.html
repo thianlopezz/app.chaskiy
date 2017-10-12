@@ -1,0 +1,86 @@
+<div class="container">
+	<h3 class="display-4">
+		{{model.hospedaje}}
+		<button type="button" *ngIf="readOnly" class="btn btn-danger rounded-circle border-0" (click)="setEdita()">
+			<i class="fa fa-pencil" aria-hidden="true"></i>
+		</button>
+	</h3>
+	<hr class="my-2">
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+			<div class="row">
+        <form name="form" (ngSubmit)="f.form.valid && guardar(f)" class="col-9 ml-auto mr-auto" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+				<h4 class="card-subtitle mb-2 sub">Hospedaje</h4>
+				<hr class="my-2">
+            <div class="form-group">
+                <label for="hospedaje">Nombre del hopedaje</label>
+                <input type="text" class="form-control" name="hospedaje" [(ngModel)]="model.hospedaje" #hospedaje="ngModel" [readonly]="readOnly" required />
+                <div *ngIf="f.submitted && !hospedaje.valid" class="invalid-feedback">El nombre del hospedaje es requerido</div>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Correo</label>
+                <input type="email" class="form-control" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true" readonly="true"/>
+            </div>
+            <div class="form-group">
+                <label for="pais">Pais</label>
+                <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="readOnly"></select2><!--  [readonly]="!noPass" -->
+                <!-- <div *ngIf="f.submitted && !pais.valid" class="invalid-feedback">El país es requerido</div> -->
+            </div>
+            <div class="form-group">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" class="form-control" name="ciudad" [(ngModel)]="model.ciudad" #ciudad="ngModel" [readonly]="readOnly" required />
+                <div *ngIf="f.submitted && !ciudad.valid" class="invalid-feedback">La ciudad es requerida</div>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="form-control" name="direccion" [(ngModel)]="model.direccion" #direccion="ngModel" [readonly]="readOnly" required />
+                <div *ngIf="f.submitted && !direccion.valid" class="invalid-feedback">La dirección es requerida</div>
+            </div>
+            <h4 class="card-subtitle mb-2 sub">Administrador</h4>
+            <hr class="my-2">
+            <div class="form-group">
+                <label for="nombre">Nombre del administrador</label>
+                <input type="text" class="form-control" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" [readonly]="readOnly" required />
+                <div *ngIf="f.submitted && !nombre.valid" class="invalid-feedback">El nombre del administrador es requerido</div>
+            </div>
+            <div class="form-group">
+                <label for="correo">Usuario</label>
+                <input type="email" class="form-control" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true" readonly="true" />
+            </div>
+            <h4 class="card-subtitle mb-2 sub">Redes sociales</h4>
+            <hr class="my-2">
+            <div class="form-group" *ngFor="let red of redes; let i = index">
+                <label [for]="'social'+i">{{red.social}}
+									<i [class]="red.icon" aria-hidden="true"></i>
+								</label>
+								<div class="input-group">
+								  <span class="input-group-addon" *ngIf="red.url!=''">{{red.url}}</span>
+								  <input type="text" class="form-control" [name]="'social'+i" [(ngModel)]="red.valor" #val="ngModel" [readonly]="readOnly"/>
+								</div>
+            </div>
+    			  <hr class="my-2">
+            <div class="form-group" *ngIf="!readOnly">
+                <img *ngIf="loading" src="/assets/images/loading.svg" />
+                <button *ngIf="!loading" class="btn btn-primary">Guardar</button>
+                <a *ngIf="!loading" href="javascript:;" (click)="setCancela()" class="btn btn-link">Cancelar</a>
+            </div>
+        </form>
+			</div>
+    </div><!--/span-->
+
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+			<div class="card">
+			  <div class="card-body">
+			    <h4 class="card-title">Notificaciones</h4>
+			    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+			    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eveniet unde ipsum, autem sunt, aperiam, quam harum quibusdam consectetur, sed doloribus? Reprehenderit expedita quam aperiam recusandae, quasi. Ratione, illum, aliquam!</p>
+			    <!-- <a href="#" class="card-link">Card link</a>
+			    <a href="#" class="card-link">Another link</a> -->
+			  </div>
+			</div>
+
+  </div><!--/row-->
+	<detalle-estados [model]="model"></detalle-estados>
+</div><!--/.container-->

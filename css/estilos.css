@@ -103,4 +103,10 @@ button.close {
   position: absolute;
   float: none; }
 
+.sub {
+  color: #1f3d4c !important; }
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(31, 61, 76, 0.08); }
+
 /*# sourceMappingURL=estilos.css.map */
