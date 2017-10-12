@@ -5,7 +5,7 @@
         <div class="card-body">
           <h4 class="card-subtitle mb-2 sub">Hospedaje</h4>
           <hr class="my-2">
-          <form name="form" (ngSubmit)="f.form.valid && guardar()" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+          <form name="form" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
               <div class="form-group">
                   <label for="hospedaje">Nombre del hopedaje</label>
                   <input type="text" class="form-control" name="hospedaje" [(ngModel)]="model.hospedaje" #hospedaje="ngModel" required />
