@@ -165,19 +165,19 @@ function Reserva() {
     if(accion == 'I' || accion == 'U'){
 
       asunto = 'Confirmación de reserva ' + datos.idReserva;
-      plantilla = './plantillas/confirmacion_reserva';
+      plantilla = './plantillas/Reservas/confirmacion_reserva';
 
       if(estado == 'Pr'){
 
         asunto = 'Proforma de reserva ' + datos.idReserva;
-        plantilla = './plantillas/proforma_reserva';
+        plantilla = './plantillas/Reservas/proforma_reserva';
       }
     }
     else
       if(accion == 'D'){
 
         asunto = 'Cancelación de reserva ' + datos.idReserva;
-        plantilla = './plantillas/cancelacion_reserva';
+        plantilla = './plantillas/Reservas/cancelacion_reserva';
       }
       else
         if(accion == 'Es')

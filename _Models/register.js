@@ -57,7 +57,7 @@ function Register() {
 
                 var claves = 'nombre_usuario:' + result[0][0].nombre + ';tokenRecupera:' + tokenRecupera;
 
-                enviaCorreo(result[0][0].idHospedaje, claves, 'Recuperacion de contraseña', './plantillas/recupera_pass', _registro.correo, function(result){
+                enviaCorreo(result[0][0].idHospedaje, claves, 'Recuperacion de contraseña', './plantillas/Chaskiy/recupera_pass', _registro.correo, function(result){
 
                   if(!result.success)
                     console.log("Error>> Register.enviaRecupera>> Error en el registro de envio de correo");
@@ -176,7 +176,7 @@ function Register() {
 
               var claves = 'nombre_usuario:' + _registro.nombre + ';tokenRegistro:' + tokenRegistro;
 
-              enviaCorreo(result[0][0].idHospedaje, claves, 'Confirmación de registro', './plantillas/confirmacion_cuenta', _registro.correo, function(result){
+              enviaCorreo(result[0][0].idHospedaje, claves, 'Confirmación de registro', './plantillas/Chaskiy/confirmacion_cuenta', _registro.correo, function(result){
 
                 if(!result.success)
                   console.log("Error>> Register.registro>> Error en el registro de envio de correo");
