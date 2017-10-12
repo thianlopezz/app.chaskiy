@@ -73,7 +73,7 @@ function Reserva() {
                     +'" idAerolinea= "'+ reserva.idAerolinea +'" idReserva= "'+ reserva.idReserva
                     +'" noPersonas= "'+ reserva.noPersonas +'" notas= "'+ reserva.notas
                     +'" idHabitacion= "'+ setHabitaciones(reserva.habitaciones) +'" idAdicional= "'+ setAdicionales(reserva.valueAd)
-                    +'" idPais= "'+ reserva.pass.valuePa +'" identificacion= "'+ reserva.pass.identificacion
+                    +'" idPais= "'+ reserva.pass.valuePa
                     +'" pasajero= "'+ reserva.pass.pasajero +'" noContacto= "'+ reserva.pass.noContacto
                     +'" correo= "'+ reserva.pass.correo +'" habLength= "'+ reserva.habitaciones.length
                     +'" adLength= "'+ reserva.valueAd.length
@@ -114,7 +114,7 @@ function Reserva() {
           }
         }
         catch(ex){
-          console.log('Error>> ex>> Habitacion.mantenimiento>>' + ex);
+          console.log('Error>> ex>> Reserva.mantenimiento>>' + ex);
           res.send({success: false, mensaje: ex});
         }
       });
