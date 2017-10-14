@@ -38,7 +38,7 @@ function Reserva() {
           con.release();
           if(err){
 
-            console.log('Error>> Pasajero.get>> ' + err);
+            console.log('Error>> Reserva.getById>> ' + err);
             res.send({success: false, mensaje: '' + err});
           }
 
@@ -50,8 +50,82 @@ function Reserva() {
         }
         catch(ex){
 
-          console.log('Error>> ex>> Habitacion.get>> ' + ex);
+          console.log('Error>> ex>> Reserva.getById>> ' + ex);
           res.send({success: false, mensaje: ex});
+        }
+
+      });
+    });
+  };
+
+  this.getByIdEx = function (id, res) {
+    connection.acquire(function (err, con) {
+      con.query('call res_exte(\'' + id + '\')', function (err, result) {
+        try {
+
+          con.release();
+          if (err) {
+
+            console.log('Error>> Reserva.getByIdEx>> ' + err);
+            res.send({ success: false, mensaje: '' + err });
+          }
+
+          if (result[0][0] !== undefined) {
+
+            result[0][0].pass = result[1][0];
+            result[0][0].valueAd = result[2];
+            result[0][0].habitaciones = result[3];
+            result[0][0].hospedaje = result[4][0];
+            result[0][0].hospedaje.redes = result[5];
+
+            res.send({ success: true, data: result[0] });
+            return;
+
+          }
+          
+          res.send({ success: false, mensaje: 'No existe la reserva con los datos enviados'});
+        }
+        catch (ex) {
+
+          console.log('Error>> ex>> Reserva.getByIdEx>> ' + ex);
+          res.send({ success: false, mensaje: ex });
+        }
+
+      });
+    });
+  };
+
+  this.confirma = function (id, res) {
+    connection.acquire(function (err, con) {
+      con.query('call res_confirma(\'' + id + '\')', function (err, result) {
+        try {
+
+          console.log('res_confirma >>' + id);
+
+          con.release();
+          if (err) {
+
+            console.log('Error>> Reserva.confirma>> ' + err);
+            res.send({ success: false, mensaje: '' + err });
+          } else
+            if (result[0][0].err == undefined) {
+
+              enviaCorreo(result[0][0], 'I', 'Re', function (result) {
+
+                if (!result.success)
+                  console.log("Error>> Reserva.confirma>> Error en el registro de envio de correo");
+
+                res.send({ success: true, mensaje: 'Reserva confirmada con éxito' });
+              });
+            }
+            else
+              res.send({ success: false, mensaje: result[0][0].mensaje });
+          
+        }
+        catch (ex) {
+
+          console.log('Error>> ex>> Reserva.confirma>> ' + ex);
+          res.send({ success: false, mensaje: ex });
         }
 
       });

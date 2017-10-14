@@ -53,12 +53,12 @@
             <hr class="my-2">
             <div class="form-group" *ngFor="let red of redes; let i = index">
                 <label [for]="'social'+i">{{red.social}}
-									<i [class]="red.icon" aria-hidden="true"></i>
-								</label>
-								<div class="input-group">
-								  <span class="input-group-addon" *ngIf="red.url!=''">{{red.url}}</span>
-								  <input type="text" class="form-control" [name]="'social'+i" [(ngModel)]="red.valor" #val="ngModel" [readonly]="readOnly"/>
-								</div>
+                    <i [class]="red.icon" aria-hidden="true"></i>
+                </label>
+                <div class="input-group">
+                    <span class="input-group-addon" *ngIf="red.url!=''">{{red.url}}</span>
+                    <input type="text" class="form-control" [name]="'social'+i" [(ngModel)]="red.valor" #val="ngModel" [readonly]="readOnly"/>
+                </div>
             </div>
     			  <hr class="my-2">
             <div class="form-group" *ngIf="!readOnly">

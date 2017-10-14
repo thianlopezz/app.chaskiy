@@ -6,7 +6,7 @@ import { AlertService, ConfirmService, AcceptService, PaisService,
 import { Router, ActivatedRoute } from '@angular/router';
 import { Select2OptionData } from 'ng2-select2';
 
-declare var jQuery:any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-hospedaje',
@@ -38,21 +38,21 @@ export class HospedajeComponent implements OnInit {
 
     this.setSelect2Paises();
     this.loadInfo();
-  }
 
-  setEdita(){
+  }
+  setEdita() {
 
     this.readOnly = false;
     this.anteriorModel = Object.assign({}, this.model);
   }
 
-  setCancela(){
+  setCancela() {
 
     this.readOnly = true;
     this.model = Object.assign({}, this.anteriorModel);
   }
 
-  guardar(form: NgForm){
+  guardar(form: NgForm) {
 
     this.loading = true;
 
@@ -62,19 +62,18 @@ export class HospedajeComponent implements OnInit {
     this.hospedajeService.mantenimiento(this.model)
         .subscribe(
             data => {
-                if(data.success){
+                if (data.success) {
 
                   this.messService.success('Registro modificado con éxito');
                   this.loading = false;
                   form.resetForm();
                   this.loadInfo();
                   this.readOnly = true;
-                }
-                else{
+                } else {
 
                   this.messService.error(data.mensaje);
                   this.loading = false;
-                  jQuery("#messModal").modal("show");
+                  jQuery('#messModal').modal('show');
                 }
             },
             error => {
@@ -82,28 +81,28 @@ export class HospedajeComponent implements OnInit {
                 this.messService.error('Ocurrió al modificar el registro');
                 console.log(error);
                 this.loading = false;
-                jQuery("#messModal").modal("show");
+                jQuery('#messModal').modal('show');
             });
 
   }
 
-  private setSelect2Paises(){
+  private setSelect2Paises() {
 
     this.paisService.getAll().subscribe(
       paises => {
 
-        if(paises.success){
+        if (paises.success) {
 
           this.paises = new Array<Select2OptionData>();
 
-          for(var i=0; i<paises.data.length; i++){
-            this.paises.push({id: "" + paises.data[i].idPais, text: paises.data[i].pais});
+          for (let i = 0; i < paises.data.length; i++) {
+            this.paises.push({id: '' + paises.data[i].idPais, text: paises.data[i].pais});
           }
 
           // this.defaultPa();
-        }
-        else
+        } else {
           console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
+        }
       });
   }
 
@@ -112,30 +111,33 @@ export class HospedajeComponent implements OnInit {
       this.model.valuePa = e.value;
     }
 
-  private mapSocial(){
+  private mapSocial() {
 
-    for(var i=0; i<this.redes.length; i++)
-      for(var j=0; j<this.model.redes.length; j++){
+    for (let i = 0; i < this.redes.length; i++) {
 
-        if(this.redes[i].idSocial == this.model.redes[j].idSocial){
+      for (let j = 0; j < this.model.redes.length; j++) {
+
+        if (this.redes[i].idSocial === this.model.redes[j].idSocial) {
 
           this.redes[i].valor = this.model.redes[j].valor;
           // break;
         }
       }
+    }
   }
 
   private loadSocial() {
 
     this.socialService.getAll().subscribe(social => {
 
-      if(social.success){
+      if (social.success) {
 
         this.redes = social.data;
         this.mapSocial();
-      }
-      else
+      } else {
         console.log('Error>> loadInfo>> ' + social.mensaje);
+      }
+
     });
   }
 
@@ -143,7 +145,7 @@ export class HospedajeComponent implements OnInit {
 
     this.hospedajeService.get().subscribe(info => {
 
-      if(info.success){
+      if (info.success) {
 
         this.model = info.data[0][0];
         this.model.redes = info.data[1];
@@ -151,9 +153,10 @@ export class HospedajeComponent implements OnInit {
         this.valuePa = this.model.idPais;
 
         this.loadSocial();
-      }
-      else
+      } else {
         console.log('Error>> loadInfo>> ' + info.mensaje);
+      }
+
     });
   }
 

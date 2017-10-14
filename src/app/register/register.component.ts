@@ -7,7 +7,7 @@ import { AlertService, AuthenticationService,
           MessageService} from '../_services/index';
 import { Select2OptionData } from 'ng2-select2';
 
-declare var jQuery:any;
+declare var jQuery: any;
 
 @Component({
     moduleId: module.id,
@@ -41,22 +41,23 @@ export class RegisterComponent implements OnInit {
       this.setSelect2Paises();
     }
 
-    guardar(form: NgForm){
+    guardar(form: NgForm) {
 
-      if(this.model.password != this.model.password0){
+      if (this.model.password !== this.model.password0) {
 
         this.valid_pass = true;
         return;
       }
 
-      if(this.model.password.length < 6){
+      if (this.model.password.length < 6) {
 
         this.valid_pass0 = true;
         return;
       }
 
-      if(this.valid_correo == true)
+      if (this.valid_correo === true) {
         return;
+      }
 
       this.valid_pass = false;
       this.valid_pass0 = false;
@@ -65,8 +66,8 @@ export class RegisterComponent implements OnInit {
 
       this.model.valuePa = this.valuePa;
 
-      var mensaje = "";
-      var mensaje_err = "";
+      // var mensaje = "";
+      const mensaje_err = '';
 
       // switch (this.accion){
       //   case 'I':
@@ -83,11 +84,10 @@ export class RegisterComponent implements OnInit {
           .subscribe(
               data => {
 
-                  if(data.success){
+                  if (data.success) {
 
-                    this.router.navigate(['/registersuccess']);
-                  }
-                  else{
+                    this.router.navigate(['/generico'], { queryParams: { op: 'RS' } });
+                  } else {
 
                     this.loading = false;
                     this.messService.error(data.mensaje);
@@ -104,7 +104,7 @@ export class RegisterComponent implements OnInit {
               });
     }
 
-    getUser(){
+    getUser() {
 
       this.goCorreo = true;
 
@@ -112,11 +112,10 @@ export class RegisterComponent implements OnInit {
           .subscribe(
               data => {
 
-                  if(data.success){
+                  if (data.success) {
 
                     this.valid_correo = false;
-                  }
-                  else{
+                  } else {
 
                     this.valid_correo = true;
                   }
@@ -130,54 +129,58 @@ export class RegisterComponent implements OnInit {
               });
     }
 
-    valuechange_pass(newVal){
+    valuechange_pass(newVal) {
 
-      if(this.model.password != this.model.password0)
-          this.valid_pass = true;
-      else{
+      if (this.model.password !== this.model.password0) {
+        this.valid_pass = true;
+      } else {
 
         this.valid_pass = false;
 
-        if(this.model.password.length < 6)
+        if (this.model.password.length < 6) {
           this.valid_pass0 = true;
-        else
+        } else {
+
           this.valid_pass0 = false;
+        }
 
       }
 
     }
 
-    private showMess(){
+    private showMess() {
 
         setTimeout(() => {
 
-          jQuery("#messModal").modal("show");
+          jQuery('#messModal').modal('show');
         }, 200);
     }
 
-    private setSelect2Paises(){
+    private setSelect2Paises() {
 
       this.paisService.getAll().subscribe(
         paises => {
 
-          if(paises.success){
+          if (paises.success) {
 
             this.paises = new Array<Select2OptionData>();
 
-            for(var i=0; i<paises.data.length; i++){
-              this.paises.push({id: "" + paises.data[i].idPais, text: paises.data[i].pais});
+            for (let i = 0; i < paises.data.length; i++) {
+
+              this.paises.push({id: '' + paises.data[i].idPais, text: paises.data[i].pais});
             }
 
             this.defaultPa();
-          }
-          else
+          } else {
+
             console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
+          }
         });
     }
 
-    private defaultPa(){
+    private defaultPa() {
 
-      if(this.paises.length>0){
+      if (this.paises.length > 0) {
 
         this.valuePa = this.paises[0].id;
         this.model.valuePa = this.valuePa;

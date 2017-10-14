@@ -37,14 +37,11 @@ import { AdicionalComponent } from './adicional/adicional.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { CardReservasComponent } from './card-reservas/card-reservas.component';
 import { DetalleEstadosComponent } from './detalle-estados/detalle-estados.component';
-import { RegistrosuccessComponent } from './registrosuccess/registrosuccess.component';
 import { PasswordComponent } from './password/password.component';
-import { ActivaCuentaComponent } from './activa-cuenta/activa-cuenta.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { CardChartComponent } from './card-chart/card-chart.component';
-import { RecuperaPassComponent } from './recupera-pass/recupera-pass.component';
-import { UpPasswordComponent } from './up-password/up-password.component';
 import { HospedajeComponent } from './hospedaje/hospedaje.component';
+import { GenericoComponent } from './generico/generico.component';
 
 @NgModule({
   declarations: [
@@ -63,14 +60,11 @@ import { HospedajeComponent } from './hospedaje/hospedaje.component';
     AdicionalComponent,
     CardReservasComponent,
     DetalleEstadosComponent,
-    RegistrosuccessComponent,
     PasswordComponent,
-    ActivaCuentaComponent,
     PagosComponent,
     CardChartComponent,
-    RecuperaPassComponent,
-    UpPasswordComponent,
     HospedajeComponent,
+    GenericoComponent,
   ],
   imports: [
     BrowserModule,

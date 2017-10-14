@@ -14,17 +14,26 @@ export class ReserveService {
 
     getById(id: number) {
 
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const param = encodeURIComponent('<params accion = "C1" idReserva= "'+ id +'" idHospedaje="'+ currentUser.idHospedaje +'" />');
+      return this.http.get('/api/reservas/' + param, this.jwt()).map((response: Response) => response.json());
+    }
 
-        var param = encodeURIComponent('<params accion = "C1" idReserva= "'+ id +'" idHospedaje="'+ currentUser.idHospedaje +'" />');
-        return this.http.get('/api/reservas/' + param, this.jwt()).map((response: Response) => response.json());
+    getByIdEx(id: number) {
+
+      return this.http.get('/api/reservas/ex/' + id, this.jwt()).map((response: Response) => response.json());
+    }
+
+    confirmaReserva(id: number) {
+
+      return this.http.get('/api/reservas/ex/confirma/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     getByDate(consulta: string, feDesde: string, feHasta: string) { //DD/MM/AAAA Y DD/MM/AAAA
 
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        var param = encodeURIComponent('<params accion = "'+ consulta +'" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta
+        const param = encodeURIComponent('<params accion = "'+ consulta +'" feDesde= "'+ feDesde +'" feHasta= "'+ feHasta
                                             +'" idHospedaje= "'+ currentUser.idHospedaje +'" />');
 
         return this.http.get('/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());
@@ -32,16 +41,17 @@ export class ReserveService {
 
     mantenimiento(reserve: Reserve) {
 
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         reserve.idHospedaje = currentUser.idHospedaje;
         reserve.idUsuario = currentUser.idUsuario;
 
-        if(reserve.estado == 'Co'){
+        if (reserve.estado === 'Co') {
 
-          var today = new Date();
-
-          reserve.feHasta = new Date(new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24));
+          const today = new Date();
+          reserve.feHasta = new Date(
+            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24)
+          );
         }
 
         return this.http.post('/api/reservas', reserve, this.jwt()).map((response: Response) => response.json());

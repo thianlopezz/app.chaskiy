@@ -1,0 +1,241 @@
+<!-- R E C U P E R A  C O N T R A S E N A -->
+<div *ngIf="op=='RP'" class="container">
+  <div class="col-md-6 ml-auto mr-auto">
+    <h2>Recuperar contraseña</h2>
+    <div class="card mt-4">
+      <div class="card-body">
+        <form name="form" (ngSubmit)="f.form.valid && recupera(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+          <h4 class="card-subtitle mb-2 text-muted">Usuario</h4>
+          <hr class="my-2">
+          <div class="form-group">
+            <label for="correo">Correo electrónico</label>
+            <div class="input-group">
+              <input type="email" class="form-control col-md-11" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true"
+                required />
+            </div>
+            <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
+            <div *ngIf="correo.touched && !correo.valid && !f.submitted">
+              <p class="text-danger">Ingrese un electrónico válido</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
+            <button [disabled]="loading0" class="btn btn-primary">Recuperar</button>
+            <a *ngIf="!loading0" [routerLink]="['/home']" class="btn btn-link">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- R E G I S T E R  S U C C E S S -->
+<section *ngIf="op=='RS'" class="mensaje">
+  <div class="card ml-auto mr-auto">
+    <div class="card-body">
+      <p>Tu registro se completó correctamente, no olvides confirmar tu cuenta con el mensaje enviado a tu correo.</p>
+      <p>No olvides tambien revisar tu bandeja de correos no deseados.</p>
+      <!-- <p>Inicia sesión dando click
+        <a [routerLink]="['/login']">aquí</a>
+      </p> -->
+    </div>
+  </div>
+</section>
+<!-- A C T I V A  C U E N T A -->
+<section *ngIf="op=='AC'" class="mensaje">
+  <div class="card ml-auto mr-auto">
+    <div class="card-body">
+      <div *ngIf="!muestra" class="row mr-auto ml-auto" style="width:100%;">
+        <img style="height:3rem;" src="/assets/images/loading.svg" />
+      </div>
+      <div *ngIf="muestra">
+        <p>Tu cuenta ha sido activada correctamente, es momento de disfrutar las bondades que te ofrece Chaskiy Qurpa.</p>
+        <p>Inicia sesión dando click
+          <a [routerLink]="['/login']">aquí</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- U P D A T E  P A S S W O R D -->
+<div *ngIf="op=='UP'" class="container">
+  <div class="col-md-6 ml-auto mr-auto">
+    <h2>Recuperar contraseña</h2>
+    <div class="card mt-4">
+      <div class="card-body">
+        <form name="form" (ngSubmit)="f.form.valid && updatePass(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+          <h4 class="card-subtitle mb-2 text-muted">Actual</h4>
+          <hr class="my-2">
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" (ngModelChange)="valuechange_pass($event)"
+              required />
+            <div *ngIf="f.submitted && !password.valid" class="invalid-feedback">La contraseña es requerida</div>
+          </div>
+          <div class="form-group">
+            <label for="password0">Repetir la contraseña</label>
+            <input type="password" class="form-control" name="password0" [(ngModel)]="model.password0" #password0="ngModel" (ngModelChange)="valuechange_pass($event)"
+              required />
+            <div *ngIf="f.submitted && !password0.valid" class="invalid-feedback">Repita la contraseña</div>
+            <div *ngIf="valid_pass">
+              <p class="text-warning">Las contraseñas no coinciden</p>
+            </div>
+            <div *ngIf="valid_pass0">
+              <p class="text-warning">La contraseñas debe contener al menos 6 caracteres</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
+            <button [disabled]="loading" class="btn btn-primary">Guardar</button>
+            <a *ngIf="!loading" [routerLink]="['/home']" class="btn btn-link">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- R E S E R V A  V I E W / C O N F I R M -->
+<div *ngIf="op=='RE'" class="container">
+  <div *ngIf="showReserve" class="row">
+    <div class="col-lg-3 col-md-2 col-sm-12">
+      <div class="card" ><!-- style="width: 20rem;" -->
+        <img class="card-img-top" [src]="'https://correo-generico.herokuapp.com/logo_hospedaje'+ model.hospedaje.idHospedaje +'.png'" alt="Logo">
+        <div class="card-body">
+          <h4 class="card-title">{{model.hospedaje.hospedaje}}</h4>
+          <div class="row">
+            <div *ngFor="let red of redes" [hidden]="red.valor===''" class="col-auto">
+              <a [href]="red.url+''+red.valor" target="_blank">
+                <i [class]="red.icon" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            {{model.hospedaje.direccion}}
+          </div>
+          <div class="row">
+            {{model.hospedaje.ciudad}}
+          </div>
+          <div class="row">
+            <a [href]="'mailto:' + model.hospedaje.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{model.hospedaje.correo}}</a>            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="col-md-12">
+      <h2>Información de reserva
+        <small><span *ngIf="model.estado" [ngClass]="getEstadoStyle(model)" class="badge badge-pill">{{getEstado(model)}}</span></small>
+      </h2>
+      <div class="card mt-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="correo">
+                  <strong>Correo electrónico</strong>
+                </label>
+                <p name="correo" class="text-muted">
+                  {{model.pass.correo}}
+                </p>
+              </div>
+              <div class="form-group">
+                <label for="pasajero">
+                  <strong>Nombre</strong>
+                </label>
+                <p name="pasajero" class="text-muted">{{model.pass.pasajero}}</p>
+              </div>
+              <div class="form-group">
+                <label for="pais">
+                  <strong>Pais</strong>
+                </label>
+                <p name="pais" class="text-muted">{{model.pass.pais}}</p>
+              </div>
+              <div class="form-group">
+                <label for="noContacto">
+                  <strong>Número de contacto</strong>
+                </label>
+                <p name="noContacto" class="text-muted">{{model.pass.noContacto}}</p>
+              </div>
+              <div class="form-group">
+                <label for="noPersonas">
+                  <strong>Número de personas</strong>
+                </label>
+                <p name="noPersonas" class="text-muted">{{model.noPersonas}}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="aerolinea">
+                  <strong>Aerolínea</strong>
+                </label>
+                <p name="notas" class="text-muted">{{model.aerolinea}}</p>
+              </div>
+              <div class="form-group">
+                <label for="adicional">
+                  <strong>Adicionales</strong>
+                </label>
+                <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.valueAd">
+                  <h6 class="alert-heading">{{' ' + adi.adicional}}
+                  </h6>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="habitaciones">
+                  <strong>Habitaciones</strong>
+                </label>
+                <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
+                  <h6 class="alert-heading">{{' ' + room.habitacion}}
+                    <small>
+                       {{nightDiff(room.feDesde, room.feHasta)}} noche(s)
+                    </small>
+                  </h6>
+                  <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
+                </div>
+              </div>
+              <hr class="my-4">
+              <div class="d-flex flex-row-reverse">
+                <div class="p-2">
+                  <h4>{{getTotal() | currency:'USD':true}}</h4>
+                </div>
+                <div class="p-2">
+                  <h4>Total</h4>
+                </div>
+              </div>
+              <div *ngIf="model.estado!='Pr'" class="d-flex flex-row-reverse">
+                <div class="p-2">
+                  <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                </div>
+                <div class="p-2">
+                  <h5>Pagado</h5>
+                </div>
+              </div>
+              <div *ngIf="model.estado!='Pr'" class="d-flex flex-row-reverse">
+                <div class="p-2">
+                  <h5>{{getTotal() - model.totalPagado | currency:'USD':true}}</h5>
+                </div>
+                <div class="p-2">
+                  <h5>Saldo</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-2">
+          <div *ngIf="model.estado === 'Pr'" class="row">
+            <div class="col-md-2">
+              <img *ngIf="loading" src="/assets/images/loading.svg" />
+              <button *ngIf="!loading" type="buttom" (click)="confirma()" class="btn btn-primary">Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <section *ngIf="showMensajeReserva" class="mensaje">
+    <div class="card ml-auto mr-auto">
+      <div class="card-body">
+        <p>{{mensaje}}</p>
+      </div>
+    </div>
+  </section>
+</div>

@@ -48,6 +48,17 @@ router.post('/auth/login', (req, res) => {
 
 });
 
+// E X T  R E S E R V A
+router.get('/reservas/ex/:id', (req, res) => {
+
+  reservas.getByIdEx(req.params.id, res);
+});
+
+router.get('/reservas/ex/confirma/:id', (req, res) => {
+
+  reservas.confirma(req.params.id, res);
+});
+
 //R E G I S T R O
 router.post('/register', (req, res) => {
 
@@ -78,6 +89,12 @@ router.post('/register/uprecupera', (req, res) => {
 router.get('/paises/all/:param', (req, res) => {
 
   paises.get(req.params.param, res);
+});
+
+//S O C I A L
+router.get('/social/all/:param', (req, res) => {
+
+  social.get(req.params.param, res);
 });
 
 // B R O K E R
@@ -115,12 +132,6 @@ router.use(function(req, res, next) {
 });
 
 // R U T A S  P R I V A D A S
-
-//S O C I A L
-router.get('/social/all/:param', (req, res) => {
-
-  social.get(req.params.param, res);
-});
 
 //H O S P E D A J E
 router.get('/hospedaje/all/:param', (req, res) => {

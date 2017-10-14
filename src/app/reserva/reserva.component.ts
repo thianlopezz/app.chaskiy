@@ -17,9 +17,9 @@ declare var jQuery:any;
 })
 export class ReservaComponent implements OnInit {
 
-	rooms: Habitacion[] =[];
-	user: any = {};
-	current: CurrentMonth;
+  rooms: Habitacion[] =[];
+  user: any = {};
+  current: CurrentMonth;
 
   reservados: any[] =[];
   reservadosDb: any[] =[];
@@ -33,14 +33,14 @@ export class ReservaComponent implements OnInit {
 
   model: any = {};
 
-  noReserve: number= 0;
+  noReserve = 0;
 
-  loading:boolean = false;
+  loading = false;
 
-  accion:string = "I";
-  esModi: boolean = true;
+  accion = 'I';
+  esModi = true;
 
-  contEdita: number = 0;
+  contEdita = 0;
 
   jQuery:any;
 
@@ -56,7 +56,7 @@ export class ReservaComponent implements OnInit {
 
   subscription: any;
 
-  modiVal: boolean = false;
+  modiVal = false;
   auxValor: any = {idHabitacion: 0, habitacion: '', tarifa: 0,
                     feDesde: new Date(), feHasta: new Date()};
   auxValor0: any ={};
@@ -92,16 +92,16 @@ export class ReservaComponent implements OnInit {
 
     this.isLogged();
 
-    var now = new Date();
+    const now = new Date();
 
-    var dia = now.getDate();
-    var mes = now.getMonth();
-    var anio = now.getFullYear();
+    const dia = now.getDate();
+    const mes = now.getMonth();
+    const anio = now.getFullYear();
 
     this.toDay = new Date(anio, mes, dia, 0, 0, 0, 0);
 
     this.model.pass = {};
-    this.model.notas = "";
+    this.model.notas = '';
     this.model.ident = true;
     this.current = new CurrentMonth();
 
@@ -868,39 +868,33 @@ deletePago(){
 
 // getMonth(mes: number, anio: number){
 // 	this.currentMonth.
-// }
-getTotal(){
-
-  if(!this.model.habitaciones || this.model.habitaciones.length==0)
-    return 0;
-
-  var habitaciones = this.model.habitaciones;
-  var adicionales = this.model.valueAd || [];
-
-  var sum = 0;
-  for(var i=0; i<habitaciones.length; i++){
-
-    sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
-  }
-
-  for(var i=0; i<adicionales.length; i++){
-
-    sum = sum + (adicionales[i].tarifa * adicionales[i].cantidad);
-  }
-
-  // var sumPagado = 0;
-  // //TOTAL PAGADO
-  // for(var i=0; i<this.pagos.length; i++){
-  //
-  //   sumPagado = sumPagado + this.pagos[i].monto;
   // }
 
-  this.model.total = sum;
-  // this.model.totalPagado = sumPagado;
-  // this.model.saldo = sum - sumPagado;
+  getTotal() {
 
-  return this.model.total;
-}
+    if (!this.model.habitaciones || this.model.habitaciones.length === 0) {
+
+      return 0;
+    }
+
+    const habitaciones = this.model.habitaciones;
+    const adicionales = this.model.valueAd || [];
+
+    let sum = 0;
+    for (let i = 0; i < habitaciones.length; i++) {
+
+      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
+    }
+
+    for (let i = 0; i < adicionales.length; i++) {
+
+      sum = sum + (adicionales[i].tarifa * adicionales[i].cantidad);
+    }
+
+    this.model.total = sum;
+
+    return this.model.total;
+  }
 
 modiTarifa(room: any){
 
@@ -1130,7 +1124,7 @@ getReserveDet(_room: Habitacion, dia: number){
   this.reserveService.getById(this.reservadosDb[indexDb].idReserva).subscribe(
     reservas => {
 
-      if(reservas.success){
+      if(reservas.success) {
 
         this.model = reservas.data[0];
         //console.log(this.model.valueAd);
@@ -1150,8 +1144,7 @@ getReserveDet(_room: Habitacion, dia: number){
         this.getPagos();
 
         jQuery("#reservaModal").modal("show");
-      }
-      else{
+      } else {
 
         console.log('Error>> getById>> ' + reservas.mensaje);
       }
