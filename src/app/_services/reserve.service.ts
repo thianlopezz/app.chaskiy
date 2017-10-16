@@ -26,7 +26,7 @@ export class ReserveService {
 
     confirmaReserva(id: number) {
 
-      return this.http.get('/api/reservas/ex/confirma/' + id, this.jwt()).map((response: Response) => response.json());
+      return this.http.get('/api/reservas/confirma/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     getByDate(consulta: string, feDesde: string, feHasta: string) { //DD/MM/AAAA Y DD/MM/AAAA

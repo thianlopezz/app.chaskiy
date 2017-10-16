@@ -24,7 +24,7 @@ const axios = require('axios');
 
 /* GET api listing. */
 router.get('/', (req, res) => {
-  res.send('api works');
+  res.send('api works! motherfuckers!');
 });
 
 // Get all posts
@@ -55,8 +55,8 @@ router.get('/reservas/ex/:id/:token', (req, res) => {
   reservas.getByIdEx(req.params.id, req.params.token, res);
 });
 
-router.get('/reservas/ex/confirma/:id', (req, res) => {
-
+router.get('/reservas/confirma/:id', (req, res) => {
+  
   reservas.confirma(req.params.id, res);
 });
 
