@@ -4,7 +4,6 @@ var md5 = require('md5');
 function auth() {
 
   this.logIn = function(usuario, password, res, callback) {
-    
     connection.acquire(function(err, con) {
       con.query('call seg_login(\''+ usuario +'\', \''+ md5(password) +'\')', function(err, result) {
         try{

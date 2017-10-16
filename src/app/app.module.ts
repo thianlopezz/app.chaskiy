@@ -10,9 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
 import { LoginService } from './login.service';
-//import { AlertDirective } from './alert.directive';
 import { AlertComponent } from './alert/alert.component';
-//import { AlertComponent } from './_directives/index';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LandingComponent } from './landing/landing.component';
@@ -20,7 +18,8 @@ import { LandingComponent } from './landing/landing.component';
 import { AlertService, ConfirmService, AuthenticationService, AcceptService,
           RoomService, AerolineaService, PassengerService, ReserveService, PaisService,
           AdicionalService, MessageService, FormaPagoService, PagoService, RegisterService,
-          GoogleAnalyticsEventsService, StatisticService, HospedajeService, SocialService } from './_services/index';
+          GoogleAnalyticsEventsService, StatisticService, HospedajeService, SocialService,
+          FuenteService } from './_services/index';
 
 import { AuthGuard } from './_guards/index';
 import { routing } from './app.routing';
@@ -94,7 +93,8 @@ import { GenericoComponent } from './generico/generico.component';
               GoogleAnalyticsEventsService,
               StatisticService,
               HospedajeService,
-              SocialService],
+              SocialService,
+              FuenteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

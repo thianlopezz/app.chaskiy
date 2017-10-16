@@ -19,9 +19,9 @@ export class ReserveService {
       return this.http.get('/api/reservas/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
-    getByIdEx(id: number) {
+    getByIdEx(id: number, token: string) {
 
-      return this.http.get('/api/reservas/ex/' + id, this.jwt()).map((response: Response) => response.json());
+      return this.http.get('/api/reservas/ex/' + id + '/' + token, this.jwt()).map((response: Response) => response.json());
     }
 
     confirmaReserva(id: number) {

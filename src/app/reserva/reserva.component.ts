@@ -4,11 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmService, AcceptService, RoomService, AerolineaService,
           PassengerService, ReserveService, PaisService, AdicionalService,
           AuthenticationService, MessageService, FormaPagoService,
-          PagoService } from '../_services/index';
+          PagoService, FuenteService } from '../_services/index';
 import { Habitacion, CurrentMonth, dayReserve, Aerolinea } from '../_models/index';
 import { Select2OptionData } from 'ng2-select2';
 
-declare var jQuery:any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-reserva',
@@ -17,19 +17,19 @@ declare var jQuery:any;
 })
 export class ReservaComponent implements OnInit {
 
-  rooms: Habitacion[] =[];
+  rooms: Habitacion[] = [];
   user: any = {};
   current: CurrentMonth;
 
-  reservados: any[] =[];
-  reservadosDb: any[] =[];
-  reservadosDbOd: any[] =[];
+  reservados: any[] = [];
+  reservadosDb: any[] = [];
+  reservadosDbOd: any[] = [];
 
-  formaPagos: any[] =[];
+  formaPagos: any[] = [];
 
-  habitacionesOd: any[] =[];
+  habitacionesOd: any[] = [];
 
-  aerolineas: Aerolinea[] =[];
+  aerolineas: Aerolinea[] = [];
 
   model: any = {};
 
@@ -42,7 +42,7 @@ export class ReservaComponent implements OnInit {
 
   contEdita = 0;
 
-  jQuery:any;
+  jQuery: any;
 
 
   adicionales: Array<Select2OptionData>;
@@ -59,7 +59,7 @@ export class ReservaComponent implements OnInit {
   modiVal = false;
   auxValor: any = {idHabitacion: 0, habitacion: '', tarifa: 0,
                     feDesde: new Date(), feHasta: new Date()};
-  auxValor0: any ={};
+  auxValor0: any = {};
 
   toDay: Date;
 
@@ -71,6 +71,8 @@ export class ReservaComponent implements OnInit {
   editedPass;
 
   passOd: any;
+
+  fuentes: any[] = [];
 
   constructor(private authService: AuthenticationService,
                 private router: Router,
@@ -84,7 +86,8 @@ export class ReservaComponent implements OnInit {
                 private adicionalService: AdicionalService,
                 private messService: MessageService,
                 private formaService: FormaPagoService,
-                private pagoService: PagoService) {
+                private pagoService: PagoService,
+                private fuenteService: FuenteService) {
 
   }
 
@@ -113,6 +116,7 @@ export class ReservaComponent implements OnInit {
     this.loadAllRooms();
     this.loadAllAirlines();
     this.loadAllFormaPagos();
+    this.loadAllFuentes();
     this.setSelect2Paises();
     this.setSelect2Adicionales();
     this.getByDate();
@@ -123,23 +127,22 @@ export class ReservaComponent implements OnInit {
 
   selectedVal(resp) {
 
-    if(resp == "aceptar"){
+    if (resp === 'aceptar') {
 
-      if(this.accion == 'D')
-        jQuery("#detalleEstadosModal").modal("show");
-        else
-          if(this.accion == 'DP')
-            this.deletePago();
-    }
-    else{
+      if (this.accion === 'D') {
+        jQuery('#detalleEstadosModal').modal('show');
+      } else
+      if (this.accion === 'DP') {
+        this.deletePago();
+      }
+    } else {
 
-      if(resp.modo == 'Ci' || resp.modo == 'Co'){
+      if (resp.modo === 'Ci' || resp.modo === 'Co') {
 
         this.model.estadoDetalle = resp.model.observacion;
         this.check(resp.modo);
-      }
-      else
-        if(resp.modo == 'Ca'){
+      } else
+      if (resp.modo === 'Ca') {
 
           this.model.estadoDetalle = resp.model.observacion;
           this.delete();
@@ -153,37 +156,36 @@ export class ReservaComponent implements OnInit {
 
   next() {
 
-  	this.current.nextMonth();
+    this.current.nextMonth();
     this.getByDate();
   }
 
   previous() {
 
-  	this.current.previousMonth();
+    this.current.previousMonth();
     this.getByDate();
   }
 
-  lockIdent(){
+  lockIdent() {
 
     this.model.ident = !this.model.ident;
 
-    if(!this.model.ident){
+    if (!this.model.ident) {
       this.esPass = false;
-      this.model.pass.identificacion = "";
-    }
-    else{
+      this.model.pass.identificacion = '';
+    } else {
       this.esPass = true;
     }
   }
 
-  editaPass(){
+  editaPass() {
 
     this.editaPass_ = true;
     this.editedPass = false;
     this.passOd = Object.assign({}, this.model.pass);
   }
 
-  goEditaPass(){
+  goEditaPass() {
 
     this.editaPass_ = false;
     this.goPass = true;
@@ -194,12 +196,11 @@ export class ReservaComponent implements OnInit {
         .subscribe(
             data => {
 
-                if(data.success){
+                if (data.success) {
 
                   this.goPass = false;
                   this.editedPass = true;
-                }
-                else{
+                } else {
 
                   this.goPass = false;
                   this.messService.error(data.mensaje);
@@ -211,47 +212,43 @@ export class ReservaComponent implements OnInit {
                 console.log(error);
                 this.goPass = false;
 
-                this.messService.error("Hubo un error al actualizar el pasajero");
+                this.messService.error('Hubo un error al actualizar el pasajero');
                 this.showMess();
             });
   }
 
-  cancelEditaPass(){
+  cancelEditaPass() {
 
     this.editaPass_ = false;
     this.model.pass = Object.assign({}, this.passOd);
   }
 
-  getPasse(form: NgForm){
-
-    //this.loading = true;
+  getPasse(form: NgForm) {
     this.goPass = true;
 
-    var correo = this.model.pass.correo;
+    const correo = this.model.pass.correo;
 
     this.passengerService.getById(correo).subscribe(passenger => {
 
-      if(passenger.success){
+      if (passenger.success) {
 
-        if(passenger.data.length == 0){
+        if (passenger.data.length === 0) {
 
           this.esPass = false;
           this.model.pass = {};
           this.defaultPa();
           this.model.pass.correo = correo;
-          this.model.notas = "";
+          this.model.notas = '';
+          this.model.pass.ident = true;
+        } else
+        if (passenger.data.length > 0) {
+
+          this.esPass = true;
+          this.model.pass = passenger.data[0];
+          this.model.pass.valuePa = this.model.pass.idPais;
           this.model.pass.ident = true;
         }
-         else
-           if(passenger.data.length > 0){
-
-              this.esPass = true;
-              this.model.pass = passenger.data[0];
-              this.model.pass.valuePa = this.model.pass.idPais;
-              this.model.pass.ident = true;
-            }
-      }
-      else{
+      } else {
 
       }
 
@@ -260,16 +257,16 @@ export class ReservaComponent implements OnInit {
 
   }
 
-  guardar(form: NgForm){
+  guardar(form: NgForm) {
 
     this.loading = true;
 
     this.model.accion = this.accion;
 
-    var mensaje = "";
-    var mensaje_err = "";
+    let mensaje = '';
+    let mensaje_err = '';
 
-    switch (this.accion){
+    switch (this.accion) {
       case 'I':
         mensaje = 'Reserva creada con éxito';
         mensaje_err = 'Ocurrió un error al crear la reserva';
@@ -280,16 +277,17 @@ export class ReservaComponent implements OnInit {
       break;
     }
 
-    if(this.model.esProforma)
-      this.model.estado = "Pr";
-    else
-      this.model.estado = "Re";
+    if (this.model.esProforma) {
+      this.model.estado = 'Pr';
+    } else {
+      this.model.estado = 'Re';
+    }
 
     this.reserveService.mantenimiento(this.model)
         .subscribe(
             data => {
 
-                if(data.success){
+                if (data.success) {
 
                   this.loading = false;
                   this.esPass = false;
@@ -300,8 +298,7 @@ export class ReservaComponent implements OnInit {
 
                   this.messService.success(mensaje);
                   this.showMess();
-                }
-                else{
+                } else {
 
                   this.loading = false;
                   this.messService.error(data.mensaje);
@@ -604,7 +601,7 @@ deletePago(){
       }
     }
     else
-      if(_room.noClick==2){
+      if(_room.noClick ==2){
 
 
         if(index!=-1){
@@ -647,7 +644,7 @@ deletePago(){
   }
 
   findByIdDb(arreglo: any[], id: number, feIn: Date){
-    for(var i=0; i<arreglo.length; i++){
+    for(var i =0; i<arreglo.length; i++){
       if(arreglo[i].idHabitacion == id &&
         (feIn >= this.getDateString('/', arreglo[i].feDesde)
           && feIn <= this.getDateString('/', arreglo[i].feHasta)))
@@ -661,7 +658,7 @@ deletePago(){
 
     setTimeout(() => {
 
-      var index = this.findById(this.reservados, _room.idHabitacion);
+      let index = this.findById(this.reservados, _room.idHabitacion);
 
       if(index!=-1)
         this.reservados.splice(index, 1);
@@ -675,7 +672,7 @@ deletePago(){
 
   getLim(_op:string, _room: Habitacion, dia: number){
 
-    var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+    let indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     if(indexDb!=-1){
 
@@ -691,8 +688,8 @@ deletePago(){
 
   isSelected(_room: Habitacion, dia: number){
 
-    var index = this.findById(this.reservados, _room.idHabitacion);
-    var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+    let index = this.findById(this.reservados, _room.idHabitacion);
+    let indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     // if(indexDb != -1 && dia > 2)
     //   debugger;
@@ -766,7 +763,7 @@ deletePago(){
 
   setDay2(){
 
-    for(var i=0; i<this.reservados.length; i++)
+    for(let i=0; i<this.reservados.length; i++)
       if(this.reservados[i].feDesde == this.reservados[i].feHasta)
         this.reservados[i].feHasta
                                 = new Date(this.reservados[i].feHasta.getTime()
@@ -905,7 +902,7 @@ modiTarifa(room: any){
 modiTarifa0(adi: any){
 
   this.auxValor0 = Object.assign({}, adi);
-  //this.modiVal = true;
+  // this.modiVal = true;
 }
 
 goModiVal(){
@@ -918,12 +915,12 @@ goModiVal(){
 goModiVal0(){
 
   this.auxValor0 = {idAdicional: 0, adicional: '', tarifa: 0, cantidad: 0};
-  //this.modiVal = false;
+  // this.modiVal = false;
 }
 
 cancelTarifa(room: any){
 
-  var index = this.findById(this.model.habitaciones, room.idHabitacion);
+  let index = this.findById(this.model.habitaciones, room.idHabitacion);
 
   this.model.habitaciones[index] = Object.assign({}, this.auxValor);
   this.auxValor = {idHabitacion: 0, habitacion: '', tarifa: 0,
@@ -933,7 +930,7 @@ cancelTarifa(room: any){
 
 cancelTarifa0(adi: any){
 
-  var index = this.findById0(this.model.valueAd, adi.idAdicional);
+  let index = this.findById0(this.model.valueAd, adi.idAdicional);
 
   this.model.valueAd[index] = Object.assign({}, this.auxValor0);
   this.auxValor0 = {idAdicional: 0, adicional: '', tarifa: 0, cantidad: 0};
@@ -953,13 +950,13 @@ changedPa(e: any): void {
 
 changedAd(e: any): void {
 
-  this.model.valueAd = [];//e.value;
+  this.model.valueAd = [];// e.value;
 
   // tarifa de bd cuando se edita
 
-  for(var i = 0; i<e.value.length; i++){
+  for(let i = 0; i<e.value.length; i++){
 
-    var index = this.findById0(this._adicionales, e.value[i]);
+    let index = this.findById0(this._adicionales, e.value[i]);
     this._adicionales[index].cantidad = 1;
     this.model.valueAd.push(this._adicionales[index]);
   }
@@ -977,7 +974,7 @@ changedAd(e: any): void {
 setAds(arreglo: any[]): void {
 
   this.valueAd = [];
-  for(var i=0; i<arreglo.length; i++)
+  for(let i=0; i<arreglo.length; i++)
     this.valueAd.push(''+arreglo[i].idAdicional);
 }
 
@@ -988,7 +985,7 @@ setPa(idPais: any): void {
 
 getWeekDay(dia: number){
 
-  var now = new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0);
+  let now = new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0);
   return this.current.dias[now.getDay()];
 }
 
@@ -1024,36 +1021,24 @@ setModi(){
 
   this.contEdita ++;
 
-  var cont = 0;
+  let cont = 0;
 
-  while(this.model.habitaciones.length != cont){
+  while (this.model.habitaciones.length !== cont) {
 
-    for(var i=0; i<this.reservadosDb.length; i++)
-      if(this.reservadosDb[i].idReserva == this.model.idReserva){
+    for (let i = 0; i < this.reservadosDb.length; i++) {
+      if (this.reservadosDb[i].idReserva === this.model.idReserva) {
         this.reservadosDb.splice(i, 1);
-        cont ++;
+        cont++;
       }
+    }
   }
   this.reservados = this.model.habitaciones;
 
-
-  // for(var i=0; i<this.model.habitaciones.length; i++){
-
-  //   this.reservados.push(
-  //                         {
-  //                           idHabitacion: this.model.habitaciones[i].idHabitacion,
-  //                           habitacion: this.model.habitaciones[i].habitacion,
-  //                           feDesde: this.model.habitaciones[i].feDesde,
-  //                           feHasta: this.model.habitaciones[i].feHasta
-  //                           });
-  // }
-
-  jQuery("#reservaModal").modal("hide");
+  jQuery('#reservaModal').modal('hide');
 }
 
 setNuevoPago(){
 
-  //this.accion = 'I';
   this.model.pago = {};
   this.model.pago.accion = 'I';
 }
@@ -1062,7 +1047,7 @@ goModi(){
 
   this.setDay2();
   this.model.habitaciones = this.reservados;
-  jQuery("#reservaModal").modal("show");
+  jQuery('#reservaModal').modal('show');
 }
 
 quitModi(){
@@ -1072,22 +1057,21 @@ quitModi(){
   this.reservados = [];
   this.esModi = false;
   this.contEdita = 0;
-  jQuery("#reservaModal").modal("show");
+  jQuery('#reservaModal').modal('show');
 }
 
-quitRes(){
+quitRes() {
 
-  if(this.contEdita > 0){
+  if (this.contEdita > 0) {
 
     this.reservadosDb = Object.assign([], this.reservadosDbOd);
     this.model.habitaciones = Object.assign([], this.habitacionesOd);
-    this.model
   }
 
   this.esPass = false;
   this.model = {};
   this.model.pass = {};
-  this.model.notas = "";
+  this.model.notas = '';
   this.model.ident = true;
   this.reservados = [];
   this.valueAd = [];
@@ -1099,43 +1083,34 @@ quitRes(){
 setCancel(){
 
   this.accion = 'D';
-  this.model.a_estado = 'Ca'
+  this.model.a_estado = 'Ca';
   this.confirmService.go('¿Está seguro de cancelar la reserva?');
 }
 
-// private setRes2Res(){
-// }
+getReserveDet(_room: Habitacion, dia: number) {
 
-getReserveDet(_room: Habitacion, dia: number){
-
-  var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion,
+  const indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion,
                                   new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
   this.esModi = false;
 
   this.esPass = true;
   this.model = {};
   this.model.pass = {};
-  this.model.notas = "";
+  this.model.notas = '';
   this.model.ident = true;
   this.reservados = [];
-
-  //this.model.pago = {};
 
   this.reserveService.getById(this.reservadosDb[indexDb].idReserva).subscribe(
     reservas => {
 
       if(reservas.success) {
+        debugger;
 
         this.model = reservas.data[0];
-        //console.log(this.model.valueAd);
         this.setAds(this.model.valueAd);
-        //this.model.valueAdDets = this.model.valueAd;
-        //this.model.valueAd = this.valueAd;
+
         this.setPa(this.model.pass.idPais);
         this.model.habitaciones = this.setDateHab(this.model.habitaciones);
-
-        // if(this.model.habitaciones[0].feDesde.getTime() >= this.toDay.getTime())
-        //   this.accion = 'U';
 
         this.accion = 'U';
 
@@ -1143,7 +1118,7 @@ getReserveDet(_room: Habitacion, dia: number){
 
         this.getPagos();
 
-        jQuery("#reservaModal").modal("show");
+        jQuery('#reservaModal').modal('show');
       } else {
 
         console.log('Error>> getById>> ' + reservas.mensaje);
@@ -1151,33 +1126,31 @@ getReserveDet(_room: Habitacion, dia: number){
     });
 }
 
-setElimPago(model: any){
+setElimPago(model: any) {
 
   this.accion = 'DP';
   this.model.pago = Object.assign({}, model);
   this.confirmService.go('¿Desea eliminar el registro?');
 }
 
-getPagos(){
+getPagos() {
 
   this.pagoService.getAll(this.model.idReserva)
-                          .subscribe(pagos =>
-                            {
-                              if(pagos.success){
+                          .subscribe(pagos => {
+                              if (pagos.success) {
 
                                 this.model.pago = {};
                                 this.pagos = pagos.data;
 
                                 let sum = 0;
 
-                                for(var i=0; i<pagos.data.length; i++){
+                                for(let i=0; i<pagos.data.length; i++) {
 
                                   sum+=pagos.data[i].monto;
                                 }
 
                                 this.model.totalPagado = sum;
-                              }
-                              else{
+                              } else {
 
                                 console.log('Error>> pagoService>> ' + pagos.mensaje);
                               }
@@ -1186,26 +1159,35 @@ getPagos(){
 
 getToolTip(_op, _room: Habitacion, dia: number){
 
-  var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-  var reserva = this.reservadosDb[indexDb];
+  const indexDb = this.findByIdDb(this.reservadosDb,
+                                  _room.idHabitacion,
+                                  new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+  const reserva = this.reservadosDb[indexDb];
 
-  if(_op == 'I')
+  if (_op === 'I') {
     return '' + reserva.pasajero;
+  }
 
-  if(_op == 'O')
+  if (_op === 'O') {
     return '' + reserva.pasajero;
+  }
 
 }
 
 isReserved(_room: Habitacion, dia: number){
 
-  var indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+  const indexDb = this.findByIdDb(this.reservadosDb,
+                                  _room.idHabitacion,
+                                  new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
-  if(indexDb!=-1){
+  if (indexDb !== -1) {
 
-    if(new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0) >= this.getDateString('/', this.reservadosDb[indexDb].feDesde)
-        && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0) <= this.getDateString('/', this.reservadosDb[indexDb].feHasta))
-      return true;
+    if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
+        >= this.getDateString('/', this.reservadosDb[indexDb].feDesde)
+        && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
+        <= this.getDateString('/', this.reservadosDb[indexDb].feHasta)) {
+          return true;
+        }
 
     return false;
   }
@@ -1215,45 +1197,48 @@ isReserved(_room: Habitacion, dia: number){
 
 ocultaBtnModi(op: string){
 
-  switch(op){
+  switch(op) {
 
     case 'Ci':
 
-      if(this.model.estado == 'Co')
+      if (this.model.estado === 'Co') {
         return false;
+      }
 
-      if(this.model.estado == 'Ci')
+      if (this.model.estado === 'Ci') {
         return false;
+      }
 
-      if(this.model.habitaciones[0].feDesde.getTime()
-          == this.toDay.getTime())
+      if (this.model.habitaciones[0].feDesde.getTime()
+          === this.toDay.getTime()){
         return true;
+          }
+
 
       return false;
     case 'Co':
 
-      // if(this.model.estado == 'Ci'
-      //   && !(this.model.estado == 'Co'))
-      //   return true;
-      //
-      // return false;
-      if(this.model.estado == 'Ci')
+      if (this.model.estado === 'Ci') {
         return true;
+      }
 
       return false;
     case 'D':
 
-      if(this.model.estado == 'Ci')
+      if (this.model.estado === 'Ci') {
         return false;
+      }
 
-      if(this.model.estado == 'Co')
+      if (this.model.estado === 'Co') {
         return false;
+      }
 
       return true;
     case 'U':
 
-      if(this.toDay.getTime() < this.model.habitaciones[0].feDesde.getTime())
-        return true
+      if (this.toDay.getTime() < this.model.habitaciones[0].feDesde.getTime()) {
+        return true;
+      }
 
       return false;
   }
@@ -1266,7 +1251,7 @@ getEstado(){
 
 private setDateHab(arreglo: any[]){
 
-  for(var i=0; i<arreglo.length; i++){
+  for(let i=0; i<arreglo.length; i++){
 
     arreglo[i].feDesde = this.getDateString('/', arreglo[i].feDesde);
     arreglo[i].feHasta = this.getDateString('/', arreglo[i].feHasta);
@@ -1288,10 +1273,11 @@ private loadAllRooms() {
 
   this.roomService.getAll().subscribe(rooms => {
 
-    if(rooms.success)
+    if (rooms.success) {
       this.rooms = rooms.data;
-    else
+    } else{
       console.log('Error>> loadAllRooms>> ' + rooms.mensaje);
+    }
   });
 }
 
@@ -1299,10 +1285,11 @@ private loadAllAirlines() {
 
   this.aerolineaService.getAll().subscribe(aerolineas => {
 
-    if(aerolineas.success)
+    if(aerolineas.success){
       this.aerolineas = aerolineas.data;
-    else
+    } else {
       console.log('Error>> loadAllAirlines>> ' + aerolineas.mensaje);
+    }
   });
 }
 
@@ -1310,10 +1297,23 @@ private loadAllFormaPagos() {
 
   this.formaService.getAll().subscribe(formas => {
 
-    if(formas.success)
+    if (formas.success) {
       this.formaPagos = formas.data;
-    else
+    } else {
       console.log('Error>> loadAllFormaPagos>> ' + formas.mensaje);
+    }
+  });
+}
+
+private loadAllFuentes() {
+
+  this.fuenteService.getAll().subscribe(fuente => {
+
+    if (fuente.success) {
+      this.fuentes = fuente.data;
+    } else {
+      console.log('Error>> loadAllFuentes>> ' + fuente.mensaje);
+    }
   });
 }
 
@@ -1326,14 +1326,15 @@ private setSelect2Paises(){
 
         this.paises = new Array<Select2OptionData>();
 
-        for(var i=0; i<paises.data.length; i++){
-          this.paises.push({id: "" + paises.data[i].idPais, text: paises.data[i].pais});
+        for(let i = 0; i < paises.data.length; i++) {
+          this.paises.push({id: '' + paises.data[i].idPais, text: paises.data[i].pais});
         }
 
         this.defaultPa();
-      }
-      else
+      } else {
         console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
+      }
+
     });
 }
 
@@ -1349,79 +1350,66 @@ private setSelect2Adicionales(){
         this.adicionales = new Array<Select2OptionData>();
         this._adicionales = adicionales.data;
 
-        for(var i=0; i<adicionales.data.length; i++){
-          this.adicionales.push({id: "" + adicionales.data[i].idAdicional, text: adicionales.data[i].adicional});
+        for(let i = 0; i < adicionales.data.length; i++) {
+          this.adicionales.push({id: '' + adicionales.data[i].idAdicional, text: adicionales.data[i].adicional});
         }
 
-      }
-      else
+      } else {
         console.log('Error>> loadAllFormaPagos>> ' + adicionales.mensaje);
+      }
     });
 }
 
 private getByDate() {
 
-  var feDesde = '01' + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
-  var feHasta = this.current.finMes + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
+  const feDesde = '01' + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
+  const feHasta = this.current.finMes + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
 
   this.reserveService.getByDate('C', feDesde, feHasta).subscribe(
     reservas => {
 
-      if(reservas.success){
+      if(reservas.success) {
 
         this.reservadosDb = reservas.data;
-      }
-      else{
+      } else {
 
         console.log('Error>> getByDate>> ' + reservas.mensaje);
       }
     });
 }
 
-// cierraPagos(){
-//
-//   jQuery("#pagosModal").modal("hide");
-//
-//   setTimeout(() => {
-//
-//     jQuery("#reservaModal").modal("show");
-//   }, 200);
-//
-// }
-
 private getDateString(delimiter: string, date: string){
 
-  var auxDate= date.split(delimiter);
+  const auxDate = date.split(delimiter);
   return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
 }
 
-private showMess(){
+private showMess() {
 
-  jQuery("#reservaModal").modal("hide");
+  jQuery('#reservaModal').modal('hide');
 
     setTimeout(() => {
 
-      jQuery("#messModal").modal("show");
+      jQuery('#messModal').modal('show');
     }, 200);
 }
 
-private showMessPago(){
+private showMessPago() {
 
-  jQuery("#pagoModal").modal("hide");
+  jQuery('#pagoModal').modal('hide');
 
     setTimeout(() => {
 
-      jQuery("#messModal").modal("show");
+      jQuery('#messModal').modal('show');
     }, 200);
 }
 
 private isLogged(){
 
     this.authService.isLogged().subscribe(
-                                response =>
-                                {
+                                response => {
 
-                                    if(!response.success)
+                                    if (!response.success)
                                         this.router.navigate(['/login']);
                                 },
                                 error => this.router.navigate(['/login']) );

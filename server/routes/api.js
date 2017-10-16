@@ -17,6 +17,7 @@ var register = require('../../_Models/register');
 var statistic = require('../../_Models/statistic');
 var hospedaje = require('../../_Models/hospedaje');
 var social = require('../../_Models/social');
+var fuente = require('../../_Models/fuente');
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -49,9 +50,9 @@ router.post('/auth/login', (req, res) => {
 });
 
 // E X T  R E S E R V A
-router.get('/reservas/ex/:id', (req, res) => {
+router.get('/reservas/ex/:id/:token', (req, res) => {
 
-  reservas.getByIdEx(req.params.id, res);
+  reservas.getByIdEx(req.params.id, req.params.token, res);
 });
 
 router.get('/reservas/ex/confirma/:id', (req, res) => {
@@ -132,6 +133,12 @@ router.use(function(req, res, next) {
 });
 
 // R U T A S  P R I V A D A S
+
+//F U E N T E
+router.get('/fuente/all/:param', (req, res) => {
+
+  fuente.get(req.params.param, res);
+});
 
 //H O S P E D A J E
 router.get('/hospedaje/all/:param', (req, res) => {

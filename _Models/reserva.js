@@ -1,6 +1,7 @@
 var connection = require('../server/connection');
 var moment = require('moment');
 const axios = require('axios');
+var md5 = require('md5');
 
 const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
 
@@ -58,9 +59,9 @@ function Reserva() {
     });
   };
 
-  this.getByIdEx = function (id, res) {
+  this.getByIdEx = function (id, token, res) {
     connection.acquire(function (err, con) {
-      con.query('call res_exte(\'' + id + '\')', function (err, result) {
+      con.query('call res_exte(\'' + id + '\', \'' + token + '\')', function (err, result) {
         try {
 
           con.release();
@@ -70,7 +71,7 @@ function Reserva() {
             res.send({ success: false, mensaje: '' + err });
           }
 
-          if (result[0][0] !== undefined) {
+          if (result[0][0].err === undefined) {
 
             result[0][0].pass = result[1][0];
             result[0][0].valueAd = result[2];
@@ -81,9 +82,8 @@ function Reserva() {
             res.send({ success: true, data: result[0] });
             return;
 
-          }
-          
-          res.send({ success: false, mensaje: 'No existe la reserva con los datos enviados'});
+          } else
+            res.send({ success: false, mensaje: result[0][0].err});
         }
         catch (ex) {
 
@@ -142,6 +142,8 @@ function Reserva() {
     reserva.estadoDetalle = reserva.estadoDetalle || '';
     reserva.feDesde = moment(reserva.feDesde).format('DD[/]MM[/]YYYY') || '';
     reserva.feHasta = moment(reserva.feHasta).format('DD[/]MM[/]YYYY') || '';
+    
+    var tokenReserva = md5(moment().format('DDMMYYYYhhmmss'));
 
     var param = '<params accion= "'+ reserva.accion +'" idHospedaje= "'+ reserva.idHospedaje
                     +'" idAerolinea= "'+ reserva.idAerolinea +'" idReserva= "'+ reserva.idReserva
@@ -157,6 +159,8 @@ function Reserva() {
                     +'" feDesde= "'+ reserva.feDesde
                     +'" feHasta= "'+ reserva.feHasta
                     +'" detalleEstado= "'+ reserva.estadoDetalle
+                    +'" tokenReserva= "'+ tokenReserva
+                    +'" idFuente= "'+ reserva.idFuente
                     +'" />';
 
     console.log('call res_reserva>> ' + param);

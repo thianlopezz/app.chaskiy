@@ -73,9 +73,10 @@ debugger;
           case 'RE':
 
             this.id = params['id'] || params['ID'];
+            this.token = params['token'];
 
 
-            if (this.id === undefined) {
+            if (this.id === undefined || this.token === undefined) {
 
               this.router.navigate(['/']);
               return;
@@ -84,7 +85,7 @@ debugger;
             this.model.pass = {};
             this.model.hospedaje = {};
 
-            this.getReserveDet(this.id);
+            this.getReserveDet(this.id, this.token);
           break;
         }
       }, error => {
@@ -130,7 +131,7 @@ debugger;
           this.loading = false;
           this.messService.success(data.mensaje);
           this.showMess();
-          this.getReserveDet(this.id);
+          this.getReserveDet(this.id, this.token);
         } else {
 
           this.loading = false;
@@ -269,9 +270,9 @@ debugger;
       });
   }
 
-  getReserveDet(idReserva: number) {
+  getReserveDet(idReserva: number, token: string) {
 
-    this.reserveService.getByIdEx(idReserva).subscribe(
+    this.reserveService.getByIdEx(idReserva, token).subscribe(
       reservas => {
 
         if (reservas.success) {

@@ -17,3 +17,4 @@ export * from './google-analytics-events.service';
 export * from './statistic.service';
 export * from './hospedaje.service';
 export * from './social.service';
+export * from './fuente.service';

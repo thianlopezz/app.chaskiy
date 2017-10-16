@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Pais } from '../_models/index';
-
 @Injectable()
-export class PaisService {
+export class FuenteService {
 
     currentUser: any;
 
@@ -13,7 +11,7 @@ export class PaisService {
     getAll() {
 
         const param = encodeURIComponent('<params accion="C" />');
-        return this.http.get('/api/paises/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/fuente/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     // getById(id: string) {

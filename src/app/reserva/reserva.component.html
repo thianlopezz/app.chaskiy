@@ -94,23 +94,6 @@
           <div class="modal-body">
               <div class="row">
                 <div class="col-md-6">
-                  <!-- <div class="form-group" [ngClass]="{ 'has-warning': noPass }">
-                      <label for="identificacion">Identificacion</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control col-md-9" name="identificacion" [(ngModel)]="model.pass.identificacion" #identificacion="ngModel" [readonly]="!this.model.ident"/>
-                        <span *ngIf="accion=='I'" class="input-group-addon">
-                          <input type="checkbox" aria-label="Checkbox for following text input" [checked]="model.ident" (change)="lockIdent()">
-                        </span>
-                        <span *ngIf="accion=='I'" class="input-group-btn">
-                          <button class="btn btn-light" type="button" [disabled]="!model.ident " (click)="getPasse()"> -->
-                            <!-- <i [ngClass]="{ 'fa fa-search': noPass, 'fa fa-repeat': noPass }" aria-hidden="true"></i> -->
-                            <!-- <i class="fa fa-search"  aria-hidden="true"></i>
-                          </button>
-                        </span>
-                        <img *ngIf="goPass" src="/assets/images/loading.svg" />
-                      </div>
-                      <div *ngIf="noPass" class="help-block form-control-feedback">Pasajero no registrado</div>
-                  </div> -->
                   <div class="form-group">
                       <label for="correo">Correo electrónico</label>
                       <div class="input-group">
@@ -151,13 +134,11 @@
                   </div>
                   <div class="form-group">
                       <label for="pais">Pais</label>
-                      <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2><!--  [readonly]="!noPass" -->
-                      <!-- <div *ngIf="f.submitted && !pais.valid" class="invalid-feedback">El país es requerido</div> -->
+                      <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2>
                   </div>
                   <div class="form-group">
                       <label for="correo">Número de contacto</label>
                       <input type="text" class="form-control col-md-8" name="noContacto" [(ngModel)]="model.pass.noContacto" #noContacto="ngModel" [readonly]="esPass && !editaPass_" maxlength="15" />
-                      <!-- <div *ngIf="f.submitted && !noContacto.valid" class="invalid-feedback">El número de contacto es requerido</div> -->
                   </div>
                   <div class="form-group">
                       <label for="noPersonas">Número de personas</label>
@@ -170,6 +151,13 @@
                   </div>
                 </div>
                 <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="fuente">Captado de</label>
+                      <select class="custom-select form-control col-md-6" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
+                       <option *ngFor="let op of fuentes" [value]="op.idFuente">{{op.fuente}}</option>
+                      </select>
+                      <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">La fuente de captación es requerida</div>
+                  </div>
                   <div class="form-group">
                       <label for="aerolinea">Aerolínea</label>
                       <select class="custom-select form-control col-md-6" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
@@ -243,11 +231,9 @@
                               <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
                             </small>
                           </h6>
-                          <!-- <p><strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong></p>   -->
                           <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
                         </div>
                       </div>
-                      <!-- <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length==0" class="help-block form-control-feedback">Tarifa por noche por habitación</div> -->
                       <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length>0" class="help-block form-control-feedback">Seleccione al menos una habitación</div>
                   </div>
                   <hr class="my-4">
@@ -272,11 +258,6 @@
           <div class="modal-body">
               <div class="row">
                 <div class="col-md-6">
-                  <!-- <div class="form-group" [ngClass]="{ 'has-warning': noPass }">
-                    <label for="identificacion"><strong>Identificación</strong>
-                    </label>
-                    <p name="identificacion" class="text-muted">{{model.pass.identificacion}}</p>
-                  </div> -->
                   <div class="form-group">
                     <label for="correo"><strong>Correo electrónico</strong>
                     </label>
@@ -312,9 +293,15 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
+                    <label for="fuente">
+                      <strong>Captado de</strong>
+                    </label>
+                    <p name="fuente" class="text-muted">{{model.fuente}}</p>
+                  </div>
+                  <div class="form-group">
                     <label for="aerolinea"><strong>Aerolínea</strong>
                     </label>
-                    <p name="notas" class="text-muted">{{model.aerolinea}}</p>
+                    <p name="aerolinea" class="text-muted">{{model.aerolinea}}</p>
                   </div>
                   <div class="form-group">
                     <label for="adicional"><strong>Adicionales</strong>
@@ -330,9 +317,6 @@
                         </small>
                       </h6>
                     </div>
-                    <!-- <div class="alert alert-info fade show" role="alert" *ngFor="let adi of model.valueAdDets">
-                      <strong>{{adi.adicional}}</strong>
-                    </div> -->
                   </div>
                   <div class="form-group">
                     <label for="habitaciones"><strong>Habitaciones</strong>
