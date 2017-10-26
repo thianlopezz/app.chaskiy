@@ -58,10 +58,10 @@
           <!-- <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"  data-toggle="modal" data-target="#reservaModal">
             data-toggle="tooltip" data-html="true" [attr.title]="getToolTip(room, dia.day + 1)"
           </a> -->
-            <a *ngIf="getLim('I', room, dia.day + 1)" tabindex="0" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('I', room, dia.day + 1)">
+            <a *ngIf="getLim('I', room, dia.day + 1)" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('I', room, dia.day + 1)" data-container="body">
               <i class="fa fa-sign-in" aria-hidden="true"></i>
             </a>
-            <a *ngIf="getLim('O', room, dia.day + 1)" tabindex="0" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('O', room, dia.day + 1)">
+            <a *ngIf="getLim('O', room, dia.day + 1)" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('O', room, dia.day + 1)" data-container="body">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
             </a>
         </td>

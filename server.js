@@ -7,6 +7,18 @@ const bodyParser = require('body-parser');
 // Get our API routes
 const api = require('./server/routes/api');
 
+const forceSSL = function () {
+  return function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(
+        ['https://', req.get('Host'), req.url].join('')
+      );
+    }
+    next();
+  }
+}
+
+
 const app = express();
 
 var mongoose    = require('mongoose');
@@ -14,6 +26,7 @@ var connection = require('./server/connection');
 var config = require('./config.json');
 
 // Parsers for POST data
+app.use(forceSSL());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
