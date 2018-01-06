@@ -1,0 +1,533 @@
+<div class="container-fluid">
+<div class="col-md-12">
+  <div *ngIf="accion=='I'" class="add btn-group" role="group" aria-label="b-group">
+    <button type="button" class="btn btn-sm btn-outline-primary btn-icon" data-toggle="modal" data-target="#reservaModal" (click)="setReserva()" [disabled]="reservados.length==0" >
+      <!-- <span class="badge badge-info">{{reservados.length}}</span> -->
+      {{reservados.length}}
+      <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+    </button>
+    <button [disabled]="reservados.length==0" type="button" class="btn btn-sm btn-outline-danger" (click)="quitRes()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div *ngIf="accion=='U'" class="add btn-smbtn-group mr-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="goModi()">
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="quitModi()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+<br/>
+<div class="col-md-12">
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th rowspan="3"></th>
+        <th rowspan="3" class="align-buttom">#</th>
+        <th rowspan="3" class="align-buttom">Habitaciones</th>
+        <th [attr.colspan]="current.days.length">
+          <h3 class="center">{{current.mes}} <small>{{current.anio}}</small></h3>
+        </th>
+        <th rowspan="3"></th>
+      </tr>
+      <tr>
+        <th *ngFor="let dia of current.days">{{getWeekDay(dia.day + 1)}}</th>
+      </tr>
+      <tr>
+        <th *ngFor="let dia of current.days">{{dia.day + 1}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="rooms.length==0">
+        <td [attr.colspan]="current.days.length + 4" style="text-align:center;">
+          <p>No tienes habitaciones registradas aun, registra tus habitaciones
+            <a [routerLink]="['/room']">aquí</a>
+          </p>
+        </td>
+      </tr>
+      <tr *ngFor="let room of rooms; let i = index">
+        <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah0 align-middle" (click)="previous()">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </td>
+        <td>{{room.noHabitacion}}</td>
+        <td>{{room.habitacion}}</td>
+        <td *ngFor="let dia of current.days" (click)="clickDay(room, dia.day + 1)" class="p-0 align-bottom" [ngClass]="isSelected(room, dia.day + 1)">
+          <!-- <i class="fa" [ngClass]="getIco(room, current, dia.day + 1)" aria-hidden="true"></i> -->
+          <!-- <a *ngIf="isReserved(room, dia.day + 1)" tabindex="0" class="btn btn-xs btn-default rounded-0 w-100 h-100" role="button"  data-toggle="modal" data-target="#reservaModal">
+            data-toggle="tooltip" data-html="true" [attr.title]="getToolTip(room, dia.day + 1)"
+          </a> -->
+            <a *ngIf="getLim('I', room, dia.day + 1)" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('I', room, dia.day + 1)" data-container="body">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </a>
+            <a *ngIf="getLim('O', room, dia.day + 1)" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('O', room, dia.day + 1)" data-container="body">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </a>
+        </td>
+        <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah0 align-middle" (click)="next()">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- MODAL RESERVA -->
+<div *ngIf="model" class="modal fade" data-backdrop="static" data-keyboard="false" id="reservaModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Reserva
+          &nbsp;
+          <small *ngIf="esModi && accion=='I'">
+            <label class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="model.esProforma">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Proforma</span>
+            </label>
+          </small>
+        </h4>
+        <font>{{'Estado: ' + getEstado()}}</font>
+      </div>
+      <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+        <div *ngIf="esModi">
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="correo">Correo electrónico</label>
+                      <div class="input-group">
+                        <input type="email" class="form-control col-md-10" name="correo" [(ngModel)]="model.pass.correo" #correo="ngModel" (blur)="correo.valid && getPasse()" [readonly]="accion=='U'" [email]="true" required/>
+                        <img *ngIf="goPass" src="/assets/images/loading.svg" />
+                      </div>
+                      <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
+                      <div *ngIf="correo.touched && !correo.valid && !f.submitted">
+                        <p class="text-danger">Ingrese un electrónico válido</p>
+                      </div>
+                      <div *ngIf="esPass==false && correo.touched && correo.valid">
+                        <p class="text-warning">Pasajero no registrado</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="pasajero">Nombre</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control col-md-12" name="pasajero" [(ngModel)]="model.pass.pasajero" #pasajero="ngModel" [readonly]="esPass && !editaPass_" maxlength="100" required />
+                        <span class="input-group-btn">
+                          <button *ngIf="esPass && !editaPass_ && accion=='I'" class="btn btn-outline-danger" type="button" (click)="editaPass()">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                          </button>
+                          <button *ngIf="esPass && editaPass_" class="btn btn-outline-primary" type="button" (click)="correo.valid && pasajero.valid && noContacto.valid && goEditaPass()">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                          </button>
+                          <button *ngIf="esPass && editaPass_" class="btn btn-outline-danger" type="button" (click)="cancelEditaPass()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                        <span *ngIf="editedPass && !editaPass_" class="mt-auto mb-auto ml-1">
+                          <i class="fa fa-check-circle-o fa-lg" style="color: #28a745;" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <div *ngIf="(f.submitted && !pasajero.valid)" class="invalid-feedback">El nombre es requerido</div>
+                      <div *ngIf="!f.submitted && !pasajero.valid && pasajero.touched">
+                        <p class="text-danger">El nombre es requerido</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="pais">Pais</label>
+                      <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2>
+                  </div>
+                  <div class="form-group">
+                      <label for="correo">Número de contacto</label>
+                      <input type="text" class="form-control col-md-8" name="noContacto" [(ngModel)]="model.pass.noContacto" #noContacto="ngModel" [readonly]="esPass && !editaPass_" maxlength="15" />
+                  </div>
+                  <div class="form-group">
+                      <label for="noPersonas">Número de personas</label>
+                      <input type="number" class="form-control col-md-4" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel" required />
+                      <div *ngIf="f.submitted && !noPersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
+                  </div>
+                  <div class="form-group">
+                      <label for="notas">Notas</label>
+                      <textarea class="form-control" id="notas" name="notas" rows="4" [(ngModel)]="model.notas" #notas="ngModel" maxlength="600">{{model.notas}}</textarea>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="fuente">Captado de</label>
+                      <select class="custom-select form-control col-md-6" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
+                       <option *ngFor="let op of fuentes" [value]="op.idFuente">{{op.fuente}}</option>
+                      </select>
+                      <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">La fuente de captación es requerida</div>
+                  </div>
+                  <div class="form-group">
+                      <label for="aerolinea">Aerolínea</label>
+                      <select class="custom-select form-control col-md-6" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
+                       <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
+                      </select>
+                      <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
+                  </div>
+                  <div class="form-group">
+                      <label for="adicional"><strong>Adicionales</strong>
+                      </label>
+                      <select2 [data]="adicionales" [options]="optionsAdi" [value]="valueAd" (valueChanged)="changedAd($event)" name="adicional" width="100%"></select2>
+                  </div>
+                  <div class="form-group">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.valueAd">
+                      <div *ngIf="auxValor0.idAdicional == adi.idAdicional" class="input-group">
+                      <input type="text" class="form-control" name="adTarifa" placeholder="{{'Tarifa para ' + adi.adicional}}" [(ngModel)]="adi.tarifa" myCurrency="true" #tarifa0="ngModel" />
+                      <span class="input-group-addon">x</span>
+                      <input type="number" class="form-control" name="adCantidad" placeholder="Cantidad" [(ngModel)]="adi.cantidad" #tarifa0="ngModel" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary" (click)="goModiVal0()">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-danger" (click)="cancelTarifa0(adi)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                      </div>
+                      <div *ngIf="auxValor0.idAdicional != adi.idAdicional">
+                        <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
+                          <small>
+                            <a href="javascript:;" (click)="modiTarifa0(adi)" style="cursor:pointer">
+                            Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}}
+                            x&nbsp;{{adi.cantidad}}&nbsp;
+                            </a>
+                            <strong>= {{adi.tarifa * adi.cantidad | currency:'USD':true}}</strong>
+                          </small>
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="habitaciones"><strong>Habitaciones</strong>
+                      </label>
+                      <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
+                        <button *ngIf="auxValor.idHabitacion != room.idHabitacion" type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="delReserve(room)">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div *ngIf="auxValor.idHabitacion == room.idHabitacion" class="input-group">
+                        <input type="text" class="form-control" name="habitaciones" placeholder="{{'Tarifa para ' + room.habitacion}}" [(ngModel)]="room.tarifa" myCurrency="true" #tarifa="ngModel" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary" (click)="goModiVal()">
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+                          </span>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-danger" (click)="cancelTarifa(room)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </span>
+                        </div>
+                        <div *ngIf="auxValor.idHabitacion != room.idHabitacion">
+                          <h6 class="alert-heading">{{' ' + room.habitacion}}&nbsp;
+                            <small>
+                              <a href="javascript:;" (click)="modiTarifa(room)" style="cursor:pointer">
+                              Tarifa &nbsp;{{room.tarifa | currency:'USD':true}}
+                              x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}
+                              &nbsp;noche(s)&nbsp;
+                              </a>
+                              <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
+                            </small>
+                          </h6>
+                          <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
+                        </div>
+                      </div>
+                      <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length>0" class="help-block form-control-feedback">Seleccione al menos una habitación</div>
+                  </div>
+                  <hr class="my-4">
+                  <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <h4>{{getTotal() | currency:'USD':true}}</h4>
+                    </div>
+                    <div class="p-2">
+                      <h4>Total</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
+            <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar</button>
+            <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cancelar</button>
+          </div>
+        </div>
+        <div *ngIf="!esModi">
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="correo"><strong>Correo electrónico</strong>
+                    </label>
+                    <p name="correo" class="text-muted">
+                      <a [href]="'mailto:' + model.pass.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{model.pass.correo}}</a>
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <label for="pasajero"><strong>Nombre</strong>
+                    </label>
+                    <p name="pasajero" class="text-muted">{{model.pass.pasajero}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="pais"><strong>Pais</strong>
+                    </label>
+                    <p name="pais" class="text-muted">{{model.pass.pais}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="noContacto"><strong>Número de contacto</strong>
+                    </label>
+                    <p name="noContacto" class="text-muted">{{model.pass.noContacto}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="noPersonas"><strong>Número de personas</strong>
+                    </label>
+                    <p name="noPersonas" class="text-muted">{{model.noPersonas}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="notas"><strong>Notas</strong>
+                    </label>
+                    <p name="notas" class="text-muted">{{model.notas}}</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="fuente">
+                      <strong>Captado de</strong>
+                    </label>
+                    <p name="fuente" class="text-muted">{{model.fuente}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="aerolinea"><strong>Aerolínea</strong>
+                    </label>
+                    <p name="aerolinea" class="text-muted">{{model.aerolinea}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="adicional"><strong>Adicionales</strong>
+                    </label>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.valueAd">
+                      <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
+                        <small>
+                          <a href="javascript:;" style="cursor:pointer">
+                          Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}}
+                          x&nbsp;{{adi.cantidad}}&nbsp;
+                          </a>
+                          <strong>= {{adi.tarifa * adi.cantidad | currency:'USD':true}}</strong>
+                        </small>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="habitaciones"><strong>Habitaciones</strong>
+                    </label>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
+                      <h6 class="alert-heading">{{' ' + room.habitacion}}&nbsp;
+                        <small>
+                          <a href="javascript:;" style="cursor:pointer">
+                          Tarifa &nbsp;{{room.tarifa | currency:'USD':true}}
+                          x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}
+                          &nbsp;noche(s) &nbsp;
+                          </a>
+                          <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
+                        </small>
+                      </h6>
+                      <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
+                    </div>
+                  </div>
+                  <hr class="my-4">
+                  <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <h4>{{getTotal() | currency:'USD':true}}</h4>
+                    </div>
+                    <div class="p-2">
+                      <h4>Total</h4>
+                    </div>
+                  </div>
+                  <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <a [hidden]= "model.estado != 'Co'" href="javascript:;">
+                        <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                      </a>
+                      <a [hidden]="model.estado == 'Co'" href="javascript:;" (click)="getPagos()" data-dismiss="modal" data-toggle="modal" data-target="#pagosModal">
+                        <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                      </a>
+                    </div>
+                    <div class="p-2">
+                      <h5>Pagado</h5>
+                    </div>
+                  </div>
+                  <div *ngIf="model.estado == 'Pr'" class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <h5>{{getTotal() - model.totalPagado | currency:'USD':true}}</h5>
+                    </div>
+                    <div class="p-2">
+                      <h5>Saldo</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <img *ngIf="loading" src="/assets/images/loading.svg" />
+            <div *ngIf="model.estado=='Pr'" [hidden]="loading" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-primary" title="Confirmar" (click)="check('Re')">
+                  <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-outline-danger" title="Cancelar" (click)="check('Ca')">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="accion!='I' && model.estado!='Pr'" [hidden]="loading" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button *ngIf="ocultaBtnModi('Ci')" type="button" class="btn btn-outline-danger" title="Check-in" (click)="model.a_estado = 'Ci'" data-toggle="modal" data-target="#detalleEstadosModal">
+                  <i class="fa fa-bed" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="ocultaBtnModi('Co')" type="button" class="btn btn-outline-warnig" title="Check-out" (click)="model.a_estado = 'Co'" data-toggle="modal" data-target="#detalleEstadosModal">
+                  <i class="fa fa-external-link-square" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="ocultaBtnModi('U')" type="button" class="btn btn-outline-danger" title="Modificar" (click)="setModi()">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="ocultaBtnModi('D')" type="button" class="btn btn-outline-danger" title="Cancelar" (click)="setCancel()" data-toggle="modal" data-target="#confirmModal">
+                  <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal" (click)="quitRes()">Cerrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-modal-estados [model]="model"></app-modal-estados>
+<!-- MODAL PAGOS -->
+<div *ngIf="model.pago" style="z-index: 1048;" class="modal fade" data-backdrop="static" data-keyboard="false" id="pagosModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pagos
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <form class="col-md-12">
+        <div class="row mt-1">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevoPago()" data-toggle="modal" data-target="#pagoModal">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="card-deck mt-2">
+            <div class="card text-center">
+              <div class="card-header text-info">
+                <h3>Total</h3>
+              </div>
+              <div class="card-block">
+                <h1 class="card-title">{{model.total | currency:'USD':true}}</h1>
+              </div>
+            </div>
+            <div class="card text-center">
+              <div class="card-header text-success">
+                <h3>Pagado</h3>
+              </div>
+              <div class="card-block">
+                <h1 class="card-title">{{model.totalPagado | currency:'USD':true}}</h1>
+              </div>
+            </div>
+            <div class="card text-center">
+              <div class="card-header text-warning">
+                <h3>Saldo</h3>
+              </div>
+              <div class="card-block">
+                <h1 class="card-title">{{getTotal() - model.totalPagado | currency:'USD':true}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+    			<table class="table table-striped table-responsive">
+    			  <thead>
+    			    <tr>
+    			      <th>Forma de Pago</th>
+    			      <th>Generado por</th>
+                <th>Fecha</th>
+    			      <th>Monto</th>
+    			      <th>Eliminar</th>
+    			    </tr>
+    			  </thead>
+    			  <tbody>
+              <tr *ngIf="pagos.length==0">
+                <td colspan="5" align="center">No se han efectuado pagos</td>
+              </tr>
+    			    <tr *ngFor="let pago of pagos">
+    			      <td width="20%">{{pago.formaPago}}</td>
+    			      <td width="40%">{{pago.usuario}}</td>
+    			      <td width="15%">{{pago.fecha}}</td>
+    			      <td width="15%">{{pago.monto | currency:'USD':true}}</td>
+    			      <td width="10%" class="text-center">
+    			      	<div class="btn-group grid-btn" role="group">
+      						  <button type="button" (click)="setElimPago(pago)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+      						  	<i class="fa fa-trash" aria-hidden="true"></i>
+      						  </button>
+                  </div>
+    			      </td>
+    			    </tr>
+    			  </tbody>
+    			</table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal" data-toggle="modal" data-target="#reservaModal">Cerrar</button>
+          <!-- <button type="button" class="btn btn-light" (click)="cierraPagos()">Cerrar</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL PAGO -->
+<div *ngIf="model.pago" class="modal fade"  id="pagoModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registro de pago
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardarPago(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+        <div class="form-group">
+            <label for="formaPago">Forma de pago</label>
+            <select class="form-control col-md-5" name="formaPago" [(ngModel)]="model.pago.idFormaPago" #formaPago="ngModel" required>
+             <option *ngFor="let op of formaPagos" [value]="op.idFormaPago">{{op.formaPago}}</option>
+            </select>
+            <div *ngIf="f.submitted && !formaPago.valid" class="invalid-feedback">La forma de pago es requerida</div>
+        </div>
+        <div class="form-group">
+            <label for="monto">Monto</label>
+            <input type="text" class="form-control  col-md-5" name="monto" [(ngModel)]="model.pago.monto" #monto="ngModel" myCurrency="true" required />
+            <div *ngIf="f.submitted && !monto.valid" class="invalid-feedback">El monto es requerido</div>
+        </div>
+				<div class="form-group">
+						<label for="notasp">Notas</label>
+						<textarea class="form-control" id="notasp" name="notasp" rows="2" [(ngModel)]="model.pago.notas" #notasp="ngModel">{{model.pago.notas}}</textarea>
+				</div>
+        <div class="modal-footer">
+          <img *ngIf="loading" src="/assets/images/loading.svg" />
+          <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar</button>
+          <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+        </div>
+	    </form>
+    </div>
+  </div>
+</div>
+
+</div><!-- FIN CONTAINER -->

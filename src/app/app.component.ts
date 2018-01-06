@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AuthenticationService, GoogleAnalyticsEventsService } from './_services/index';
+import { AutenticacionService } from './publico/services/autenticacion.service';
+import { GoogleAnalyticsEventsService } from './privado/services/google-analytics-events.service';
 
 declare const ga: Function;
 
@@ -9,12 +10,12 @@ declare const ga: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-	// tslint:disable-next-line:indent
-	currentUser: any;
+  // tslint:disable-next-line:indent
+  currentUser: any;
 
-  constructor(private authService: AuthenticationService,
+  constructor(private autenticacionService: AutenticacionService,
               public router: Router,
               public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
 
@@ -28,13 +29,14 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.currentUser = this.authService.getLogin();
+    this.currentUser = this.autenticacionService.getLogin();
   }
 
   isLogged() {
 
-    this.currentUser = this.authService.getLogin();
-    return this.authService.isLoLogged();
+    this.currentUser = this.autenticacionService.getLogin();
+    return this.autenticacionService.isLoLogged();
   }
 
 }
+

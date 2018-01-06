@@ -1,0 +1,89 @@
+<div class="container default-container">
+  <div class="col-md-12">
+    <h2>
+      Tarifas
+      <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal"
+        data-target="#tarifaModal">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </h2>
+    <hr class="my-2">
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h2>Registro
+          <small>Tarifas</small>
+        </h2>
+        <table class="table table-striped table-responsive">
+          <thead>
+            <tr>
+              <th width="20%">Tipo</th>
+              <th width="40%">Tarifa</th>
+              <th width="30%">Valor</th>
+              <th width="10%">Editar/Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tarifa of tarifas">
+              <td width="20%">{{tarifa.tipotarifa}}</td>
+              <td width="40%">{{tarifa.tarifa}}</td>
+              <td width="30%">{{tarifa.valor | currency:'USD':true}}</td>
+              <td width="10%" class="text-center">
+                <div class="btn-group grid-btn" role="group">
+                  <button type="button" (click)="setModi(tarifa)" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tarifaModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" (click)="setElim(tarifa)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL TARIFA -->
+<div *ngIf="model" class="modal fade" id="tarifaModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tarifa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }"
+        novalidate>
+        <div class="form-group">
+          <label for="tipo">Tipo</label>
+          <select class="form-control col-md-6" name="tipo" [(ngModel)]="model.idtipo" #tipo="ngModel" required>
+            <option *ngFor="let op of tipos" [value]="op.idtipo">{{op.tipotarifa}}</option>
+          </select>
+          <div *ngIf="f.submitted && !tipo.valid" class="invalid-feedback">El tipo de tarifa es requerido</div>
+        </div>
+        <div class="form-group">
+          <label for="tarifa">Tarifa</label>
+          <input type="text" class="form-control col-md-6" name="tarifa" [(ngModel)]="model.tarifa" #tarifa="ngModel"
+            maxlength="100" required />
+          <div *ngIf="f.submitted && !tarifa.valid" class="invalid-feedback">El nombre de la tarifa es requrida</div>
+        </div>
+        <div class="form-group">
+          <label for="valor">Valor</label>
+          <input type="text" class="form-control col-md-4" name="valor" [(ngModel)]="model.valor" #valor="ngModel" appMoneda="true"
+            required />
+          <div *ngIf="f.submitted && !valor.valid" class="invalid-feedback">El valor de la tarifa es requerido</div>
+        </div>
+        <div class="modal-footer">
+          <img *ngIf="loading" src="/assets/images/loading.svg" />
+          <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar
+          </button>
+          <button *ngIf="!loading" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

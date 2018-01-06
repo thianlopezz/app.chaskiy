@@ -59,7 +59,7 @@
                 <a [routerLink]="['/home']">Inicio</a>
             </li>
             <li>
-                <a [routerLink]="['/reserva']">Reservas</a>
+                <a [routerLink]="['/reservas']">Reservas</a>
             </li>
             <li>
                 <a [routerLink]="['/pagos']">Pagos</a>
@@ -71,10 +71,10 @@
                 </span>
             </li>
             <li>
-                <a [routerLink]="['/room']">Habitaciones</a>
+                <a [routerLink]="['/habitacion']">Habitaciones</a>
             </li>
             <li>
-                <a [routerLink]="['/adds']">Adicionales</a>
+                <a [routerLink]="['/adicional']">Adicionales</a>
             </li>
             <li>
                 <a [routerLink]="['/hospedaje']">Hospedaje</a>
@@ -213,5 +213,5 @@
     <!-- /#page-content-wrapper -->
 </div>
 <!-- /#wrapper -->
-<confirm></confirm>
-<message></message>
+<app-modal-confirmacion></app-modal-confirmacion>
+<app-modal-mensaje></app-modal-mensaje>
