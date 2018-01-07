@@ -59,7 +59,7 @@ tbody{
 ._occupied{
 
 	height: 100%;
-	background-color: #dc3545;;
+	background-color: #f77581;;;
 	transition: opacity 0.3s;
 	cursor: pointer;
 }

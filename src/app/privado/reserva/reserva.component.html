@@ -153,14 +153,14 @@
                 <div class="col-md-6">
                   <div class="form-group">
                       <label for="fuente">Captado de</label>
-                      <select class="custom-select form-control col-md-6" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
+                      <select class="form-control col-md-8" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
                        <option *ngFor="let op of fuentes" [value]="op.idFuente">{{op.fuente}}</option>
                       </select>
                       <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">La fuente de captación es requerida</div>
                   </div>
                   <div class="form-group">
                       <label for="aerolinea">Aerolínea</label>
-                      <select class="custom-select form-control col-md-6" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
+                      <select class="form-control col-md-8" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
                        <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
                       </select>
                       <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
@@ -382,14 +382,14 @@
             </div>
             <div *ngIf="accion!='I' && model.estado!='Pr'" [hidden]="loading" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button *ngIf="ocultaBtnModi('U')" type="button" class="btn btn-outline-danger" title="Modificar" (click)="setModi()">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
                 <button *ngIf="ocultaBtnModi('Ci')" type="button" class="btn btn-outline-danger" title="Check-in" (click)="model.a_estado = 'Ci'" data-toggle="modal" data-target="#detalleEstadosModal">
                   <i class="fa fa-bed" aria-hidden="true"></i>
                 </button>
                 <button *ngIf="ocultaBtnModi('Co')" type="button" class="btn btn-outline-warnig" title="Check-out" (click)="model.a_estado = 'Co'" data-toggle="modal" data-target="#detalleEstadosModal">
                   <i class="fa fa-external-link-square" aria-hidden="true"></i>
-                </button>
-                <button *ngIf="ocultaBtnModi('U')" type="button" class="btn btn-outline-danger" title="Modificar" (click)="setModi()">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <button *ngIf="ocultaBtnModi('D')" type="button" class="btn btn-outline-danger" title="Cancelar" (click)="setCancel()" data-toggle="modal" data-target="#confirmModal">
                   <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
@@ -456,11 +456,11 @@
     			<table class="table table-striped table-responsive">
     			  <thead>
     			    <tr>
-    			      <th>Forma de Pago</th>
-    			      <th>Generado por</th>
-                <th>Fecha</th>
-    			      <th>Monto</th>
-    			      <th>Eliminar</th>
+    			      <th width="20%">Forma de Pago</th>
+    			      <th width="40%">Generado por</th>
+                <th width="15%">Fecha</th>
+    			      <th width="15%">Monto</th>
+    			      <th width="10%">Eliminar</th>
     			    </tr>
     			  </thead>
     			  <tbody>
@@ -513,7 +513,7 @@
         </div>
         <div class="form-group">
             <label for="monto">Monto</label>
-            <input type="text" class="form-control  col-md-5" name="monto" [(ngModel)]="model.pago.monto" #monto="ngModel" myCurrency="true" required />
+            <input type="text" class="form-control  col-md-5" name="monto" [(ngModel)]="model.pago.monto" #monto="ngModel" appMoneda="true" required />
             <div *ngIf="f.submitted && !monto.valid" class="invalid-feedback">El monto es requerido</div>
         </div>
 				<div class="form-group">
