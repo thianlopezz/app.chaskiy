@@ -134,36 +134,7 @@ function Reserva() {
 
   this.mantenimiento = function(reserva, res) {
 
-    reserva.idReserva = reserva.idReserva || 0;
-    reserva.notas = reserva.notas || '';
-    reserva.pass.valuePa = reserva.pass.valuePa || 0;
-    reserva.valueAd = reserva.valueAd || [];
-    reserva.estado = reserva.estado || '';
-    reserva.estadoDetalle = reserva.estadoDetalle || '';
-    reserva.feDesde = moment(reserva.feDesde).format('DD[/]MM[/]YYYY') || '';
-    reserva.feHasta = moment(reserva.feHasta).format('DD[/]MM[/]YYYY') || '';
-    
-    var tokenReserva = md5(moment().format('DDMMYYYYhhmmss'));
-
-    var param = '<params accion= "'+ reserva.accion +'" idHospedaje= "'+ reserva.idHospedaje
-                    +'" idAerolinea= "'+ reserva.idAerolinea +'" idReserva= "'+ reserva.idReserva
-                    +'" noPersonas= "'+ reserva.noPersonas +'" notas= "'+ reserva.notas
-                    +'" idHabitacion= "'+ setHabitaciones(reserva.habitaciones) +'" idAdicional= "'+ setAdicionales(reserva.valueAd)
-                    +'" idPais= "'+ reserva.pass.valuePa
-                    +'" pasajero= "'+ reserva.pass.pasajero +'" noContacto= "'+ reserva.pass.noContacto
-                    +'" correo= "'+ reserva.pass.correo +'" habLength= "'+ reserva.habitaciones.length
-                    +'" adLength= "'+ reserva.valueAd.length
-                    +'" total= "'+ reserva.total
-                    +'" idUsuario= "'+ reserva.idUsuario
-                    +'" estado= "'+ reserva.estado
-                    +'" feDesde= "'+ reserva.feDesde
-                    +'" feHasta= "'+ reserva.feHasta
-                    +'" detalleEstado= "'+ reserva.estadoDetalle
-                    +'" tokenReserva= "'+ tokenReserva
-                    +'" idFuente= "'+ reserva.idFuente
-                    +'" />';
-
-    console.log('call res_reserva>> ' + param);
+    let param = setXml(reserva);
 
     connection.acquire(function(err, con) {
       con.query('call res_reserva(\''+param+'\')', function(err, result) {
@@ -200,14 +171,16 @@ function Reserva() {
   };
 
   function setHabitaciones(habitaciones){
-
-    var retorno ="";
+    
+    var retorno = "";    
 
     for(var i=0; i<habitaciones.length; i++){
+
       retorno = retorno + habitaciones[i].idHabitacion + ';'
-                          + habitaciones[i].tarifa + ';'
-                          + moment(habitaciones[i].feDesde).format('DD[/]MM[/]YYYY') + ';'
-                          + moment(habitaciones[i].feHasta).format('DD[/]MM[/]YYYY') + '|';
+      + (habitaciones[i].tarifa || 0) + ';'
+      + (habitaciones[i].idtarifa || 0) + ';'
+      + moment(habitaciones[i].feDesde).format('DD[/]MM[/]YYYY') + ';'
+      + moment(habitaciones[i].feHasta).format('DD[/]MM[/]YYYY') + '|';
     }
 
     return retorno;
@@ -280,6 +253,41 @@ function Reserva() {
         });
 
 
+  }
+
+  function setXml(data) {
+
+    data.idReserva = data.idReserva || 0;
+    data.notas = data.notas || '';
+    data.pass.valuePa = data.pass.valuePa || 0;
+    data.valueAd = data.valueAd || [];
+    data.estado = data.estado || '';
+    data.estadoDetalle = data.estadoDetalle || '';
+    data.feDesde = moment(data.feDesde).format('DD[/]MM[/]YYYY') || '';
+    data.feHasta = moment(data.feHasta).format('DD[/]MM[/]YYYY') || '';
+
+    let tokenReserva = md5(moment().format('DDMMYYYYhhmmss'));
+
+    let param = '<params accion= "' + data.accion + '" idHospedaje= "' + data.idHospedaje
+      + '" idAerolinea= "' + data.idAerolinea + '" idReserva= "' + data.idReserva
+      + '" noPersonas= "' + data.noPersonas + '" notas= "' + data.notas
+      + '" idHabitacion= "' + setHabitaciones(data.habitaciones) + '" idAdicional= "' + setAdicionales(data.valueAd)
+      + '" idPais= "' + data.pass.valuePa
+      + '" pasajero= "' + data.pass.pasajero + '" noContacto= "' + data.pass.noContacto
+      + '" correo= "' + data.pass.correo + '" habLength= "' + data.habitaciones.length
+      + '" adLength= "' + data.valueAd.length
+      + '" total= "' + data.total
+      + '" idUsuario= "' + data.idUsuario
+      + '" estado= "' + data.estado
+      + '" feDesde= "' + data.feDesde
+      + '" feHasta= "' + data.feHasta
+      + '" detalleEstado= "' + data.estadoDetalle
+      + '" tokenReserva= "' + tokenReserva
+      + '" idFuente= "' + data.idFuente
+      + '" />';
+
+    console.log('param>> ' + param);
+    return param;
   }
 
 }

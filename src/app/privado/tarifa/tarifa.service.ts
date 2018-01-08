@@ -10,9 +10,17 @@ export class TarifaService {
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    const param = encodeURIComponent('<params accion="C" idHospedaje = "' + currentUser.idHospedaje + '" />');
+    const param = encodeURIComponent('<params accion="C0" idHospedaje = "' + currentUser.idHospedaje + '" />');
     return this.http.get('/api/tarifa/all/' + param, this.jwt()).map((response: Response) => response.json());
   }
+
+  // getAllAgrupados() {
+
+  //   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  //   const param = encodeURIComponent('<params accion="C0" idHospedaje = "' + currentUser.idHospedaje + '" />');
+  //   return this.http.get('/api/tarifa/agrupado/' + param, this.jwt()).map((response: Response) => response.json());
+  // }
 
   getAllTipos() {
 

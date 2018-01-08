@@ -15,6 +15,10 @@ import { ConfirmacionService } from '../../compartido/components/modal-confirmac
 import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 import { CurrentMonth } from '../models/current-month';
+
+import { ToastService } from '../../compartido/services/toast.service';
+
+import { TarifaService } from '../../privado/tarifa/tarifa.service';
 declare var jQuery: any;
 
 @Component({
@@ -23,6 +27,15 @@ declare var jQuery: any;
   styleUrls: ['./reserva.component.css']
 })
 export class ReservaComponent implements OnInit, OnDestroy {
+
+  modiTotal = false;
+  esTotal = false;
+  total0 = 0;
+  total0od;
+
+  tarifas = [];
+  tarifasall = [];
+  paso = 1;
 
   rooms = [];
   user: any = {};
@@ -95,7 +108,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
     private messService: MensajeService,
     private formaService: FormaPagoService,
     private pagoService: PagoService,
-    private fuenteService: FuenteService) {
+    private fuenteService: FuenteService,
+    private tarifaService: TarifaService,
+    private toastService: ToastService) {
 
   }
 
@@ -118,6 +133,8 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
     this.model.totalPagado = 0;
     this.model.saldo = 0;
+
+    this.loadAllTarifas();
 
     this.loadAllRooms();
     this.loadAllAirlines();
@@ -158,6 +175,61 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  changeTarifa(room) {
+    room.tarifa = this.tarifasall.find(x => x.idtarifa === Number(room.idtarifa)).valor;
+    this.esTotal = false;
+    // room.idtarifa = $event.idtarifa;
+  }
+
+  siguiente() {
+
+    if (this.model.habitaciones.length === 0) {
+      this.toastService.showWarning('Selecciona al menos una habitación');
+      return;
+    }
+
+    if (this.esTotal) {
+      this.paso++;
+      return;
+    }
+
+    const index = this.model.habitaciones.findIndex(x => x.idtarifa === undefined);
+
+    if (index !== -1 && this.esModi) {
+      this.toastService.showWarning('Todas las habitaciones deben tener asignada una tarifa.');
+      return;
+    }
+    this.paso++;
+  }
+
+  atras() {
+    this.paso--;
+  }
+
+  goTotal(opcion) {
+    if (opcion === '!total') {
+      this.total0 = this.model.total;
+    }
+    this.modiTotal = true;
+    this.total0od = this.total0;
+  }
+
+  goModiTotal0() {
+    this.esTotal = true;
+    this.modiTotal = false;
+    for (let i = 0; i < this.model.habitaciones.length; i++) {
+      this.model.habitaciones[i].idtarifa = undefined;
+      this.model.habitaciones[i].tarifa = 0;
+    }
+  }
+
+  cancelTotal0() {
+    if (this.esTotal) {
+      this.total0 = this.total0od;
+    }
+    this.modiTotal = false;
   }
 
   next() {
@@ -209,8 +281,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
         } else {
 
           this.goPass = false;
-          this.messService.error(data.mensaje);
-          this.showMess();
+          // this.messService.error(data.mensaje);
+          // this.showMess();
+          this.toastService.showWarning(data.mensaje);
         }
       },
       error => {
@@ -218,8 +291,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
         console.log(error);
         this.goPass = false;
 
-        this.messService.error('Hubo un error al actualizar el pasajero');
-        this.showMess();
+        // this.messService.error('Hubo un error al actualizar el pasajero');
+        // this.showMess();
+        this.toastService.showWarning('Hubo un error al actualizar el pasajero');
       });
   }
 
@@ -289,6 +363,10 @@ export class ReservaComponent implements OnInit, OnDestroy {
       this.model.estado = 'Re';
     }
 
+    if (this.esTotal) {
+      this.model.total = this.total0;
+    }
+debugger;
     this.reservaService.mantenimiento(this.model)
       .subscribe(
       data => {
@@ -302,13 +380,17 @@ export class ReservaComponent implements OnInit, OnDestroy {
           this.getByDate();
           this.quitRes();
 
-          this.messService.success(mensaje);
-          this.showMess();
+          // this.messService.success(mensaje);
+          // this.showMess();
+          jQuery('#reservaModal').modal('hide');
+          this.toastService.showSuccess(mensaje);
+          this.paso = 1;
         } else {
 
           this.loading = false;
-          this.messService.error(data.mensaje);
-          this.showMess();
+          // this.messService.error(data.mensaje);
+          // this.showMess();
+          this.toastService.showError(data.mensaje);
         }
       },
       error => {
@@ -316,8 +398,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
         console.log(error);
         this.loading = false;
 
-        this.messService.error(mensaje_err);
-        this.showMess();
+        // this.messService.error(mensaje_err);
+        // this.showMess();
+        this.toastService.showError(mensaje_err);
       });
   }
 
@@ -350,13 +433,16 @@ export class ReservaComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.getPagos();
 
-          this.messService.success(mensaje);
-          this.showMessPago();
+          // this.messService.success(mensaje);
+          // this.showMessPago();
+          jQuery('#pagoModal').modal('hide');
+          this.toastService.showSuccess(mensaje);
         } else {
 
           this.loading = false;
-          this.messService.error(data.mensaje);
-          this.showMessPago();
+          // this.messService.error(data.mensaje);
+          // this.showMessPago();
+          this.toastService.showError(data.mensaje);
         }
       },
       error => {
@@ -364,8 +450,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
         console.log(error);
         this.loading = false;
 
-        this.messService.error(mensaje_err);
-        this.showMessPago();
+        // this.messService.error(mensaje_err);
+        // this.showMessPago();
+        this.toastService.showError(mensaje_err);
       });
   }
 
@@ -390,18 +477,22 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
           jQuery('#detalleEstadosModal').modal('hide');
 
-          this.messService.success(mensaje);
-          this.showMess();
+          // this.messService.success(mensaje);
+          // this.showMess();
+
+          jQuery('#reservaModal').modal('hide');
+          this.toastService.showSuccess(mensaje);
 
           this.quitRes();
         } else {
 
           this.loading = false;
 
-          jQuery('#detalleEstadosModal').modal('hide');
+          // jQuery('#detalleEstadosModal').modal('hide');
 
-          this.messService.error(data.mensaje);
-          this.showMess();
+          // this.messService.error(data.mensaje);
+          // this.showMess();
+          this.toastService.showError(data.mensaje);
         }
       },
       error => {
@@ -411,8 +502,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
         jQuery('#detalleEstadosModal').modal('hide');
 
-        this.messService.error(mensaje_err);
-        this.showMess();
+        // this.messService.error(mensaje_err);
+        // this.showMess();
+        this.toastService.showError(mensaje_err);
       });
   }
 
@@ -435,14 +527,17 @@ export class ReservaComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.getPagos();
 
-          this.messService.success(mensaje);
-          this.showMessPago();
+          // this.messService.success(mensaje);
+          // this.showMessPago();
+          jQuery('#pagoModal').modal('hide');
+          this.toastService.showSuccess(mensaje);
         } else {
 
           this.loading = false;
 
-          this.messService.error(data.mensaje);
-          this.showMessPago();
+          // this.messService.error(data.mensaje);
+          // this.showMessPago();
+          this.toastService.showError(data.mensaje);
         }
       },
       error => {
@@ -450,8 +545,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
         console.log(error);
         this.loading = false;
 
-        this.messService.error(mensaje_err);
-        this.showMessPago();
+        // this.messService.error(mensaje_err);
+        // this.showMessPago();
+        this.toastService.showError(mensaje_err);
       });
   }
 
@@ -487,8 +583,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
       jQuery('#detalleEstadosModal').modal('hide');
 
-      this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
-      this.showMess();
+      // this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
+      // this.showMess();
+      this.toastService.showWarning('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
       return;
     }
 
@@ -507,16 +604,19 @@ export class ReservaComponent implements OnInit, OnDestroy {
           this.getByDate();
           this.quitRes();
 
-          this.messService.success(mensaje);
-          this.showMess();
+          // this.messService.success(mensaje);
+          // this.showMess();
+          jQuery('#reservaModal').modal('hide');
+          this.toastService.showSuccess(mensaje);
         } else {
 
           jQuery('#detalleEstadosModal').modal('hide');
 
           this.loading = false;
 
-          this.messService.error(data.mensaje);
-          this.showMess();
+          // this.messService.error(data.mensaje);
+          // this.showMess();
+          this.toastService.showError(data.mensaje);
         }
       },
       error => {
@@ -526,8 +626,9 @@ export class ReservaComponent implements OnInit, OnDestroy {
         console.log(error);
         this.loading = false;
 
-        this.messService.error(mensaje_err);
-        this.showMess();
+        // this.messService.error(mensaje_err);
+        // this.showMess();
+        this.toastService.showError(mensaje_err);
       });
   }
 
@@ -661,19 +762,13 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
   delReserve(_room) {
 
-    setTimeout(() => {
+    const index = this.findById(this.reservados, _room.idHabitacion);
 
-      const index = this.findById(this.reservados, _room.idHabitacion);
+    if (index !== -1) {
+      this.reservados.splice(index, 1);
+    }
 
-      if (index !== -1) {
-        this.reservados.splice(index, 1);
-      }
-
-      this.noReserve = this.reservados.length;
-
-    }, 600);
-
-
+    this.noReserve = this.reservados.length;
   }
 
   getLim(_op: string, _room, dia: number) {
@@ -749,6 +844,7 @@ export class ReservaComponent implements OnInit, OnDestroy {
     this.accion = 'I';
     this.esModi = true;
     this.pagos = [];
+    this.paso = 1;
   }
 
   setDay2() {
@@ -850,7 +946,8 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < e.value.length; i++) {
 
-      const index = this.findById0(this._adicionales, e.value[i]);
+      // const index = this.findById0(this._adicionales, e.value[i]);
+      const index = this._adicionales.findIndex(x => x.idAdicional === Number(e.value[i]));
       this._adicionales[index].cantidad = 1;
       this.model.valueAd.push(this._adicionales[index]);
     }
@@ -878,7 +975,12 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
   setModi() {
 
+    for (let i = 0; i < this.model.habitaciones.length; i++) {
+      this.model.habitaciones[i].modeltarifa = this.tarifasall.find(x => x.idtarifa === this.model.habitaciones[i].idtarifa);
+    }
+
     this.esModi = true;
+    this.paso = 1;
 
     if (this.contEdita === 0) {
       this.reservadosDbOd = Object.assign([], this.reservadosDb);
@@ -976,6 +1078,11 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
           this.setPa(this.model.pass.idPais);
           this.model.habitaciones = this.setDateHab(this.model.habitaciones);
+          debugger;
+          if (this.model.habitaciones[0].tarifadet === '-') {
+            this.esTotal = true;
+            this.total0 = this.model.total;
+          }
 
           this.accion = 'U';
 
@@ -1138,6 +1245,20 @@ export class ReservaComponent implements OnInit, OnDestroy {
       this.valuePa = this.paises[0].id;
       this.model.pass.valuePa = this.valuePa;
     }
+  }
+
+  private loadAllTarifas() {
+
+    this.tarifaService.getAll().subscribe(tarifas => {
+
+      if (tarifas.success) {
+
+        this.tarifas = tarifas.agrupado;
+        this.tarifasall = tarifas.data;
+      } else {
+        console.log('Error>> loadAllRooms>> ' + tarifas.mensaje);
+      }
+    });
   }
 
   private loadAllRooms() {

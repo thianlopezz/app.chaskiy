@@ -14,6 +14,8 @@ import { MensajeService } from './components/modal-mensaje/mensaje.service';
 import { Select2Module } from 'ng2-select2';
 import { MyDatePickerModule } from 'mydatepicker';
 
+import { ToastService } from '../compartido/services/toast.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { MyDatePickerModule } from 'mydatepicker';
   providers: [
     ConfirmacionEventService,
     ConfirmacionService,
-    MensajeService
+    MensajeService,
+    ToastService
   ],
   declarations: [GenericoComponent, ModalConfirmacionComponent, ModalMensajeComponent]
 })
