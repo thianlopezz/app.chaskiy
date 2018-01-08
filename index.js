@@ -19,7 +19,7 @@ const forceSSL = function () {
 const app = express();
 
 var connection = require('./api/connection');
-// app.use(forceSSL());
+app.use(forceSSL());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
