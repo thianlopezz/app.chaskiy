@@ -197,7 +197,7 @@
                 <div class="row">
                   <div class="col-md-8"></div>
                   <div class="col-md-4">
-                    <hr class="my-4">
+                    <hr class="my-1">
                     <div class="d-flex flex-row-reverse">
                       <div class="p-2">
                         <a *ngIf="!esTotal" href="javascript:;" (click)="goTotal('!total')">
@@ -232,24 +232,18 @@
                 <div class="habitaciones">
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label for="noPersonas">No. personas</label>
-                            <input type="number" class="form-control" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel" required
-                            />
-                            <div *ngIf="f.submitted && !noPersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
-                          </div>
-                        </div>
-                        <div class="col-md-8">
-                          <div class="form-group">
-                            <label for="aerolinea">Aerolínea</label>
-                            <select class="form-control" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
-                              <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
-                            </select>
-                            <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="noPersonas">No. personas</label>
+                        <input type="number" class="form-control col-md-8" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel" required
+                        />
+                        <div *ngIf="f.submitted && !noPersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="aerolinea">Aerolínea</label>
+                        <select class="form-control col-md-8" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
+                          <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
+                        </select>
+                        <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
                       </div>
                       <div class="form-group">
                         <label for="fuente">Captado de</label>
@@ -319,7 +313,7 @@
                 <div class="row">
                   <div class="col-md-6"></div>
                   <div class="col-md-6">
-                    <hr class="my-4">
+                    <hr class="my-1">
                     <div class="d-flex flex-row-reverse">
                       <div class="p-2">
                         <h4 *ngIf="!esTotal">{{getTotal() | currency:'USD':true}}</h4>
@@ -428,17 +422,42 @@
                     </div>
                   </div>
                 </div>
+                <hr class="my-1">
                 <div class="row">
-                  <div class="col-md-8"></div>
                   <div class="col-md-4">
-                    <hr class="my-4">
                     <div class="d-flex flex-row-reverse">
                       <div class="p-2">
-                        <h4 *ngIf="!esTotal">{{getTotal() | currency:'USD':true}}</h4>
-                        <h4 *ngIf="esTotal">{{total0 | currency:'USD':true}}</h4>
+                        <h5 *ngIf="!esTotal">{{getTotal() | currency:'USD':true}}</h5>
+                        <h5 *ngIf="esTotal">{{total0 | currency:'USD':true}}</h5>
                       </div>
                       <div class="p-2">
-                        <h4>Total</h4>
+                        <h5>Total</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
+                      <div class="p-2">
+                        <a [hidden]="model.estado != 'Co'" href="javascript:;">
+                          <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                        </a>
+                        <a [hidden]="model.estado == 'Co'" href="javascript:;" (click)="getPagos()" data-dismiss="modal" data-toggle="modal" data-target="#pagosModal">
+                          <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                        </a>
+                      </div>
+                      <div class="p-2">
+                        <h5>Pagado</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
+                      <div class="p-2">
+                        <h5 *ngIf="!esTotal">{{getTotal() - model.totalPagado | currency:'USD':true}}</h5>
+                        <h5 *ngIf="esTotal">{{total0 - model.totalPagado | currency:'USD':true}}</h5>
+                      </div>
+                      <div class="p-2">
+                        <h5>Por pagar</h5>
                       </div>
                     </div>
                   </div>
@@ -448,86 +467,41 @@
                 <div class="habitaciones">
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label for="noPersonas">No. personas</label>
-                            <input type="number" class="form-control" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel" required
-                            />
-                            <div *ngIf="f.submitted && !noPersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
-                          </div>
-                        </div>
-                        <div class="col-md-8">
-                          <div class="form-group">
-                            <label for="aerolinea">Aerolínea</label>
-                            <select class="form-control" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
-                              <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
-                            </select>
-                            <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="noPersonas">No. personas</label>
+                        <p name="noPersonas" class="text-muted">{{model.noPersonas}}</p>
+                      </div>
+                      <div class="form-group">
+                        <label for="aerolinea">Aerolínea</label>
+                        <p name="aerolinea" class="text-muted">{{model.aerolinea}}</p>
                       </div>
                       <div class="form-group">
                         <label for="fuente">Captado de</label>
-                        <select class="form-control col-md-8" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
-                          <option *ngFor="let op of fuentes" [value]="op.idFuente">{{op.fuente}}</option>
-                        </select>
-                        <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">La fuente de captación es requerida</div>
+                        <p name="fuente" class="text-muted">{{model.fuente}}</p>
                       </div>
                       <div class="form-group">
                         <label for="notas">Notas</label>
-                        <textarea class="form-control" id="notas" name="notas" rows="2" [(ngModel)]="model.notas" #notas="ngModel" maxlength="600">{{model.notas}}</textarea>
+                        <p name="notas" class="text-muted">{{model.notas}}</p>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="correo">Correo electrónico</label>
-                        <div class="input-group">
-                          <input type="email" class="form-control col-md-10" name="correo" [(ngModel)]="model.pass.correo" #correo="ngModel" (blur)="correo.valid && getPasse()"
-                            [readonly]="accion=='U'" [email]="true" required/>
-                          <img *ngIf="goPass" src="/assets/images/loading.svg" />
-                        </div>
-                        <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
-                        <div *ngIf="correo.touched && !correo.valid && !f.submitted">
-                          <p class="text-danger">Ingrese un electrónico válido</p>
-                        </div>
-                        <div *ngIf="esPass==false && correo.touched && correo.valid">
-                          <p class="text-warning">Pasajero no registrado</p>
-                        </div>
+                        <p name="correo" class="text-muted">
+                          <a [href]="'mailto:' + model.pass.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{model.pass.correo}}</a>
+                        </p>
                       </div>
                       <div class="form-group">
                         <label for="pasajero">Nombre</label>
-                        <div class="input-group">
-                          <input type="text" class="form-control col-md-12" name="pasajero" [(ngModel)]="model.pass.pasajero" #pasajero="ngModel" [readonly]="esPass && !editaPass_"
-                            maxlength="100" required />
-                          <span class="input-group-btn">
-                            <button *ngIf="esPass && !editaPass_ && accion=='I'" class="btn btn-outline-danger" type="button" (click)="editaPass()">
-                              <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-                            <button *ngIf="esPass && editaPass_" class="btn btn-outline-primary" type="button" (click)="correo.valid && pasajero.valid && noContacto.valid && goEditaPass()">
-                              <i class="fa fa-check" aria-hidden="true"></i>
-                            </button>
-                            <button *ngIf="esPass && editaPass_" class="btn btn-outline-danger" type="button" (click)="cancelEditaPass()">
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </button>
-                          </span>
-                          <span *ngIf="editedPass && !editaPass_" class="mt-auto mb-auto ml-1">
-                            <i class="fa fa-check-circle-o fa-lg" style="color: #28a745;" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                        <div *ngIf="(f.submitted && !pasajero.valid)" class="invalid-feedback">El nombre es requerido</div>
-                        <div *ngIf="!f.submitted && !pasajero.valid && pasajero.touched">
-                          <p class="text-danger">El nombre es requerido</p>
-                        </div>
+                        <p name="pasajero" class="text-muted">{{model.pass.pasajero}}</p>
                       </div>
                       <div class="form-group">
                         <label for="pais">Pais</label>
-                        <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2>
+                        <p name="pais" class="text-muted">{{model.pass.pais}}</p>
                       </div>
                       <div class="form-group">
                         <label for="correo">Número de contacto</label>
-                        <input type="text" class="form-control col-md-8" name="noContacto" [(ngModel)]="model.pass.noContacto" #noContacto="ngModel"
-                          [readonly]="esPass && !editaPass_" maxlength="15" />
+                        <p name="noContacto" class="text-muted">{{model.pass.noContacto}}</p>
                       </div>
                     </div>
                   </div>
@@ -535,7 +509,7 @@
                 <div class="row">
                   <div class="col-md-6"></div>
                   <div class="col-md-6">
-                    <hr class="my-4">
+                    <hr class="my-1">
                     <div class="d-flex flex-row-reverse">
                       <div class="p-2">
                         <h4 *ngIf="!esTotal">{{getTotal() | currency:'USD':true}}</h4>
@@ -635,7 +609,7 @@
                       <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
                     </div>
                   </div>
-                  <hr class="my-4">
+                  <hr class="my-1">
                   <div class="d-flex flex-row-reverse">
                     <div class="p-2">
                       <h4>{{getTotal() | currency:'USD':true}}</h4>

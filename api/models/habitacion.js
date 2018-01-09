@@ -33,7 +33,7 @@ function Habitacion() {
     var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje
                     +'" idHabitacion= "'+ habitacion.idHabitacion
                     +'" noHabitacion= "'+ habitacion.noHabitacion
-                    +'" tarifa= "'+ habitacion.tarifa
+                    +'" tarifa= "'+ (habitacion.tarifa || 0)
                     +'" nombre= "'+ habitacion.habitacion +'" />';
     //console.log(param);
     connection.acquire(function(err, con) {
