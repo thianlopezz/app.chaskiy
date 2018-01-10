@@ -29,6 +29,7 @@ import { GoogleAnalyticsEventsService } from './services/google-analytics-events
 import { PaisService } from './services/pais.service';
 import { SocialService } from './services/social.service';
 import { TarifaService } from './tarifa/tarifa.service';
+import { RouteActivatorService } from './services/route-activator.service';
 
 import { MonedaDirective } from './directives/moneda.directive';
 import { MonedaPipe } from './pipes/moneda.pipe';
@@ -77,7 +78,8 @@ import { TarifaComponent } from './tarifa/tarifa.component';
     PasajeroService,
     SocialService,
     TarifaService,
-    MonedaPipe
+    MonedaPipe,
+    RouteActivatorService
   ]
 })
 export class PrivadoModule { }

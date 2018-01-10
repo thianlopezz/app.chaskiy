@@ -14,7 +14,8 @@ import { ContrasenaComponent } from '../privado/contrasena/contrasena.component'
 import { PagosComponent } from '../privado/pagos/pagos.component';
 import { HospedajeComponent } from '../privado/hospedaje/hospedaje.component';
 import { TarifaComponent } from '../privado/tarifa/tarifa.component';
-
+import { Err404Component } from '../compartido/err404/err404.component';
+import { RouteActivatorService } from '../privado/services/route-activator.service';
 
 const appRoutes: Routes = [
     { path: '', component: IndexComponent },
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
 
     { path: 'generico', component: GenericoComponent },
-
+    { path: '404', component: Err404Component },
+//canActivate: [RouteActivatorService]
     { path: 'home', component: HomeComponent },
     { path: 'reservas', component: ReservaComponent },
     { path: 'habitacion', component: HabitacionComponent },

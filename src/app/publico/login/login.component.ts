@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
                 data => {
 
                     if (data.success) {
-
-                      this.router.navigate(['/home']);
+                        this.router.navigate(['/home']);
                     } else {
 
                       this.error = {error: true, mensaje: data.mensaje};

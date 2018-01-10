@@ -81,9 +81,10 @@ export class ReservaService {
 
         let cont = 0;
 
-        if (feDesde > feHasta) {
+        if (feDesde.getTime() > feHasta.getTime()) {
           return 0;
         } else {
+          debugger;
 
           while (feDesde.getTime() !== feHasta.getTime()) {
 

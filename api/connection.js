@@ -6,11 +6,11 @@ function Connection() {
   this.init = function() {
     this.pool = mysql.createPool({
       connectionLimit: 10,
-      host: 'vvfv20el7sb2enn3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-      port:3306,
-      user: 'p5vt0h10xev9w1r4',
-      password: 'ssuoi1i5owi9vu4s',
-      database: 'q3p4w4hrpkpp1urq'
+      host: '35.199.127.98',
+      port: 3306,
+      user: 'root',
+      password: 'admin',
+      database: 'chaskiy-db'
     });
   };
 

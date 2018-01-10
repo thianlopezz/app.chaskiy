@@ -7,7 +7,6 @@ function autenticacion() {
     connection.acquire(function(err, con) {
       con.query('call seg_login(\''+ usuario +'\', \''+ md5(password) +'\')', function(err, result) {
         try{
-
           con.release();
           if(err){
 

@@ -161,7 +161,7 @@ router.post('/register/password', (req, res) => {
   registros.password(req.body, res);
 });
 
-//H A B I T A C I O N E S
+//I S  L O G G E D
 router.get('/auth/islogged/', (req, res) => {
 
   return res.json({ success: true });

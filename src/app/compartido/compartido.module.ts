@@ -15,6 +15,7 @@ import { Select2Module } from 'ng2-select2';
 import { MyDatePickerModule } from 'mydatepicker';
 
 import { ToastService } from '../compartido/services/toast.service';
+import { Err404Component } from './err404/err404.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,6 @@ import { ToastService } from '../compartido/services/toast.service';
     MensajeService,
     ToastService
   ],
-  declarations: [GenericoComponent, ModalConfirmacionComponent, ModalMensajeComponent]
+  declarations: [GenericoComponent, ModalConfirmacionComponent, ModalMensajeComponent, Err404Component]
 })
 export class CompartidoModule { }
