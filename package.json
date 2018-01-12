@@ -12,7 +12,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --aot -prod",
+    "start-proxy": "! pgrep cloud_sql_proxy > /dev/null && cloud_sql_proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:$SQL_PORT &"
   },
   "private": true,
   "dependencies": {
