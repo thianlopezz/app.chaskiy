@@ -2,17 +2,24 @@ var mysql = require('mysql');
 
 function Connection() {
   this.pool = null;
+  
 
   this.init = function() {
-    this.pool = mysql.createPool({
+
+    const config = {
       connectionLimit: 10,
-      host: '127.0.0.1',
-      port: 3306,
-      user: 'root',
-      password: 'admin',
-      database: 'chaskiy-db',
-      // socketPath:'/cloudsql/chaskiy-191704:southamerica-east1:chaskiy-db'
-    });
+      user: process.env.SQL_USER,
+      password: process.env.SQL_PASSWORD,
+      database: process.env.SQL_DATABASE
+    };
+
+    if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
+      config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
+    }
+
+    this.pool = mysql.createPool(
+      config
+    );
   };
 
   this.acquire = function(callback) {

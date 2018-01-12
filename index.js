@@ -17,7 +17,7 @@ const forceSSL = function () {
 }
 
 const app = express();
-
+app.enable('trust proxy');
 var connection = require('./api/connection');
 // app.use(forceSSL());
 app.use(bodyParser.json());
