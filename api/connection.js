@@ -11,7 +11,7 @@ function Connection() {
       user: 'root',
       password: 'admin',
       database: 'chaskiy-db',
-      socketPath:'chaskiy-191704:southamerica-east1:chaskiy-db'
+      socketPath:'/cloudsql/chaskiy-191704:southamerica-east1:chaskiy-db'
     });
   };
 
