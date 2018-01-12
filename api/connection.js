@@ -17,7 +17,8 @@ function Connection() {
       config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
     }
 
-    console.log('Conne>>params>>' + config);
+    console.log('Conne>>params>>');
+    console.log(config);
 
     this.pool = mysql.createPool(
       config
