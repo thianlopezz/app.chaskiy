@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+const process = require('process');
 
 function Connection() {
   this.pool = null;
