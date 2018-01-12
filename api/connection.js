@@ -6,12 +6,12 @@ function Connection() {
   this.init = function() {
     this.pool = mysql.createPool({
       connectionLimit: 10,
-      // host: '35.199.127.98',
-      // port: 3306,
+      host: '127.0.0.1',
+      port: 3306,
       user: 'root',
       password: 'admin',
       database: 'chaskiy-db',
-      socketPath:'/cloudsql/chaskiy-191704:southamerica-east1:chaskiy-db'
+      // socketPath:'/cloudsql/chaskiy-191704:southamerica-east1:chaskiy-db'
     });
   };
 
