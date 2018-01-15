@@ -3,7 +3,7 @@ var moment = require('moment');
 const axios = require('axios');
 var md5 = require('md5');
 
-const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+const API = process.env.CORREO_GENERICO || 'https://correo-generico.herokuapp.com';
 
 function Reserva() {
 
