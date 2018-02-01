@@ -4,6 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import * as jwt_decode from 'jwt-decode';
+import { debug } from 'util';
+export const TOKEN_NAME = 'jwt_token';
+
 @Injectable()
 export class AutenticacionService {
 
@@ -23,7 +27,6 @@ export class AutenticacionService {
 
                     const _user = _response.usuario;
                     if (_user && _user.token) {
-                        // store user details and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', JSON.stringify(_user));
                         return _response;
                     }
@@ -38,33 +41,30 @@ export class AutenticacionService {
         return JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    isLogged() {
-
-        return this.http.get('/api/auth/islogged/', this.jwt()).map((response: Response) => response.json());
-    }
-
-    isLoLogged() {
-
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser == null || !currentUser.token) {
-            return false;
-        }
-
-        return true;
-    }
-
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
 
-    private jwt() {
+    isTokenExpired(token?: string): boolean {
+        if (!this.getLogin()) { return true; }
+        if (!token) { token = this.getLogin().token; }
+        if (!token) { return true; }
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const date = this.getTokenExpirationDate(token);
+        if (date === undefined) { return false; }
+        return !(date.valueOf() > new Date().valueOf());
+    }
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
-            return new RequestOptions({ headers: headers });
+    private getTokenExpirationDate(token: string): Date {
+        const decoded = jwt_decode(token);
+
+        if (decoded.exp === undefined) {
+            return null;
         }
+
+        const date = new Date(0);
+        date.setUTCSeconds(decoded.exp);
+        return date;
     }
 }

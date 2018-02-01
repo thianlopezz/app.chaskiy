@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AutenticacionService } from './publico/services/autenticacion.service';
 import { GoogleAnalyticsEventsService } from './privado/services/google-analytics-events.service';
@@ -10,14 +10,15 @@ declare const ga: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
 
   // tslint:disable-next-line:indent
   currentUser: any;
 
-  constructor(private autenticacionService: AutenticacionService,
-              public router: Router,
-              public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
+  constructor(private cdRef: ChangeDetectorRef,
+    private autenticacionService: AutenticacionService,
+    public router: Router,
+    public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -27,15 +28,20 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit() { }
 
+  ngAfterViewChecked() {
     this.currentUser = this.autenticacionService.getLogin();
+    this.cdRef.detectChanges();
   }
 
   isLogged() {
-
-    this.currentUser = this.autenticacionService.getLogin();
-    return this.autenticacionService.isLoLogged();
+    // if (this.autenticacionService.getLogin().token) {
+    //   return true;
+    // }
+    // return false;
+    // this.currentUser = this.autenticacionService.getLogin();
+    return this.autenticacionService.getLogin();
   }
 
 }

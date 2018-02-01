@@ -13,31 +13,31 @@ import { CurrentMonth } from '../models/current-month';
 export class PagosComponent implements OnInit {
 
   public myDatePickerOptions: IMyDpOptions = {
-      // other options...
-      dateFormat: 'dd/mm/yyyy',
-      openSelectorOnInputClick: true,
-      showClearDateBtn: false
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+    openSelectorOnInputClick: true,
+    showClearDateBtn: false
   };
 
-toDay = new Date();
+  toDay = new Date();
 
-feHasta = {
-  date: {
-    year: this.toDay.getFullYear(),
-    month: this.toDay.getMonth() + 1,
-    day: this.toDay.getDate()
-  },
-  _date: new Date()
-};
+  feHasta = {
+    date: {
+      year: this.toDay.getFullYear(),
+      month: this.toDay.getMonth() + 1,
+      day: this.toDay.getDate()
+    },
+    _date: new Date()
+  };
 
-feDesde = {
-  date: {
-    year: this.toDay.getFullYear() - 1,
-    month: this.toDay.getMonth() + 1,
-    day: this.toDay.getDate()
-  },
-  _date: new Date(this.toDay.getFullYear() - 1, this.toDay.getMonth() + 1, this.toDay.getDate(), 0, 0, 0, 0)
-};
+  feDesde = {
+    date: {
+      year: this.toDay.getFullYear() - 1,
+      month: this.toDay.getMonth() + 1,
+      day: this.toDay.getDate()
+    },
+    _date: new Date(this.toDay.getFullYear() - 1, this.toDay.getMonth() + 1, this.toDay.getDate(), 0, 0, 0, 0)
+  };
 
   hbDesde: any = {};
   hbHasta: any = {};
@@ -49,7 +49,7 @@ feDesde = {
   totalPagos = 0;
 
   constructor(private estadisticaService: EstadisticaService,
-              private pagoService: PagoService) { }
+    private pagoService: PagoService) { }
 
   ngOnInit() {
 
@@ -57,38 +57,46 @@ feDesde = {
   }
 
   onDateChanged(event: IMyDateModel, id: string) {
-debugger;
+
     if (id === 'D') {
 
-      this.feDesde = { date: {
-                  year: event.date.year,
-                  month: event.date.month,
-                  day: event.date.day },
-                  _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
-                };
+      this.feDesde = {
+        date: {
+          year: event.date.year,
+          month: event.date.month,
+          day: event.date.day
+        },
+        _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
+      };
 
-      this.feHasta = { date: {
-                  year: this.feHasta.date.year,
-                  month: this.feHasta.date.month,
-                  day: this.feHasta.date.day },
-                  _date: new Date(this.feHasta.date.year, this.feHasta.date.month - 1, this.feHasta.date.day, 0, 0, 0, 0)
-                };
+      this.feHasta = {
+        date: {
+          year: this.feHasta.date.year,
+          month: this.feHasta.date.month,
+          day: this.feHasta.date.day
+        },
+        _date: new Date(this.feHasta.date.year, this.feHasta.date.month - 1, this.feHasta.date.day, 0, 0, 0, 0)
+      };
     } else if (id === 'H') {
 
-        this.feDesde = { date: {
-                    year: this.feDesde.date.year,
-                    month: this.feDesde.date.month,
-                    day: this.feDesde.date.day },
-                    _date: new Date(this.feDesde.date.year, this.feDesde.date.month - 1 , this.feDesde.date.day, 0, 0, 0, 0)
-                  };
+      this.feDesde = {
+        date: {
+          year: this.feDesde.date.year,
+          month: this.feDesde.date.month,
+          day: this.feDesde.date.day
+        },
+        _date: new Date(this.feDesde.date.year, this.feDesde.date.month - 1, this.feDesde.date.day, 0, 0, 0, 0)
+      };
 
-        this.feHasta = { date: {
-                    year: event.date.year,
-                    month: event.date.month,
-                    day: event.date.day },
-                    _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
-                  };
-      }
+      this.feHasta = {
+        date: {
+          year: event.date.year,
+          month: event.date.month,
+          day: event.date.day
+        },
+        _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
+      };
+    }
 
     this.goStatistics();
   }
@@ -122,67 +130,69 @@ debugger;
 
   private getMonthIcom(ceros, feDesde, feHasta) {
 
-      this.estadisticaService.getMonthIcom(feDesde, feHasta).subscribe(
-          montos => {
+    this.estadisticaService.getMonthIcom(feDesde, feHasta).subscribe(
+      montos => {
 
-              if (montos.success) {
+        if (montos.success) {
 
-                  for (let i = 0; i < montos.data.length; i++) {
-                    for (let j = 0; j < ceros.length; j++) {
+          for (let i = 0; i < montos.data.length; i++) {
+            for (let j = 0; j < ceros.length; j++) {
 
-                      if (ceros[j].mes === montos.data[i].mes &&
-                        ceros[j].anio === montos.data[i].anio) {
+              if (ceros[j].mes === montos.data[i].mes &&
+                ceros[j].anio === montos.data[i].anio) {
 
-                        ceros[j].monto = montos.data[i].monto;
-                        break;
-                      }
-                    }
-                  }
-
-                    const data = {
-                      labels: [],
-                      datasets: []
-                    };
-
-                    const ds = [];
-
-                    for (let i = 0; i < ceros.length; i++) {
-
-                      data.labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
-                      ds.push(ceros[i].monto);
-                    }
-
-                    data.datasets.push({label: 'Ingresos', borderColor: '#e59607',
-                                        backgroundColor: 'rgba(31, 61, 76, 0.54)', data: ds });
-                    this.chart = new ChartOptions(data);
-              } else {
-
-                console.log('Error>> getMonthIcom>> ' + montos.mensaje);
+                ceros[j].monto = montos.data[i].monto;
+                break;
               }
+            }
+          }
+
+          const data = {
+            labels: [],
+            datasets: []
+          };
+
+          const ds = [];
+
+          for (let i = 0; i < ceros.length; i++) {
+
+            data.labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
+            ds.push(ceros[i].monto);
+          }
+
+          data.datasets.push({
+            label: 'Ingresos', borderColor: '#e59607',
+            backgroundColor: 'rgba(31, 61, 76, 0.54)', data: ds
+          });
+          this.chart = new ChartOptions(data);
+        } else {
+
+          console.log('Error>> getMonthIcom>> ' + montos.mensaje);
+        }
       });
   }
 
   private getDetalles(feDesde, feHasta) {
 
-      this.pagoService.getByDate(feDesde, feHasta).subscribe(
-          pagos => {
+    this.pagoService.getByDate(feDesde, feHasta).subscribe(
+      pagos => {
 
-              if (pagos.success) {
+        if (pagos.success) {
 
-                let sum = 0;
+          let sum = 0;
 
-                this.pagos = pagos.data;
+          this.pagos = pagos.data;
 
-                for (let i = 0; i < this.pagos.length; i++) {
+          for (let i = 0; i < this.pagos.length; i++) {
 
-                  sum += this.pagos[i].monto;
-                }
+            sum += this.pagos[i].monto;
+          }
 
-                this.totalPagos = sum;
-              } else {
+          this.totalPagos = sum;
+        } else {
 
-                console.log('Error>> getDetalles>> ' + pagos.mensaje);
-              }
+          console.log('Error>> getDetalles>> ' + pagos.mensaje);
+        }
       });
   }
 
@@ -195,14 +205,14 @@ debugger;
     aux = feDesde.getFullYear();
     aux = feHasta.getFullYear();
 
-    dataset.push({monto: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear()});
+    dataset.push({ monto: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear() });
 
     while (feDesde.getMonth() !== feHasta.getMonth() ||
-            feDesde.getFullYear() !== feHasta.getFullYear()) {
+      feDesde.getFullYear() !== feHasta.getFullYear()) {
 
-              feDesde.setMonth(feDesde.getMonth() + 1);
-              dataset.push({monto: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear()});
-            }
+      feDesde.setMonth(feDesde.getMonth() + 1);
+      dataset.push({ monto: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear() });
+    }
 
     return dataset;
   }

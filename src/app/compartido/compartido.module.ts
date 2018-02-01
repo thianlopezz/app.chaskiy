@@ -11,7 +11,6 @@ import { ModalMensajeComponent } from './components/modal-mensaje/modal-mensaje.
 import { ConfirmacionEventService } from './components/modal-confirmacion/confirmacion-event.service';
 import { ConfirmacionService } from './components/modal-confirmacion/confirmacion.service';
 import { MensajeService } from './components/modal-mensaje/mensaje.service';
-import { Select2Module } from 'ng2-select2';
 import { MyDatePickerModule } from 'mydatepicker';
 
 import { ToastService } from '../compartido/services/toast.service';
@@ -20,14 +19,12 @@ import { Err404Component } from './err404/err404.component';
 @NgModule({
   imports: [
     CommonModule,
-    Select2Module,
     MyDatePickerModule,
     FormsModule,
     RouterModule,
     HttpModule
   ],
   exports: [
-    Select2Module,
     // MyDatePickerModule,
     ModalConfirmacionComponent,
     ModalMensajeComponent,

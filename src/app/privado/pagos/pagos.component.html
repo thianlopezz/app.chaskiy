@@ -3,31 +3,29 @@
 	<hr class="my-2">
 </div>
 <div class="container">
-  <div class="row">
-    <div class="col-lg-9 col-md-10 col-sm-12">
+	<div class="row">
+		<div class="col-lg-9 col-md-10 col-sm-12">
 			<div class="row">
 				<div class="col-md-4">
 					<h3 class="display-5">Ingresos</h3>
 				</div>
 				<div class="col-md-8">
 					<div class="row">
-            <div class="col-md-6">
+						<div class="col-md-6">
 							<label for="mydate">Desde</label>
-							<my-date-picker id="mydate" name="mydate" [options]="myDatePickerOptions"
-							 [(ngModel)]="feDesde" (dateChanged)="onDateChanged($event, 'D')"></my-date-picker>
-              <div [hidden]="!hbDesde.show" class="helper-p">
-                <p class="text-warning mb-0">{{hbDesde.mensaje}}</p>
-              </div>
-						 	<!-- <small [hidden]="!hbDesde.show" class="form-text text-muted">{{hbDesde.mensaje}}</small> -->
-            </div>
-            <div class="col-md-6">
+							<my-date-picker id="mydate" name="mydate" [options]="myDatePickerOptions" [(ngModel)]="feDesde" (dateChanged)="onDateChanged($event, 'D')"></my-date-picker>
+							<div [hidden]="!hbDesde.show" class="helper-p">
+								<p class="text-warning mb-0">{{hbDesde.mensaje}}</p>
+							</div>
+							<!-- <small [hidden]="!hbDesde.show" class="form-text text-muted">{{hbDesde.mensaje}}</small> -->
+						</div>
+						<div class="col-md-6">
 							<label for="mydate0">Hasta</label>
-							<my-date-picker id="mydate0" name="mydate0" [options]="myDatePickerOptions"
-							 [(ngModel)]="feHasta" (dateChanged)="onDateChanged($event, 'H')"></my-date-picker>
-              <div [hidden]="!hbHasta.show" class="helper-p">
-                <p class="text-warning mb-0">{{hbHasta.mensaje}}</p>
-              </div>
-            </div>
+							<my-date-picker id="mydate0" name="mydate0" [options]="myDatePickerOptions" [(ngModel)]="feHasta" (dateChanged)="onDateChanged($event, 'H')"></my-date-picker>
+							<div [hidden]="!hbHasta.show" class="helper-p">
+								<p class="text-warning mb-0">{{hbHasta.mensaje}}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -40,56 +38,63 @@
 			<div class="row mt-4">
 				<div class="col-md-12">
 					<h3 class="display-5">Detalles</h3>
-					<div class="card">
-					  <div class="card-body">
-		    			<table class="table table-hover table-responsive ml-auto mr-auto">
-		    			  <thead>
-		    			    <tr>
-		    			      <th>Forma de Pago</th>
-		    			      <th>Generado por</th>
-		    			      <th>Fecha</th>
-		    			      <th>Monto</th>
-		    			    </tr>
-		    			  </thead>
-		    			  <tbody>
-		              <tr *ngIf="pagos.length==0">
-		                <td colspan="4" align="center">No se existen registros</td>
-		              </tr>
-		    			    <tr *ngFor="let pago of pagos">
-		    			      <td width="25%">{{pago.formaPago}}</td>
-		    			      <td width="35%">{{pago.usuario}}</td>
-		    			      <td width="20%">{{pago.fecha}}</td>
-		    			      <td width="20%">{{pago.monto | currency:'USD':true}}</td>
-		    			    </tr>
-		    			    <tr>
-		    			      <td width="25%"></td>
-		    			      <td width="35%"></td>
-		    			      <td width="20%">
-											<strong>Total</strong>
-										</td>
-		    			      <td width="20%">{{totalPagos | currency:'USD':true}}</td>
-		    			    </tr>
-		    			  </tbody>
-		    			</table>
-					  </div>
-					</div>
+					<hr>
+					<table class="table table-hover ml-auto mr-auto">
+						<thead>
+							<tr>
+								<th>Forma de Pago</th>
+								<th>Generado por</th>
+								<th>Fecha</th>
+								<th>Monto</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="pagos.length==0">
+								<td colspan="4" align="center">No se existen registros</td>
+							</tr>
+							<tr *ngFor="let pago of pagos">
+								<td width="25%">{{pago.formaPago}}</td>
+								<td width="35%">{{pago.usuario}}</td>
+								<td width="20%">{{pago.fecha}}</td>
+								<td width="20%">{{pago.monto | currency:'USD':true}}</td>
+							</tr>
+							<tr>
+								<td width="25%"></td>
+								<td width="35%"></td>
+								<td width="20%">
+									<strong>Total</strong>
+								</td>
+								<td width="20%">{{totalPagos | currency:'USD':true}}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<hr class="my-2">
 			<!-- <card-reservas [reservas]="reservadosDb"></card-reservas> -->
-    </div>
-    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
-
-			<div class="card">
-			  <div class="card-body">
-			    <h4 class="card-title">Notificaciones</h4>
-			    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-			    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eveniet unde ipsum, autem sunt, aperiam, quam harum quibusdam consectetur, sed doloribus? Reprehenderit expedita quam aperiam recusandae, quasi. Ratione, illum, aliquam!</p>
-			    <!-- <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a> -->
-			  </div>
+		</div>
+		<div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+			
+			<div class="card mt-2">
+				<div class="card-body">
+					<h4 class="card-title">Ayuda</h4>
+					<p class="card-text">
+						No pierdas de vista los pagos que se generan con tus reservas, busca tus pagos y genera tu estadístca con las fechas que tu eljas.
+					</p>
+				</div>
 			</div>
 
-  	</div>
+			<div class="card mt-2">
+				<div class="card-body">
+					<h4 class="card-title">Notificaciones</h4>
+					<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eveniet unde ipsum, autem sunt, aperiam, quam harum quibusdam
+						consectetur, sed doloribus? Reprehenderit expedita quam aperiam recusandae, quasi. Ratione, illum, aliquam!</p>
+					<!-- <a href="#" class="card-link">Card link</a>
+			    <a href="#" class="card-link">Another link</a> -->
+				</div>
+			</div>
+
+		</div>
 	</div>
 </div>

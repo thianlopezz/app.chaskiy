@@ -10,6 +10,9 @@ import { PublicoModule } from './publico/publico.module';
 
 import { routing } from './rutas/app.routing';
 
+import { ErrorHandler } from '@angular/core';
+import { AuthErrorHandler } from './publico/services/auth-error-handler';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +25,12 @@ import { routing } from './rutas/app.routing';
     PublicoModule,
     routing
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: AuthErrorHandler
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

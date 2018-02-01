@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild,
-          Input, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, OnInit, ViewChild,
+  Input, ElementRef, OnChanges, SimpleChanges
+} from '@angular/core';
 import { ChartOptions } from '../../models/chart-options';
-import Chart from 'chart.js';
+
+declare var Chart: any;
 
 @Component({
   selector: 'app-card-chart',
@@ -28,23 +31,23 @@ export class CardChartComponent implements OnInit, OnChanges {
       const _chart = this.myChart.nativeElement.getContext('2d');
 
       this.chart = new Chart(
-            _chart,
-            {
-              'type': options.type || 'line',
-              'data': options.data || {},
-              'options': options.options || {}
-            }
+        _chart,
+        {
+          'type': options.type || 'line',
+          'data': options.data || {},
+          'options': options.options || {}
+        }
       );
 
     }
 
     this.chart.data.labels.pop();
     this.chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
+      dataset.data.pop();
     });
 
     this.chart.data = options.data;
     this.chart.update();
-}
+  }
 
 }

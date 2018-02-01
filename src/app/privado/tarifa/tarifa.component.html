@@ -1,49 +1,75 @@
-<div class="container default-container">
-  <div class="col-md-12">
-    <h2>
-      Tarifas
-      <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal"
-        data-target="#tarifaModal">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-      </button>
-    </h2>
-    <hr class="my-2">
-  </div>
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <h2>Registro
-          <small>Tarifas</small>
-        </h2>
-        <table class="table table-striped table-responsive">
-          <thead>
-            <tr>
-              <th width="20%">Tipo</th>
-              <th width="40%">Tarifa</th>
-              <th width="30%">Valor</th>
-              <th width="10%">Editar/Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let tarifa of tarifas">
-              <td width="20%">{{tarifa.tipotarifa}}</td>
-              <td width="40%">{{tarifa.tarifa}}</td>
-              <td width="30%">{{tarifa.valor | currency:'USD':true}}</td>
-              <td width="10%" class="text-center">
-                <div class="btn-group grid-btn" role="group">
-                  <button type="button" (click)="setModi(tarifa)" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tarifaModal">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" (click)="setElim(tarifa)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="container">
+  <h3 class="display-4">Tarifas</h3>
+  <hr class="my-2">
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <h3>
+        Regsitros({{tarifas.length}})
+        <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal"
+          data-target="#tarifaModal">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+      </h3>
+      <hr>
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th width="20%">Tipo</th>
+            <th width="40%">Tarifa</th>
+            <th width="30%">Valor</th>
+            <th width="10%">Editar/Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tarifa of tarifas">
+            <td width="20%">{{tarifa.tipotarifa}}</td>
+            <td width="40%">{{tarifa.tarifa}}</td>
+            <td width="30%">{{tarifa.valor | currency:'USD':true}}</td>
+            <td width="10%" class="text-center">
+              <div class="btn-group grid-btn" role="group">
+                <button type="button" (click)="setModi(tarifa)" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tarifaModal">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button type="button" (click)="setElim(tarifa)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            Registra, edita o elimina las tarifas que manejas en tu hospedaje. Las tarifas se asignan a las habitaciones al memomento de hacer una reserva y suman a la cuenta final dependiendo los días que se ocupe la habitación.
+            <br>
+            <br>
+            Entre los tipos de tarifas que puedes registrar estan:
+          </p>
+          <ul>
+            <li *ngFor="let op of tipos">{{op.tipotarifa}}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Notificaciones</h4>
+          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eveniet unde ipsum, autem sunt, aperiam, quam harum
+            quibusdam consectetur, sed doloribus? Reprehenderit expedita quam aperiam recusandae, quasi. Ratione, illum,
+            aliquam!</p>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>
 <!-- MODAL TARIFA -->
@@ -67,8 +93,8 @@
         </div>
         <div class="form-group">
           <label for="tarifa">Tarifa</label>
-          <input type="text" class="form-control col-md-6" name="tarifa" [(ngModel)]="model.tarifa" #tarifa="ngModel"
-            maxlength="100" required />
+          <input type="text" class="form-control col-md-6" name="tarifa" [(ngModel)]="model.tarifa" #tarifa="ngModel" maxlength="100"
+            required />
           <div *ngIf="f.submitted && !tarifa.valid" class="invalid-feedback">El nombre de la tarifa es requrida</div>
         </div>
         <div class="form-group">

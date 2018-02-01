@@ -1,9 +1,7 @@
 <div class="container-fluid">
   <div class="col-md-12">
     <div *ngIf="accion=='I'" class="add btn-group" role="group" aria-label="b-group">
-      <button type="button" class="btn btn-sm btn-outline-primary btn-icon" data-toggle="modal" data-target="#reservaModal" (click)="setReserva()"
-        [disabled]="reservados.length==0">
-        <!-- <span class="badge badge-info">{{reservados.length}}</span> -->
+      <button type="button" class="btn btn-sm btn-outline-primary btn-icon" (click)="setReserva()" [disabled]="reservados.length==0">
         {{reservados.length}}
         <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
       </button>
@@ -22,7 +20,7 @@
   </div>
   <br/>
   <div class="col-md-12">
-    <table class="table table-bordered table-responsive">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th rowspan="3"></th>
@@ -84,11 +82,15 @@
         <div class="modal-header">
           <h4 class="modal-title">Reserva &nbsp;
             <small *ngIf="esModi && accion=='I'">
-              <label class="custom-control custom-checkbox">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="proforma" [(ngModel)]="model.esProforma">
+                <label class="custom-control-label" for="proforma">Proforma</label>
+              </div>
+              <!-- <label class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" [(ngModel)]="model.esProforma">
                 <span class="custom-control-indicator"></span>
                 <span class="custom-control-description">Proforma</span>
-              </label>
+              </label> -->
             </small>
           </h4>
           <font>{{'Estado: ' + getEstado()}}</font>
@@ -142,7 +144,7 @@
                             <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
                           </p>
                           <p *ngIf="esTotal">
-                             {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
+                            {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
                           </p>
                         </div>
                       </div>
@@ -152,31 +154,36 @@
                     <br>
                     <div class="scroll-15">
                       <div class="form-group">
-                        <select2 [data]="adicionales" [options]="optionsAdi" [value]="valueAd" (valueChanged)="changedAd($event)" name="adicional"
-                          width="100%"></select2>
+                        <select id="adicional" name="adicional" multiple="multiple" style="width: 100%">
+                          <option *ngFor="let add of adicionales" [value]="add.id">{{add.text}}</option>
+                        </select>
+                        <!-- <select2 [data]="adicionales" [options]="optionsAdi" [value]="valueAd" (valueChanged)="changedAd($event)" name="adicional"
+                          width="100%"></select2> -->
                       </div>
                       <div class="row">
                         <div *ngIf="model.valueAd && model.valueAd.length===0" class="alert alert-warning col-md-12 text-center" role="alert">
-                           No existen adicionales asignados a la reserva.
+                          No existen adicionales asignados a la reserva.
                         </div>
                         <div class="col-md-6" *ngFor="let adi of model.valueAd">
                           <div class="alert alert-info alert-dismissible fade show" role="alert">
                             <div *ngIf="auxValor0.idAdicional == adi.idAdicional" class="input-group">
                               <input type="text" class="form-control" name="adTarifa" placeholder="{{'Tarifa para ' + adi.adicional}}" [(ngModel)]="adi.tarifa"
                                 appMoneda="true" #tarifa0="ngModel" />
-                              <span class="input-group-addon">x</span>
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">X</span>
+                              </div>
                               <input type="number" class="form-control" name="adCantidad" placeholder="Cantidad" [(ngModel)]="adi.cantidad" #tarifa0="ngModel"
                               />
-                              <span class="input-group-btn">
+                              <div class="input-group-append">
                                 <button type="button" class="btn btn-primary" (click)="goModiVal0()">
                                   <i class="fa fa-check" aria-hidden="true"></i>
                                 </button>
-                              </span>
-                              <span class="input-group-btn">
+                              </div>
+                              <div class="input-group-append">
                                 <button type="button" class="btn btn-danger" (click)="cancelTarifa0(adi)">
                                   <i class="fa fa-times" aria-hidden="true"></i>
                                 </button>
-                              </span>
+                              </div>
                             </div>
                             <div *ngIf="auxValor0.idAdicional != adi.idAdicional">
                               <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
@@ -207,8 +214,8 @@
                           <h4 *ngIf="!modiTotal">{{total0 | currency:'USD':true}}</h4>
                         </a>
                         <div *ngIf="modiTotal" class="input-group">
-                          <input type="text" class="form-control" name="total" placeholder="Valor total" [(ngModel)]="total0" appMoneda="true"
-                            #total="ngModel" />
+                          <input type="text" class="form-control" name="total" placeholder="Valor total" [(ngModel)]="total0" appMoneda="true" #total="ngModel"
+                          />
                           <span class="input-group-btn">
                             <button type="button" class="btn btn-primary" (click)="goModiTotal0()">
                               <i class="fa fa-check" aria-hidden="true"></i>
@@ -234,8 +241,8 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="noPersonas">No. personas</label>
-                        <input type="number" class="form-control col-md-8" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel" required
-                        />
+                        <input type="number" class="form-control col-md-8" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel"
+                          required />
                         <div *ngIf="f.submitted && !noPersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
                       </div>
                       <div class="form-group">
@@ -300,7 +307,10 @@
                       </div>
                       <div class="form-group">
                         <label for="pais">Pais</label>
-                        <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2>
+                        <select id="pais" name="pais" style="width: 100%" [disabled]="esPass && !editaPass_">
+                          <option *ngFor="let pais of paises" [value]="pais.id">{{pais.text}}</option>
+                        </select>
+                        <!-- <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2> -->
                       </div>
                       <div class="form-group">
                         <label for="correo">Número de contacto</label>
@@ -389,30 +399,10 @@
                         </div>
                         <div class="col-md-6" *ngFor="let adi of model.valueAd">
                           <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <div *ngIf="auxValor0.idAdicional == adi.idAdicional" class="input-group">
-                              <input type="text" class="form-control" name="adTarifa" placeholder="{{'Tarifa para ' + adi.adicional}}" [(ngModel)]="adi.tarifa"
-                                appMoneda="true" #tarifa0="ngModel" />
-                              <span class="input-group-addon">x</span>
-                              <input type="number" class="form-control" name="adCantidad" placeholder="Cantidad" [(ngModel)]="adi.cantidad" #tarifa0="ngModel"
-                              />
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" (click)="goModiVal0()">
-                                  <i class="fa fa-check" aria-hidden="true"></i>
-                                </button>
-                              </span>
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-danger" (click)="cancelTarifa0(adi)">
-                                  <i class="fa fa-times" aria-hidden="true"></i>
-                                </button>
-                              </span>
-                            </div>
                             <div *ngIf="auxValor0.idAdicional != adi.idAdicional">
                               <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
                                 <small *ngIf="!esTotal">
-                                  <a href="javascript:;" (click)="modiTarifa0(adi)" style="cursor:pointer">
-                                    Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}} x&nbsp;{{adi.cantidad}}&nbsp;
-                                  </a>
-                                  <strong>= {{adi.tarifa * adi.cantidad | currency:'USD':true}}</strong>
+                                  Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}} x&nbsp;{{adi.cantidad}}&nbsp;= {{adi.tarifa * adi.cantidad | currency:'USD':true}}
                                 </small>
                               </h6>
                             </div>
@@ -733,7 +723,7 @@
             </div>
           </div>
           <div class="form-group">
-            <table class="table table-striped table-responsive">
+            <table class="table table-striped">
               <thead>
                 <tr>
                   <th width="20%">Forma de Pago</th>

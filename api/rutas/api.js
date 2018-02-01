@@ -110,7 +110,7 @@ router.use(function(req, res, next) {
     
     jwt.verify(token, secret, function(err, decoded) {
       if (err) {
-
+        
         return res.json({ success: false, err: -1, mensaje: 'Failed to authenticate token.' });
       } else {        
         req.decoded = decoded;

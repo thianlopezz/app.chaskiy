@@ -257,6 +257,9 @@ function Reserva() {
 
   function setXml(data) {
 
+    console.log('params>>');
+    console.log(data);
+
     data.idReserva = data.idReserva || 0;
     data.notas = data.notas || '';
     data.pass.valuePa = data.pass.valuePa || 0;
@@ -273,7 +276,7 @@ function Reserva() {
       + '" noPersonas= "' + data.noPersonas + '" notas= "' + data.notas
       + '" idHabitacion= "' + setHabitaciones(data.habitaciones) + '" idAdicional= "' + setAdicionales(data.valueAd)
       + '" idPais= "' + data.pass.valuePa
-      + '" pasajero= "' + data.pass.pasajero + '" noContacto= "' + data.pass.noContacto
+      + '" pasajero= "' + data.pass.pasajero + '" noContacto= "' + (data.pass.noContacto || '')
       + '" correo= "' + data.pass.correo + '" habLength= "' + data.habitaciones.length
       + '" adLength= "' + data.valueAd.length
       + '" total= "' + data.total
@@ -286,7 +289,7 @@ function Reserva() {
       + '" idFuente= "' + data.idFuente
       + '" />';
 
-    console.log('param>> ' + param);
+    console.log(param);
     return param;
   }
 

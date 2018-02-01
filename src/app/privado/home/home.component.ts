@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ReservaService } from '../reserva/reserva.service';
 import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
-import { AutenticacionService } from '../../publico/services/autenticacion.service'
+import { AutenticacionService } from '../../publico/services/autenticacion.service';
 declare var jQuery: any;
 
 @Component({
@@ -28,7 +28,8 @@ export class HomeComponent implements OnInit {
     // other options...
     dateFormat: 'dd/mm/yyyy',
     openSelectorOnInputClick: true,
-    showClearDateBtn: false
+    showClearDateBtn: false,
+    width: '60%'
   };
 
   public fecha: any;

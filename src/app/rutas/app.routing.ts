@@ -25,15 +25,15 @@ const appRoutes: Routes = [
 
     { path: 'generico', component: GenericoComponent },
     { path: '404', component: Err404Component },
-//canActivate: [RouteActivatorService]
-    { path: 'home', component: HomeComponent },
-    { path: 'reservas', component: ReservaComponent },
-    { path: 'habitacion', component: HabitacionComponent },
-    { path: 'adicional', component: AdicionalComponent },
-    { path: 'contrasena', component: ContrasenaComponent },
-    { path: 'pagos', component: PagosComponent },
-    { path: 'hospedaje', component: HospedajeComponent },
-    { path: 'tarifa', component: TarifaComponent },
+
+    { path: 'home', component: HomeComponent, canActivate: [RouteActivatorService] },
+    { path: 'reservas', component: ReservaComponent, canActivate: [RouteActivatorService] },
+    { path: 'habitacion', component: HabitacionComponent, canActivate: [RouteActivatorService] },
+    { path: 'adicional', component: AdicionalComponent, canActivate: [RouteActivatorService] },
+    { path: 'contrasena', component: ContrasenaComponent, canActivate: [RouteActivatorService] },
+    { path: 'pagos', component: PagosComponent, canActivate: [RouteActivatorService] },
+    { path: 'hospedaje', component: HospedajeComponent, canActivate: [RouteActivatorService] },
+    { path: 'tarifa', component: TarifaComponent, canActivate: [RouteActivatorService] },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

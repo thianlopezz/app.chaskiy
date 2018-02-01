@@ -14,6 +14,15 @@ function Connection() {
       database: process.env.SQL_DATABASE
     };
 
+    // const config = {
+    //   connectionLimit: 10,
+    //   host: '35.199.127.98',
+    //   port: 3306,
+    //   user: 'root',
+    //   password: 'admin',
+    //   database: 'chaskiy-db'
+    // };
+
     if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
       config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
     }

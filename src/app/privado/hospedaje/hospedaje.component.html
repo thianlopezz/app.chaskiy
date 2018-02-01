@@ -29,7 +29,10 @@
                 </div>
                 <div class="form-group">
                     <label for="pais">Pais</label>
-                    <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="readOnly"></select2><!--  [readonly]="!noPass" -->
+                    <select id="pais" name="pais" style="width: 100%" [disabled]="readOnly">
+                        <option *ngFor="let pais of paises" [value]="pais.id">{{pais.text}}</option>
+                    </select>
+                    <!-- <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="readOnly"></select2> [readonly]="!noPass" -->
                     <!-- <div *ngIf="f.submitted && !pais.valid" class="invalid-feedback">El país es requerido</div> -->
                 </div>
                 <div class="form-group">
@@ -60,7 +63,9 @@
                         <i [class]="red.icon" aria-hidden="true"></i>
                     </label>
                     <div class="input-group">
-                        <span class="input-group-addon" *ngIf="red.url!=''">{{red.url}}</span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" *ngIf="red.url!=''">{{red.url}}</span>
+                        </div>                        
                         <input type="text" class="form-control" [name]="'social'+i" [(ngModel)]="red.valor" #val="ngModel" [readonly]="readOnly"/>
                     </div>
                 </div>
@@ -74,7 +79,17 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
-        <div class="card">
+        
+        <div class="card mt-2">
+            <div class="card-body">
+                <h4 class="card-title">Ayuda</h4>
+                <p class="card-text">
+                    Completa todos los datos de tu hospedaje, es importante para que tu pasajero te ubique mejor. No olvides que la información de las redes sociales se ve reflejada en los correos que se envían a tus pasajeros desde Chaskiy.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-2">
             <div class="card-body">
             <h4 class="card-title">Notificaciones</h4>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutenticacionService } from '../services/autenticacion.service';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

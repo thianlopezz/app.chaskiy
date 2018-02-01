@@ -16,7 +16,7 @@ declare var jQuery: any;
 export class TarifaComponent implements OnInit, OnDestroy {
 
   model: any = {};
-  tarifas: any[];
+  tarifas = [];
   tipos: any[];
   user: any = {};
   loading = false;

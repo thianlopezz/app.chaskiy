@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Select2OptionData } from 'ng2-select2';
 import { ReservaService } from './reserva.service';
 import { HabitacionService } from '../habitacion/habitacion.service';
 import { AdicionalService } from '../adicional/adicional.service';
@@ -26,7 +25,7 @@ declare var jQuery: any;
   templateUrl: './reserva.component.html',
   styleUrls: ['./reserva.component.css']
 })
-export class ReservaComponent implements OnInit, OnDestroy {
+export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   modiTotal = false;
   esTotal = false;
@@ -65,13 +64,13 @@ export class ReservaComponent implements OnInit, OnDestroy {
   jQuery: any;
 
 
-  adicionales: Array<Select2OptionData>;
-  optionsAdi: Select2Options;
+  adicionales = [];
+  // optionsAdi: Select2Options;
   valueAd: string[];
 
   _adicionales: any[];
 
-  paises: Array<Select2OptionData>;
+  paises = [];
   valuePa: string;
 
   subscription: any;
@@ -97,6 +96,7 @@ export class ReservaComponent implements OnInit, OnDestroy {
   fuentes: any[] = [];
 
   constructor(private router: Router,
+    private cdRef: ChangeDetectorRef,
     private habitacionService: HabitacionService,
     private confirmacionService: ConfirmacionService,
     private confirmacionEventService: ConfirmacionEventService,
@@ -146,6 +146,11 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
     this.subscription = this.confirmacionEventService.getAcceptChangeEmitter()
       .subscribe(resp => this.selectedVal(resp));
+  }
+
+  ngAfterViewChecked() {
+    // this.changedAd(jQuery('#adicional').val());
+    // this.cdRef.detectChanges();
   }
 
   selectedVal(resp) {
@@ -316,7 +321,7 @@ export class ReservaComponent implements OnInit, OnDestroy {
 
           this.esPass = false;
           this.model.pass = {};
-          this.defaultPa();
+          // this.defaultPa();
           this.model.pass.correo = correo;
           this.model.notas = '';
           this.model.pass.ident = true;
@@ -326,6 +331,7 @@ export class ReservaComponent implements OnInit, OnDestroy {
             this.esPass = true;
             this.model.pass = passenger.data[0];
             this.model.pass.valuePa = this.model.pass.idPais;
+            jQuery('#pais').val('' + this.model.pass.idPais);
             this.model.pass.ident = true;
           }
       } else {
@@ -342,6 +348,8 @@ export class ReservaComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.model.accion = this.accion;
+
+    this.model.pass.valuePa = jQuery('#pais').val();
 
     let mensaje = '';
     let mensaje_err = '';
@@ -366,7 +374,7 @@ export class ReservaComponent implements OnInit, OnDestroy {
     if (this.esTotal) {
       this.model.total = this.total0;
     }
-debugger;
+
     this.reservaService.mantenimiento(this.model)
       .subscribe(
       data => {
@@ -380,16 +388,13 @@ debugger;
           this.getByDate();
           this.quitRes();
 
-          // this.messService.success(mensaje);
-          // this.showMess();
           jQuery('#reservaModal').modal('hide');
           this.toastService.showSuccess(mensaje);
           this.paso = 1;
         } else {
 
           this.loading = false;
-          // this.messService.error(data.mensaje);
-          // this.showMess();
+
           this.toastService.showError(data.mensaje);
         }
       },
@@ -839,7 +844,21 @@ debugger;
 
   setReserva() {
 
-    this.setDay2();
+    jQuery('#reservaModal').modal('show');
+
+    setTimeout(() => {
+      jQuery('#pais').select2();
+      jQuery('#adicional').select2();
+
+      const self = this;
+      self.changedAd(jQuery('#adicional').val());
+      jQuery('#adicional').on('select2:select', function (e) {
+        self.changedAd(jQuery('#adicional').val());
+      });
+
+    }, 200);
+
+    // this.setDay2();
     this.model.habitaciones = this.reservados;
     this.accion = 'I';
     this.esModi = true;
@@ -935,37 +954,37 @@ debugger;
   }
 
 
-  changedPa(e: any): void {
+  // changedPa(e: any): void {
 
-    this.model.pass.valuePa = e.value;
-  }
+  //   this.model.pass.valuePa = e.value;
+  // }
 
-  changedAd(e: any): void {
-
+  changedAd(values): void {
     this.model.valueAd = [];
 
-    for (let i = 0; i < e.value.length; i++) {
+    for (let i = 0; i < values.length; i++) {
 
       // const index = this.findById0(this._adicionales, e.value[i]);
-      const index = this._adicionales.findIndex(x => x.idAdicional === Number(e.value[i]));
+      const index = this._adicionales.findIndex(x => x.idAdicional === Number(values[i]));
       this._adicionales[index].cantidad = 1;
       this.model.valueAd.push(this._adicionales[index]);
     }
 
   }
 
-  setAds(arreglo: any[]): void {
+  setAds(arreglo: any[]) {
 
-    this.valueAd = [];
+    let valueAd = [];
     for (let i = 0; i < arreglo.length; i++) {
-      this.valueAd.push('' + arreglo[i].idAdicional);
+      valueAd.push('' + arreglo[i].idAdicional);
     }
+    return valueAd;
   }
 
-  setPa(idPais: any): void {
+  // setPa(idPais: any): void {
 
-    this.valuePa = '' + idPais;
-  }
+  //   this.valuePa = '' + idPais;
+  // }
 
   getWeekDay(dia: number) {
 
@@ -1013,9 +1032,25 @@ debugger;
 
   goModi() {
 
-    this.setDay2();
+    // this.setDay2();
     this.model.habitaciones = this.reservados;
+
+
     jQuery('#reservaModal').modal('show');
+
+    setTimeout(() => {
+      jQuery('#pais').select2();
+      jQuery('#adicional').select2();
+
+      jQuery('#adicional').val(this.setAds(this.model.valueAd));
+      jQuery('#adicional').trigger('change');
+
+      const self = this;
+      self.changedAd(jQuery('#adicional').val());
+      jQuery('#adicional').on('select2:select', function (e) {
+        self.changedAd(jQuery('#adicional').val());
+      });
+    }, 200);
   }
 
   quitModi() {
@@ -1025,7 +1060,13 @@ debugger;
     this.reservados = [];
     this.esModi = false;
     this.contEdita = 0;
+
     jQuery('#reservaModal').modal('show');
+
+    setTimeout(() => {
+      jQuery('#pais').select2();
+      jQuery('#adicional').select2();
+    }, 200);
   }
 
   quitRes() {
@@ -1074,11 +1115,15 @@ debugger;
         if (reservas.success) {
 
           this.model = reservas.data[0];
-          this.setAds(this.model.valueAd);
-
-          this.setPa(this.model.pass.idPais);
-          this.model.habitaciones = this.setDateHab(this.model.habitaciones);
           debugger;
+          jQuery('#pais').val(this.model.pass.idPais);
+          jQuery('#pais').trigger('change');
+
+          // this.setAds(this.model.valueAd);
+
+          // this.setPa(this.model.pass.idPais);
+          this.model.habitaciones = this.setDateHab(this.model.habitaciones);
+
           if (this.model.habitaciones[0].tarifadet === '-') {
             this.esTotal = true;
             this.total0 = this.model.total;
@@ -1091,6 +1136,11 @@ debugger;
           this.getPagos();
 
           jQuery('#reservaModal').modal('show');
+
+          setTimeout(() => {
+            jQuery('#pais').select2();
+            jQuery('#adicional').select2();
+          }, 200);
         } else {
 
           console.log('Error>> getById>> ' + reservas.mensaje);
@@ -1238,14 +1288,14 @@ debugger;
     return arreglo;
   }
 
-  private defaultPa() {
+  // private defaultPa() {
 
-    if (this.paises.length > 0) {
+  //   if (this.paises.length > 0) {
 
-      this.valuePa = this.paises[0].id;
-      this.model.pass.valuePa = this.valuePa;
-    }
-  }
+  //     this.valuePa = this.paises[0].id;
+  //     this.model.pass.valuePa = this.valuePa;
+  //   }
+  // }
 
   private loadAllTarifas() {
 
@@ -1316,13 +1366,11 @@ debugger;
 
         if (paises.success) {
 
-          this.paises = new Array<Select2OptionData>();
-
           for (let i = 0; i < paises.data.length; i++) {
             this.paises.push({ id: '' + paises.data[i].idPais, text: paises.data[i].pais });
           }
 
-          this.defaultPa();
+          // this.defaultPa();
         } else {
           console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
         }
@@ -1332,14 +1380,14 @@ debugger;
 
   private setSelect2Adicionales() {
 
-    this.optionsAdi = { multiple: true };
+    // this.optionsAdi = { multiple: true };
 
     this.adicionalService.getAll().subscribe(
       adicionales => {
 
         if (adicionales.success) {
 
-          this.adicionales = new Array<Select2OptionData>();
+          // this.adicionales = new Array<Select2OptionData>();
           this._adicionales = adicionales.data;
 
           for (let i = 0; i < adicionales.data.length; i++) {

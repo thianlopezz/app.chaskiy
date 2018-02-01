@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Select2OptionData } from 'ng2-select2';
 import { HospedajeService } from './hospedaje.service';
 import { SocialService } from '../services/social.service';
 import { PaisService } from '../services/pais.service';
@@ -15,7 +14,7 @@ declare var jQuery: any;
   templateUrl: './hospedaje.component.html',
   styleUrls: ['./hospedaje.component.css']
 })
-export class HospedajeComponent implements OnInit {
+export class HospedajeComponent implements OnInit, AfterViewInit {
 
   model: any = {};
   anteriorModel: any = {};
@@ -27,19 +26,23 @@ export class HospedajeComponent implements OnInit {
   loading = false;
 
   constructor(private router: Router,
-                private hospedajeService: HospedajeService,
-                private socialService: SocialService,
-                private paisService: PaisService,
-                private mensajeService: MensajeService,
-                private confirmacionService: ConfirmacionService,
-                private confirmacionEventService: ConfirmacionEventService) { }
+    private hospedajeService: HospedajeService,
+    private socialService: SocialService,
+    private paisService: PaisService,
+    private mensajeService: MensajeService,
+    private confirmacionService: ConfirmacionService,
+    private confirmacionEventService: ConfirmacionEventService) { }
 
   ngOnInit() {
 
     this.setSelect2Paises();
     this.loadInfo();
-
   }
+
+  ngAfterViewInit() {
+    const aux = jQuery('#pais').select2();
+  }
+
   setEdita() {
 
     this.readOnly = false;
@@ -58,32 +61,32 @@ export class HospedajeComponent implements OnInit {
 
     this.model.accion = 'U';
     this.model.redes = this.redes;
-    this.model.valuePa = this.model.valuePa || this.model.idPais;
+    this.model.valuePa = jQuery('#pais').val() || this.model.idPais;
 
     this.hospedajeService.mantenimiento(this.model)
-        .subscribe(
-            data => {
-                if (data.success) {
+      .subscribe(
+      data => {
+        if (data.success) {
 
-                  this.mensajeService.success('Registro modificado con éxito');
-                  this.loading = false;
-                  form.resetForm();
-                  this.loadInfo();
-                  this.readOnly = true;
-                } else {
+          this.mensajeService.success('Registro modificado con éxito');
+          this.loading = false;
+          form.resetForm();
+          this.loadInfo();
+          this.readOnly = true;
+        } else {
 
-                  this.mensajeService.error(data.mensaje);
-                  this.loading = false;
-                  jQuery('#messModal').modal('show');
-                }
-            },
-            error => {
+          this.mensajeService.error(data.mensaje);
+          this.loading = false;
+          jQuery('#messModal').modal('show');
+        }
+      },
+      error => {
 
-                this.mensajeService.error('Ocurrió al modificar el registro');
-                console.log(error);
-                this.loading = false;
-                jQuery('#messModal').modal('show');
-            });
+        this.mensajeService.error('Ocurrió al modificar el registro');
+        console.log(error);
+        this.loading = false;
+        jQuery('#messModal').modal('show');
+      });
 
   }
 
@@ -94,10 +97,9 @@ export class HospedajeComponent implements OnInit {
 
         if (paises.success) {
 
-          this.paises = new Array<Select2OptionData>();
 
           for (let i = 0; i < paises.data.length; i++) {
-            this.paises.push({id: '' + paises.data[i].idPais, text: paises.data[i].pais});
+            this.paises.push({ id: '' + paises.data[i].idPais, text: paises.data[i].pais });
           }
         } else {
           console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
@@ -107,8 +109,8 @@ export class HospedajeComponent implements OnInit {
 
   changedPa(e: any): void {
 
-      this.model.valuePa = e.value;
-    }
+    this.model.valuePa = e.value;
+  }
 
   private mapSocial() {
 
@@ -149,7 +151,8 @@ export class HospedajeComponent implements OnInit {
         this.model = info.data[0][0];
         this.model.redes = info.data[1];
 
-        this.valuePa = this.model.idPais;
+        jQuery('#pais').val('' + this.model.idPais);
+        jQuery('#pais').trigger('change');
 
         this.loadSocial();
       } else {
