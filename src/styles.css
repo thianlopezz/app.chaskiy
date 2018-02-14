@@ -2,4 +2,70 @@
 @import "../node_modules/font-awesome/css/font-awesome.css";
 @import "../node_modules/toastr/build/toastr.min.css";
 @import "../node_modules/select2/dist/css/select2.min.css";
-@import "./app/css/estilos.css";
+/* @import "./app/css/estilos.css"; */
+
+html {
+  font-size: 15px;
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-header {
+  background: rgba(0, 34, 51, 0.88);
+  color: white;
+}
+
+.btn-icon {
+  font-size: 1.4rem;
+}
+
+.bg-primary {
+  background-color: #1f3d4c !important;
+}
+
+.bg-circle {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  padding: 14px 4px;
+  color: #ececec;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.bg-circle-outline {
+  width: 50px;
+  height: 50px;
+  color: smoke;
+  padding: 8px 2px;
+  border: 2px solid;
+  border-color: smoke;
+  border-radius: 50%;
+}
+
+.bg-circle a, a:hover, .media a:focus {
+  text-decoration: none !important;
+  outline: none;
+  color: #ececec;
+}
+
+.bg-circle-outline a, a:hover, .media a:focus {
+  text-decoration: none !important;
+  outline: none;
+  color: #ececec;
+}
+
+button.close {
+  color: white;
+}
+
+.sub {
+  color: #1f3d4c !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(31, 61, 76, 0.08);
+}

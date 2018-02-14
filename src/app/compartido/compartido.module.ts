@@ -17,6 +17,7 @@ import { ToastService } from '../compartido/services/toast.service';
 import { Err404Component } from './err404/err404.component';
 import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ModalConfirmacionComponent,
     ModalMensajeComponent,
     SpinnerComponent,
+    HeaderComponent,
     HttpModule
   ],
   providers: [
@@ -45,7 +47,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ModalMensajeComponent,
     Err404Component,
     CardNotificacionesComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    HeaderComponent
   ]
 })
 export class CompartidoModule { }
