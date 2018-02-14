@@ -13,7 +13,7 @@ declare const ga: Function;
 export class AppComponent implements OnInit, AfterViewChecked {
 
   // tslint:disable-next-line:indent
-  currentUser: any;
+  chasker: any;
 
   constructor(private cdRef: ChangeDetectorRef,
     private autenticacionService: AutenticacionService,
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   ngOnInit() { }
 
   ngAfterViewChecked() {
-    this.currentUser = this.autenticacionService.getLogin();
+    this.chasker = this.autenticacionService.getLogin();
     this.cdRef.detectChanges();
   }
 
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
     //   return true;
     // }
     // return false;
-    // this.currentUser = this.autenticacionService.getLogin();
+    // this.chasker = this.autenticacionService.getLogin();
     return this.autenticacionService.getLogin();
   }
 

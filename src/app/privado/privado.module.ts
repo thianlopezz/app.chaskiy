@@ -38,6 +38,7 @@ import { CompartidoModule } from '../compartido/compartido.module';
 
 import { MyDatePickerModule } from 'mydatepicker';
 import { TarifaComponent } from './tarifa/tarifa.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { TarifaComponent } from './tarifa/tarifa.component';
     MonedaPipe,
     AdicionalComponent,
     ModalPagoComponent,
-    TarifaComponent
+    TarifaComponent,
+    NotificacionesComponent
   ],
   providers: [
     AdicionalService,

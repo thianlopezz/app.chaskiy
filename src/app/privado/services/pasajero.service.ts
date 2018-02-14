@@ -8,27 +8,27 @@ export class PasajeroService {
 
     getById(correo: string) {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C1" correo = "' + correo
-                                            + '" idHospedaje = "' + currentUser.idHospedaje + '" />');
+                                            + '" idhospedaje = "' + chasker.idhospedaje + '" />');
         return this.http.get('/api/pasajeros/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     mantenimiento(pass) {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        pass.idUsuario = currentUser.idUsuario;
+        pass.idusuario = chasker.idusuario;
         return this.http.post('/api/pasajeros/', pass, this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
+        if (chasker && chasker.token) {
+            const headers = new Headers({ 'x-access-token': chasker.token });
             return new RequestOptions({ headers: headers });
         }
     }

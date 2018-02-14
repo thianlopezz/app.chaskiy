@@ -6,6 +6,8 @@ import { MensajeService } from '../../compartido/components/modal-mensaje/mensaj
 import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
 import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 
+import { ToastService } from '../../compartido/services/toast.service';
+
 declare var jQuery: any;
 
 @Component({
@@ -16,19 +18,20 @@ declare var jQuery: any;
 export class AdicionalComponent implements OnInit, OnDestroy {
 
   model: any = {};
-  adds: any[];
+  adds: any[] = [];
   user: any = {};
   loading = false;
+  loading_adi = true;
   readOnly = true;
   accion: string;
 
   subscription: any;
 
   constructor(private router: Router,
-                private addService: AdicionalService,
-                private mensajeService: MensajeService,
-                private confirmacionService: ConfirmacionService,
-                private confirmacionEventService: ConfirmacionEventService) { }
+    private addService: AdicionalService,
+    private toastService: ToastService,
+    private confirmacionService: ConfirmacionService,
+    private confirmacionEventService: ConfirmacionEventService) { }
 
   ngOnInit() {
 
@@ -39,12 +42,12 @@ export class AdicionalComponent implements OnInit, OnDestroy {
 
   selectedVal(resp: string) {
 
-    if (resp === 'aceptar' ) {
+    if (resp === 'aceptar') {
       this.delete();
     } else if (resp === 'cancelar') {
-        this.model = {};
-        this.readOnly = true;
-      }
+      this.model = {};
+      this.readOnly = true;
+    }
   }
 
   ngOnDestroy() {
@@ -57,28 +60,28 @@ export class AdicionalComponent implements OnInit, OnDestroy {
     this.model.accion = this.accion;
 
     this.addService.mantenimiento(this.model)
-        .subscribe(
-            data => {
-                if (data.success) {
+      .subscribe(
+      data => {
+        if (data.success) {
 
-                  this.mensajeService.success('Registro eliminado con éxito');
-                  this.loading = false;
-                  this.loadAllAdds();
-                  this.showMess();
-                } else {
+          this.toastService.showSuccess('Registro eliminado con éxito');
+          this.loading = false;
+          this.loadAllAdds();
+          this.hideModal();
+        } else {
 
-                  this.mensajeService.error(data.mensaje);
-                  this.loading = false;
-                  this.showMess();
-                }
-            },
-            error => {
+          this.toastService.showError(data.mensaje);
+          this.loading = false;
+          this.hideModal();
+        }
+      },
+      error => {
 
-                this.mensajeService.error('Ocurrió al eliminar el registro');
-                console.log(error);
-                this.loading = false;
-                this.showMess();
-            });
+        this.toastService.showError('Ocurrió un error al eliminar el registro');
+        console.log(error);
+        this.loading = false;
+        this.hideModal();
+      });
   }
 
   guardar(form: NgForm) {
@@ -94,37 +97,37 @@ export class AdicionalComponent implements OnInit, OnDestroy {
       case 'I':
         mensaje = 'Registro creado con éxito';
         mensaje_err = 'Ocurrió al crear el registro';
-      break;
+        break;
       case 'U':
         mensaje = 'Registro modificado con éxito';
         mensaje_err = 'Ocurrió al modificar el registro';
-      break;
+        break;
     }
 
     this.addService.mantenimiento(this.model)
-        .subscribe(
-            data => {
-                if (data.success) {
+      .subscribe(
+      data => {
+        if (data.success) {
 
-                  this.mensajeService.success(mensaje);
-                  this.loading = false;
-                  this.loadAllAdds();
-                  form.resetForm();
-                  this.showMess();
-                } else {
+          this.toastService.showSuccess(mensaje);
+          this.loading = false;
+          this.loadAllAdds();
+          form.resetForm();
+          this.hideModal();
+        } else {
 
-                  this.mensajeService.error(data.mensaje);
-                  this.loading = false;
-                  jQuery('#messModal').modal('show');
-                }
-            },
-            error => {
+          this.toastService.showError(data.mensaje);
+          this.loading = false;
+          jQuery('#messModal').modal('show');
+        }
+      },
+      error => {
 
-                this.mensajeService.error(mensaje_err);
-                console.log(error);
-                this.loading = false;
-                jQuery('#messModal').modal('show');
-            });
+        this.toastService.showError(mensaje_err);
+        console.log(error);
+        this.loading = false;
+        jQuery('#messModal').modal('show');
+      });
 
   }
 
@@ -147,7 +150,8 @@ export class AdicionalComponent implements OnInit, OnDestroy {
     this.confirmacionService.go('¿Desea eliminar el registro?');
   }
 
-private loadAllAdds() {
+  private loadAllAdds() {
+    this.loading_adi = true;
     this.addService.getAll().subscribe(adds => {
 
       if (adds.success) {
@@ -155,17 +159,16 @@ private loadAllAdds() {
       } else {
         console.log('Error>> loadAllAdds>> ' + adds.mensaje);
       }
-    });
-}
+      this.loading_adi = false;
+    },
+      error => {
+        console.log('Error>> loadAllAdds>> ' + error.message);
+        this.loading_adi = false;
+      });
+  }
 
-private showMess() {
-
-  jQuery('#adicionalModal').modal('hide');
-
-    setTimeout(() => {
-
-      jQuery('#messModal').modal('show');
-    }, 200);
-}
+  private hideModal() {
+    jQuery('#adicionalModal').modal('hide');
+  }
 
 }

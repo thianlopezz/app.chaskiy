@@ -12,6 +12,8 @@ import { CurrentMonth } from '../models/current-month';
 })
 export class PagosComponent implements OnInit {
 
+  loading_pg = true;
+
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
@@ -174,6 +176,8 @@ export class PagosComponent implements OnInit {
 
   private getDetalles(feDesde, feHasta) {
 
+    this.loading_pg = true;
+
     this.pagoService.getByDate(feDesde, feHasta).subscribe(
       pagos => {
 
@@ -193,6 +197,7 @@ export class PagosComponent implements OnInit {
 
           console.log('Error>> getDetalles>> ' + pagos.mensaje);
         }
+        this.loading_pg = false;
       });
   }
 

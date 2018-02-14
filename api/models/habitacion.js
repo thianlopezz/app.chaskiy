@@ -1,62 +1,36 @@
-var connection = require('../connection');
+// var connection = require('../connection');
+const DataAcess = require('./DataAccess');
 
 function Habitacion() {
 
   this.get = function(params, res) {
-    connection.acquire(function(err, con) {
-      con.query('call hab_habitacion(\''+params+'\')', function(err, result) {
-        try{
+    DataAcess.exec_arraysp('hab_habitacion', [params], function(error, result){
 
-          con.release();
+      if (error) {
 
-          if(err){
-
-            console.log('Error>> Habitacion.get>>' + err);
-            res.send({success: false, mensaje: '' + err});
-          }
-          else
-            res.send({success: true, data: result[0]});
-        }
-        catch(ex){
-
-          console.log('Error>> ex>> Habitacion.get>> ' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-      });
-    });
+        console.log('Error>> Habitacion.get>>' + error);
+        res.send({ success: false, mensaje: '' + error });
+      }
+      else{
+        res.send({ success: true, data: result[0] });
+      }        
+    })
   };
 
   this.mantenimiento = function(habitacion, res) {
 
-    habitacion.idHabitacion = habitacion.idHabitacion || 0;
+    DataAcess.exec_objectsp('hab_habitacion', habitacion, function(error, result){
 
-    var param = '<params accion= "'+ habitacion.accion +'" idHospedaje= "'+ habitacion.idHospedaje
-                    +'" idHabitacion= "'+ habitacion.idHabitacion
-                    +'" noHabitacion= "'+ habitacion.noHabitacion
-                    +'" tarifa= "'+ (habitacion.tarifa || 0)
-                    +'" nombre= "'+ habitacion.habitacion +'" />';
-    //console.log(param);
-    connection.acquire(function(err, con) {
-      con.query('call hab_habitacion(\''+param+'\')', function(err, result) {
-        try{
-
-          con.release();
-          if (err) {
-            console.log('Error>> Habitacion.mantenimiento>>' + err);
-            res.send({success: false, mensaje: err});
-          }
-          else {
-            if(result[0][0].err == undefined)
-              res.send({success: true, mensaje: result[0][0].mensaje});
-            else
-              res.send({success: false, mensaje: result[0][0].mensaje});
-          }
-        }
-        catch(ex){
-          console.log('Error>> ex>> Habitacion.mantenimiento>>' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-      });
+      if (error) {
+        console.log('Error>> Habitacion.mantenimiento>>' + error);
+        res.send({ success: false, mensaje: error });
+      }
+      else {
+        if (result[0][0].err == undefined)
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        else
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+      }
     });
   };
 

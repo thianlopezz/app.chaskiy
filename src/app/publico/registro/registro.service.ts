@@ -18,8 +18,8 @@ export class RegistroService {
 
     password(model: any) {
 
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      model.idUsuario = currentUser.idUsuario;
+      const chasker = JSON.parse(localStorage.getItem('chasker'));
+      model.idUsuario = chasker.idUsuario;
 
       return this.http.post('/api/register/password', model, this.jwt()).map((response: Response) => response.json());
     }
@@ -41,10 +41,10 @@ export class RegistroService {
 
     private jwt() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
+        if (chasker && chasker.token) {
+            const headers = new Headers({ 'x-access-token': chasker.token });
             return new RequestOptions({ headers: headers });
         }
     }

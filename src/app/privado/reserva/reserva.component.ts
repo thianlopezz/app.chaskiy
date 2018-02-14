@@ -27,6 +27,8 @@ declare var jQuery: any;
 })
 export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
+  loading_hab = true;
+
   modiTotal = false;
   esTotal = false;
   total0 = 0;
@@ -77,8 +79,8 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   modiVal = false;
   auxValor: any = {
-    idHabitacion: 0, habitacion: '', tarifa: 0,
-    feDesde: new Date(), feHasta: new Date()
+    idhabitacion: 0, habitacion: '', tarifa: 0,
+    fedesde: new Date(), fehasta: new Date()
   };
   auxValor0: any = {};
 
@@ -131,7 +133,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.model.pago = {};
 
-    this.model.totalPagado = 0;
+    this.model.totalpagado = 0;
     this.model.saldo = 0;
 
     this.loadAllTarifas();
@@ -167,14 +169,13 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       if (resp.modo === 'Ci' || resp.modo === 'Co') {
 
-        this.model.estadoDetalle = resp.model.observacion;
+        this.model.detalleEstado = resp.model.observacion;
         this.check(resp.modo);
-      } else
-        if (resp.modo === 'Ca') {
+      } else if (resp.modo === 'Ca') {
 
-          this.model.estadoDetalle = resp.model.observacion;
-          this.delete();
-        }
+        this.model.detalleEstado = resp.model.observacion;
+        this.delete();
+      }
     }
   }
 
@@ -330,8 +331,8 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
             this.esPass = true;
             this.model.pass = passenger.data[0];
-            this.model.pass.valuePa = this.model.pass.idPais;
-            jQuery('#pais').val('' + this.model.pass.idPais);
+            this.model.pass.valuePa = this.model.pass.idpais;
+            jQuery('#pais').val('' + this.model.pass.idpais);
             this.model.pass.ident = true;
           }
       } else {
@@ -374,7 +375,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.esTotal) {
       this.model.total = this.total0;
     }
-
+debugger;
     this.reservaService.mantenimiento(this.model)
       .subscribe(
       data => {
@@ -413,7 +414,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.loading = true;
 
-    this.model.pago.idReserva = this.model.idReserva;
+    this.model.pago.idreserva = this.model.idreserva;
 
     let mensaje = '';
     let mensaje_err = '';
@@ -518,7 +519,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.loading = true;
 
     this.model.pago.accion = 'D';
-    this.model.pago.idReserva = this.model.idReserva;
+    this.model.pago.idreserva = this.model.idreserva;
 
     const mensaje = 'Pago eliminado con éxito';
     const mensaje_err = 'Ocurrió un error al eliminar el pago';
@@ -584,13 +585,14 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
         break;
     }
 
-    if (check === 'Co' && (this.model.total - this.model.totalPagado) > 0) {
+    if (check === 'Co' && (this.model.total - this.model.totalpagado) > 0) {
 
       jQuery('#detalleEstadosModal').modal('hide');
 
       // this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
       // this.showMess();
       this.toastService.showWarning('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
+      this.loading = false;
       return;
     }
 
@@ -638,21 +640,21 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   clickDay(_room, dia: number) {
-
+debugger;
     if (this.isReserved(_room, dia)) {
       this.getReserveDet(_room, dia);
     }
 
     const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idHabitacion,
+      _room.idhabitacion,
       new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     if (indexDb !== -1) {
 
       if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.getDateString('/', this.reservadosDb[indexDb].feDesde)
+        >= this.getDateString('/', this.reservadosDb[indexDb].fedesde)
         && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.getDateString('/', this.reservadosDb[indexDb].feHasta)) {
+        <= this.getDateString('/', this.reservadosDb[indexDb].fehasta)) {
         return;
       }
     }
@@ -686,30 +688,30 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   marco(_room, dateIn: Date) {
-
-    const index = this.findById(this.reservados, _room.idHabitacion);
+debugger;
+    const index = this.findById(this.reservados, _room.idhabitacion);
 
     if (_room.noClick === 1) {
 
       if (index === -1) {
 
         this.reservados.push({
-          idHabitacion: _room.idHabitacion,
+          idhabitacion: _room.idhabitacion,
           habitacion: _room.habitacion,
           tarifa: _room.tarifa,
-          feDesde: dateIn,
-          feHasta: dateIn
+          fedesde: dateIn,
+          fehasta: dateIn
         });
 
       } else {
         this.reservados.splice(index, 1);
 
         this.reservados.push({
-          idHabitacion: _room.idHabitacion,
+          idhabitacion: _room.idhabitacion,
           habitacion: _room.habitacion,
           tarifa: _room.tarifa,
-          feDesde: dateIn,
-          feHasta: dateIn
+          fedesde: dateIn,
+          fehasta: dateIn
         });
       }
     } else if (_room.noClick === 2) {
@@ -718,13 +720,13 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
         const obj = this.reservados[index];
 
-        if (dateIn.getTime() === obj.feDesde.getTime() &&
-          dateIn.getTime() === obj.feHasta.getTime()) {
+        if (dateIn.getTime() === obj.fedesde.getTime() &&
+          dateIn.getTime() === obj.fehasta.getTime()) {
 
           this.reservados.splice(index, 1);
         } else {
 
-          obj.feHasta = dateIn;
+          obj.fehasta = dateIn;
           this.reservados[index] = obj;
         }
 
@@ -735,7 +737,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   findById(arreglo: any[], id: number) {
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idHabitacion === id) {
+      if (arreglo[i].idhabitacion === id) {
         return i;
       }
     }
@@ -745,7 +747,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   findById0(arreglo: any[], id: number) {
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idAdicional === id) {
+      if (arreglo[i].idadicional === id) {
         return i;
       }
     }
@@ -755,9 +757,9 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   findByIdDb(arreglo: any[], id: number, feIn: Date) {
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idHabitacion === id &&
-        (feIn >= this.getDateString('/', arreglo[i].feDesde)
-          && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
+      if (arreglo[i].idhabitacion === id &&
+        (feIn >= this.getDateString('/', arreglo[i].fedesde)
+          && feIn <= this.getDateString('/', arreglo[i].fehasta))) {
         return i;
       }
     }
@@ -767,7 +769,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   delReserve(_room) {
 
-    const index = this.findById(this.reservados, _room.idHabitacion);
+    const index = this.findById(this.reservados, _room.idhabitacion);
 
     if (index !== -1) {
       this.reservados.splice(index, 1);
@@ -779,19 +781,19 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   getLim(_op: string, _room, dia: number) {
 
     const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idHabitacion,
+      _room.idhabitacion,
       new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     if (indexDb !== -1) {
 
       if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
-        === this.getDateString('/', this.reservadosDb[indexDb].feDesde).getTime()
+        === this.getDateString('/', this.reservadosDb[indexDb].fedesde).getTime()
         && _op === 'I') {
         return true;
       }
 
       if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
-        === this.getDateString('/', this.reservadosDb[indexDb].feHasta).getTime()
+        === this.getDateString('/', this.reservadosDb[indexDb].fehasta).getTime()
         && _op === 'O') {
         return true;
       }
@@ -800,17 +802,17 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   isSelected(_room, dia: number) {
 
-    const index = this.findById(this.reservados, _room.idHabitacion);
+    const index = this.findById(this.reservados, _room.idhabitacion);
     const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idHabitacion,
+      _room.idhabitacion,
       new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     if (indexDb !== -1) {
 
       if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.getDateString('/', this.reservadosDb[indexDb].feDesde)
+        >= this.getDateString('/', this.reservadosDb[indexDb].fedesde)
         && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.getDateString('/', this.reservadosDb[indexDb].feHasta)) {
+        <= this.getDateString('/', this.reservadosDb[indexDb].fehasta)) {
 
         if (this.reservadosDb[indexDb].estado === 'Re') {
           return { '_reserved': true };
@@ -832,9 +834,9 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (index !== -1) {
 
       if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.reservados[index].feDesde
+        >= this.reservados[index].fedesde
         && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.reservados[index].feHasta) {
+        <= this.reservados[index].fehasta) {
         return { '_selected': true };
       }
     }
@@ -870,9 +872,9 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     for (let i = 0; i < this.reservados.length; i++) {
 
-      if (this.reservados[i].feDesde === this.reservados[i].feHasta) {
+      if (this.reservados[i].fedesde === this.reservados[i].fehasta) {
 
-        this.reservados[i].feHasta = new Date(this.reservados[i].feHasta.getTime() + (1000 * 60 * 60 * 24));
+        this.reservados[i].fedasta = new Date(this.reservados[i].fehasta.getTime() + (1000 * 60 * 60 * 24));
       }
     }
   }
@@ -890,7 +892,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
 
-      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
+      sum = sum + (this.nightDiff(habitaciones[i].fedesde, habitaciones[i].fehasta) * habitaciones[i].tarifa);
     }
 
     for (let i = 0; i < adicionales.length; i++) {
@@ -917,40 +919,40 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   goModiVal() {
 
     this.auxValor = {
-      idHabitacion: 0, habitacion: '', tarifa: 0,
-      feDesde: new Date(), feHasta: new Date()
+      idhabitacion: 0, habitacion: '', tarifa: 0,
+      fedesde: new Date(), fehasta: new Date()
     };
     this.modiVal = false;
   }
 
   goModiVal0() {
 
-    this.auxValor0 = { idAdicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
+    this.auxValor0 = { idadicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
   }
 
   cancelTarifa(room: any) {
 
-    const index = this.findById(this.model.habitaciones, room.idHabitacion);
+    const index = this.findById(this.model.habitaciones, room.idhabitacion);
 
     this.model.habitaciones[index] = Object.assign({}, this.auxValor);
     this.auxValor = {
-      idHabitacion: 0, habitacion: '', tarifa: 0,
-      feDesde: new Date(), feHasta: new Date()
+      idhabitacion: 0, habitacion: '', tarifa: 0,
+      fedesde: new Date(), fehasta: new Date()
     };
     this.modiVal = false;
   }
 
   cancelTarifa0(adi: any) {
 
-    const index = this.findById0(this.model.valueAd, adi.idAdicional);
+    const index = this.findById0(this.model.valueAd, adi.idadicional);
 
     this.model.valueAd[index] = Object.assign({}, this.auxValor0);
-    this.auxValor0 = { idAdicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
+    this.auxValor0 = { idadicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
   }
 
-  private nightDiff(feDesde: Date, feHasta: Date) {
+  private nightDiff(fedesde: Date, fehasta: Date) {
 
-    return this.reservaService.getNumeroNoches(feDesde, feHasta);
+    return this.reservaService.getNumeroNoches(fedesde, fehasta);
   }
 
 
@@ -965,7 +967,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     for (let i = 0; i < values.length; i++) {
 
       // const index = this.findById0(this._adicionales, e.value[i]);
-      const index = this._adicionales.findIndex(x => x.idAdicional === Number(values[i]));
+      const index = this._adicionales.findIndex(x => x.idadicional === Number(values[i]));
       this._adicionales[index].cantidad = 1;
       this.model.valueAd.push(this._adicionales[index]);
     }
@@ -976,7 +978,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     let valueAd = [];
     for (let i = 0; i < arreglo.length; i++) {
-      valueAd.push('' + arreglo[i].idAdicional);
+      valueAd.push('' + arreglo[i].idadicional);
     }
     return valueAd;
   }
@@ -1013,7 +1015,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     while (this.model.habitaciones.length !== cont) {
 
       for (let i = 0; i < this.reservadosDb.length; i++) {
-        if (this.reservadosDb[i].idReserva === this.model.idReserva) {
+        if (this.reservadosDb[i].idreserva === this.model.idreserva) {
           this.reservadosDb.splice(i, 1);
           cont++;
         }
@@ -1098,7 +1100,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   getReserveDet(_room, dia: number) {
 
-    const indexDb = this.findByIdDb(this.reservadosDb, _room.idHabitacion,
+    const indexDb = this.findByIdDb(this.reservadosDb, _room.idhabitacion,
       new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
     this.esModi = false;
 
@@ -1109,14 +1111,13 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.model.ident = true;
     this.reservados = [];
 
-    this.reservaService.getById(this.reservadosDb[indexDb].idReserva).subscribe(
+    this.reservaService.getById(this.reservadosDb[indexDb].idreserva).subscribe(
       reservas => {
 
         if (reservas.success) {
 
           this.model = reservas.data[0];
-          debugger;
-          jQuery('#pais').val(this.model.pass.idPais);
+          jQuery('#pais').val(this.model.pass.idpais);
           jQuery('#pais').trigger('change');
 
           // this.setAds(this.model.valueAd);
@@ -1157,7 +1158,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   getPagos() {
 
-    this.pagoService.getAll(this.model.idReserva)
+    this.pagoService.getAll(this.model.idreserva)
       .subscribe(pagos => {
         if (pagos.success) {
 
@@ -1171,7 +1172,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
             sum += pagos.data[i].monto;
           }
 
-          this.model.totalPagado = sum;
+          this.model.totalpagado = sum;
         } else {
 
           console.log('Error>> pagoService>> ' + pagos.mensaje);
@@ -1182,7 +1183,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   getToolTip(_op, _room, dia: number) {
 
     const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idHabitacion,
+      _room.idhabitacion,
       new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
     const reserva = this.reservadosDb[indexDb];
 
@@ -1199,15 +1200,15 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   isReserved(_room, dia: number) {
 
     const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idHabitacion,
+      _room.idhabitacion,
       new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
 
     if (indexDb !== -1) {
 
       if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.getDateString('/', this.reservadosDb[indexDb].feDesde)
+        >= this.getDateString('/', this.reservadosDb[indexDb].fedesde)
         && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.getDateString('/', this.reservadosDb[indexDb].feHasta)) {
+        <= this.getDateString('/', this.reservadosDb[indexDb].fehasta)) {
         return true;
       }
 
@@ -1231,7 +1232,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
           return false;
         }
 
-        if (this.model.habitaciones[0].feDesde.getTime()
+        if (this.model.habitaciones[0].fedesde.getTime()
           === this.toDay.getTime()) {
           return true;
         }
@@ -1258,7 +1259,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
         return true;
       case 'U':
 
-        // if (this.toDay.getTime() < this.model.habitaciones[0].feDesde.getTime()) {
+        // if (this.toDay.getTime() < this.model.habitaciones[0].fedesde.getTime()) {
         //   return true;
         // }
 
@@ -1281,8 +1282,8 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     for (let i = 0; i < arreglo.length; i++) {
 
-      arreglo[i].feDesde = this.getDateString('/', arreglo[i].feDesde);
-      arreglo[i].feHasta = this.getDateString('/', arreglo[i].feHasta);
+      arreglo[i].fedesde = this.getDateString('/', arreglo[i].fedesde);
+      arreglo[i].fehasta = this.getDateString('/', arreglo[i].fehasta);
     }
 
     return arreglo;
@@ -1320,6 +1321,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
       } else {
         console.log('Error>> loadAllRooms>> ' + rooms.mensaje);
       }
+      this.loading_hab = false;
     });
   }
 
@@ -1341,6 +1343,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       if (formas.success) {
         this.formaPagos = formas.data;
+        debugger;
       } else {
         console.log('Error>> loadAllFormaPagos>> ' + formas.mensaje);
       }
@@ -1367,7 +1370,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
         if (paises.success) {
 
           for (let i = 0; i < paises.data.length; i++) {
-            this.paises.push({ id: '' + paises.data[i].idPais, text: paises.data[i].pais });
+            this.paises.push({ id: '' + paises.data[i].idpais, text: paises.data[i].pais });
           }
 
           // this.defaultPa();
@@ -1391,7 +1394,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
           this._adicionales = adicionales.data;
 
           for (let i = 0; i < adicionales.data.length; i++) {
-            this.adicionales.push({ id: '' + adicionales.data[i].idAdicional, text: adicionales.data[i].adicional });
+            this.adicionales.push({ id: '' + adicionales.data[i].idadicional, text: adicionales.data[i].adicional });
           }
 
         } else {
@@ -1402,10 +1405,10 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   private getByDate() {
 
-    const feDesde = '01' + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
-    const feHasta = this.current.finMes + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
+    const fedesde = '01' + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
+    const fehasta = this.current.finMes + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
 
-    this.reservaService.getByDate('C', feDesde, feHasta).subscribe(
+    this.reservaService.getByDate('C', fedesde, fehasta).subscribe(
       reservas => {
 
         if (reservas.success) {

@@ -15,6 +15,8 @@ import { MyDatePickerModule } from 'mydatepicker';
 
 import { ToastService } from '../compartido/services/toast.service';
 import { Err404Component } from './err404/err404.component';
+import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -28,6 +30,7 @@ import { Err404Component } from './err404/err404.component';
     // MyDatePickerModule,
     ModalConfirmacionComponent,
     ModalMensajeComponent,
+    SpinnerComponent,
     HttpModule
   ],
   providers: [
@@ -36,6 +39,13 @@ import { Err404Component } from './err404/err404.component';
     MensajeService,
     ToastService
   ],
-  declarations: [GenericoComponent, ModalConfirmacionComponent, ModalMensajeComponent, Err404Component]
+  declarations: [
+    GenericoComponent,
+    ModalConfirmacionComponent,
+    ModalMensajeComponent,
+    Err404Component,
+    CardNotificacionesComponent,
+    SpinnerComponent
+  ]
 })
 export class CompartidoModule { }

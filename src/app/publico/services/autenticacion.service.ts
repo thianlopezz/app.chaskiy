@@ -27,7 +27,7 @@ export class AutenticacionService {
 
                     const _user = _response.usuario;
                     if (_user && _user.token) {
-                        localStorage.setItem('currentUser', JSON.stringify(_user));
+                        localStorage.setItem('chasker', JSON.stringify(_user));
                         return _response;
                     }
                 } else {
@@ -38,12 +38,12 @@ export class AutenticacionService {
 
     getLogin() {
 
-        return JSON.parse(localStorage.getItem('currentUser'));
+        return JSON.parse(localStorage.getItem('chasker'));
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('chasker');
     }
 
     isTokenExpired(token?: string): boolean {

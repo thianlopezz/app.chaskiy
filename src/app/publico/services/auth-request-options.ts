@@ -7,10 +7,10 @@ export class AuthRequestOptions extends BaseRequestOptions {
   constructor() {
     super();
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    if (currentUser && currentUser.token) {
-      this.headers.append('x-access-token', currentUser.token);
+    if (chasker && chasker.token) {
+      this.headers.append('x-access-token', chasker.token);
     }
   }
 

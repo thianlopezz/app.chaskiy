@@ -1,4 +1,4 @@
-var connection = require('../connection');
+const DataAcess = require('./DataAccess');
 var moment = require('moment');
 const axios = require('axios');
 var md5 = require('md5');
@@ -7,290 +7,229 @@ const API = process.env.CORREO_GENERICO || 'https://correo-generico.herokuapp.co
 
 function Reserva() {
 
-  this.get = function(params, res) {
-    connection.acquire(function(err, con) {
-      con.query('call res_reserva(\''+params+'\')', function(err, result) {
-        try{
+  this.get = function (params, res) {
+    DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
+      if (error) {
 
-          con.release();
-          if(err){
-
-            console.log('Error>> Pasajero.get>> ' + err);
-            res.send({success: false, mensaje: '' + err});
-          }
-          else
-            res.send({success: true, data: result[0]});
-        }
-        catch(ex){
-
-          console.log('Error>> ex>> Habitacion.get>> ' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-
-      });
-    });
+        console.log('Error>> Reserva.get>> ' + error);
+        res.send({ success: false, mensaje: '' + error });
+      } else {
+        res.send({ success: true, data: result[0] });
+      }
+    })
   };
 
-  this.getById = function(params, res) {
-    connection.acquire(function(err, con) {
-      con.query('call res_reserva(\''+params+'\')', function(err, result) {
-        try{
+  this.getById = function (params, res) {
+    DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
 
-          con.release();
-          if(err){
+      if (error) {
 
-            console.log('Error>> Reserva.getById>> ' + err);
-            res.send({success: false, mensaje: '' + err});
-          }
+        console.log('Error>> Reserva.getById>> ' + error);
+        res.send({ success: false, mensaje: '' + error });
+      } else {
 
-          result[0][0].pass = result[1][0];
-          result[0][0].valueAd = result[2];
-          result[0][0].habitaciones = result[3];
+        result[0][0].pass = result[1][0];
+        result[0][0].valueAd = result[2];
+        result[0][0].habitaciones = result[3];
 
-          res.send({success: true, data: result[0]});
-        }
-        catch(ex){
-
-          console.log('Error>> ex>> Reserva.getById>> ' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-
-      });
-    });
+        res.send({ success: true, data: result[0] });
+      }
+    })
   };
 
   this.getByIdEx = function (id, token, res) {
-    connection.acquire(function (err, con) {
-      con.query('call res_exte(\'' + id + '\', \'' + token + '\')', function (err, result) {
-        try {
+    DataAcess.exec_arraysp('res_exte', [id, token], function (error, result) {
 
-          con.release();
-          if (err) {
+      if (error) {
 
-            console.log('Error>> Reserva.getByIdEx>> ' + err);
-            res.send({ success: false, mensaje: '' + err });
-          }
+        console.log('Error>> Reserva.getByIdEx>> ' + error);
+        res.send({ success: false, mensaje: '' + error });
+      }
 
-          if (result[0][0].err === undefined) {
+      if (result[0][0].err === undefined) {
 
-            result[0][0].pass = result[1][0];
-            result[0][0].valueAd = result[2];
-            result[0][0].habitaciones = result[3];
-            result[0][0].hospedaje = result[4][0];
-            result[0][0].hospedaje.redes = result[5];
+        result[0][0].pass = result[1][0];
+        result[0][0].valueAd = result[2];
+        result[0][0].habitaciones = result[3];
+        result[0][0].hospedaje = result[4][0];
+        result[0][0].hospedaje.redes = result[5];
 
-            res.send({ success: true, data: result[0] });
-            return;
-
-          } else
-            res.send({ success: false, mensaje: result[0][0].err});
-        }
-        catch (ex) {
-
-          console.log('Error>> ex>> Reserva.getByIdEx>> ' + ex);
-          res.send({ success: false, mensaje: ex });
-        }
-
-      });
-    });
+        res.send({ success: true, data: result[0] });
+      } else {
+        res.send({ success: false, mensaje: result[0][0].err });
+      }
+    })
   };
 
   this.confirma = function (id, res) {
-    connection.acquire(function (err, con) {
-      con.query('call res_confirma(\'' + id + '\')', function (err, result) {
-        try {
+    DataAcess.exec_arraysp('res_confirma', [id], function (error, result) {
 
-          console.log('res_confirma >>' + id);
+      if (error) {
 
-          con.release();
-          if (err) {
+        console.log('Error>> Reserva.confirma>> ' + error);
+        res.send({ success: false, mensaje: '' + error });
+      } else if (result[0][0].err == undefined) {
 
-            console.log('Error>> Reserva.confirma>> ' + err);
-            res.send({ success: false, mensaje: '' + err });
-          } else
-            if (result[0][0].err == undefined) {
+        enviaCorreo(result[0][0], 'I', 'Re', function (result) {
 
-              enviaCorreo(result[0][0], 'I', 'Re', function (result) {
+          if (!result.success)
+            console.log("Error>> Reserva.confirma>> Error en el registro de envio de correo");
 
-                if (!result.success)
-                  console.log("Error>> Reserva.confirma>> Error en el registro de envio de correo");
+          res.send({ success: true, mensaje: 'Reserva confirmada con éxito' });
+        });
+      } else {
 
-                res.send({ success: true, mensaje: 'Reserva confirmada con éxito' });
-              });
-            }
-            else
-              res.send({ success: false, mensaje: result[0][0].mensaje });
-          
-        }
-        catch (ex) {
-
-          console.log('Error>> ex>> Reserva.confirma>> ' + ex);
-          res.send({ success: false, mensaje: ex });
-        }
-
-      });
-    });
+        res.send({ success: false, mensaje: result[0][0].mensaje });
+      }
+    })
   };
 
-  this.mantenimiento = function(reserva, res) {
+  this.mantenimiento = function (reserva, res) {
 
-    let param = setXml(reserva);
+    let params = setXml(reserva);
 
-    connection.acquire(function(err, con) {
-      con.query('call res_reserva(\''+param+'\')', function(err, result) {
-        try{
+    DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
+      if (error) {
 
-          con.release();
+        console.log('Error>> Reserva.mantenimiento>>' + error);
+        res.send({ success: false, mensaje: '' + error });
+      } else if (result[0][0].err == undefined) {
 
-          if (err) {
+        enviaCorreo(result[0][0], reserva.accion, reserva.estado, function (result) {
 
-            console.log('Error>> Reserva.mantenimiento>>' + err);
-            res.send({success: false, mensaje: '' + err});
+          if (!result.success) {
+            console.log("Error>> Reserva.mantenimiento>> Error en el registro de envio de correo");
           }
-          else {
-            if(result[0][0].err == undefined){
 
-              enviaCorreo(result[0][0], reserva.accion, reserva.estado, function(result){
-
-                if(!result.success)
-                  console.log("Error>> Reserva.mantenimiento>> Error en el registro de envio de correo");
-
-                res.send({success: true, mensaje: 'Mantenimiento exitoso'});
-              });
-            }
-            else
-              res.send({success: false, mensaje: result[0][0].mensaje});
-          }
-        }
-        catch(ex){
-          console.log('Error>> ex>> Reserva.mantenimiento>>' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-      });
-    });
+          res.send({ success: true, mensaje: 'Mantenimiento exitoso' });
+        });
+      } else {
+        res.send({ success: false, mensaje: result[0][0].mensaje });
+      }
+    })
   };
 
-  function setHabitaciones(habitaciones){
-    
-    var retorno = "";    
+  function setHabitaciones(habitaciones) {
 
-    for(var i=0; i<habitaciones.length; i++){
+    var retorno = "";
 
-      retorno = retorno + habitaciones[i].idHabitacion + ';'
-      + (habitaciones[i].tarifa || 0) + ';'
-      + (habitaciones[i].idtarifa || 0) + ';'
-      + moment(habitaciones[i].feDesde).format('DD[/]MM[/]YYYY') + ';'
-      + moment(habitaciones[i].feHasta).format('DD[/]MM[/]YYYY') + '|';
+    for (var i = 0; i < habitaciones.length; i++) {
+
+      retorno = retorno + habitaciones[i].idhabitacion + ';'
+        + (habitaciones[i].tarifa || 0) + ';'
+        + (habitaciones[i].idtarifa || 0) + ';'
+        + moment(habitaciones[i].fedesde).format('DD[/]MM[/]YYYY') + ';'
+        + moment(habitaciones[i].fehasta).format('DD[/]MM[/]YYYY') + '|';
     }
 
     return retorno;
   }
 
-  function setAdicionales(adicionales){
+  function setAdicionales(adicionales) {
 
-    var retorno ="";
+    var retorno = "";
 
-    for(var i=0; i<adicionales.length; i++){
-      retorno = retorno + adicionales[i].idAdicional + ';'
-                          + adicionales[i].tarifa + ';'
-                          + adicionales[i].cantidad + '|';
+    for (var i = 0; i < adicionales.length; i++) {
+      retorno = retorno + adicionales[i].idadicional + ';'
+        + adicionales[i].tarifa + ';'
+        + adicionales[i].cantidad + '|';
     }
 
     return retorno;
   }
 
-  function enviaCorreo(datos, accion, estado, callback){
+  function enviaCorreo(datos, accion, estado, callback) {
 
-    var claves ="";
-    var plantilla ="";
-    var asunto ="";
+    var claves = "";
+    var plantilla = "";
+    var asunto = "";
     var destinatario = datos.destinatario;
 
-    for(var name in datos) {
+    for (var name in datos) {
 
       var value = datos[name];
       claves = claves + ';' + name + ':' + value;
     }
 
 
-    if(accion == 'I' || accion == 'U'){
+    if (accion == 'I' || accion == 'U') {
 
-      asunto = 'Confirmación de reserva ' + datos.idReserva;
+      asunto = 'Confirmación de reserva ' + datos.idreserva;
       plantilla = './plantillas/Reservas/confirmacion_reserva';
 
-      if(estado == 'Pr'){
+      if (estado == 'Pr') {
 
-        asunto = 'Proforma de reserva ' + datos.idReserva;
+        asunto = 'Proforma de reserva ' + datos.idreserva;
         plantilla = './plantillas/Reservas/proforma_reserva';
       }
     }
     else
-      if(accion == 'D'){
+      if (accion == 'D') {
 
-        asunto = 'Cancelación de reserva ' + datos.idReserva;
+        asunto = 'Cancelación de reserva ' + datos.idreserva;
         plantilla = './plantillas/Reservas/cancelacion_reserva';
       }
       else
-        if(accion == 'Es')
-            return callback({success: true, mensaje: 'Reserva cancelada con éxito'});
+        if (accion == 'Es')
+          return callback({ success: true, mensaje: 'Reserva cancelada con éxito' });
 
-        var correo = {
-          idHospedaje: datos.idHospedaje,
-          asunto: asunto,
-          destinatario: destinatario,
-          claves: claves,
-          plantilla: plantilla
-        };
+    var correo = {
+      idhospedaje: datos.idhospedaje,
+      asunto: asunto,
+      destinatario: destinatario,
+      claves: claves,
+      plantilla: plantilla
+    };
 
-        axios.post(`${API}/api/send`, correo)
-        .then(result => {
-          callback(result.data);
-        })
-        .catch(error => {
+    axios.post(`${API}/api/send`, correo)
+      .then(result => {
+        callback(result.data);
+      })
+      .catch(error => {
 
-          console.log("Err>>" + error);
-          callback(error);
-        });
+        console.log("Err>>" + error);
+        callback(error);
+      });
 
 
   }
 
   function setXml(data) {
 
-    console.log('params>>');
-    console.log(data);
-
-    data.idReserva = data.idReserva || 0;
+    data.idreserva = data.idreserva || 0;
     data.notas = data.notas || '';
     data.pass.valuePa = data.pass.valuePa || 0;
     data.valueAd = data.valueAd || [];
     data.estado = data.estado || '';
     data.estadoDetalle = data.estadoDetalle || '';
-    data.feDesde = moment(data.feDesde).format('DD[/]MM[/]YYYY') || '';
-    data.feHasta = moment(data.feHasta).format('DD[/]MM[/]YYYY') || '';
+    data.fedesde = moment(data.fedesde).format('DD[/]MM[/]YYYY') || '';
+    data.fehasta = moment(data.fehasta).format('DD[/]MM[/]YYYY') || '';
 
-    let tokenReserva = md5(moment().format('DDMMYYYYhhmmss'));
+    let token = md5(moment().format('DDMMYYYYhhmmss'));
 
-    let param = '<params accion= "' + data.accion + '" idHospedaje= "' + data.idHospedaje
-      + '" idAerolinea= "' + data.idAerolinea + '" idReserva= "' + data.idReserva
-      + '" noPersonas= "' + data.noPersonas + '" notas= "' + data.notas
-      + '" idHabitacion= "' + setHabitaciones(data.habitaciones) + '" idAdicional= "' + setAdicionales(data.valueAd)
-      + '" idPais= "' + data.pass.valuePa
-      + '" pasajero= "' + data.pass.pasajero + '" noContacto= "' + (data.pass.noContacto || '')
-      + '" correo= "' + data.pass.correo + '" habLength= "' + data.habitaciones.length
-      + '" adLength= "' + data.valueAd.length
+    return '<params accion= "' + data.accion
+    + '" idhospedaje= "' + data.idhospedaje
+      + '" idaerolinea= "' + data.idaerolinea
+      + '" idreserva= "' + data.idreserva
+      + '" nopersonas= "' + data.nopersonas
+      + '" notas= "' + data.notas
+      + '" idhabitacion= "' + setHabitaciones(data.habitaciones)
+      + '" idadicional= "' + setAdicionales(data.valueAd)
+      + '" idpais= "' + data.pass.valuePa
+      + '" pasajero= "' + data.pass.pasajero
+      + '" nocontacto= "' + (data.pass.nocontacto || '')
+      + '" correo= "' + data.pass.correo
+      + '" hablength= "' + data.habitaciones.length
+      + '" adlength= "' + data.valueAd.length
       + '" total= "' + data.total
-      + '" idUsuario= "' + data.idUsuario
+      + '" idusuario= "' + data.idusuario
       + '" estado= "' + data.estado
-      + '" feDesde= "' + data.feDesde
-      + '" feHasta= "' + data.feHasta
-      + '" detalleEstado= "' + data.estadoDetalle
-      + '" tokenReserva= "' + tokenReserva
-      + '" idFuente= "' + data.idFuente
+      + '" fedesde= "' + data.fedesde
+      + '" fehasta= "' + data.fehasta
+      + '" detalleEstado= "' + data.detalleEstado
+      + '" token= "' + token
+      + '" idfuente= "' + data.idfuente
       + '" />';
-
-    console.log(param);
-    return param;
   }
 
 }

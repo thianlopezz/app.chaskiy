@@ -1,66 +1,33 @@
-var connection = require('../connection');
+const DataAccess = require('./DataAccess');
 
 function Pago() {
 
   this.get = function(params, res) {
-    connection.acquire(function(err, con) {
-      con.query('call pg_pago(\''+params+'\')', function(err, result) {
-        try{
+    DataAccess.exec_arraysp('pg_pago', [params], function(error, result){
+      if (error) {
 
-          con.release();
-
-          if(err){
-
-            console.log('Error>> Pago.get>>' + err);
-            res.send({success: false, mensaje: '' + err});
-          }
-          else
-            res.send({success: true, data: result[0]});
-        }
-        catch(ex){
-
-          console.log('Error>> ex>> Pago.get>> ' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-      });
-    });
+        console.log('Error>> Pago.get>>' + error);
+        res.send({ success: false, mensaje: '' + error });
+      }
+      else
+        res.send({ success: true, data: result[0] });
+    })
   };
 
-  this.mantenimiento = function(Pago, res) {
-    //habitacion.idHospedaje = 1;
-    Pago.idPago = Pago.idPago || 0;
-    Pago.notas = Pago.notas || '';
+  this.mantenimiento = function(pago, res) {
 
-    var param = '<params accion= "'+ Pago.accion
-                  +'" idPago= "'+ Pago.idPago
-                  +'" idFormaPago= "'+ Pago.idFormaPago
-                  +'" idReserva= "'+ Pago.idReserva
-                  +'" monto= "'+ Pago.monto
-                  +'" notas= "'+ Pago.notas
-                  +'" idUsuario= "'+ Pago.idUsuario
-                  +'" />';
-    //console.log(param);
-    connection.acquire(function(err, con) {
-      con.query('call pg_pago(\''+param+'\')', function(err, result) {
-        try{
-
-          con.release();
-          if (err) {
-            console.log('Error>> Pago.mantenimiento>>' + err);
-            res.send({success: false, mensaje: err});
-          }
-          else {
-            if(result[0][0].err == undefined)
-              res.send({success: true, mensaje: result[0][0].mensaje});
-            else
-              res.send({success: false, mensaje: result[0][0].mensaje});
-          }
-        }
-        catch(ex){
-          console.log('Error>> ex>> Pago.mantenimiento>>' + ex);
-          res.send({success: false, mensaje: ex});
-        }
-      });
+    DataAccess.exec_objectsp('pg_pago', pago, function(error, result){
+      if (error) {
+        console.log('Error>> Pago.mantenimiento>>' + error);
+        res.send({ success: false, mensaje: error });
+      }
+      else {
+        if (result[0][0].err == undefined){
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }          
+      }
     });
   };
 

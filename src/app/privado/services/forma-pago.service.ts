@@ -14,10 +14,10 @@ export class FormaPagoService {
 
     private jwt() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
+        if (chasker && chasker.token) {
+            const headers = new Headers({ 'x-access-token': chasker.token });
             return new RequestOptions({ headers: headers });
         }
     }

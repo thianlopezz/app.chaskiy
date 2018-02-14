@@ -8,9 +8,9 @@ export class ReservaService {
 
   getById(id: number) {
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const param = encodeURIComponent('<params accion = "C1" idReserva= "' + id
-      + '" idHospedaje="' + currentUser.idHospedaje + '" />');
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+    const param = encodeURIComponent('<params accion = "C1" idreserva= "' + id
+      + '" idhospedaje="' + chasker.idhospedaje + '" />');
     return this.http.get('/api/reservas/' + param, this.jwt()).map((response: Response) => response.json());
   }
 
@@ -24,28 +24,27 @@ export class ReservaService {
     return this.http.get('/api/reservas/confirma/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
-  getByDate(consulta: string, feDesde: string, feHasta: string) {
+  getByDate(consulta: string, feDesde: string, fehasta: string) {
     // DD/MM/AAAA
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-    const param = encodeURIComponent('<params accion = "' + consulta + '" feDesde= "' + feDesde + '" feHasta= "' + feHasta
-      + '" idHospedaje= "' + currentUser.idHospedaje + '" />');
+    const param = encodeURIComponent('<params accion = "' + consulta + '" fedesde= "' + feDesde + '" fehasta= "' + fehasta
+      + '" idhospedaje= "' + chasker.idhospedaje + '" />');
 
     return this.http.get('/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());
   }
 
   mantenimiento(reserve: any) {
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    reserve.idHospedaje = currentUser.idHospedaje;
-    reserve.idUsuario = currentUser.idUsuario;
+    reserve.idhospedaje = chasker.idhospedaje;
+    reserve.idusuario = chasker.idusuario;
 
     if (reserve.estado === 'Co') {
 
       const today = new Date();
-      reserve.feHasta = new Date(
+      reserve.fehasta = new Date(
         new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24)
       );
     }
@@ -70,25 +69,25 @@ export class ReservaService {
     }
   }
 
-  getNumeroNoches(feDesde: Date, feHasta: Date) {
+  getNumeroNoches(fedesde: Date, fehasta: Date) {
 
-    let diaDesde = feDesde.getDate();
-    const mesDesde = feDesde.getMonth();
-    const anioDesde = feDesde.getFullYear();
+    let diaDesde = fedesde.getDate();
+    const mesDesde = fedesde.getMonth();
+    const anioDesde = fedesde.getFullYear();
 
-    feHasta = new Date(feHasta.getFullYear(), feHasta.getMonth(), feHasta.getDate(), 0, 0, 0, 0);
-    feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
+    fehasta = new Date(fehasta.getFullYear(), fehasta.getMonth(), fehasta.getDate(), 0, 0, 0, 0);
+    fedesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
 
     let cont = 0;
 
-    if (feDesde.getTime() > feHasta.getTime()) {
+    if (fedesde.getTime() > fehasta.getTime()) {
       return 0;
     } else {
 
-      while (feDesde.getTime() !== feHasta.getTime()) {
+      while (fedesde.getTime() !== fehasta.getTime()) {
 
         diaDesde++;
-        feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
+        fedesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
         cont++;
       }
 
@@ -98,10 +97,10 @@ export class ReservaService {
 
   private jwt() {
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    if (currentUser && currentUser.token) {
-      const headers = new Headers({ 'x-access-token': currentUser.token });
+    if (chasker && chasker.token) {
+      const headers = new Headers({ 'x-access-token': chasker.token });
       return new RequestOptions({ headers: headers });
     }
   }

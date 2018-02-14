@@ -6,14 +6,14 @@ export class EstadisticaService {
 
     constructor(private http: Http) { }
 
-    getMonthIcom(feDesde: string, feHasta: string) {
+    getMonthIcom(fedesde: string, fehasta: string) {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C1"'
-                                        + ' idHospedaje = "' + currentUser.idHospedaje
-                                        + '" feDesde = "' + feDesde
-                                        + '" feHasta = "' + feHasta
+                                        + ' idhospedaje = "' + chasker.idhospedaje
+                                        + '" fedesde = "' + fedesde
+                                        + '" fehasta = "' + fehasta
                                         + '" />');
 
         return this.http.get('/api/statistic/' + param, this.jwt()).map((response: Response) => response.json());
@@ -21,10 +21,10 @@ export class EstadisticaService {
 
     private jwt() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
+        if (chasker && chasker.token) {
+            const headers = new Headers({ 'x-access-token': chasker.token });
             return new RequestOptions({ headers: headers });
         }
     }

@@ -8,27 +8,27 @@ export class AdicionalService {
 
     getAll() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C" idHospedaje = "' + currentUser.idHospedaje + '" />');
+        const param = encodeURIComponent('<params accion="C" idhospedaje = "' + chasker.idhospedaje + '" />');
         return this.http.get('/api/adicionales/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
     mantenimiento(adicional: any) {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        adicional.idHospedaje = currentUser.idHospedaje;
-        adicional.idUsuario = currentUser.idUsuario;
+        adicional.idhospedaje = chasker.idhospedaje;
+        adicional.idusuario = chasker.idusuario;
         return this.http.post('/api/adicionales/', adicional, this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
+        if (chasker && chasker.token) {
+            const headers = new Headers({ 'x-access-token': chasker.token });
             return new RequestOptions({ headers: headers });
         }
     }

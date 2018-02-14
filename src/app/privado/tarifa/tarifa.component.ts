@@ -5,6 +5,7 @@ import { TarifaService } from './tarifa.service';
 import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
 import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
+import { ToastService } from '../../compartido/services/toast.service';
 
 declare var jQuery: any;
 
@@ -20,6 +21,7 @@ export class TarifaComponent implements OnInit, OnDestroy {
   tipos: any[];
   user: any = {};
   loading = false;
+  loading_tar = true;
   readOnly = true;
   accion: string;
 
@@ -27,7 +29,7 @@ export class TarifaComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
     private tarifaService: TarifaService,
-    private mensajeService: MensajeService,
+    private toastService: ToastService,
     private confirmacionService: ConfirmacionService,
     private confirmacionEventService: ConfirmacionEventService) { }
 
@@ -63,23 +65,23 @@ export class TarifaComponent implements OnInit, OnDestroy {
       data => {
         if (data.success) {
 
-          this.mensajeService.success('Registro eliminado con éxito');
+          this.toastService.showSuccess('Registro eliminado con éxito');
           this.loading = false;
           this.loadAllTarifas();
-          this.showMess();
+          this.modalHide();
         } else {
 
-          this.mensajeService.error(data.mensaje);
+          this.toastService.showError(data.mensaje);
           this.loading = false;
-          this.showMess();
+          this.modalHide();
         }
       },
       error => {
 
-        this.mensajeService.error('Ocurrió al eliminar el registro');
+        this.toastService.showError('Ocurrió al eliminar el registro');
         console.log(error);
         this.loading = false;
-        this.showMess();
+        this.modalHide();
       });
   }
 
@@ -108,21 +110,21 @@ export class TarifaComponent implements OnInit, OnDestroy {
       data => {
         if (data.success) {
 
-          this.mensajeService.success(mensaje);
+          this.toastService.showSuccess(mensaje);
           this.loading = false;
           this.loadAllTarifas();
           form.resetForm();
-          this.showMess();
+          this.modalHide();
         } else {
 
-          this.mensajeService.error(data.mensaje);
+          this.toastService.showError(data.mensaje);
           this.loading = false;
           jQuery('#messModal').modal('show');
         }
       },
       error => {
 
-        this.mensajeService.error(mensaje_err);
+        this.toastService.showError(mensaje_err);
         console.log(error);
         this.loading = false;
         jQuery('#messModal').modal('show');
@@ -133,7 +135,6 @@ export class TarifaComponent implements OnInit, OnDestroy {
   setNuevo() {
     this.accion = 'I';
     this.model = {};
-    this.model.idHabitacion = 0;
     this.readOnly = false;
   }
 
@@ -150,6 +151,9 @@ export class TarifaComponent implements OnInit, OnDestroy {
   }
 
   private loadAllTarifas() {
+
+    this.loading_tar = true;
+
     this.tarifaService.getAll().subscribe(response => {
 
       if (response.success) {
@@ -157,6 +161,8 @@ export class TarifaComponent implements OnInit, OnDestroy {
       } else {
         console.log('Error>> loadAllTarifas>> ' + response.mensaje);
       }
+
+      this.loading_tar = false;
     });
   }
 
@@ -171,14 +177,9 @@ export class TarifaComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showMess() {
+  private modalHide() {
 
     jQuery('#tarifaModal').modal('hide');
-
-    setTimeout(() => {
-
-      jQuery('#messModal').modal('show');
-    }, 200);
   }
 
 }

@@ -24,7 +24,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let room of rooms">
-						<td width="25%">{{room.noHabitacion}}</td>
+						<td width="25%">{{room.nohabitacion}}</td>
 						<td width="60%">{{room.habitacion}}</td>
 						<!-- <td width="25%">{{room.tarifa | currency:'USD':true}}</td> -->
 						<td width="15%" class="text-center">
@@ -36,6 +36,16 @@
 									<i class="fa fa-trash" aria-hidden="true"></i>
 								</button>
 							</div>
+						</td>
+					</tr>
+					<tr *ngIf="loading_hab">
+						<td colspan="3">
+							<app-spinner></app-spinner>
+						</td>
+					</tr>
+					<tr *ngIf="!loading_hab && rooms.length===0">
+						<td class="text-center" colspan="3">
+							<p class="text-muted">No existen habitaciones registradas</p>
 						</td>
 					</tr>
 				</tbody>
@@ -87,10 +97,10 @@
 			<form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }"
 			 novalidate>
 				<div class="form-group">
-					<label for="noHabitacion">#Habitación</label>
-					<input type="number" class="form-control col-md-4" name="noHabitacion" [(ngModel)]="model.noHabitacion" #noHabitacion="ngModel"
+					<label for="nohabitacion">#Habitación</label>
+					<input type="number" class="form-control col-md-4" name="nohabitacion" [(ngModel)]="model.nohabitacion" #nohabitacion="ngModel"
 					 required />
-					<div *ngIf="f.submitted && !noHabitacion.valid" class="invalid-feedback">El número de la habitación es requerido</div>
+					<div *ngIf="f.submitted && !nohabitacion.valid" class="invalid-feedback">El número de la habitación es requerido</div>
 				</div>
 				<div class="form-group">
 					<label for="habitacion">Nombre</label>

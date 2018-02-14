@@ -6,20 +6,20 @@ export class PagoService {
 
     constructor(private http: Http) { }
 
-    getAll(idReserva: string) {
+    getAll(idreserva: string) {
 
-        const param = encodeURIComponent('<params accion="C" idReserva="' + idReserva + '" />');
+        const param = encodeURIComponent('<params accion="C" idreserva="' + idreserva + '" />');
         return this.http.get('/api/pago/all/' + param, this.jwt()).map((response: Response) => response.json());
     }
 
-    getByDate(feDesde: string, feHasta: string) {
+    getByDate(fedesde: string, fehasta: string) {
 
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const chasker = JSON.parse(localStorage.getItem('chasker'));
 
       const param = encodeURIComponent('<params accion="C0"'
-                                    + ' idHospedaje = "' + currentUser.idHospedaje
-                                    + '" feDesde = "' + feDesde
-                                    + '" feHasta = "' + feHasta
+                                    + ' idhospedaje = "' + chasker.idhospedaje
+                                    + '" fedesde = "' + fedesde
+                                    + '" fehasta = "' + fehasta
                                     + '" />');
 
       return this.http.get('/api/pago/all/' + param, this.jwt()).map((response: Response) => response.json());
@@ -27,18 +27,18 @@ export class PagoService {
 
     mantenimiento(pago: any) {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        pago.idUsuario = currentUser.idUsuario;
+        pago.idusuario = chasker.idusuario;
         return this.http.post('/api/pago', pago, this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        if (currentUser && currentUser.token) {
-            const headers = new Headers({ 'x-access-token': currentUser.token });
+        if (chasker && chasker.token) {
+            const headers = new Headers({ 'x-access-token': chasker.token });
             return new RequestOptions({ headers: headers });
         }
     }

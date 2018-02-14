@@ -38,6 +38,16 @@
               </div>
             </td>
           </tr>
+					<tr *ngIf="loading_tar">
+						<td colspan="4">
+							<app-spinner></app-spinner>
+						</td>
+					</tr>
+					<tr *ngIf="!loading_tar && tarifas.length===0">
+						<td class="text-center" colspan="4">
+							<p class="text-muted">No existen tarifas registradas</p>
+						</td>
+					</tr>
         </tbody>
       </table>
     </div>

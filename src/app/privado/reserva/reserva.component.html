@@ -41,7 +41,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="rooms.length==0">
+        <tr *ngIf="loading_hab">
+          <td [attr.colspan]="current.days.length + 4">
+            <app-spinner></app-spinner>
+          </td>
+        </tr>
+        <tr *ngIf="!loading_hab && rooms.length==0">
           <td [attr.colspan]="current.days.length + 4" style="text-align:center;">
             <p>No tienes habitaciones registradas aun, registra tus habitaciones
               <a [routerLink]="['/room']">aquí</a>
@@ -52,7 +57,7 @@
           <td *ngIf="i==0" [attr.rowspan]="rooms.length" class="_nah0 align-middle" (click)="previous()">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </td>
-          <td>{{room.noHabitacion}}</td>
+          <td>{{room.nohabitacion}}</td>
           <td>{{room.habitacion}}</td>
           <td *ngFor="let dia of current.days" (click)="clickDay(room, dia.day + 1)" class="p-0 align-bottom" [ngClass]="isSelected(room, dia.day + 1)">
             <!-- <i class="fa" [ngClass]="getIco(room, current, dia.day + 1)" aria-hidden="true"></i> -->
@@ -118,12 +123,12 @@
                           <div class="row">
                             <div class="col-md-7">
                               <div class="alert alert-info alert-dismissible show" role="alert">
-                                <button *ngIf="auxValor.idHabitacion != room.idHabitacion" type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                <button *ngIf="auxValor.idhabitacion != room.idhabitacion" type="button" class="close" data-dismiss="alert" aria-label="Close"
                                   (click)="delReserve(room)">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                                 <h6 class="alert-heading">{{' ' + room.habitacion}}
-                                  <br> {{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}
+                                  <br> {{room.fedesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.fehasta | date : 'dd/MMM/yyyy'}}
                                 </h6>
                               </div>
                             </div>
@@ -140,11 +145,11 @@
                         </div>
                         <div class="col-md-4 mb-auto mt-auto">
                           <p *ngIf="!esTotal">
-                            {{room.tarifa | currency:'USD':true}} x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
-                            <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
+                            {{room.tarifa | currency:'USD':true}} x&nbsp;{{nightDiff(room.fedesde, room.fehasta)}}&nbsp;noche(s)&nbsp;
+                            <strong>= {{room.tarifa * nightDiff(room.fedesde, room.fehasta) | currency:'USD':true}}</strong>
                           </p>
                           <p *ngIf="esTotal">
-                            {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
+                            {{nightDiff(room.fedesde, room.fehasta)}}&nbsp;noche(s)&nbsp;
                           </p>
                         </div>
                       </div>
@@ -166,7 +171,7 @@
                         </div>
                         <div class="col-md-6" *ngFor="let adi of model.valueAd">
                           <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <div *ngIf="auxValor0.idAdicional == adi.idAdicional" class="input-group">
+                            <div *ngIf="auxValor0.idadicional == adi.idadicional" class="input-group">
                               <input type="text" class="form-control" name="adTarifa" placeholder="{{'Tarifa para ' + adi.adicional}}" [(ngModel)]="adi.tarifa"
                                 appMoneda="true" #tarifa0="ngModel" />
                               <div class="input-group-prepend">
@@ -185,7 +190,7 @@
                                 </button>
                               </div>
                             </div>
-                            <div *ngIf="auxValor0.idAdicional != adi.idAdicional">
+                            <div *ngIf="auxValor0.idadicional != adi.idadicional">
                               <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
                                 <small *ngIf="!esTotal">
                                   <a href="javascript:;" (click)="modiTarifa0(adi)" style="cursor:pointer">
@@ -240,22 +245,22 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="noPersonas">No. personas</label>
-                        <input type="number" class="form-control col-md-8" name="noPersonas" [(ngModel)]="model.noPersonas" #noPersonas="ngModel"
+                        <label for="nopersonas">No. personas</label>
+                        <input type="number" class="form-control col-md-8" name="nopersonas" [(ngModel)]="model.nopersonas" #nopersonas="ngModel"
                           required />
-                        <div *ngIf="f.submitted && !noPersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
+                        <div *ngIf="f.submitted && !nopersonas.valid" class="invalid-feedback">El número de personas es requerido</div>
                       </div>
                       <div class="form-group">
                         <label for="aerolinea">Aerolínea</label>
-                        <select class="form-control col-md-8" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
-                          <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
+                        <select class="form-control col-md-8" name="aerolinea" [(ngModel)]="model.idaerolinea" #aerolinea="ngModel" required>
+                          <option *ngFor="let op of aerolineas" [value]="op.idaerolinea">{{op.aerolinea}}</option>
                         </select>
                         <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
                       </div>
                       <div class="form-group">
                         <label for="fuente">Captado de</label>
-                        <select class="form-control col-md-8" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
-                          <option *ngFor="let op of fuentes" [value]="op.idFuente">{{op.fuente}}</option>
+                        <select class="form-control col-md-8" name="fuente" [(ngModel)]="model.idfuente" #fuente="ngModel" required>
+                          <option *ngFor="let op of fuentes" [value]="op.idfuente">{{op.fuente}}</option>
                         </select>
                         <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">La fuente de captación es requerida</div>
                       </div>
@@ -313,8 +318,8 @@
                         <!-- <select2 [data]="paises" [value]="valuePa" (valueChanged)="changedPa($event)" name="pais" width="100%" [disabled]="esPass && !editaPass_"></select2> -->
                       </div>
                       <div class="form-group">
-                        <label for="correo">Número de contacto</label>
-                        <input type="text" class="form-control col-md-8" name="noContacto" [(ngModel)]="model.pass.noContacto" #noContacto="ngModel"
+                        <label for="nocontacto">Número de contacto</label>
+                        <input type="text" class="form-control col-md-8" name="nocontacto" [(ngModel)]="model.pass.nocontacto" #nocontacto="ngModel"
                           [readonly]="esPass && !editaPass_" maxlength="15" />
                       </div>
                     </div>
@@ -367,7 +372,7 @@
                             <div class="col-md-7">
                               <div class="alert alert-info alert-dismissible show" role="alert">
                                 <h6 class="alert-heading">{{' ' + room.habitacion}}
-                                  <br> {{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}
+                                  <br> {{room.fedesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.fehasta | date : 'dd/MMM/yyyy'}}
                                 </h6>
                               </div>
                             </div>
@@ -380,11 +385,11 @@
                         </div>
                         <div class="col-md-4 mb-auto mt-auto">
                           <p *ngIf="!esTotal">
-                            {{room.tarifa | currency:'USD':true}} x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
-                            <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
+                            {{room.tarifa | currency:'USD':true}} x&nbsp;{{nightDiff(room.fedesde, room.fehasta)}}&nbsp;noche(s)&nbsp;
+                            <strong>= {{room.tarifa * nightDiff(room.fedesde, room.fehasta) | currency:'USD':true}}</strong>
                           </p>
                           <p *ngIf="esTotal">
-                            {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
+                            {{nightDiff(room.fedesde, room.fehasta)}}&nbsp;noche(s)&nbsp;
                           </p>
                         </div>
                       </div>
@@ -399,7 +404,7 @@
                         </div>
                         <div class="col-md-6" *ngFor="let adi of model.valueAd">
                           <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <div *ngIf="auxValor0.idAdicional != adi.idAdicional">
+                            <div *ngIf="auxValor0.idadicional != adi.idadicional">
                               <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
                                 <small *ngIf="!esTotal">
                                   Tarifa &nbsp;{{adi.tarifa | currency:'USD':true}} x&nbsp;{{adi.cantidad}}&nbsp;= {{adi.tarifa * adi.cantidad | currency:'USD':true}}
@@ -429,10 +434,10 @@
                     <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
                       <div class="p-2">
                         <a [hidden]="model.estado != 'Co'" href="javascript:;">
-                          <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                          <h5>{{model.totalpagado | currency:'USD':true}}</h5>
                         </a>
                         <a [hidden]="model.estado == 'Co'" href="javascript:;" (click)="getPagos()" data-dismiss="modal" data-toggle="modal" data-target="#pagosModal">
-                          <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                          <h5>{{model.totalpagado | currency:'USD':true}}</h5>
                         </a>
                       </div>
                       <div class="p-2">
@@ -443,8 +448,8 @@
                   <div class="col-md-4">
                     <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
                       <div class="p-2">
-                        <h5 *ngIf="!esTotal">{{getTotal() - model.totalPagado | currency:'USD':true}}</h5>
-                        <h5 *ngIf="esTotal">{{total0 - model.totalPagado | currency:'USD':true}}</h5>
+                        <h5 *ngIf="!esTotal">{{getTotal() - model.totalpagado | currency:'USD':true}}</h5>
+                        <h5 *ngIf="esTotal">{{total0 - model.totalpagado | currency:'USD':true}}</h5>
                       </div>
                       <div class="p-2">
                         <h5>Por pagar</h5>
@@ -459,7 +464,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="noPersonas">No. personas</label>
-                        <p name="noPersonas" class="text-muted">{{model.noPersonas}}</p>
+                        <p name="noPersonas" class="text-muted">{{model.nopersonas}}</p>
                       </div>
                       <div class="form-group">
                         <label for="aerolinea">Aerolínea</label>
@@ -478,7 +483,7 @@
                       <div class="form-group">
                         <label for="correo">Correo electrónico</label>
                         <p name="correo" class="text-muted">
-                          <a [href]="'mailto:' + model.pass.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{model.pass.correo}}</a>
+                          <a [href]="'mailto:' + model.pass.correo + '?Subject=Reserva%20' + model.idreserva" target="_top">{{model.pass.correo}}</a>
                         </p>
                       </div>
                       <div class="form-group">
@@ -490,8 +495,8 @@
                         <p name="pais" class="text-muted">{{model.pass.pais}}</p>
                       </div>
                       <div class="form-group">
-                        <label for="correo">Número de contacto</label>
-                        <p name="noContacto" class="text-muted">{{model.pass.noContacto}}</p>
+                        <label for="nocontacto">Número de contacto</label>
+                        <p name="nocontacto" class="text-muted">{{model.pass.nocontacto}}</p>
                       </div>
                     </div>
                   </div>
@@ -521,7 +526,7 @@
                       <strong>Correo electrónico</strong>
                     </label>
                     <p name="correo" class="text-muted">
-                      <a [href]="'mailto:' + model.pass.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{model.pass.correo}}</a>
+                      <a [href]="'mailto:' + model.pass.correo + '?Subject=Reserva%20' + model.idreserva" target="_top">{{model.pass.correo}}</a>
                     </p>
                   </div>
                   <div class="form-group">
@@ -537,16 +542,16 @@
                     <p name="pais" class="text-muted">{{model.pass.pais}}</p>
                   </div>
                   <div class="form-group">
-                    <label for="noContacto">
+                    <label for="nocontacto">
                       <strong>Número de contacto</strong>
                     </label>
-                    <p name="noContacto" class="text-muted">{{model.pass.noContacto}}</p>
+                    <p name="nocontacto" class="text-muted">{{model.pass.nocontacto}}</p>
                   </div>
                   <div class="form-group">
                     <label for="noPersonas">
                       <strong>Número de personas</strong>
                     </label>
-                    <p name="noPersonas" class="text-muted">{{model.noPersonas}}</p>
+                    <p name="noPersonas" class="text-muted">{{model.nopersonas}}</p>
                   </div>
                   <div class="form-group">
                     <label for="notas">
@@ -591,12 +596,12 @@
                       <h6 class="alert-heading">{{' ' + room.habitacion}}&nbsp;
                         <small>
                           <a href="javascript:;" style="cursor:pointer">
-                            Tarifa &nbsp;{{room.tarifa | currency:'USD':true}} x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}} &nbsp;noche(s) &nbsp;
+                            Tarifa &nbsp;{{room.tarifa | currency:'USD':true}} x&nbsp;{{nightDiff(room.fedesde, room.fehasta)}} &nbsp;noche(s) &nbsp;
                           </a>
-                          <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD':true}}</strong>
+                          <strong>= {{room.tarifa * nightDiff(room.fedesde, room.fehasta) | currency:'USD':true}}</strong>
                         </small>
                       </h6>
-                      <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
+                      <strong>{{room.fedesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.fehasta | date : 'dd/MMM/yyyy'}}</strong>
                     </div>
                   </div>
                   <hr class="my-1">
@@ -611,10 +616,10 @@
                   <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
                     <div class="p-2">
                       <a [hidden]="model.estado != 'Co'" href="javascript:;">
-                        <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                        <h5>{{model.totalpagado | currency:'USD':true}}</h5>
                       </a>
                       <a [hidden]="model.estado == 'Co'" href="javascript:;" (click)="getPagos()" data-dismiss="modal" data-toggle="modal" data-target="#pagosModal">
-                        <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                        <h5>{{model.totalpagado | currency:'USD':true}}</h5>
                       </a>
                     </div>
                     <div class="p-2">
@@ -623,7 +628,7 @@
                   </div>
                   <div *ngIf="model.estado == 'Pr'" class="d-flex flex-row-reverse">
                     <div class="p-2">
-                      <h5>{{getTotal() - model.totalPagado | currency:'USD':true}}</h5>
+                      <h5>{{getTotal() - model.totalpagado | currency:'USD':true}}</h5>
                     </div>
                     <div class="p-2">
                       <h5>Saldo</h5>
@@ -709,7 +714,7 @@
                   <h3>Pagado</h3>
                 </div>
                 <div class="card-block">
-                  <h1 class="card-title">{{model.totalPagado | currency:'USD':true}}</h1>
+                  <h1 class="card-title">{{model.totalpagado | currency:'USD':true}}</h1>
                 </div>
               </div>
               <div class="card text-center">
@@ -717,7 +722,7 @@
                   <h3>Saldo</h3>
                 </div>
                 <div class="card-block">
-                  <h1 class="card-title">{{getTotal() - model.totalPagado | currency:'USD':true}}</h1>
+                  <h1 class="card-title">{{getTotal() - model.totalpagado | currency:'USD':true}}</h1>
                 </div>
               </div>
             </div>
@@ -738,7 +743,7 @@
                   <td colspan="5" align="center">No se han efectuado pagos</td>
                 </tr>
                 <tr *ngFor="let pago of pagos">
-                  <td width="20%">{{pago.formaPago}}</td>
+                  <td width="20%">{{pago.formapago}}</td>
                   <td width="40%">{{pago.usuario}}</td>
                   <td width="15%">{{pago.fecha}}</td>
                   <td width="15%">{{pago.monto | currency:'USD':true}}</td>
@@ -777,8 +782,8 @@
           novalidate>
           <div class="form-group">
             <label for="formaPago">Forma de pago</label>
-            <select class="form-control col-md-5" name="formaPago" [(ngModel)]="model.pago.idFormaPago" #formaPago="ngModel" required>
-              <option *ngFor="let op of formaPagos" [value]="op.idFormaPago">{{op.formaPago}}</option>
+            <select class="form-control col-md-5" name="formaPago" [(ngModel)]="model.pago.idforma" #formaPago="ngModel" required>
+              <option *ngFor="let op of formaPagos" [value]="op.idforma">{{op.forma}}</option>
             </select>
             <div *ngIf="f.submitted && !formaPago.valid" class="invalid-feedback">La forma de pago es requerida</div>
           </div>

@@ -12,12 +12,12 @@
       <div class="col-md-auto pr-0 hidden-md-down">
         <div class="reservation-dates mb-1 mt-1">
           <div class="dashboard-arrival-date">
-            <p class="stacked-dates-day">{{reserva.feDesde | date : 'dd'}}</p>
-            <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
+            <p class="stacked-dates-day">{{reserva.fedesde | date : 'dd'}}</p>
+            <p class="stacked-dates-month">{{reserva.fedesde | date : 'MMM'}}</p>
           </div>
           <div class="dashboard-departure-date">
-            <p class="stacked-dates-day">{{addDay(reserva.feHasta) | date : 'dd'}}</p>
-            <p class="stacked-dates-month">{{addDay(reserva.feHasta) | date : 'MMM'}}</p>
+            <p class="stacked-dates-day">{{addDay(reserva.fehasta) | date : 'dd'}}</p>
+            <p class="stacked-dates-month">{{addDay(reserva.fehasta) | date : 'MMM'}}</p>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
                 Contacto
               </small>
             </label>
-            <p [id]="'contacto' + i" class="mb-0">{{reserva.noContacto}}</p>
+            <p [id]="'contacto' + i" class="mb-0">{{reserva.nocontacto}}</p>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
             <a *ngIf="ocultaBtnModi('Co', reserva)" href="javascript:;" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Check-out" (click)="go('Co', reserva)" data-toggle="modal" data-target="#detalleEstadosModal">
               <i class="fa fa-external-link-square" aria-hidden="true"></i>
             </a>
-            <a href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.feModificacion | date : 'dd/MM/yyyy')">
+            <a href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.femodificacion | date : 'dd/MM/yyyy')">
               <i class="fa fa-info" aria-hidden="true"></i>
             </a>
           </div>

@@ -14,7 +14,7 @@ export class CardReservaComponent implements OnInit {
   toDay: Date;
 
   constructor(private reservaService: ReservaService,
-              private confirmacionEventSerivce: ConfirmacionEventService) { }
+    private confirmacionEventSerivce: ConfirmacionEventService) { }
 
   ngOnInit() {
 
@@ -29,7 +29,7 @@ export class CardReservaComponent implements OnInit {
 
   nightDiff(reserva: any) {
 
-    return this.reservaService.getNumeroNoches(new Date(reserva.feDesde), new Date(reserva.feHasta));
+    return this.reservaService.getNumeroNoches(new Date(reserva.fedesde), new Date(reserva.fehasta));
   }
 
   addDay(_feHasta: string) {
@@ -39,22 +39,22 @@ export class CardReservaComponent implements OnInit {
 
   getEstado(reserva: any) {
 
-      return this.reservaService.getEstado(reserva);
+    return this.reservaService.getEstado(reserva);
   }
 
   getEstadoStyle(reserva: any) {
 
-      if (reserva.estado === 'Ca') {
-        return { 'badge-dark': true };
-      } else if (reserva.estado === 'Ci') {
-        return { 'badge-danger': true };
-      } else if (reserva.estado === 'Co') {
-        return { 'badge-warning': true };
-      } else if (reserva.estado === 'Re') {
-        return { 'badge-info': true };
-      } else if (reserva.estado === 'Pr') {
-        return { 'badge-light': true };
-      }
+    if (reserva.estado === 'Ca') {
+      return { 'badge-dark': true };
+    } else if (reserva.estado === 'Ci') {
+      return { 'badge-danger': true };
+    } else if (reserva.estado === 'Co') {
+      return { 'badge-warning': true };
+    } else if (reserva.estado === 'Re') {
+      return { 'badge-info': true };
+    } else if (reserva.estado === 'Pr') {
+      return { 'badge-light': true };
+    }
   }
 
   ocultaBtnModi(op: string, reserva: any) {
@@ -63,7 +63,7 @@ export class CardReservaComponent implements OnInit {
 
       case 'Ci':
 
-        if (reserva.estado === 'Co') {
+        if (reserva.estado === 'Co' || reserva.estado === 'Pr') {
           return false;
         }
 
@@ -71,8 +71,8 @@ export class CardReservaComponent implements OnInit {
           return false;
         }
 
-        if (new Date(reserva.feDesde).getTime()
-            === this.toDay.getTime()) {
+        if (new Date(reserva.fedesde).getTime()
+          === this.toDay.getTime()) {
           return true;
         }
 
@@ -80,8 +80,8 @@ export class CardReservaComponent implements OnInit {
       case 'Co':
 
         if (reserva.estado === 'Ci') {
-            return true;
-          }
+          return true;
+        }
 
         return false;
     }
@@ -90,7 +90,7 @@ export class CardReservaComponent implements OnInit {
   go(a_estado: string, reserva: any) {
 
     reserva.a_estado = a_estado;
-    const retorno = { model: reserva};
+    const retorno = { model: reserva };
 
     this.selectedVal(retorno);
   }

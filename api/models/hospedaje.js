@@ -1,58 +1,37 @@
-var connection = require('../connection');
+const DataAccess = require('./DataAccess');
 
 function Hospedaje() {
 
   this.get = function (params, res) {
-    connection.acquire(function (err, con) {
-      con.query('call ho_hospedaje(\'' + params + '\')', function (err, result) {
-        try {
+    DataAccess.exec_arraysp('ho_hospedaje', [params], function(error, result){
+      if (error) {
 
-          con.release();
-          console.log(params);
-
-          if (err) {
-
-            console.log('Error>> Hospedaje.get>>' + err);
-            res.send({ success: false, mensaje: '' + err });
-          }
-          else
-            res.send({ success: true, data: result });
-        }
-        catch (ex) {
-
-          console.log('Error>> ex>> Hospedaje.get>> ' + ex);
-          res.send({ success: false, mensaje: ex });
-        }
-      });
-    });
+        console.log('Error>> Hospedaje.get>>' + error);
+        res.send({ success: false, mensaje: '' + error });
+      }
+      else {
+        res.send({ success: true, data: result });
+      }        
+    })
   };
 
-  this.mantenimiento = function (_registro, res) {
+  this.mantenimiento = function (hospedaje, res) {
 
-    var param = setxml(_registro);
+    var params = setxml(hospedaje);
 
-    console.log(param);
-    connection.acquire(function (err, con) {
-      con.query('call ho_hospedaje(\'' + param + '\')', function (err, result) {
-        try {
+    DataAccess.exec_arraysp('ho_hospedaje', [params], function(error, result){
 
-          con.release();
-          if (err) {
-            console.log('Error>> Habitacion.mantenimiento>>' + err);
-            res.send({ success: false, mensaje: err });
-          }
-          else {
-            if (result[0][0].err == undefined)
-              res.send({ success: true, mensaje: result[0][0].mensaje });
-            else
-              res.send({ success: false, mensaje: result[0][0].mensaje });
-          }
-        }
-        catch (ex) {
-          console.log('Error>> ex>> Habitacion.mantenimiento>>' + ex);
-          res.send({ success: false, mensaje: ex });
-        }
-      });
+      if (error) {
+        console.log('Error>> Hospedaje.mantenimiento>>' + error);
+        res.send({ success: false, mensaje: error });
+      }
+      else {
+        if (result[0][0].err == undefined){
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }          
+      }
     });
   };
 
@@ -61,7 +40,7 @@ function Hospedaje() {
     var retorno = "";
 
     for (var i = 0; i < redes.length; i++) {
-      retorno = retorno + redes[i].idSocial + ';'
+      retorno = retorno + redes[i].idsocial + ';'
         + (redes[i].valor || '') + '|';
     }
 
@@ -70,12 +49,9 @@ function Hospedaje() {
 
   function setxml(data) {
 
-    console.log('params>>>');
-    console.log(data);
-
     var params = '<params accion= "' + data.accion
-      + '" idPais= "' + data.valuePa
-      + '" idHospedaje= "' + data.idHospedaje
+      + '" idpais= "' + data.valuePa
+      + '" idhospedaje= "' + data.idhospedaje
       + '" hospedaje= "' + data.hospedaje
       + '" ciudad= "' + data.ciudad
       + '" direccion= "' + data.direccion
@@ -84,9 +60,6 @@ function Hospedaje() {
       + '" sociales= "' + setSociales(data.redes)
       + '" solength= "' + data.redes.length
       + '" />';
-
-    console.log(params);
-
     return params;
   }
 
