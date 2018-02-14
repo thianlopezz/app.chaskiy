@@ -18,6 +18,7 @@ import { Err404Component } from './err404/err404.component';
 import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { HeaderComponent } from './components/header/header.component';
     ModalMensajeComponent,
     SpinnerComponent,
     HeaderComponent,
+    FooterComponent,
     HttpModule
   ],
   providers: [
@@ -48,7 +50,8 @@ import { HeaderComponent } from './components/header/header.component';
     Err404Component,
     CardNotificacionesComponent,
     SpinnerComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ]
 })
 export class CompartidoModule { }
