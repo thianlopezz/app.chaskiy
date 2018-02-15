@@ -8,6 +8,10 @@ html {
   font-size: 15px;
 }
 
+body{
+  background: #fafafa;
+}
+
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
@@ -68,4 +72,9 @@ button.close {
 
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(31, 61, 76, 0.08);
+}
+
+.bg-negro{
+  background: #363b3e!important;
+  color: #ececec;
 }
