@@ -2,8 +2,8 @@
   <div class="card-body">
     <h5 class="card-title">Notificaciones</h5>
     <app-spinner *ngIf="loading"></app-spinner>
-    <div *ngIf="!loading || notificaciones.length===0" class="row text-center">
-      <p class="text-muted">No tienes notificaciones</p>
+    <div *ngIf="!loading && notificaciones.length===0" class="row">
+      <p class="col-12 text-muted text-center">No tienes notificaciones</p>
     </div>
     <div *ngFor="let notificacion of notificaciones" style="cursor:pointer;" class="alert alert-light alert-dismissible fade show" role="alert">
       <!-- <strong>Holy guacamole!</strong> You should check in on some of those fields below. -->

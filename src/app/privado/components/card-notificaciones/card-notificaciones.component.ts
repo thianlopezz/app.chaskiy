@@ -15,7 +15,10 @@ export class CardNotificacionesComponent implements OnInit {
   constructor(private notificacionService: NotificacionService) { }
 
   ngOnInit() {
-    this.getNotificaciones();
+    // this.getNotificaciones();
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
   }
 
   getNotificaciones() {

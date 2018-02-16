@@ -39,6 +39,9 @@ import { CompartidoModule } from '../compartido/compartido.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { TarifaComponent } from './tarifa/tarifa.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { NotificacionService } from './notificaciones/notificacion.service';
+
+import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
 
 @NgModule({
   imports: [
@@ -63,7 +66,8 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
     AdicionalComponent,
     ModalPagoComponent,
     TarifaComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    CardNotificacionesComponent
   ],
   providers: [
     AdicionalService,
@@ -81,7 +85,8 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
     SocialService,
     TarifaService,
     MonedaPipe,
-    RouteActivatorService
+    RouteActivatorService,
+    NotificacionService
   ]
 })
 export class PrivadoModule { }

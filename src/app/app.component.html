@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div id="wrapper">	
+<div id="wrapper">
     <!-- Sidebar -->
     <div [hidden]="!isLogged()" id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -14,21 +14,21 @@
             <li>
                 <a [routerLink]="['/reservas']">Reservas</a>
             </li>
-						<li>
-							<span style="color: white;">
-								<!-- <i class="fas fa-chart-area" aria-hidden="true"></i> -->
-								<!-- <i class="fas fa-chart-bar" aria-hidden="true"></i> -->
-								<i class="fa fa-area-chart" aria-hidden="true"></i>
-								Estadísticas
-							</span>
-						</li>
-            <li>
-                <a [routerLink]="['/pagos']">Pagos</a>
-						</li>
             <li>
                 <span style="color: white;">
-                	<i class="fa fa-cog" aria-hidden="true"></i>
-                	Mantenimientos
+                    <!-- <i class="fas fa-chart-area" aria-hidden="true"></i> -->
+                    <!-- <i class="fas fa-chart-bar" aria-hidden="true"></i> -->
+                    <i class="fa fa-area-chart" aria-hidden="true"></i>
+                    Estadísticas
+                </span>
+            </li>
+            <li>
+                <a [routerLink]="['/pagos']">Pagos</a>
+            </li>
+            <li>
+                <span style="color: white;">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    Mantenimientos
                 </span>
             </li>
             <li>
@@ -47,18 +47,14 @@
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <button [hidden]="!isLogged()" type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                <span class="hamb-top"></span>
-    			<span class="hamb-middle"></span>
-				<span class="hamb-bottom"></span>
-            </button>
-            <section class="wrapper">
-            </section>
-        </div>
-		</div>
-		<router-outlet></router-outlet>
+    <button [hidden]="!isLogged()" type="button" class="hamburger is-closed" data-toggle="offcanvas">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+    </button>
+    <router-outlet></router-outlet>
+    
+    
     <!-- /#page-content-wrapper -->
 </div>
 <!-- /#wrapper -->

@@ -1,3 +1,6 @@
+<br>
+<br>
+<br>
 <div class="container">
 	<h3 class="display-4">{{user.hospedaje}}</h3>
 	<hr class="my-2">
@@ -38,16 +41,16 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="llegadas" role="tabpanel" aria-labelledby="llegadas-tab">
-					<br>
-					<app-card-reserva [reservas]="llegadas"></app-card-reserva>
+					<br>					
+					<app-card-reserva [loading]="loadingllegadas" [reservas]="llegadas"></app-card-reserva>
 				</div>
 				<div class="tab-pane fade" id="salidas" role="tabpanel" aria-labelledby="salidas-tab">
 					<br>
-					<app-card-reserva [reservas]="salidas"></app-card-reserva>
+					<app-card-reserva [loading]="loadingsalidas" [reservas]="salidas"></app-card-reserva>
 				</div>
 				<div class="tab-pane fade" id="estancias" role="tabpanel" aria-labelledby="estancias-tab">
 					<br>
-					<app-card-reserva [reservas]="estancias"></app-card-reserva>
+					<app-card-reserva [loading]="loadingestancias" [reservas]="estancias"></app-card-reserva>
 				</div>
 			</div>
 			<br>
@@ -58,7 +61,7 @@
 				</div>
 			</div>
 			<hr class="my-2">
-			<app-card-reserva [reservas]="reservadosDb"></app-card-reserva>
+			<app-card-reserva [loading]="loadingrecientes" [reservas]="reservadosDb"></app-card-reserva>
 		</div>
 		<!--/span-->
 
@@ -73,15 +76,8 @@
 				</div>
 			</div>
 
-			<div class="card mt-3">
-				<div class="card-body">
-					<h4 class="card-title">Notificaciones</h4>
-					<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eveniet unde ipsum, autem sunt, aperiam, quam harum quibusdam
-						consectetur, sed doloribus? Reprehenderit expedita quam aperiam recusandae, quasi. Ratione, illum, aliquam!</p>
-					<!-- <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a> -->
-				</div>
+			<div class="mt-2">
+				 <app-card-notificaciones></app-card-notificaciones>
 			</div>
 
 		</div>

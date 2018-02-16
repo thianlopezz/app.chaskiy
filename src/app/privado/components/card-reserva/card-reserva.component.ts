@@ -10,6 +10,7 @@ import { ConfirmacionEventService } from '../../../compartido/components/modal-c
 export class CardReservaComponent implements OnInit {
 
   @Input() reservas: any[];
+  @Input() loading = true;
 
   toDay: Date;
 

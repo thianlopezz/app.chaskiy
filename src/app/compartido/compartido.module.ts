@@ -15,7 +15,6 @@ import { MyDatePickerModule } from 'mydatepicker';
 
 import { ToastService } from '../compartido/services/toast.service';
 import { Err404Component } from './err404/err404.component';
-import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -48,7 +47,6 @@ import { FooterComponent } from './components/footer/footer.component';
     ModalConfirmacionComponent,
     ModalMensajeComponent,
     Err404Component,
-    CardNotificacionesComponent,
     SpinnerComponent,
     HeaderComponent,
     FooterComponent

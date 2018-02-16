@@ -152,7 +152,8 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked() {
     // this.changedAd(jQuery('#adicional').val());
-    // this.cdRef.detectChanges();
+    jQuery('[data-toggle="tooltip"]').tooltip();
+    this.cdRef.detectChanges();
   }
 
   selectedVal(resp) {
@@ -1137,6 +1138,7 @@ debugger;
           this.getPagos();
 
           jQuery('#reservaModal').modal('show');
+          jQuery('[data-toggle="tooltip"]').tooltip('dispose');
 
           setTimeout(() => {
             jQuery('#pais').select2();

@@ -16,6 +16,11 @@ export class HomeComponent implements OnInit {
 
   reservadosDb: any[] = [];
 
+  loadingllegadas = true;
+  loadingsalidas = true;
+  loadingestancias = true;
+  loadingrecientes = true;
+
   llegadas: any[] = [];
   salidas: any[] = [];
   estancias: any[] = [];
@@ -268,6 +273,8 @@ export class HomeComponent implements OnInit {
 
   private getByDate() {
 
+    this.loadingrecientes = true;
+
     const dia = 1000 * 60 * 60 * 24;
 
     const _feDesde = new Date();
@@ -287,10 +294,13 @@ export class HomeComponent implements OnInit {
 
           console.log('Error>> getByDate>> ' + reservas.mensaje);
         }
+        this.loadingrecientes = false;
       });
   }
 
   private getLlegadas(_feDesde: Date) {
+
+    this.loadingllegadas = true;
 
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
@@ -304,10 +314,13 @@ export class HomeComponent implements OnInit {
 
           console.log('Error>> getByDate>> ' + reservas.mensaje);
         }
+        this.loadingllegadas = false;
       });
   }
 
   private getSalidas(_feHasta: Date) {
+
+    this.loadingsalidas = true;
 
     _feHasta = new Date(_feHasta.getTime() - (1000 * 60 * 60 * 24));
 
@@ -324,10 +337,13 @@ export class HomeComponent implements OnInit {
 
           console.log('Error>> getByDate>> ' + reservas.mensaje);
         }
+        this.loadingsalidas = false;
       });
   }
 
   private getEstancias(_feDesde: Date) {
+
+    this.loadingestancias = true;
 
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
@@ -341,6 +357,7 @@ export class HomeComponent implements OnInit {
 
           console.log('Error>> getByDate>> ' + reservas.mensaje);
         }
+        this.loadingestancias = false;
       });
   }
 }

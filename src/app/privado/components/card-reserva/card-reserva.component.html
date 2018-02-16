@@ -1,4 +1,5 @@
-<div class="card mt-1 mb-2" style="height:120px;" *ngIf="reservas.length==0">
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="card mt-1 mb-2" style="height:120px;" *ngIf="!loading && reservas.length==0">
   <div class="row mb-auto mt-auto">
     <div class="col-md-auto mr-auto ml-auto">
       <i class="fa fa-calendar-times-o" aria-hidden="true"></i>
