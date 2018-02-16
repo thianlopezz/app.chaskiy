@@ -1,3 +1,7 @@
+<br>
+<br>
+<br>
+<br>
 <!-- R E C U P E R A  C O N T R A S E N A -->
 <div *ngIf="op=='RP'" class="container">
   <div class="col-md-6 ml-auto mr-auto">
@@ -95,6 +99,7 @@
 </div>
 <!-- R E S E R V A  V I E W / C O N F I R M -->
 <div *ngIf="op=='RE'" class="container">
+  <app-spinner *ngIf="!showReserve"></app-spinner>
   <div *ngIf="showReserve" class="row">
     <div class="col-lg-3 col-md-2 col-sm-12">
       <div class="card" ><!-- style="width: 20rem;" -->
@@ -153,13 +158,13 @@
                 <label for="noContacto">
                   <strong>Número de contacto</strong>
                 </label>
-                <p name="noContacto" class="text-muted">{{model.pass.noContacto}}</p>
+                <p name="noContacto" class="text-muted">{{model.pass.nocontacto}}</p>
               </div>
               <div class="form-group">
                 <label for="noPersonas">
                   <strong>Número de personas</strong>
                 </label>
-                <p name="noPersonas" class="text-muted">{{model.noPersonas}}</p>
+                <p name="noPersonas" class="text-muted">{{model.nopersonas}}</p>
               </div>
             </div>
             <div class="col-md-6">
@@ -185,10 +190,10 @@
                 <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
                   <h6 class="alert-heading">{{' ' + room.habitacion}}
                     <small>
-                       {{nightDiff(room.feDesde, room.feHasta)}} noche(s)
+                       {{nightDiff(room.fedesde, room.fehasta)}} noche(s)
                     </small>
                   </h6>
-                  <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
+                  <strong>{{room.fedesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.fehasta | date : 'dd/MMM/yyyy'}}</strong>
                 </div>
               </div>
               <hr class="my-4">
@@ -202,7 +207,7 @@
               </div>
               <div *ngIf="model.estado!='Pr'" class="d-flex flex-row-reverse">
                 <div class="p-2">
-                  <h5>{{model.totalPagado | currency:'USD':true}}</h5>
+                  <h5>{{model.totalpagado | currency:'USD':true}}</h5>
                 </div>
                 <div class="p-2">
                   <h5>Pagado</h5>
@@ -210,7 +215,7 @@
               </div>
               <div *ngIf="model.estado!='Pr'" class="d-flex flex-row-reverse">
                 <div class="p-2">
-                  <h5>{{getTotal() - model.totalPagado | currency:'USD':true}}</h5>
+                  <h5>{{getTotal() - model.totalpagado | currency:'USD':true}}</h5>
                 </div>
                 <div class="p-2">
                   <h5>Saldo</h5>

@@ -272,9 +272,9 @@ export class GenericoComponent implements OnInit {
       });
   }
 
-  getReserveDet(idReserva: number, token: string) {
+  getReserveDet(idreserva: number, token: string) {
 
-    this.reservaService.getByIdEx(idReserva, token).subscribe(
+    this.reservaService.getByIdEx(idreserva, token).subscribe(
       reservas => {
 
         if (reservas.success) {
@@ -283,6 +283,7 @@ export class GenericoComponent implements OnInit {
           this.showMensajeReserva = false;
 
           this.model = reservas.data[0];
+          debugger;
           this.model.habitaciones = this.setDateHab(this.model.habitaciones);
 
           this.model.pago = {};
@@ -316,7 +317,7 @@ export class GenericoComponent implements OnInit {
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
 
-      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
+      sum = sum + (this.nightDiff(habitaciones[i].fedesde, habitaciones[i].fehasta) * habitaciones[i].tarifa);
     }
 
     for (let i = 0; i < adicionales.length; i++) {
@@ -329,9 +330,9 @@ export class GenericoComponent implements OnInit {
     return this.model.total;
   }
 
-  private nightDiff(feDesde: Date, feHasta: Date) {
+  private nightDiff(fedesde: Date, fehasta: Date) {
 
-    return this.reservaService.getNumeroNoches(feDesde, feHasta);
+    return this.reservaService.getNumeroNoches(fedesde, fehasta);
   }
 
   valuechange_pass(newVal) {
@@ -361,7 +362,7 @@ export class GenericoComponent implements OnInit {
 
       for (let j = 0; j < this.model.hospedaje.redes.length; j++) {
 
-        if (this.redes[i].idSocial === this.model.hospedaje.redes[j].idSocial) {
+        if (this.redes[i].idSocial === this.model.hospedaje.redes[j].idsocial) {
 
           this.redes[i].valor = this.model.hospedaje.redes[j].valor;
           // break;
@@ -387,9 +388,9 @@ export class GenericoComponent implements OnInit {
 
   findByIdDb(arreglo: any[], id: number, feIn: Date) {
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idHabitacion === id &&
-        (feIn >= this.getDateString('/', arreglo[i].feDesde)
-          && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
+      if (arreglo[i].idhabitacion === id &&
+        (feIn >= this.getDateString('/', arreglo[i].fedesde)
+          && feIn <= this.getDateString('/', arreglo[i].fehasta))) {
             return i;
           }
     }
@@ -404,11 +405,10 @@ export class GenericoComponent implements OnInit {
   }
 
   private setDateHab(arreglo: any[]) {
-
     for (let i = 0; i < arreglo.length; i++) {
 
-      arreglo[i].feDesde = this.getDateString('/', arreglo[i].feDesde);
-      arreglo[i].feHasta = this.getDateString('/', arreglo[i].feHasta);
+      arreglo[i].fedesde = this.getDateString('/', arreglo[i].fedesde);
+      arreglo[i].fehasta = this.getDateString('/', arreglo[i].fehasta);
     }
 
     return arreglo;
