@@ -1,60 +1,61 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { TarifaService } from './tarifa.service';
-import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
+import { PasajeroService } from './pasajero.service';
+import { ToastService } from '../../compartido/services/toast.service';
 import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
 import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
-import { ToastService } from '../../compartido/services/toast.service';
+import { PaisService } from '../services/pais.service';
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-tarifa',
-  templateUrl: './tarifa.component.html',
-  styleUrls: ['./tarifa.component.css']
+  selector: 'app-pasajero',
+  templateUrl: './pasajero.component.html',
+  styleUrls: ['./pasajero.component.css']
 })
-export class TarifaComponent implements OnInit, OnDestroy {
-  
+export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
+
   filtro;
 
   model: any = {};
-  tarifas = [];
-  tipos: any[];
+  pasajeros = [];
+  paises = [];
   user: any = {};
   loading = false;
-  loading_tar = true;
+  loading_pas = true;
   readOnly = true;
   accion: string;
 
   subscription: any;
-
-  constructor(private router: Router,
-    private tarifaService: TarifaService,
+  constructor(private pasajeroService: PasajeroService,
+    private paisService: PaisService,
     private toastService: ToastService,
     private confirmacionService: ConfirmacionService,
-    private confirmacionEventService: ConfirmacionEventService) { }
+    private acceptService: ConfirmacionEventService) { }
 
   ngOnInit() {
 
-    this.loadAllTarifas();
-    this.loadAllTipos();
-    this.subscription = this.confirmacionEventService.getAcceptChangeEmitter()
+    this.loadAllPasajeros();
+    this.setSelect2Paises();
+    this.subscription = this.acceptService.getAcceptChangeEmitter()
       .subscribe(resp => this.selectedVal(resp));
   }
 
-  selectedVal(resp: string) {
-
-    if (resp === 'aceptar') {
-      this.delete();
-    } else if (resp === 'cancelar') {
-      this.model = {};
-      this.readOnly = true;
-    }
+  ngAfterViewInit() {
+    jQuery('#pais').select2();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  selectedVal(resp: string) {
+    if (resp === 'aceptar') {
+      this.delete();
+    } else if (resp === 'cancelar') {
+      this.model = { accion: undefined, idhabitacion: undefined };
+      this.readOnly = true;
+    }
   }
 
   delete() {
@@ -62,20 +63,20 @@ export class TarifaComponent implements OnInit, OnDestroy {
 
     this.model.accion = this.accion;
 
-    this.tarifaService.mantenimiento(this.model)
+    this.pasajeroService.mantenimiento(this.model)
       .subscribe(
       data => {
         if (data.success) {
 
           this.toastService.showSuccess('Registro eliminado con éxito');
           this.loading = false;
-          this.loadAllTarifas();
-          this.modalHide();
+          this.loadAllPasajeros();
+          this.hideModal();
         } else {
 
           this.toastService.showError(data.mensaje);
           this.loading = false;
-          this.modalHide();
+          this.hideModal();
         }
       },
       error => {
@@ -83,7 +84,7 @@ export class TarifaComponent implements OnInit, OnDestroy {
         this.toastService.showError('Ocurrió al eliminar el registro');
         console.log(error);
         this.loading = false;
-        this.modalHide();
+        this.hideModal();
       });
   }
 
@@ -92,6 +93,7 @@ export class TarifaComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.model.accion = this.accion;
+    this.model.idpais = jQuery('#pais').val();
 
     let mensaje = '';
     let mensaje_err = '';
@@ -107,16 +109,16 @@ export class TarifaComponent implements OnInit, OnDestroy {
         break;
     }
 
-    this.tarifaService.mantenimiento(this.model)
+    this.pasajeroService.mantenimiento(this.model)
       .subscribe(
       data => {
         if (data.success) {
 
           this.toastService.showSuccess(mensaje);
           this.loading = false;
-          this.loadAllTarifas();
+          this.loadAllPasajeros();
           form.resetForm();
-          this.modalHide();
+          this.hideModal();
         } else {
 
           this.toastService.showError(data.mensaje);
@@ -135,53 +137,71 @@ export class TarifaComponent implements OnInit, OnDestroy {
   }
 
   setNuevo() {
+
     this.accion = 'I';
-    this.model = {};
+    this.model = { accion: undefined, idpasajero: undefined };
+    this.model.idpasajero = 0;
     this.readOnly = false;
   }
 
   setModi(model: any) {
+debugger;
     this.accion = 'U';
+    jQuery('#pais').val('' + model.idpais);
+    jQuery('#pais').trigger('change');
+
+    setTimeout(() => {
+      jQuery('#pais').select2();
+    }, 200);
+
     this.model = Object.assign({}, model);
     this.readOnly = false;
   }
 
   setElim(model: any) {
+
     this.accion = 'D';
     this.model = Object.assign({}, model);
     this.confirmacionService.go('¿Desea eliminar el registro?');
   }
 
-  private loadAllTarifas() {
-
-    this.loading_tar = true;
-
-    this.tarifaService.getAll().subscribe(response => {
+  private loadAllPasajeros() {
+    this.loading_pas = true;
+    this.pasajeroService.getAll().subscribe(response => {
 
       if (response.success) {
-        this.tarifas = response.data;
+        this.pasajeros = response.data;
       } else {
-        console.log('Error>> loadAllTarifas>> ' + response.mensaje);
+        console.log('Error>> loadAllPasajeros>> ' + response.mensaje);
       }
-
-      this.loading_tar = false;
+      this.loading_pas = false;
+    }, error => {
+      this.loading_pas = false;
+      console.log('Error>> loadAllPasajeros>> ' + error.message);
     });
   }
 
-  private loadAllTipos() {
-    this.tarifaService.getAllTipos().subscribe(response => {
+  private setSelect2Paises() {
 
-      if (response.success) {
-        this.tipos = response.data;
-      } else {
-        console.log('Error>> loadAllTarifas>> ' + response.mensaje);
-      }
-    });
+    this.paisService.getAll().subscribe(
+      paises => {
+
+        if (paises.success) {
+
+          for (let i = 0; i < paises.data.length; i++) {
+
+            this.paises.push({ id: '' + paises.data[i].idpais, text: paises.data[i].pais });
+          }
+        } else {
+
+          console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
+        }
+      });
   }
 
-  private modalHide() {
+  private hideModal() {
 
-    jQuery('#tarifaModal').modal('hide');
+    jQuery('#pasajeroModal').modal('hide');
   }
 
 }

@@ -6,6 +6,15 @@ export class PasajeroService {
 
     constructor(private http: Http) { }
 
+    getAll() {
+
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
+
+        const param = encodeURIComponent('<params accion="C"'
+            + ' idhospedaje = "' + chasker.idhospedaje + '" />');
+        return this.http.get('/api/pasajeros/all/' + param, this.jwt()).map((response: Response) => response.json());
+    }
+
     getById(correo: string) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));

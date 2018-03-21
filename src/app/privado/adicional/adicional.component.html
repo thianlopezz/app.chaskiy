@@ -8,13 +8,25 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-9 col-md-10 col-sm-12">
-			<h2>
+			<h3>
 				Registros({{adds.length}})
 				<button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal"
 				 data-target="#adicionalModal">
 					<i class="fa fa-plus" aria-hidden="true"></i>
 				</button>
-			</h2>
+			</h3>
+			<div class="d-flex flex-row-reverse">
+				<div class="p-2">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-filter" aria-hidden="true"></i>
+							</span>
+						</div>
+						<input type="text" name="filtro" class="form-control" placeholder="Filtro" [(ngModel)]="filtro" />
+					</div>
+				</div>
+			</div>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -24,7 +36,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let add of adds">
+					<tr *ngFor="let add of adds | filtrar:'adicional,tarifa':filtro">
 						<td width="60%">{{add.adicional}}</td>
 						<td width="30%">{{add.tarifa | currency:'USD':true}}</td>
 						<td width="10%" class="text-center">

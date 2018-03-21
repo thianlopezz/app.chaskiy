@@ -9,13 +9,24 @@
   <div class="row">
     <div class="col-lg-9 col-md-10 col-sm-12">
       <h3>
-        Regsitros({{tarifas.length}})
+        Registros({{tarifas.length}})
         <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal"
           data-target="#tarifaModal">
           <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
       </h3>
-      <hr>
+      <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-filter" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="text" name="filtro" class="form-control" placeholder="Filtro" [(ngModel)]="filtro" />
+          </div>
+        </div>
+      </div>
       <table class="table table-striped table-responsive">
         <thead>
           <tr>
@@ -26,7 +37,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tarifa of tarifas">
+          <tr *ngFor="let tarifa of tarifas | filtrar:'tipotarifa,tarifa,valor':filtro">
             <td width="20%">{{tarifa.tipotarifa}}</td>
             <td width="40%">{{tarifa.tarifa}}</td>
             <td width="30%">{{tarifa.valor | currency:'USD':true}}</td>

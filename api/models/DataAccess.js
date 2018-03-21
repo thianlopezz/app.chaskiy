@@ -84,17 +84,17 @@ function DataAccess() {
         return getParamsArray(array);
     };
 
-    this.attachProperty = function(xml, array = {}) {
+    this.attachProperty = function (xml, array = []) {
 
         const index = xml.indexOf('/>');
 
-        if (index === -1){
-            throw(new erroror('El xml no posee un formato correcto'))
+        if (index === -1) {
+            throw (new Error('El xml no posee un formato correcto'))
         } else {
 
             xml = xml.substring(0, index) + ' ';
-            for (let prop in data) {
-                xml += prop + ' = "' + data[prop] + '" ';
+            for (let prop in array) {
+                xml += prop + ' = "' + array[prop] + '" ';
             }
 
             xml += '/>';

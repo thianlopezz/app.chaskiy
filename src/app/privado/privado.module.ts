@@ -21,7 +21,7 @@ import { HospedajeService } from './hospedaje/hospedaje.service';
 import { PagoService } from './pagos/pago.service';
 import { ReservaService } from './reserva/reserva.service';
 import { AerolineaService } from './services/aerolinea.service';
-import { PasajeroService } from './services/pasajero.service';
+import { PasajeroService } from './pasajero/pasajero.service';
 import { EstadisticaService } from './services/estadistica.service';
 import { FormaPagoService } from './services/forma-pago.service';
 import { FuenteService } from './services/fuente.service';
@@ -42,6 +42,7 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
 import { NotificacionService } from './notificaciones/notificacion.service';
 
 import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
+import { PasajeroComponent } from './pasajero/pasajero.component';
 
 @NgModule({
   imports: [
@@ -67,7 +68,8 @@ import { CardNotificacionesComponent } from './components/card-notificaciones/ca
     ModalPagoComponent,
     TarifaComponent,
     NotificacionesComponent,
-    CardNotificacionesComponent
+    CardNotificacionesComponent,
+    PasajeroComponent
   ],
   providers: [
     AdicionalService,

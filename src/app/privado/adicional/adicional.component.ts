@@ -17,6 +17,8 @@ declare var jQuery: any;
 })
 export class AdicionalComponent implements OnInit, OnDestroy {
 
+  filtro;
+
   model: any = {};
   adds: any[] = [];
   user: any = {};

@@ -16,6 +16,9 @@ declare var jQuery: any;
   styleUrls: ['./habitacion.component.css']
 })
 export class HabitacionComponent implements OnInit, OnDestroy {
+  
+  filtro;
+  
   model: any = {};
   rooms = [];
   user: any = {};

@@ -6,7 +6,7 @@ import { HabitacionService } from '../habitacion/habitacion.service';
 import { AdicionalService } from '../adicional/adicional.service';
 import { PagoService } from '../pagos/pago.service';
 import { AerolineaService } from '../services/aerolinea.service';
-import { PasajeroService } from '../services/pasajero.service';
+import { PasajeroService } from '../pasajero/pasajero.service';
 import { PaisService } from '../services/pais.service';
 import { FormaPagoService } from '../services/forma-pago.service';
 import { FuenteService } from '../services/fuente.service';
@@ -184,10 +184,11 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  changeTarifa(room) {
-    room.tarifa = this.tarifasall.find(x => x.idtarifa === Number(room.idtarifa)).valor;
+  changeTarifa(idhabitacion, idtarifa) {
+    let habitacion = this.model.habitaciones.find(x => x.idhabitacion === Number(idhabitacion));
+    habitacion.tarifa = this.tarifasall.find(x => x.idtarifa === Number(idtarifa)).valor;
+    habitacion.idtarifa = Number(idtarifa); 
     this.esTotal = false;
-    // room.idtarifa = $event.idtarifa;
   }
 
   siguiente() {
@@ -376,7 +377,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.esTotal) {
       this.model.total = this.total0;
     }
-debugger;
+    
     this.reservaService.mantenimiento(this.model)
       .subscribe(
       data => {
@@ -641,7 +642,7 @@ debugger;
   }
 
   clickDay(_room, dia: number) {
-debugger;
+    
     if (this.isReserved(_room, dia)) {
       this.getReserveDet(_room, dia);
     }
@@ -689,7 +690,7 @@ debugger;
   }
 
   marco(_room, dateIn: Date) {
-debugger;
+    
     const index = this.findById(this.reservados, _room.idhabitacion);
 
     if (_room.noClick === 1) {
@@ -857,6 +858,19 @@ debugger;
       self.changedAd(jQuery('#adicional').val());
       jQuery('#adicional').on('select2:select', function (e) {
         self.changedAd(jQuery('#adicional').val());
+      });
+
+      jQuery('.form-control.tarifa').select2();
+      this.model.habitaciones.forEach(habitacion => {
+        if (this.tarifasall.length){
+          habitacion.idtarifa = this.tarifasall[0].idtarifa;
+          habitacion.tarifa = this.tarifasall[0].valor;
+        }
+      });
+      jQuery('.form-control.tarifa').on('select2:select', function (e) {
+        // self.changedAd(jQuery('#adicional').val());
+        const idhabitacion = e.target.name.split('-')[1];
+        self.changeTarifa(idhabitacion, e.target.value);
       });
 
     }, 200);
@@ -1038,7 +1052,6 @@ debugger;
     // this.setDay2();
     this.model.habitaciones = this.reservados;
 
-
     jQuery('#reservaModal').modal('show');
 
     setTimeout(() => {
@@ -1049,10 +1062,28 @@ debugger;
       jQuery('#adicional').trigger('change');
 
       const self = this;
+
       self.changedAd(jQuery('#adicional').val());
       jQuery('#adicional').on('select2:select', function (e) {
         self.changedAd(jQuery('#adicional').val());
       });
+
+      jQuery('.form-control.tarifa').select2();
+      
+      jQuery('.form-control.tarifa').each(function (index) {
+        
+        const sele = jQuery('.form-control.tarifa')[index];
+        const name = sele.name;
+        const idhabitacion = name.split('-')[1];
+        const idtarifa = self.model.habitaciones.find(x => x.idhabitacion === Number(idhabitacion)).idtarifa;
+        jQuery('#' + name).val('' + idtarifa);
+        jQuery('#' + name).trigger('change');
+      })
+      jQuery('.form-control.tarifa').on('select2:select', function (e) {
+        const idhabitacion = e.target.name.split('-')[1];
+        self.changeTarifa(idhabitacion, e.target.value);
+      });
+
     }, 200);
   }
 
@@ -1069,6 +1100,7 @@ debugger;
     setTimeout(() => {
       jQuery('#pais').select2();
       jQuery('#adicional').select2();
+      jQuery('.form-control.tarifa').select2();
     }, 200);
   }
 
@@ -1143,6 +1175,7 @@ debugger;
           setTimeout(() => {
             jQuery('#pais').select2();
             jQuery('#adicional').select2();
+            jQuery('.form-control.tarifa').select2();
           }, 200);
         } else {
 
@@ -1345,7 +1378,6 @@ debugger;
 
       if (formas.success) {
         this.formaPagos = formas.data;
-        debugger;
       } else {
         console.log('Error>> loadAllFormaPagos>> ' + formas.mensaje);
       }

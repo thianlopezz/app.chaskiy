@@ -152,7 +152,7 @@ export class RegistroComponent implements OnInit, AfterViewInit {
 
           for (let i = 0; i < paises.data.length; i++) {
 
-            this.paises.push({ id: '' + paises.data[i].idPais, text: paises.data[i].pais });
+            this.paises.push({ id: '' + paises.data[i].idpais, text: paises.data[i].pais });
           }
 
           this.defaultPa();

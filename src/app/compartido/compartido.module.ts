@@ -18,6 +18,7 @@ import { Err404Component } from './err404/err404.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FiltrarPipe } from './pipes/filtrar.pipe';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { FooterComponent } from './components/footer/footer.component';
     SpinnerComponent,
     HeaderComponent,
     FooterComponent,
-    HttpModule
+    HttpModule,
+    FiltrarPipe
   ],
   providers: [
     ConfirmacionEventService,
@@ -49,7 +51,8 @@ import { FooterComponent } from './components/footer/footer.component';
     Err404Component,
     SpinnerComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FiltrarPipe
   ]
 })
 export class CompartidoModule { }
