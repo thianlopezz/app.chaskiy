@@ -27,8 +27,9 @@ export class PasajeroService {
     mantenimiento(pass) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
-
+        pass.idhospedaje = chasker.idhospedaje;
         pass.idusuario = chasker.idusuario;
+        
         return this.http.post('/api/pasajeros/', pass, this.jwt()).map((response: Response) => response.json());
     }
 
