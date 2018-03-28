@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const process = require('process');
 const bodyParser = require('body-parser');
 
 const api = require('./api/rutas/api');
@@ -19,7 +20,7 @@ const forceSSL = function () {
 const app = express();
 app.enable('trust proxy');
 var connection = require('./api/connection');
-app.use(forceSSL());
+if (process.env.SQL_USER) { app.use(forceSSL()); } 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
