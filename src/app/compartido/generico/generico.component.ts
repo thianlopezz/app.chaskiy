@@ -283,7 +283,6 @@ export class GenericoComponent implements OnInit {
           this.showMensajeReserva = false;
 
           this.model = reservas.data[0];
-          debugger;
           this.model.habitaciones = this.setDateHab(this.model.habitaciones);
 
           this.model.pago = {};

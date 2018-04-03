@@ -326,7 +326,6 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.model.pass = {};
           // this.defaultPa();
           this.model.pass.correo = correo;
-          this.model.notas = '';
           this.model.pass.ident = true;
         } else
           if (passenger.data.length > 0) {

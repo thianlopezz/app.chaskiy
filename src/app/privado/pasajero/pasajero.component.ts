@@ -145,7 +145,7 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setModi(model: any) {
-debugger;
+    
     this.accion = 'U';
     jQuery('#pais').val('' + model.idpais);
     jQuery('#pais').trigger('change');
