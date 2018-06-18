@@ -2,8 +2,9 @@ const DataAcess = require('./DataAccess');
 var moment = require('moment');
 const axios = require('axios');
 var md5 = require('md5');
+const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 
-const API = process.env.CORREO_GENERICO || 'https://correo-generico.herokuapp.com';
+const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
 
 function Reserva() {
 
@@ -72,8 +73,10 @@ function Reserva() {
 
         enviaCorreo(result[0][0], 'I', 'Re', function (result) {
 
-          if (!result.success)
+          if (!result.success) {
+
             console.log("Error>> Reserva.confirma>> Error en el registro de envio de correo");
+          }
 
           res.send({ success: true, mensaje: 'Reserva confirmada con éxito' });
         });
@@ -85,6 +88,8 @@ function Reserva() {
   };
 
   this.mantenimiento = function (reserva, res) {
+
+    console.log(reserva);
 
     let params = setXml(reserva);
 
@@ -98,6 +103,7 @@ function Reserva() {
         enviaCorreo(result[0][0], reserva.accion, reserva.estado, function (result) {
 
           if (!result.success) {
+
             console.log("Error>> Reserva.mantenimiento>> Error en el registro de envio de correo");
           }
 
@@ -178,8 +184,11 @@ function Reserva() {
       asunto: asunto,
       destinatario: destinatario,
       claves: claves,
-      plantilla: plantilla
+      plantilla: plantilla,
+      token: TOKEN_CORREO
     };
+
+    console.log(`${API}/api/send`);
 
     axios.post(`${API}/api/send`, correo)
       .then(result => {
@@ -208,7 +217,7 @@ function Reserva() {
     let token = md5(moment().format('DDMMYYYYhhmmss'));
 
     return '<params accion= "' + data.accion
-    + '" idhospedaje= "' + data.idhospedaje
+      + '" idhospedaje= "' + data.idhospedaje
       + '" idaerolinea= "' + data.idaerolinea
       + '" idreserva= "' + data.idreserva
       + '" nopersonas= "' + data.nopersonas

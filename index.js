@@ -5,6 +5,7 @@ const process = require('process');
 const bodyParser = require('body-parser');
 
 const api = require('./api/rutas/api');
+const external = require('./api/rutas/external');
 
 const forceSSL = function () {
   return function (req, res, next) {
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api', api);
+app.use('/chaskiy/api', external);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

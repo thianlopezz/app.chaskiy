@@ -1,10 +1,10 @@
 const DataAcess = require('./DataAccess');
 var moment = require('moment');
 var md5 = require('md5');
-
 const axios = require('axios');
 
 const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 
 function Registro() {
 
@@ -30,8 +30,9 @@ function Registro() {
 
           enviaCorreo(result[0][0].idhospedaje, claves, 'Recuperacion de contraseña', './plantillas/Chaskiy/recupera_pass', _registro.correo, function (result) {
 
-            if (!result.success)
+            if (!result.success){
               console.log("Error>> Register.enviaRecupera>> Error en el registro de envio de correo");
+            }             
 
             res.send({ success: true, mensaje: '' });
           });
@@ -112,9 +113,11 @@ function Registro() {
 
           enviaCorreo(result[0][0].idHospedaje, claves, 'Confirmación de registro', './plantillas/Chaskiy/confirmacion_cuenta', _registro.correo, function (result) {
 
-            if (!result.success)
-              console.log("Error>> Register.registro>> Error en el registro de envio de correo");
+            if (!result.success){
 
+              console.log("Error>> Register.registro>> Error en el registro de envio de correo");
+            }
+            
             res.send({ success: true, mensaje: 'Usuario activado' });
           });
         }
@@ -167,7 +170,8 @@ function Registro() {
       asunto: asunto,
       destinatario: destinatario,
       claves: claves,
-      plantilla: plantilla
+      plantilla: plantilla,
+      token: TOKEN_CORREO
     };
 
     axios.post(`${API}/api/send`, correo)
