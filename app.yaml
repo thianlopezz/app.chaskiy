@@ -23,7 +23,7 @@ env_variables:
   SQL_PASSWORD: admin
   SQL_DATABASE: chaskiy-db
   CORREO_GENERICO: https://correo-generico.herokuapp.com
-  CORREO_GENERICO: TOKEN_CORREO
+  TOKEN_CORREO: 123
   # e.g. my-awesome-project:us-central1:my-cloud-sql-instance
   INSTANCE_CONNECTION_NAME: chaskiy-191704:southamerica-east1:chaskiy-db
 # [END env]
