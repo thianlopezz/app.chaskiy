@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReservaService {
@@ -11,17 +12,20 @@ export class ReservaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     const param = encodeURIComponent('<params accion = "C1" idreserva= "' + id
       + '" idhospedaje="' + chasker.idhospedaje + '" />');
-    return this.http.get('/api/reservas/' + param, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/reservas/' + param, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   getByIdEx(id: number, token: string) {
 
-    return this.http.get('/api/reservas/ex/' + id + '/' + token, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/reservas/ex/' + id + '/' + token, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   confirmaReserva(id: number) {
 
-    return this.http.get('/api/reservas/confirma/' + id, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/reservas/confirma/' + id, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   getByDate(consulta: string, feDesde: string, fehasta: string) {
@@ -31,7 +35,8 @@ export class ReservaService {
     const param = encodeURIComponent('<params accion = "' + consulta + '" fedesde= "' + feDesde + '" fehasta= "' + fehasta
       + '" idhospedaje= "' + chasker.idhospedaje + '" />');
 
-    return this.http.get('/api/reservas/all/' + param, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/reservas/all/' + param, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   mantenimiento(reserve: any) {
@@ -49,7 +54,8 @@ export class ReservaService {
       );
     }
 
-    return this.http.post('/api/reservas', reserve, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/reservas', reserve, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   getEstado(reserva: any) {

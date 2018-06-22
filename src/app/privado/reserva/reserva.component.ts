@@ -187,7 +187,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   changeTarifa(idhabitacion, idtarifa) {
     let habitacion = this.model.habitaciones.find(x => x.idhabitacion === Number(idhabitacion));
     habitacion.tarifa = this.tarifasall.find(x => x.idtarifa === Number(idtarifa)).valor;
-    habitacion.idtarifa = Number(idtarifa); 
+    habitacion.idtarifa = Number(idtarifa);
     this.esTotal = false;
   }
 
@@ -280,29 +280,29 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.pasajeroService.mantenimiento(this.model.pass)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.goPass = false;
+            this.editedPass = true;
+          } else {
+
+            this.goPass = false;
+            // this.messService.error(data.mensaje);
+            // this.showMess();
+            this.toastService.showWarning(data.mensaje);
+          }
+        },
+        error => {
+
+          console.log(error);
           this.goPass = false;
-          this.editedPass = true;
-        } else {
 
-          this.goPass = false;
-          // this.messService.error(data.mensaje);
+          // this.messService.error('Hubo un error al actualizar el pasajero');
           // this.showMess();
-          this.toastService.showWarning(data.mensaje);
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.goPass = false;
-
-        // this.messService.error('Hubo un error al actualizar el pasajero');
-        // this.showMess();
-        this.toastService.showWarning('Hubo un error al actualizar el pasajero');
-      });
+          this.toastService.showWarning('Hubo un error al actualizar el pasajero');
+        });
   }
 
   cancelEditaPass() {
@@ -376,39 +376,39 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.esTotal) {
       this.model.total = this.total0;
     }
-    
+
     this.reservaService.mantenimiento(this.model)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.loading = false;
+            this.esPass = false;
+            this.loadAllRooms();
+            form.resetForm();
+            this.getByDate();
+            this.quitRes();
+
+            jQuery('#reservaModal').modal('hide');
+            this.toastService.showSuccess(mensaje);
+            this.paso = 1;
+          } else {
+
+            this.loading = false;
+
+            this.toastService.showError(data.mensaje);
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
-          this.esPass = false;
-          this.loadAllRooms();
-          form.resetForm();
-          this.getByDate();
-          this.quitRes();
 
-          jQuery('#reservaModal').modal('hide');
-          this.toastService.showSuccess(mensaje);
-          this.paso = 1;
-        } else {
-
-          this.loading = false;
-
-          this.toastService.showError(data.mensaje);
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-
-        // this.messService.error(mensaje_err);
-        // this.showMess();
-        this.toastService.showError(mensaje_err);
-      });
+          // this.messService.error(mensaje_err);
+          // this.showMess();
+          this.toastService.showError(mensaje_err);
+        });
   }
 
   guardarPago(form: NgForm) {
@@ -433,34 +433,34 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.pagoService.mantenimiento(this.model.pago)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.loading = false;
+            this.getPagos();
+
+            // this.messService.success(mensaje);
+            // this.showMessPago();
+            jQuery('#pagoModal').modal('hide');
+            this.toastService.showSuccess(mensaje);
+          } else {
+
+            this.loading = false;
+            // this.messService.error(data.mensaje);
+            // this.showMessPago();
+            this.toastService.showError(data.mensaje);
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
-          this.getPagos();
 
-          // this.messService.success(mensaje);
+          // this.messService.error(mensaje_err);
           // this.showMessPago();
-          jQuery('#pagoModal').modal('hide');
-          this.toastService.showSuccess(mensaje);
-        } else {
-
-          this.loading = false;
-          // this.messService.error(data.mensaje);
-          // this.showMessPago();
-          this.toastService.showError(data.mensaje);
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-
-        // this.messService.error(mensaje_err);
-        // this.showMessPago();
-        this.toastService.showError(mensaje_err);
-      });
+          this.toastService.showError(mensaje_err);
+        });
   }
 
   delete() {
@@ -474,45 +474,45 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.reservaService.mantenimiento(this.model)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.loading = false;
+            this.loadAllRooms();
+            this.getByDate();
+
+            jQuery('#detalleEstadosModal').modal('hide');
+
+            // this.messService.success(mensaje);
+            // this.showMess();
+
+            jQuery('#reservaModal').modal('hide');
+            this.toastService.showSuccess(mensaje);
+
+            this.quitRes();
+          } else {
+
+            this.loading = false;
+
+            // jQuery('#detalleEstadosModal').modal('hide');
+
+            // this.messService.error(data.mensaje);
+            // this.showMess();
+            this.toastService.showError(data.mensaje);
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
-          this.loadAllRooms();
-          this.getByDate();
 
           jQuery('#detalleEstadosModal').modal('hide');
 
-          // this.messService.success(mensaje);
+          // this.messService.error(mensaje_err);
           // this.showMess();
-
-          jQuery('#reservaModal').modal('hide');
-          this.toastService.showSuccess(mensaje);
-
-          this.quitRes();
-        } else {
-
-          this.loading = false;
-
-          // jQuery('#detalleEstadosModal').modal('hide');
-
-          // this.messService.error(data.mensaje);
-          // this.showMess();
-          this.toastService.showError(data.mensaje);
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-
-        jQuery('#detalleEstadosModal').modal('hide');
-
-        // this.messService.error(mensaje_err);
-        // this.showMess();
-        this.toastService.showError(mensaje_err);
-      });
+          this.toastService.showError(mensaje_err);
+        });
   }
 
   deletePago() {
@@ -527,35 +527,35 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.pagoService.mantenimiento(this.model.pago)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.loading = false;
+            this.getPagos();
+
+            // this.messService.success(mensaje);
+            // this.showMessPago();
+            jQuery('#pagoModal').modal('hide');
+            this.toastService.showSuccess(mensaje);
+          } else {
+
+            this.loading = false;
+
+            // this.messService.error(data.mensaje);
+            // this.showMessPago();
+            this.toastService.showError(data.mensaje);
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
-          this.getPagos();
 
-          // this.messService.success(mensaje);
+          // this.messService.error(mensaje_err);
           // this.showMessPago();
-          jQuery('#pagoModal').modal('hide');
-          this.toastService.showSuccess(mensaje);
-        } else {
-
-          this.loading = false;
-
-          // this.messService.error(data.mensaje);
-          // this.showMessPago();
-          this.toastService.showError(data.mensaje);
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-
-        // this.messService.error(mensaje_err);
-        // this.showMessPago();
-        this.toastService.showError(mensaje_err);
-      });
+          this.toastService.showError(mensaje_err);
+        });
   }
 
   check(check: string) {
@@ -601,47 +601,47 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.reservaService.mantenimiento(this.model)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
+
+            jQuery('#detalleEstadosModal').modal('hide');
+
+            this.loading = false;
+            this.loadAllRooms();
+            this.getByDate();
+            this.quitRes();
+
+            // this.messService.success(mensaje);
+            // this.showMess();
+            jQuery('#reservaModal').modal('hide');
+            this.toastService.showSuccess(mensaje);
+          } else {
+
+            jQuery('#detalleEstadosModal').modal('hide');
+
+            this.loading = false;
+
+            // this.messService.error(data.mensaje);
+            // this.showMess();
+            this.toastService.showError(data.mensaje);
+          }
+        },
+        error => {
 
           jQuery('#detalleEstadosModal').modal('hide');
 
-          this.loading = false;
-          this.loadAllRooms();
-          this.getByDate();
-          this.quitRes();
-
-          // this.messService.success(mensaje);
-          // this.showMess();
-          jQuery('#reservaModal').modal('hide');
-          this.toastService.showSuccess(mensaje);
-        } else {
-
-          jQuery('#detalleEstadosModal').modal('hide');
-
+          console.log(error);
           this.loading = false;
 
-          // this.messService.error(data.mensaje);
+          // this.messService.error(mensaje_err);
           // this.showMess();
-          this.toastService.showError(data.mensaje);
-        }
-      },
-      error => {
-
-        jQuery('#detalleEstadosModal').modal('hide');
-
-        console.log(error);
-        this.loading = false;
-
-        // this.messService.error(mensaje_err);
-        // this.showMess();
-        this.toastService.showError(mensaje_err);
-      });
+          this.toastService.showError(mensaje_err);
+        });
   }
 
   clickDay(_room, dia: number) {
-    
+
     if (this.isReserved(_room, dia)) {
       this.getReserveDet(_room, dia);
     }
@@ -689,7 +689,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   marco(_room, dateIn: Date) {
-    
+
     const index = this.findById(this.reservados, _room.idhabitacion);
 
     if (_room.noClick === 1) {
@@ -861,7 +861,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       jQuery('.form-control.tarifa').select2();
       this.model.habitaciones.forEach(habitacion => {
-        if (this.tarifasall.length){
+        if (this.tarifasall.length) {
           habitacion.idtarifa = this.tarifasall[0].idtarifa;
           habitacion.tarifa = this.tarifasall[0].valor;
         }
@@ -1068,9 +1068,9 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
       });
 
       jQuery('.form-control.tarifa').select2();
-      
+
       jQuery('.form-control.tarifa').each(function (index) {
-        
+
         const sele = jQuery('.form-control.tarifa')[index];
         const name = sele.name;
         const idhabitacion = name.split('-')[1];

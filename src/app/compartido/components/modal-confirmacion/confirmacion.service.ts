@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
+import { Subject, Observable } from 'rxjs/index';
 
 @Injectable()
 export class ConfirmacionService {

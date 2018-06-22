@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Http, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 import * as jwt_decode from 'jwt-decode';
-import { debug } from 'util';
 export const TOKEN_NAME = 'jwt_token';
 
 @Injectable()
@@ -19,7 +16,7 @@ export class AutenticacionService {
         user.password = user.password.trim();
 
         return this.http.post('/api/auth/login/', user)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
 
                 const _response = response.json();
 
@@ -33,7 +30,9 @@ export class AutenticacionService {
                 } else {
                     return _response;
                 }
-            });
+            })
+            );
+
     }
 
     getLogin() {

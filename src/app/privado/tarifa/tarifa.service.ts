@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TarifaService {
@@ -11,7 +12,8 @@ export class TarifaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     const param = encodeURIComponent('<params accion="C0" idhospedaje = "' + chasker.idhospedaje + '" />');
-    return this.http.get('/api/tarifa/all/' + param, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/tarifa/all/' + param, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   // getAllAgrupados() {
@@ -26,7 +28,8 @@ export class TarifaService {
 
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get('/api/tarifa/alltipos/', this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/tarifa/alltipos/', this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   mantenimiento(tarifa) {
@@ -35,7 +38,8 @@ export class TarifaService {
 
     tarifa.idhospedaje = chasker.idhospedaje;
     tarifa.idhsuario = chasker.idusuario;
-    return this.http.post('/api/tarifa/', tarifa, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/tarifa/', tarifa, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   private jwt() {

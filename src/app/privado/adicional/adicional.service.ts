@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AdicionalService {
@@ -11,7 +12,8 @@ export class AdicionalService {
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C" idhospedaje = "' + chasker.idhospedaje + '" />');
-        return this.http.get('/api/adicionales/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/adicionales/all/' + param, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     mantenimiento(adicional: any) {
@@ -20,7 +22,8 @@ export class AdicionalService {
 
         adicional.idhospedaje = chasker.idhospedaje;
         adicional.idusuario = chasker.idusuario;
-        return this.http.post('/api/adicionales/', adicional, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/adicionales/', adicional, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     private jwt() {

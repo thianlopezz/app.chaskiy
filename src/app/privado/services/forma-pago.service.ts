@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FormaPagoService {
@@ -9,7 +10,8 @@ export class FormaPagoService {
     getAll() {
 
         const param = encodeURIComponent('<params accion="C" />');
-        return this.http.get('/api/formapago/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/formapago/all/' + param, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     private jwt() {

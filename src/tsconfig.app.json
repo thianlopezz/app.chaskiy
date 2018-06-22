@@ -3,7 +3,12 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "module": "es2017",
+    "module": "amd",
+    "target": "es2017",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "types": []
   },
   "exclude": [

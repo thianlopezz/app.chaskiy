@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PagoService {
@@ -9,20 +10,22 @@ export class PagoService {
     getAll(idreserva: string) {
 
         const param = encodeURIComponent('<params accion="C" idreserva="' + idreserva + '" />');
-        return this.http.get('/api/pago/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/pago/all/' + param, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     getByDate(fedesde: string, fehasta: string) {
 
-      const chasker = JSON.parse(localStorage.getItem('chasker'));
+        const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-      const param = encodeURIComponent('<params accion="C0"'
-                                    + ' idhospedaje = "' + chasker.idhospedaje
-                                    + '" fedesde = "' + fedesde
-                                    + '" fehasta = "' + fehasta
-                                    + '" />');
+        const param = encodeURIComponent('<params accion="C0"'
+            + ' idhospedaje = "' + chasker.idhospedaje
+            + '" fedesde = "' + fedesde
+            + '" fehasta = "' + fehasta
+            + '" />');
 
-      return this.http.get('/api/pago/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/pago/all/' + param, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     mantenimiento(pago: any) {
@@ -30,7 +33,8 @@ export class PagoService {
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         pago.idusuario = chasker.idusuario;
-        return this.http.post('/api/pago', pago, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/pago', pago, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     private jwt() {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PasajeroService {
@@ -12,7 +13,8 @@ export class PasajeroService {
 
         const param = encodeURIComponent('<params accion="C"'
             + ' idhospedaje = "' + chasker.idhospedaje + '" />');
-        return this.http.get('/api/pasajeros/all/' + param, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/pasajeros/all/' + param, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     getById(correo: string) {
@@ -20,8 +22,9 @@ export class PasajeroService {
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C1" correo = "' + correo
-                                            + '" idhospedaje = "' + chasker.idhospedaje + '" />');
-        return this.http.get('/api/pasajeros/all/' + param, this.jwt()).map((response: Response) => response.json());
+            + '" idhospedaje = "' + chasker.idhospedaje + '" />');
+        return this.http.get('/api/pasajeros/all/' + param, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     mantenimiento(pass) {
@@ -29,8 +32,9 @@ export class PasajeroService {
         const chasker = JSON.parse(localStorage.getItem('chasker'));
         pass.idhospedaje = chasker.idhospedaje;
         pass.idusuario = chasker.idusuario;
-        
-        return this.http.post('/api/pasajeros/', pass, this.jwt()).map((response: Response) => response.json());
+
+        return this.http.post('/api/pasajeros/', pass, this.jwt())
+            .pipe(map((response: Response) => response.json()));
     }
 
     private jwt() {

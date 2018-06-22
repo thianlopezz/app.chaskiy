@@ -19,12 +19,19 @@ function Connection() {
         database: process.env.SQL_DATABASE
       };
     } else {
+      // config = {
+      //   connectionLimit: 10,
+      //   host: '35.199.127.98',
+      //   port: 3306,
+      //   user: 'root',
+      //   password: 'admin',
+      //   database: 'chaskiy-db'
+      // };
       config = {
         connectionLimit: 10,
-        host: '35.199.127.98',
-        port: 3306,
+        host: 'localhost',
         user: 'root',
-        password: 'admin',
+        password: 'password',
         database: 'chaskiy-db'
       };
     }
