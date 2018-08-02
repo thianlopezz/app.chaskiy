@@ -7,14 +7,14 @@ export class EstadisticaService {
 
     constructor(private http: Http) { }
 
-    getMonthIcom(fedesde: string, fehasta: string) {
+    getMonthIcom(feDesde: string, feHasta: string) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C1"'
-            + ' idhospedaje = "' + chasker.idhospedaje
-            + '" fedesde = "' + fedesde
-            + '" fehasta = "' + fehasta
+            + ' idHospedaje = "' + chasker.idHospedaje
+            + '" feDesde = "' + feDesde
+            + '" feHasta = "' + feHasta
             + '" />');
 
         return this.http.get('/api/statistic/' + param, this.jwt())

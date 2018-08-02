@@ -1,0 +1,11 @@
+.container-form {
+    display: flex;
+}
+
+.alert-dismissible {
+    padding-right: 1rem;
+}
+
+.dropdown button{
+    font-size: 1.5rem;
+}

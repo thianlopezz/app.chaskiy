@@ -1,0 +1,11 @@
+
+$body-bg: #fafafa;
+// $bg-primary: #212121;
+// $bg-secondary: #0277bd;
+
+$theme-colors: (
+  "primary": rgba(0, 34, 51, 0.88),
+  "secondary": rgba(229, 150, 7, 1)
+);
+
+@import "node_modules/bootstrap/scss/bootstrap";

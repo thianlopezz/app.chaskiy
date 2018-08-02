@@ -1,0 +1,190 @@
+<div class="modal-header bg-primary text-light">
+  <h4 class="modal-title text-secondary">{{!model.estado || model.estado !== 'Pr' ? 'Reserva' : 'Proforma'}}</h4>
+  <font>{{'Estado: ' + getEstado()}}</font>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <a class="col-1 px-0 my-auto text-center" href="javascript:;" (click)="atras()">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </a>
+    <div class="col-10 px-0">
+      <form>
+        <div [hidden]="paso!==1">
+          <ul class="nav nav-tabs" id="valorestab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="habitaciones-tab" data-toggle="tab" href="#habitaciones" role="tab" aria-controls="habitaciones"
+                aria-expanded="true">Habitaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="adicionales-tab" data-toggle="tab" href="#adicionales" role="tab" aria-controls="adicionales">Adicionales</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="TabContent">
+            <div class="tab-pane fade show active" id="habitaciones" role="tabpanel" aria-labelledby="habitaciones">
+              <br>
+              <div class="scroll-15">
+                <div class="row" *ngFor="let room of model.habitaciones">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <div class="alert alert-primary alert-dismissible show" role="alert">
+                          <h6 class="alert-heading">{{' ' + room.habitacion}}
+                            <br> {{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}
+                          </h6>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <label for="tarifa" [ngClass]="{'tach': esTotal}">Tarifa</label>
+                        <p name="tarifa">{{room.tarifaDetalle}}</p>
+                      </div>
+                    </div>
+                    <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length>0" class="help-block form-control-feedback">Seleccione al menos una habitación</div>
+                  </div>
+                  <div class="col-md-4 mb-auto mt-auto">
+                    <p *ngIf="!esTotal">
+                      {{room.tarifa | currency:'USD'}} x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
+                      <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD'}}</strong>
+                    </p>
+                    <p *ngIf="esTotal">
+                      {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="adicionales" role="tabpanel" aria-labelledby="adicionales">
+              <br>
+              <div class="scroll-15">
+                <div class="row">
+                  <div *ngIf="model.adicionales && model.adicionales.length===0" class="alert alert-warning col-md-12 text-center" role="alert">
+                    No existen adicionales asignados a la reserva.
+                  </div>
+                  <div class="col-md-6" *ngFor="let adi of model.adicionales">
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                      <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
+                        <small *ngIf="!esTotal">
+                          Tarifa &nbsp;{{adi.tarifa | currency:'USD'}} x&nbsp;{{adi.cantidad}}&nbsp;= {{adi.tarifa * adi.cantidad | currency:'USD'}}
+                        </small>
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="paso!==2">
+          <div class="habitaciones">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="adultos">No. personas</label>
+                  <p class="text-muted">{{model.adultos}}&nbsp;adulto(s)&nbsp;{{model.ninos}}&nbsp;niño(s)</p>
+                </div>
+                <div class="form-group">
+                  <label for="aerolinea">Aerolínea</label>
+                  <p name="aerolinea" class="text-muted">{{model.aerolinea}}</p>
+                </div>
+                <div class="form-group">
+                  <label for="fuente">Captado de</label>
+                  <p name="fuente" class="text-muted">{{model.fuente}}</p>
+                </div>
+                <div class="form-group">
+                  <label for="notas">Notas</label>
+                  <p name="notas" class="text-muted">{{model.notas}}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="correo">Correo electrónico</label>
+                  <p name="correo" class="text-muted">
+                    <a [href]="'mailto:' + model.pasajero.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{model.pasajero.correo}}</a>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="pasajero">Nombre</label>
+                  <p name="pasajero" class="text-muted">{{model.pasajero.pasajero}}</p>
+                </div>
+                <div class="form-group">
+                  <label for="pais">Pais</label>
+                  <p name="pais" class="text-muted">{{model.pasajero.pais}}</p>
+                </div>
+                <div class="form-group">
+                  <label for="noContacto">Número de contacto</label>
+                  <p name="noContacto" class="text-muted">{{model.pasajero.noContacto}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- TOTALES -->
+        <hr class="my-1">
+        <div class="row text-right">
+          <div class="col-md-4">
+            <h4 *ngIf="model.estado !== 'Pr'">
+              Pagado
+              <small [hidden]="model.estado !== 'Co'">{{model.totalPagado | currency:'USD'}}</small>
+              <small [hidden]="model.estado === 'Co'">
+                <a [hidden]="model.estado === 'Co'" href="javascript:;" (click)="_pagos()">
+                  {{model.totalPagado | currency:'USD'}}
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+              </small>
+            </h4>
+          </div>
+          <div class="col-md-4">
+            <h4>
+              Por pagar
+              <small *ngIf="!esTotal">{{getTotal() - model.totalPagado | currency:'USD'}}</small>
+              <small *ngIf="esTotal">{{total - model.totalPagado | currency:'USD'}}</small>
+            </h4>
+          </div>
+          <div class="col-md-4">
+            <h4>
+              Total
+              <small *ngIf="!esTotal"> {{getTotal() | currency:'USD'}}</small>
+              <small *ngIf="esTotal">{{total | currency:'USD'}}</small>
+            </h4>
+          </div>
+        </div>
+      </form>
+    </div>
+    <a class="col-1 px-0 my-auto mr-auto text-center" href="javascript:;" (click)="siguiente()">
+      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
+<!-- PROFORMA -->
+<div *ngIf="model.estado=='Pr'" [hidden]="loading" class="modal-footer">
+  <img *ngIf="loading" src="/assets/images/loading.svg" />
+  <button type="button" class="btn btn-primary" title="Confirmar" (click)="_cambiarEstado('Re')">
+    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+    Confirmar
+  </button>
+  <button type="button" class="btn btn-outline-danger" title="Cancelar" (click)="_cambiarEstado('Ca')">
+    <i class="fa fa-times" aria-hidden="true"></i>
+    Cancelar
+  </button>
+  <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal" (click)="_cerrar()">Cerrar</button>
+</div>
+<!-- NO PROFORMA -->
+<div *ngIf="model.estado!=='Pr'" [hidden]="loading" class="modal-footer">
+  <img *ngIf="loading" src="/assets/images/loading.svg" />
+  <button *ngIf="ocultaBtn('U')" type="button" class="btn btn-outline-danger" title="Modificar" (click)="_modificar()">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    Modificar
+  </button>
+  <button *ngIf="ocultaBtn('Ci')" type="button" class="btn btn-outline-danger" title="Check-in" (click)="_cambiarEstado('Ci')">
+    <i class="fa fa-bed" aria-hidden="true"></i>
+    Check-in
+  </button>
+  <button *ngIf="ocultaBtn('Co')" type="button" class="btn btn-outline-warnig" title="Check-out" (click)="_cambiarEstado('Co')">
+    <i class="fa fa-external-link-square" aria-hidden="true"></i>
+    Check-out
+  </button>
+  <button *ngIf="ocultaBtn('D')" type="button" class="btn btn-outline-danger" title="Cancelar" (click)="setCancelar()">
+    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+    Cancelar
+  </button>
+  <button *ngIf="!loading" type="button" class="btn btn-light" (click)="_cerrar()">Cerrar</button>
+</div>

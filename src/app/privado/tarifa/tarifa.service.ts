@@ -11,22 +11,12 @@ export class TarifaService {
 
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    const param = encodeURIComponent('<params accion="C0" idhospedaje = "' + chasker.idhospedaje + '" />');
+    const param = encodeURIComponent('<params accion="C0" idHospedaje = "' + chasker.idHospedaje + '" />');
     return this.http.get('/api/tarifa/all/' + param, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
-  // getAllAgrupados() {
-
-  //   const chasker = JSON.parse(localStorage.getItem('chasker'));
-
-  //   const param = encodeURIComponent('<params accion="C0" idHospedaje = "' + chasker.idHospedaje + '" />');
-  //   return this.http.get('/api/tarifa/agrupado/' + param, this.jwt()).map((response: Response) => response.json());
-  // }
-
   getAllTipos() {
-
-    const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     return this.http.get('/api/tarifa/alltipos/', this.jwt())
       .pipe(map((response: Response) => response.json()));
@@ -36,8 +26,8 @@ export class TarifaService {
 
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    tarifa.idhospedaje = chasker.idhospedaje;
-    tarifa.idhsuario = chasker.idusuario;
+    tarifa.idHospedaje = chasker.idHospedaje;
+    tarifa.idUsuario = chasker.idUsuario;
     return this.http.post('/api/tarifa/', tarifa, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }

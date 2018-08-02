@@ -84,7 +84,7 @@ export class GenericoComponent implements OnInit {
               return;
             }
 
-            this.model.pass = {};
+            this.model.pasajero = {};
             this.model.hospedaje = {};
 
             this.getReserveDet(this.id, this.token);
@@ -272,9 +272,9 @@ export class GenericoComponent implements OnInit {
       });
   }
 
-  getReserveDet(idreserva: number, token: string) {
+  getReserveDet(idReserva: number, token: string) {
 
-    this.reservaService.getByIdEx(idreserva, token).subscribe(
+    this.reservaService.getByIdEx(idReserva, token).subscribe(
       reservas => {
 
         if (reservas.success) {
@@ -311,12 +311,12 @@ export class GenericoComponent implements OnInit {
     }
 
     const habitaciones = this.model.habitaciones;
-    const adicionales = this.model.valueAd || [];
+    const adicionales = this.model.adicionales || [];
 
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
 
-      sum = sum + (this.nightDiff(habitaciones[i].fedesde, habitaciones[i].fehasta) * habitaciones[i].tarifa);
+      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
     }
 
     for (let i = 0; i < adicionales.length; i++) {
@@ -329,9 +329,9 @@ export class GenericoComponent implements OnInit {
     return this.model.total;
   }
 
-  private nightDiff(fedesde: Date, fehasta: Date) {
+  private nightDiff(feDesde: Date, feHasta: Date) {
 
-    return this.reservaService.getNumeroNoches(fedesde, fehasta);
+    return this.reservaService.getNumeroNoches(feDesde, feHasta);
   }
 
   valuechange_pass(newVal) {
@@ -387,9 +387,9 @@ export class GenericoComponent implements OnInit {
 
   findByIdDb(arreglo: any[], id: number, feIn: Date) {
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idhabitacion === id &&
-        (feIn >= this.getDateString('/', arreglo[i].fedesde)
-          && feIn <= this.getDateString('/', arreglo[i].fehasta))) {
+      if (arreglo[i].idHabitacion === id &&
+        (feIn >= this.getDateString('/', arreglo[i].feDesde)
+          && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
             return i;
           }
     }
@@ -406,8 +406,8 @@ export class GenericoComponent implements OnInit {
   private setDateHab(arreglo: any[]) {
     for (let i = 0; i < arreglo.length; i++) {
 
-      arreglo[i].fedesde = this.getDateString('/', arreglo[i].fedesde);
-      arreglo[i].fehasta = this.getDateString('/', arreglo[i].fehasta);
+      arreglo[i].feDesde = this.getDateString('/', arreglo[i].feDesde);
+      arreglo[i].feHasta = this.getDateString('/', arreglo[i].feHasta);
     }
 
     return arreglo;

@@ -12,7 +12,7 @@ export class PasajeroService {
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C"'
-            + ' idhospedaje = "' + chasker.idhospedaje + '" />');
+            + ' idHospedaje = "' + chasker.idHospedaje + '" />');
         return this.http.get('/api/pasajeros/all/' + param, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
@@ -22,7 +22,7 @@ export class PasajeroService {
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C1" correo = "' + correo
-            + '" idhospedaje = "' + chasker.idhospedaje + '" />');
+            + '" idHospedaje = "' + chasker.idHospedaje + '" />');
         return this.http.get('/api/pasajeros/all/' + param, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
@@ -30,8 +30,8 @@ export class PasajeroService {
     mantenimiento(pass) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
-        pass.idhospedaje = chasker.idhospedaje;
-        pass.idusuario = chasker.idusuario;
+        pass.idHospedaje = chasker.idHospedaje;
+        pass.idUsuario = chasker.idUsuario;
 
         return this.http.post('/api/pasajeros/', pass, this.jwt())
             .pipe(map((response: Response) => response.json()));

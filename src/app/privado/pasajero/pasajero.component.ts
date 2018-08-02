@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PasajeroService } from './pasajero.service';
 import { ToastService } from '../../compartido/services/toast.service';
-import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
-import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 import { PaisService } from '../services/pais.service';
 
 declare var jQuery: any;
@@ -13,7 +11,7 @@ declare var jQuery: any;
   templateUrl: './pasajero.component.html',
   styleUrls: ['./pasajero.component.css']
 })
-export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PasajeroComponent implements OnInit, AfterViewInit {
 
   filtro;
 
@@ -26,36 +24,20 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
   readOnly = true;
   accion: string;
 
-  subscription: any;
+  mensajeConfirmacion;
+
   constructor(private pasajeroService: PasajeroService,
     private paisService: PaisService,
-    private toastService: ToastService,
-    private confirmacionService: ConfirmacionService,
-    private acceptService: ConfirmacionEventService) { }
+    private toastService: ToastService) { }
 
   ngOnInit() {
 
     this.loadAllPasajeros();
     this.setSelect2Paises();
-    this.subscription = this.acceptService.getAcceptChangeEmitter()
-      .subscribe(resp => this.selectedVal(resp));
   }
 
   ngAfterViewInit() {
     jQuery('#pais').select2();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  selectedVal(resp: string) {
-    if (resp === 'aceptar') {
-      this.delete();
-    } else if (resp === 'cancelar') {
-      this.model = { accion: undefined, idhabitacion: undefined };
-      this.readOnly = true;
-    }
   }
 
   delete() {
@@ -65,27 +47,29 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.pasajeroService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess('Registro eliminado con éxito');
+            this.toastService.showSuccess('Registro eliminado con éxito');
+            this.loading = false;
+            this.loadAllPasajeros();
+          } else {
+
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+            this.hideModal();
+          }
+
+          jQuery('#confirmaModal').modal('hide');
+        },
+        error => {
+
+          this.toastService.showError('Ocurrió al eliminar el registro');
+          console.log(error);
           this.loading = false;
-          this.loadAllPasajeros();
-          this.hideModal();
-        } else {
 
-          this.toastService.showError(data.mensaje);
-          this.loading = false;
-          this.hideModal();
-        }
-      },
-      error => {
-
-        this.toastService.showError('Ocurrió al eliminar el registro');
-        console.log(error);
-        this.loading = false;
-        this.hideModal();
-      });
+          jQuery('#confirmaModal').modal('hide');
+        });
   }
 
   guardar(form: NgForm) {
@@ -93,7 +77,7 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loading = true;
 
     this.model.accion = this.accion;
-    this.model.idpais = jQuery('#pais').val();
+    this.model.idPais = jQuery('#pais').val();
 
     let mensaje = '';
     let mensaje_err = '';
@@ -111,43 +95,50 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.pasajeroService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess(mensaje);
-          this.loading = false;
-          this.loadAllPasajeros();
-          form.resetForm();
-          this.hideModal();
-        } else {
+            this.toastService.showSuccess(mensaje);
+            this.loading = false;
+            this.loadAllPasajeros();
+            form.resetForm();
+            this.hideModal();
+          } else {
 
-          this.toastService.showError(data.mensaje);
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+            jQuery('#messModal').modal('show');
+          }
+        },
+        error => {
+
+          this.toastService.showError(mensaje_err);
+          console.log(error);
           this.loading = false;
           jQuery('#messModal').modal('show');
-        }
-      },
-      error => {
+        });
 
-        this.toastService.showError(mensaje_err);
-        console.log(error);
-        this.loading = false;
-        jQuery('#messModal').modal('show');
-      });
+  }
 
+  onCancelar() {
+
+    this.model = {};
+    this.readOnly = true;
+    jQuery('#confirmaModal').modal('hide');
   }
 
   setNuevo() {
 
     this.accion = 'I';
-    this.model = { accion: undefined, idpasajero: undefined };
+    this.model = { accion: undefined, idPasajero: undefined };
     this.model.idpasajero = 0;
     this.readOnly = false;
   }
 
   setModi(model: any) {
-    
+
     this.accion = 'U';
-    jQuery('#pais').val('' + model.idpais);
+    jQuery('#pais').val('' + model.idPais);
     jQuery('#pais').trigger('change');
 
     setTimeout(() => {
@@ -158,11 +149,11 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.readOnly = false;
   }
 
-  setElim(model: any) {
+  setDelete(model: any) {
 
     this.accion = 'D';
     this.model = Object.assign({}, model);
-    this.confirmacionService.go('¿Desea eliminar el registro?');
+    this.mensajeConfirmacion = '¿Desea eliminar el registro?';
   }
 
   private loadAllPasajeros() {
@@ -170,6 +161,7 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.pasajeroService.getAll().subscribe(response => {
 
       if (response.success) {
+
         this.pasajeros = response.data;
       } else {
         console.log('Error>> loadAllPasajeros>> ' + response.mensaje);
@@ -184,17 +176,17 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private setSelect2Paises() {
 
     this.paisService.getAll().subscribe(
-      paises => {
+      response => {
 
-        if (paises.success) {
+        if (response.success) {
 
-          for (let i = 0; i < paises.data.length; i++) {
+          for (let i = 0; i < response.data.length; i++) {
 
-            this.paises.push({ id: '' + paises.data[i].idpais, text: paises.data[i].pais });
+            this.paises.push({ id: '' + response.data[i].idPais, text: response.data[i].pais });
           }
         } else {
 
-          console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
+          console.log('Error>> loadAllFormaPagos>> ' + response.mensaje);
         }
       });
   }
@@ -203,5 +195,4 @@ export class PasajeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
     jQuery('#pasajeroModal').modal('hide');
   }
-
 }

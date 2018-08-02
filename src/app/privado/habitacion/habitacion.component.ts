@@ -1,10 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HabitacionService } from './habitacion.service';
-import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
-import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
-import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 
 import { ToastService } from '../../compartido/services/toast.service';
 
@@ -15,10 +11,10 @@ declare var jQuery: any;
   templateUrl: './habitacion.component.html',
   styleUrls: ['./habitacion.component.css']
 })
-export class HabitacionComponent implements OnInit, OnDestroy {
-  
+export class HabitacionComponent implements OnInit {
+
   filtro;
-  
+
   model: any = {};
   rooms = [];
   user: any = {};
@@ -27,32 +23,14 @@ export class HabitacionComponent implements OnInit, OnDestroy {
   readOnly = true;
   accion: string;
 
-  subscription: any;
+  mensajeConfirmacion;
 
-  constructor(private router: Router,
-    private habitacionService: HabitacionService,
-    private toastService: ToastService,
-    private confirmacionService: ConfirmacionService,
-    private acceptService: ConfirmacionEventService) { }
+  constructor(private habitacionService: HabitacionService,
+    private toastService: ToastService) { }
 
   ngOnInit() {
 
     this.loadAllRooms();
-    this.subscription = this.acceptService.getAcceptChangeEmitter()
-      .subscribe(resp => this.selectedVal(resp));
-  }
-
-  selectedVal(resp: string) {
-    if (resp === 'aceptar') {
-      this.delete();
-    } else if (resp === 'cancelar') {
-      this.model = { accion: undefined, idhabitacion: undefined };
-      this.readOnly = true;
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   delete() {
@@ -62,27 +40,28 @@ export class HabitacionComponent implements OnInit, OnDestroy {
 
     this.habitacionService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess('Registro eliminado con éxito');
+            this.toastService.showSuccess('Registro eliminado con éxito');
+            this.loading = false;
+            this.loadAllRooms();
+          } else {
+
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+          }
+
+          jQuery('#confirmaModal').modal('hide');
+        },
+        error => {
+
+          this.toastService.showError('Ocurrió al eliminar el registro');
+          console.log(error);
           this.loading = false;
-          this.loadAllRooms();
-          this.hideModal();
-        } else {
 
-          this.toastService.showError(data.mensaje);
-          this.loading = false;
-          this.hideModal();
-        }
-      },
-      error => {
-
-        this.toastService.showError('Ocurrió al eliminar el registro');
-        console.log(error);
-        this.loading = false;
-        this.hideModal();
-      });
+          jQuery('#confirmaModal').modal('hide');
+        });
   }
 
   guardar(form: NgForm) {
@@ -107,36 +86,41 @@ export class HabitacionComponent implements OnInit, OnDestroy {
 
     this.habitacionService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess(mensaje);
-          this.loading = false;
-          this.loadAllRooms();
-          form.resetForm();
-          this.hideModal();
-        } else {
+            this.toastService.showSuccess(mensaje);
+            this.loading = false;
+            this.loadAllRooms();
+            form.resetForm();
+            this.hideModal();
+          } else {
 
-          this.toastService.showError(data.mensaje);
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+            jQuery('#messModal').modal('show');
+          }
+        },
+        error => {
+
+          this.toastService.showError(mensaje_err);
+          console.log(error);
           this.loading = false;
           jQuery('#messModal').modal('show');
-        }
-      },
-      error => {
+        });
 
-        this.toastService.showError(mensaje_err);
-        console.log(error);
-        this.loading = false;
-        jQuery('#messModal').modal('show');
-      });
+  }
 
+  onCancelar() {
+    this.model = {};
+    this.readOnly = true;
   }
 
   setNuevo() {
 
     this.accion = 'I';
-    this.model = { accion: undefined, idhabitacion: undefined };
-    this.model.idhabitacion = 0;
+    this.model = {};
+    this.model.idHabitacion = 0;
     this.readOnly = false;
   }
 
@@ -147,23 +131,23 @@ export class HabitacionComponent implements OnInit, OnDestroy {
     this.readOnly = false;
   }
 
-  setElim(model: any) {
+  setDelete(model: any) {
 
     this.accion = 'D';
     this.model = Object.assign({}, model);
-    this.confirmacionService.go('¿Desea eliminar el registro?');
+    this.mensajeConfirmacion = '¿Desea eliminar el registro?';
   }
 
 
 
   private loadAllRooms() {
     this.loading_hab = true;
-    this.habitacionService.getAll().subscribe(rooms => {
+    this.habitacionService.getAll().subscribe(response => {
 
-      if (rooms.success) {
-        this.rooms = rooms.data;
+      if (response.success) {
+        this.rooms = response.data;
       } else {
-        console.log('Error>> loadAllRooms>> ' + rooms.mensaje);
+        console.log('Error>> loadAllRooms>> ' + response.mensaje);
       }
       this.loading_hab = false;
     }, error => {

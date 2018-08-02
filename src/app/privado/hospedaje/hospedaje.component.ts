@@ -1,12 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HospedajeService } from './hospedaje.service';
 import { SocialService } from '../services/social.service';
 import { PaisService } from '../services/pais.service';
-import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
-import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
-import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 import { ToastService } from '../../compartido/services/toast.service';
 
 declare var jQuery: any;
@@ -28,13 +24,10 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
   loading = false;
   loading_hos = true;
 
-  constructor(private router: Router,
-    private hospedajeService: HospedajeService,
+  constructor(private hospedajeService: HospedajeService,
     private socialService: SocialService,
     private paisService: PaisService,
-    private toastService: ToastService,
-    private confirmacionService: ConfirmacionService,
-    private confirmacionEventService: ConfirmacionEventService) { }
+    private toastService: ToastService) { }
 
   ngOnInit() {
 
@@ -65,31 +58,31 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
     this.model.accion = 'U';
     this.model.redes = this.redes;
     this.model.valuePa = jQuery('#pais').val() || this.model.idPais;
-    
+
     this.hospedajeService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess('Datos actualzados con éxito');
-          this.loading = false;
-          form.resetForm();
-          this.loadInfo(false);
-          this.readOnly = true;
-        } else {
+            this.toastService.showSuccess('Datos actualzados con éxito');
+            this.loading = false;
+            form.resetForm();
+            this.loadInfo(false);
+            this.readOnly = true;
+          } else {
 
-          this.toastService.showError(data.mensaje);
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+            jQuery('#messModal').modal('show');
+          }
+        },
+        error => {
+
+          this.toastService.showError('Ocurrió al actualizar los datos del hospedaje');
+          console.log(error);
           this.loading = false;
           jQuery('#messModal').modal('show');
-        }
-      },
-      error => {
-
-        this.toastService.showError('Ocurrió al actualizar los datos del hospedaje');
-        console.log(error);
-        this.loading = false;
-        jQuery('#messModal').modal('show');
-      });
+        });
 
   }
 
@@ -102,7 +95,7 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
 
 
           for (let i = 0; i < paises.data.length; i++) {
-            this.paises.push({ id: '' + paises.data[i].idpais, text: paises.data[i].pais });
+            this.paises.push({ id: '' + paises.data[i].idPais, text: paises.data[i].pais });
           }
         } else {
           console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
@@ -121,8 +114,8 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < this.redes.length; i++) {
 
       for (let j = 0; j < this.model.redes.length; j++) {
-        
-        if (this.redes[i].idsocial === this.model.redes[j].idsocial) {
+
+        if (this.redes[i].idSocial === this.model.redes[j].idSocial) {
 
           this.redes[i].valor = this.model.redes[j].valor;
           // break;
@@ -154,31 +147,32 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
 
     this.loading_hos = loading;
 
-    this.hospedajeService.get().subscribe(info => {
+    this.hospedajeService.get()
+      .subscribe(response => {
 
-      this.loading_hos = false;
+        this.loading_hos = false;
 
-      if (info.success) {
+        if (response.success) {
 
-        this.model = info.data[0][0];
-        this.model.redes = info.data[1];
+          this.model = response.data[0][0];
+          this.model.redes = response.data[1];
 
-        setTimeout(() => {
-          jQuery('#pais').select2();
+          setTimeout(() => {
+            jQuery('#pais').select2();
 
-          jQuery('#pais').val('' + this.model.idpais);
-          jQuery('#pais').trigger('change');
-        }, 200);
+            jQuery('#pais').val('' + this.model.idPais);
+            jQuery('#pais').trigger('change');
+          }, 200);
 
-        this.loadSocial();
-      } else {
-        console.log('Error>> loadInfo>> ' + info.mensaje);
-      }
+          this.loadSocial();
+        } else {
+          console.log('Error>> loadInfo>> ' + response.mensaje);
+        }
 
-    }, error => {
-      console.log('Error>> loadInfo>> ' + error.message);
-      this.loading_hos = false;
-    });
+      }, error => {
+        console.log('Error>> loadInfo>> ' + error.message);
+        this.loading_hos = false;
+      });
   }
 
 }

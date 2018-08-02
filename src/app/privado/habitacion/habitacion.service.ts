@@ -11,7 +11,7 @@ export class HabitacionService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C" idhospedaje = "' + chasker.idhospedaje + '" />');
+        const param = encodeURIComponent('<params accion="C" idHospedaje = "' + chasker.idHospedaje + '" />');
         return this.http.get('/api/habitaciones/all/' + param, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
@@ -20,8 +20,8 @@ export class HabitacionService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        room.idhospedaje = chasker.idhospedaje;
-        room.idhsuario = chasker.idhsuario;
+        room.idHospedaje = chasker.idHospedaje;
+        room.idUsuario = chasker.idUsuario;
         return this.http.post('/api/habitaciones/', room, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }

@@ -9,10 +9,10 @@
 	<div class="row">
 		<div class="col-lg-9 col-md-10 col-sm-12">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-8 col-sm-12">
 					<h3 class="display-5">{{modiFecha}}</h3>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-12 text-center">
 					<div class="p-1">
 						<button class="btn btn-side mb-4" type="button" (click)="previousDate()">
 							<i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -42,15 +42,15 @@
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="llegadas" role="tabpanel" aria-labelledby="llegadas-tab">
 					<br>					
-					<app-card-reserva [loading]="loadingllegadas" [reservas]="llegadas"></app-card-reserva>
+					<app-card-reserva [loading]="loadingllegadas" [reservas]="llegadas" (cambiarEstado)="onCambiarEstado($event)"></app-card-reserva>
 				</div>
 				<div class="tab-pane fade" id="salidas" role="tabpanel" aria-labelledby="salidas-tab">
 					<br>
-					<app-card-reserva [loading]="loadingsalidas" [reservas]="salidas"></app-card-reserva>
+					<app-card-reserva [loading]="loadingsalidas" [reservas]="salidas" (cambiarEstado)="onCambiarEstado($event)"></app-card-reserva>
 				</div>
 				<div class="tab-pane fade" id="estancias" role="tabpanel" aria-labelledby="estancias-tab">
 					<br>
-					<app-card-reserva [loading]="loadingestancias" [reservas]="estancias"></app-card-reserva>
+					<app-card-reserva [loading]="loadingestancias" [reservas]="estancias" (cambiarEstado)="onCambiarEstado($event)"></app-card-reserva>
 				</div>
 			</div>
 			<br>
@@ -82,6 +82,6 @@
 
 		</div>
 		<!--/row-->
-		<app-modal-estados [model]="model"></app-modal-estados>
+		<app-modal-estados [model]="model" (success)="onSuccessEstados($event)" (cancelaEstados)="onCancelaEstados()"></app-modal-estados>
 	</div>
 	<!--/.container-->

@@ -1,5 +1,5 @@
 <!-- MODAL CANCELACION -->
-<div *ngIf="model" class="modal fade" id="detalleEstadosModal">
+<div *ngIf="model" class="modal fade" data-backdrop="static" data-keyboard="false" id="estadosModal">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,20 +8,22 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	    <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && go()" #f="ngForm" novalidate>
-					<div class="form-group">
-							<label for="motivo">{{getDescripcion()}}</label>
-							<textarea class="form-control" id="observacion" name="observacion" rows="5" [(ngModel)]="model.observacion" #observacion="ngModel" required>{{model.observacion}}</textarea>
-              <div *ngIf="f.submitted && !observacion.valid" class="help-block form-control-feedback">El detalle es requerido</div>
-					</div>
-	        <div class="modal-footer">
-          	<img *ngIf="loading" src="/assets/images/loading.svg" />
-            <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="">Aceptar</button> -->
-	          <button type="submit" class="btn btn-primary">Guardar
-	          </button>
-	          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-	        </div>
-	    </form>
+      <div class="modal-body">
+        <form id="formEstados" name="form" class="col-md-12" (ngSubmit)="f.form.valid && cambiaEstado(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }" novalidate>
+          <div class="form-group">
+            <label for="motivo">{{getDescripcion()}}</label>
+            <textarea class="form-control" id="observacion" name="observacion" rows="5" [(ngModel)]="model.observacion" #observacion="ngModel"
+              required>{{model.observacion}}</textarea>
+              <div *ngIf="f.submitted && !observacion.valid" class="invalid-feedback">El detalle es requerido</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <img *ngIf="loading" src="/assets/images/loading.svg" />
+        <button type="submit" class="btn btn-primary" form="formEstados">Guardar
+        </button>
+        <button type="button" class="btn btn-light" data-dismiss="modal" (click)="_cancelaEstados()">Cancelar</button>
+      </div>
     </div>
   </div>
 </div>

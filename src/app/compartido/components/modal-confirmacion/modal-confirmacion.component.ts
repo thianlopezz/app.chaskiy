@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfirmacionService } from './confirmacion.service';
-import { ConfirmacionEventService } from './confirmacion-event.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-modal-confirmacion',
@@ -8,17 +8,22 @@ import { ConfirmacionEventService } from './confirmacion-event.service';
   styleUrls: ['./modal-confirmacion.component.css']
 })
 export class ModalConfirmacionComponent implements OnInit {
-  message: any;
 
-  constructor(private confirmacionService: ConfirmacionService,
-              private confirmacionEventService: ConfirmacionEventService) { }
+  @Input() mensaje;
 
-  ngOnInit() {
-    this.confirmacionService.getMessage().subscribe(message => { this.message = message; });
+  @Output() confirmar = new EventEmitter<any>();
+  @Output() cancelar = new EventEmitter<any>();
+
+  constructor() { }
+
+  ngOnInit() { }
+
+  _confirmar() {
+    this.confirmar.next();
   }
 
-  selectedVal(resp) {
-    this.confirmacionEventService.emitAcceptChangeEvent(resp);
+  _cancelar() {
+    this.cancelar.next();
   }
 
 }

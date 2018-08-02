@@ -1,71 +1,78 @@
 <br>
 <br>
 <br>
+<br>
 <div class="container">
-  <h3 class="display-4">Pasajeros</h3>
+  <h2>Pasajeros
+    <small>({{pasajeros.length}})</small>
+  </h2>
   <hr class="my-2">
 </div>
 <div class="container">
   <div class="row">
     <div class="col-lg-9 col-md-10 col-sm-12">
-      <h3>
-        Registros({{pasajeros.length}})
-        <button type="button" class="btn btn-danger rounded-circle border-0 pull-right" (click)="setNuevo()" data-toggle="modal"
-          data-target="#pasajeroModal">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-      </h3>
-      <div class="d-flex flex-row-reverse">
-        <div class="p-2">
+      <div class="row mb-1">
+        <div class="col-sm-4">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                <i class="fa fa-filter" aria-hidden="true"></i>
+                <i class="fa fa-search" aria-hidden="true"></i>
               </span>
             </div>
-            <input type="text" name="filtro" class="form-control" placeholder="Filtro" [(ngModel)]="filtro" />
+            <input type="text" name="filtro" class="form-control" placeholder="Buscar" [(ngModel)]="filtro" />
           </div>
         </div>
+        <div class="col-sm-8">
+          <button type="button" class="btn btn-primary add pull-right" (click)="setNuevo()" data-toggle="modal" data-target="#pasajeroModal">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Nuevo
+          </button>
+        </div>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Correo</th>
-            <th>Nombre</th>
-            <th>Contacto</th>
-            <th>País</th>
-            <th>Editar/Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let pasajero of pasajeros | filtrar:'correo,nombre,nocontacto,pais':filtro">
-            <td>{{pasajero.correo}}</td>
-            <td>{{pasajero.nombre}}</td>
-            <td>{{pasajero.nocontacto}}</td>
-            <td>{{pasajero.pais}}</td>
-            <td class="text-center">
-              <div class="btn-group grid-btn" role="group">
-                <button type="button" (click)="setModi(pasajero)" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#pasajeroModal">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-                <button type="button" (click)="setElim(pasajero)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr *ngIf="loading_pas">
-            <td colspan="5">
-              <app-spinner></app-spinner>
-            </td>
-          </tr>
-          <tr *ngIf="!loading_pas && pasajeros.length===0">
-            <td class="text-center" colspan="3">
-              <p class="text-muted">No existen pasajeros registrados</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th>Contacto</th>
+                <th>País</th>
+                <th>Editar/Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pasajero of pasajeros | filtrar:'correo,nombre,noContacto,pais':filtro;">
+                <td>{{pasajero.correo}}</td>
+                <td>{{pasajero.nombre}}</td>
+                <td>{{pasajero.noContacto}}</td>
+                <td>{{pasajero.pais}}</td>
+                <td class="text-center">
+                  <button type="button" (click)="setModi(pasajero)" class="btn btn-link" data-toggle="modal" data-target="#pasajeroModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" (click)="setDelete(pasajero)" class="btn btn-link text-danger" data-toggle="modal" data-target="#confirmaModal">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                  <!-- <div class="btn-group grid-btn" role="group">
+                    
+                  </div> -->
+                </td>
+              </tr>
+              <tr *ngIf="loading_pas">
+                <td colspan="5">
+                  <app-spinner></app-spinner>
+                </td>
+              </tr>
+              <tr *ngIf="!loading_pas && pasajeros.length===0">
+                <td class="text-center" colspan="3">
+                  <p class="text-muted">No existen pasajeros registrados</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
 
@@ -86,48 +93,53 @@
 </div>
 <!-- MODAL PASAJERO -->
 <div *ngIf="model" class="modal fade" id="pasajeroModal">
-  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-primary text-light">
         <h5 class="modal-title">Pasajero</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }"
-        novalidate>
-        <div class="form-group">
-          <label for="correo">Correo electrónico</label>
-          <div class="input-group">
-            <input type="email" class="form-control col-md-8" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true"
-              required/>
+      <div class="modal-body">
+        <form id="formPasajero" name="form" class="col-sm-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }"
+          novalidate>
+          <div class="form-group">
+            <label for="correo">Correo electrónico</label>
+            <div class="input-group">
+              <input type="email" class="form-control" name="correo" [(ngModel)]="model.correo" #correo="ngModel" [email]="true"
+                required/>
+            </div>
+            <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
           </div>
-          <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
-        </div>
-        <div class="form-group">
-          <label for="pasajero">Nombre</label>
-          <input type="text" class="form-control col-md-8" name="pasajero" [(ngModel)]="model.pasajero" #pasajero="ngModel" maxlength="100"
-            required />
-          <div *ngIf="f.submitted && !pasajero.valid" class="invalid-feedback">El nombre es requerido</div>
-        </div>
-        <div class="form-group">
-          <label for="pais">País</label>
-          <select id="pais" name="pais" class="form-control" style="width: 100%">
-            <option *ngFor="let pais of paises" [value]="pais.id">{{pais.text}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="nocontacto">Número de contacto</label>
-          <input type="text" class="form-control col-md-8" name="nocontacto" [(ngModel)]="model.nocontacto" #nocontacto="ngModel" maxlength="15"
-          />
-        </div>
-        <div class="modal-footer">
-          <img *ngIf="loading" src="/assets/images/loading.svg" />
-          <button *ngIf="!loading" type="submit" class="btn btn-primary">Guardar
-          </button>
-          <button *ngIf="!loading" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </form>
+          <div class="form-group">
+            <label for="pasajero">Nombre</label>
+            <input type="text" class="form-control" name="pasajero" [(ngModel)]="model.pasajero" #pasajero="ngModel" maxlength="100"
+              required />
+            <div *ngIf="f.submitted && !pasajero.valid" class="invalid-feedback">El nombre es requerido</div>
+          </div>
+          <div class="form-group">
+            <label for="pais">País</label>
+            <select id="pais" name="pais" class="form-control" style="width: 100%">
+              <option *ngFor="let pais of paises" [value]="pais.id">{{pais.text}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="noContacto">Número de contacto</label>
+            <input type="text" class="form-control" name="noContacto" [(ngModel)]="model.noContacto" #noContacto="ngModel" maxlength="15"
+            />
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <img *ngIf="loading" src="/assets/images/loading.svg" />
+        <button *ngIf="!loading" type="submit" class="btn btn-primary" form="formPasajero">Guardar
+        </button>
+        <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
   </div>
 </div>
+
+<app-modal-confirmacion [mensaje]="mensajeConfirmacion" (confirmar)="delete()" (cancelar)="onCancelar()"></app-modal-confirmacion>

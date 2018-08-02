@@ -7,21 +7,21 @@ export class PagoService {
 
     constructor(private http: Http) { }
 
-    getAll(idreserva: string) {
+    getAll(idReserva: string) {
 
-        const param = encodeURIComponent('<params accion="C" idreserva="' + idreserva + '" />');
+        const param = encodeURIComponent('<params accion="C" idReserva="' + idReserva + '" />');
         return this.http.get('/api/pago/all/' + param, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 
-    getByDate(fedesde: string, fehasta: string) {
+    getByDate(feDesde: string, feHasta: string) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
         const param = encodeURIComponent('<params accion="C0"'
-            + ' idhospedaje = "' + chasker.idhospedaje
-            + '" fedesde = "' + fedesde
-            + '" fehasta = "' + fehasta
+            + ' idHospedaje = "' + chasker.idHospedaje
+            + '" feDesde = "' + feDesde
+            + '" feHasta = "' + feHasta
             + '" />');
 
         return this.http.get('/api/pago/all/' + param, this.jwt())
@@ -32,7 +32,7 @@ export class PagoService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        pago.idusuario = chasker.idusuario;
+        pago.idUsuario = chasker.idUsuario;
         return this.http.post('/api/pago', pago, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }

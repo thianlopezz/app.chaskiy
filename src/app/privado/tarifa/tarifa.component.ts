@@ -1,10 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { TarifaService } from './tarifa.service';
-import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
-import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
-import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 import { ToastService } from '../../compartido/services/toast.service';
 
 declare var jQuery: any;
@@ -14,8 +10,8 @@ declare var jQuery: any;
   templateUrl: './tarifa.component.html',
   styleUrls: ['./tarifa.component.css']
 })
-export class TarifaComponent implements OnInit, OnDestroy {
-  
+export class TarifaComponent implements OnInit {
+
   filtro;
 
   model: any = {};
@@ -27,34 +23,15 @@ export class TarifaComponent implements OnInit, OnDestroy {
   readOnly = true;
   accion: string;
 
-  subscription: any;
+  mensajeConfirmacion;
 
-  constructor(private router: Router,
-    private tarifaService: TarifaService,
-    private toastService: ToastService,
-    private confirmacionService: ConfirmacionService,
-    private confirmacionEventService: ConfirmacionEventService) { }
+  constructor(private tarifaService: TarifaService,
+    private toastService: ToastService) { }
 
   ngOnInit() {
 
     this.loadAllTarifas();
     this.loadAllTipos();
-    this.subscription = this.confirmacionEventService.getAcceptChangeEmitter()
-      .subscribe(resp => this.selectedVal(resp));
-  }
-
-  selectedVal(resp: string) {
-
-    if (resp === 'aceptar') {
-      this.delete();
-    } else if (resp === 'cancelar') {
-      this.model = {};
-      this.readOnly = true;
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   delete() {
@@ -64,27 +41,28 @@ export class TarifaComponent implements OnInit, OnDestroy {
 
     this.tarifaService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess('Registro eliminado con éxito');
+            this.toastService.showSuccess('Registro eliminado con éxito');
+            this.loading = false;
+            this.loadAllTarifas();
+          } else {
+
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+          }
+
+          jQuery('#confirmaModal').modal('hide');
+        },
+        error => {
+
+          this.toastService.showError('Ocurrió al eliminar el registro');
+          console.log(error);
           this.loading = false;
-          this.loadAllTarifas();
-          this.modalHide();
-        } else {
 
-          this.toastService.showError(data.mensaje);
-          this.loading = false;
-          this.modalHide();
-        }
-      },
-      error => {
-
-        this.toastService.showError('Ocurrió al eliminar el registro');
-        console.log(error);
-        this.loading = false;
-        this.modalHide();
-      });
+          jQuery('#confirmaModal').modal('hide');
+        });
   }
 
   guardar(form: NgForm) {
@@ -109,29 +87,35 @@ export class TarifaComponent implements OnInit, OnDestroy {
 
     this.tarifaService.mantenimiento(this.model)
       .subscribe(
-      data => {
-        if (data.success) {
+        data => {
+          if (data.success) {
 
-          this.toastService.showSuccess(mensaje);
-          this.loading = false;
-          this.loadAllTarifas();
-          form.resetForm();
-          this.modalHide();
-        } else {
+            this.toastService.showSuccess(mensaje);
+            this.loading = false;
+            this.loadAllTarifas();
+            form.resetForm();
+            this.modalHide();
+          } else {
 
-          this.toastService.showError(data.mensaje);
+            this.toastService.showError(data.mensaje);
+            this.loading = false;
+            jQuery('#messModal').modal('show');
+          }
+        },
+        error => {
+
+          this.toastService.showError(mensaje_err);
+          console.log(error);
           this.loading = false;
           jQuery('#messModal').modal('show');
-        }
-      },
-      error => {
+        });
+  }
 
-        this.toastService.showError(mensaje_err);
-        console.log(error);
-        this.loading = false;
-        jQuery('#messModal').modal('show');
-      });
+  onCancelar() {
 
+    this.model = {};
+    this.readOnly = true;
+    jQuery('#confirmaModal').modal('hide');
   }
 
   setNuevo() {
@@ -146,10 +130,10 @@ export class TarifaComponent implements OnInit, OnDestroy {
     this.readOnly = false;
   }
 
-  setElim(model: any) {
+  setDelete(model: any) {
     this.accion = 'D';
     this.model = Object.assign({}, model);
-    this.confirmacionService.go('¿Desea eliminar el registro?');
+    this.mensajeConfirmacion = '¿Desea eliminar el registro?';
   }
 
   private loadAllTarifas() {

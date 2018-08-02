@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export class CurrentMonth {
     noMonth: number;
     anio: number;
@@ -17,12 +19,10 @@ export class CurrentMonth {
     }
 
     private getFinMes() {
-        for (let i = 29; i <= 32; i++) {
-            if (this.noMonth < new Date(this.anio, this.noMonth, i, 0, 0, 0, 0).getMonth()) {
-                this.finMes = i - 1;
-                return;
-            }
-        }
+
+        const ultimoDia = moment({ y: this.anio, M: this.noMonth, d: 1 }).endOf('month');
+        this.finMes = Number(ultimoDia.format('D'));
+        return ;
     }
 
     private setDays() {

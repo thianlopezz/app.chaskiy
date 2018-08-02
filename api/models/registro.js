@@ -28,7 +28,7 @@ function Registro() {
 
           var claves = 'nombre_usuario:' + result[0][0].nombre + ';tokenRecupera:' + tokenRecupera;
 
-          enviaCorreo(result[0][0].idhospedaje, claves, 'Recuperacion de contraseña', './plantillas/Chaskiy/recupera_pass', _registro.correo, function (result) {
+          enviaCorreo(result[0][0].idHospedaje, claves, 'Recuperacion de contraseña', './plantillas/Chaskiy/recupera_pass', _registro.correo, function (result) {
 
             if (!result.success){
               console.log("Error>> Register.enviaRecupera>> Error en el registro de envio de correo");
@@ -68,7 +68,7 @@ function Registro() {
 
   this.password = function (registro, res) {
 
-    var param = '<params idusuario= "' + registro.idusuario
+    var param = '<params idUsuario= "' + registro.idUsuario
       + '" pass= "' + md5(registro.password1)
       + '" pass0= "' + md5(registro.password)
       + '" />';

@@ -227,6 +227,11 @@ router.post('/reservas/', (req, res) => {
   reservas.mantenimiento(req.body, res);
 });
 
+router.post('/reservas/estado', (req, res) => {
+
+  reservas.cambiaEstado(req.body, res);
+});
+
 //F O R M A  P A G O S
 router.get('/formapago/all/:param', (req, res) => {
 

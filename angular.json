@@ -21,6 +21,7 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "src/styles.scss",
               "src/styles.css"
             ],
             "scripts": [
@@ -85,6 +86,7 @@
               "node_modules/chart.js/dist/Chart.min.js"
             ],
             "styles": [
+              "src/styles.scss",
               "src/styles.css"
             ],
             "assets": [

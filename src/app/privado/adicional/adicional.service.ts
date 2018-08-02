@@ -11,7 +11,7 @@ export class AdicionalService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C" idhospedaje = "' + chasker.idhospedaje + '" />');
+        const param = encodeURIComponent('<params accion="C" idHospedaje = "' + chasker.idHospedaje + '" />');
         return this.http.get('/api/adicionales/all/' + param, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
@@ -20,8 +20,8 @@ export class AdicionalService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        adicional.idhospedaje = chasker.idhospedaje;
-        adicional.idusuario = chasker.idusuario;
+        adicional.idHospedaje = chasker.idHospedaje;
+        adicional.idUsuario = chasker.idUsuario;
         return this.http.post('/api/adicionales/', adicional, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }

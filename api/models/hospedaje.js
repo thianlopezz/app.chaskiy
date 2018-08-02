@@ -40,7 +40,7 @@ function Hospedaje() {
     var retorno = "";
 
     for (var i = 0; i < redes.length; i++) {
-      retorno = retorno + redes[i].idsocial + ';'
+      retorno = retorno + redes[i].idSocial + ';'
         + (redes[i].valor || '') + '|';
     }
 
@@ -50,15 +50,15 @@ function Hospedaje() {
   function setxml(data) {
 
     var params = '<params accion= "' + data.accion
-      + '" idpais= "' + data.valuePa
-      + '" idhospedaje= "' + data.idhospedaje
+      + '" idPais= "' + data.valuePa
+      + '" idHospedaje= "' + data.idHospedaje
       + '" hospedaje= "' + data.hospedaje
       + '" ciudad= "' + data.ciudad
       + '" direccion= "' + data.direccion
       + '" correo= "' + data.correo
       + '" nombre= "' + data.nombre
       + '" sociales= "' + setSociales(data.redes)
-      + '" solength= "' + data.redes.length
+      + '" socialLength= "' + data.redes.length
       + '" />';
     return params;
   }

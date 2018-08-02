@@ -16,10 +16,10 @@ function Tarifa() {
                 for (let i = 0; i < result[0].length; i++) {
 
                     agrupado.push({
-                        idtipo: result[0][i].idtipo,
-                        tipotarifa: result[0][i].tipotarifa,
+                        idTipo: result[0][i].idTipo,
+                        tipoTarifa: result[0][i].tipoTarifa,
                         tarifas: result[1].filter(function (val) {
-                            return val.idtipo == result[0][i].idtipo;
+                            return val.idTipo == result[0][i].idTipo;
                         })
                     });
                 }

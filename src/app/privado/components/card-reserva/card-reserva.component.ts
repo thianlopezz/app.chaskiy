@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ReservaService } from '../../reserva/reserva.service';
-import { ConfirmacionEventService } from '../../../compartido/components/modal-confirmacion/confirmacion-event.service';
 
 @Component({
   selector: 'app-card-reserva',
@@ -12,10 +11,11 @@ export class CardReservaComponent implements OnInit {
   @Input() reservas: any[];
   @Input() loading = true;
 
+  @Output() cambiarEstado = new EventEmitter<any>();
+
   toDay: Date;
 
-  constructor(private reservaService: ReservaService,
-    private confirmacionEventSerivce: ConfirmacionEventService) { }
+  constructor(private reservaService: ReservaService) { }
 
   ngOnInit() {
 
@@ -30,7 +30,7 @@ export class CardReservaComponent implements OnInit {
 
   nightDiff(reserva: any) {
 
-    return this.reservaService.getNumeroNoches(new Date(reserva.fedesde), new Date(reserva.fehasta));
+    return this.reservaService.getNumeroNoches(new Date(reserva.feDesde), new Date(reserva.feHasta));
   }
 
   addDay(_feHasta: string) {
@@ -64,7 +64,7 @@ export class CardReservaComponent implements OnInit {
 
       case 'Ci':
 
-        if (reserva.estado === 'Co' || reserva.estado === 'Pr') {
+        if (reserva.estado === 'Co') {
           return false;
         }
 
@@ -72,7 +72,7 @@ export class CardReservaComponent implements OnInit {
           return false;
         }
 
-        if (new Date(reserva.fedesde).getTime()
+        if (reserva.habitaciones && new Date(reserva.feDesde).getTime()
           === this.toDay.getTime()) {
           return true;
         }
@@ -88,16 +88,14 @@ export class CardReservaComponent implements OnInit {
     }
   }
 
-  go(a_estado: string, reserva: any) {
+  _cambiarEstado(estado, model) {
 
-    reserva.a_estado = a_estado;
-    const retorno = { model: reserva };
+    model.TIPO = 'HOME';
+    const objetoEvent = {
+      model,
+      estado
+    };
 
-    this.selectedVal(retorno);
+    this.cambiarEstado.next(objetoEvent);
   }
-
-  selectedVal(resp) {
-    this.confirmacionEventSerivce.emitAcceptChangeEvent(resp);
-  }
-
 }

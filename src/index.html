@@ -39,16 +39,16 @@
 </body>
 <script>
 
-  var _zIndex = 1040;
+  // var _zIndex = 1040;
 
-  $(document).on('show.bs.modal', '.modal', function () {
-    var zIndex = _zIndex + (10 * $('.modal:visible').length);
-    _zIndex = _zIndex + 1;
-    $(this).css('z-index', zIndex);
-    setTimeout(function () {
-      $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-    }, 0);
-  });
+  // $(document).on('show.bs.modal', '.modal', function () {
+  //   var zIndex = _zIndex + (10 * $('.modal:visible').length);
+  //   _zIndex = _zIndex + 1;
+  //   $(this).css('z-index', zIndex);
+  //   setTimeout(function () {
+  //     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+  //   }, 0);
+  // });
 
   $("#menu-toggle").click(function (e) {
     e.preventDefault();

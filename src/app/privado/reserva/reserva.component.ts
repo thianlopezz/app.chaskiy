@@ -1,23 +1,19 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+
+import * as moment from 'moment';
+
 import { ReservaService } from './reserva.service';
-import { HabitacionService } from '../habitacion/habitacion.service';
-import { AdicionalService } from '../adicional/adicional.service';
-import { PagoService } from '../pagos/pago.service';
-import { AerolineaService } from '../services/aerolinea.service';
-import { PasajeroService } from '../pasajero/pasajero.service';
-import { PaisService } from '../services/pais.service';
 import { FormaPagoService } from '../services/forma-pago.service';
-import { FuenteService } from '../services/fuente.service';
-import { ConfirmacionService } from '../../compartido/components/modal-confirmacion/confirmacion.service';
-import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
-import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 import { CurrentMonth } from '../models/current-month';
 
 import { ToastService } from '../../compartido/services/toast.service';
+import { TarifaService } from '../tarifa/tarifa.service';
+import { AerolineaService } from '../services/aerolinea.service';
+import { FuenteService } from '../services/fuente.service';
+import { AdicionalService } from '../adicional/adicional.service';
+import { PaisService } from '../services/pais.service';
+import { PagoService } from '../pagos/pago.service';
 
-import { TarifaService } from '../../privado/tarifa/tarifa.service';
 declare var jQuery: any;
 
 @Component({
@@ -25,442 +21,125 @@ declare var jQuery: any;
   templateUrl: './reserva.component.html',
   styleUrls: ['./reserva.component.css']
 })
-export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
-
-  loading_hab = true;
-
-  modiTotal = false;
-  esTotal = false;
-  total0 = 0;
-  total0od;
-
-  tarifas = [];
-  tarifasall = [];
-  paso = 1;
-
-  rooms = [];
-  user: any = {};
-  current: CurrentMonth;
-
-  reservados: any[] = [];
-  reservadosDb: any[] = [];
-  reservadosDbOd: any[] = [];
-
-  formaPagos: any[] = [];
-
-  habitacionesOd: any[] = [];
-
-  aerolineas = [];
-
-  model: any = {};
-
-  noReserve = 0;
-
-  loading = false;
+export class ReservaComponent implements OnInit, AfterViewChecked {
 
   accion = 'I';
-  esModi = true;
+  model: any = {};
+
+  // MODELO DE PAGO PARA CANCELAR REGISTRO
+  modelPago;
+
+  // PARA HANDLE LOS CAMBIOS EN MODAL
+  // DE PAGOS
+  idReserva;
+  totalReserva;
+
+  // LOADING DETALLES RESERVA
+  loadingDetalle;
+
+  // ARREGLO DE RESERVAS QUE LLEGAN DESDE LA BD
+  reservasBD: any[] = [];
+  // PARA MANJAR LA CANCELACION DE MODIFICACION
+  reservasBDOld: any[] = [];
+
+  // ARREGLO DE RESERVAS PARA GUARDAR EN LA BD
+  reservasCliente: any[] = [];
+
+  // PARA MENJAR LA CANCELACION DE MODIFICACION
+  habitacionesOld = [];
+
+  // PARA CONTROLAR LOS CAMBIOS DE MES
+  current: CurrentMonth;
+
+  // LOADING DEL COMPONENTE
+  loading;
 
   contEdita = 0;
 
-  jQuery: any;
-
-
+  // TODOS LOS CATALOGOS
+  formaPagos = [];
+  tarifas = [];
+  tarifasFormat = [];
   adicionales = [];
-  // optionsAdi: Select2Options;
-  valueAd: string[];
-
-  _adicionales: any[];
-
   paises = [];
-  valuePa: string;
+  aerolineas = [];
+  fuentes = [];
 
-  subscription: any;
+  // BANDERA PARA CONFIRMACION
+  accionConfirmacion;
+  mensajeConfirmacion;
 
-  modiVal = false;
-  auxValor: any = {
-    idhabitacion: 0, habitacion: '', tarifa: 0,
-    fedesde: new Date(), fehasta: new Date()
-  };
-  auxValor0: any = {};
-
-  toDay: Date;
-
-  pagos: any[] = [];
-
-  goPass = false;
-  editaPass_ = false;
-  esPass;
-  editedPass;
-
-  passOd: any;
-
-  fuentes: any[] = [];
-
-  constructor(private router: Router,
-    private cdRef: ChangeDetectorRef,
-    private habitacionService: HabitacionService,
-    private confirmacionService: ConfirmacionService,
-    private confirmacionEventService: ConfirmacionEventService,
-    private aerolineaService: AerolineaService,
-    private pasajeroService: PasajeroService,
+  constructor(private cdRef: ChangeDetectorRef,
     private reservaService: ReservaService,
-    private paisService: PaisService,
-    private adicionalService: AdicionalService,
-    private messService: MensajeService,
-    private formaService: FormaPagoService,
     private pagoService: PagoService,
-    private fuenteService: FuenteService,
+    private formaService: FormaPagoService,
     private tarifaService: TarifaService,
+    private adicionalService: AdicionalService,
+    private paisService: PaisService,
+    private aerolineaService: AerolineaService,
+    private fuenteService: FuenteService,
     private toastService: ToastService) {
 
   }
 
   ngOnInit() {
 
-    const now = new Date();
-
-    const dia = now.getDate();
-    const mes = now.getMonth();
-    const anio = now.getFullYear();
-
-    this.toDay = new Date(anio, mes, dia, 0, 0, 0, 0);
-
-    this.model.pass = {};
-    this.model.notas = '';
-    this.model.ident = true;
-    this.current = new CurrentMonth();
+    this.model.pasajero = {};
+    // this.model.notas = '';
+    // this.model.ident = true;
 
     this.model.pago = {};
 
-    this.model.totalpagado = 0;
+    this.model.totalPagado = 0;
     this.model.saldo = 0;
 
-    this.loadAllTarifas();
+    // OBTENER RESERVAS DE MES ACTUAL
+    this.getReservasByDate();
 
-    this.loadAllRooms();
-    this.loadAllAirlines();
+    // CARGA DE CATALOGOS
     this.loadAllFormaPagos();
     this.loadAllFuentes();
-    this.setSelect2Paises();
-    this.setSelect2Adicionales();
-    this.getByDate();
+    this.loadAllAirlines();
+    this.loadAllTarifas();
+    this.loadAllPaises();
+    this.loadAllAdicionales();
 
-    this.subscription = this.confirmacionEventService.getAcceptChangeEmitter()
-      .subscribe(resp => this.selectedVal(resp));
   }
 
   ngAfterViewChecked() {
-    // this.changedAd(jQuery('#adicional').val());
+    // PARA CONTROLAR LA CREACION DE TOOLTIPS
     jQuery('[data-toggle="tooltip"]').tooltip();
     this.cdRef.detectChanges();
   }
 
-  selectedVal(resp) {
+  // selectedVal(resp) {
 
-    if (resp === 'aceptar') {
+  //   if (resp === 'aceptar') {
 
-      if (this.accion === 'D') {
-        jQuery('#detalleEstadosModal').modal('show');
-      } else
-        if (this.accion === 'DP') {
-          this.deletePago();
-        }
-    } else {
+  //     if (this.accion === 'D') {
+  //       jQuery('#estadosModal').modal('show');
+  //     } else
+  //       if (this.accion === 'DP') {
+  //         this.deletePago();
+  //       }
+  //   } else {
 
-      if (resp.modo === 'Ci' || resp.modo === 'Co') {
+  //     if (resp.modo === 'Ci' || resp.modo === 'Co') {
 
-        this.model.detalleEstado = resp.model.observacion;
-        this.check(resp.modo);
-      } else if (resp.modo === 'Ca') {
+  //       this.model.detalleEstado = resp.model.observacion;
+  //       this.check(resp.modo);
+  //     } else if (resp.modo === 'Ca') {
 
-        this.model.detalleEstado = resp.model.observacion;
-        this.delete();
-      }
-    }
-  }
+  //       this.model.detalleEstado = resp.model.observacion;
+  //       this.delete();
+  //     }
+  //   }
+  // }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  onGuardarSuccess() {
 
-  changeTarifa(idhabitacion, idtarifa) {
-    let habitacion = this.model.habitaciones.find(x => x.idhabitacion === Number(idhabitacion));
-    habitacion.tarifa = this.tarifasall.find(x => x.idtarifa === Number(idtarifa)).valor;
-    habitacion.idtarifa = Number(idtarifa);
-    this.esTotal = false;
-  }
-
-  siguiente() {
-
-    if (this.model.habitaciones.length === 0) {
-      this.toastService.showWarning('Selecciona al menos una habitación');
-      return;
-    }
-
-    if (this.esTotal) {
-      this.paso++;
-      return;
-    }
-
-    const index = this.model.habitaciones.findIndex(x => x.idtarifa === undefined);
-
-    if (index !== -1 && this.esModi) {
-      this.toastService.showWarning('Todas las habitaciones deben tener asignada una tarifa.');
-      return;
-    }
-    this.paso++;
-  }
-
-  atras() {
-    this.paso--;
-  }
-
-  goTotal(opcion) {
-    if (opcion === '!total') {
-      this.total0 = this.model.total;
-    }
-    this.modiTotal = true;
-    this.total0od = this.total0;
-  }
-
-  goModiTotal0() {
-    this.esTotal = true;
-    this.modiTotal = false;
-    for (let i = 0; i < this.model.habitaciones.length; i++) {
-      this.model.habitaciones[i].idtarifa = undefined;
-      this.model.habitaciones[i].tarifa = 0;
-    }
-  }
-
-  cancelTotal0() {
-    if (this.esTotal) {
-      this.total0 = this.total0od;
-    }
-    this.modiTotal = false;
-  }
-
-  next() {
-
-    this.current.nextMonth();
-    this.getByDate();
-  }
-
-  previous() {
-
-    this.current.previousMonth();
-    this.getByDate();
-  }
-
-  lockIdent() {
-
-    this.model.ident = !this.model.ident;
-
-    if (!this.model.ident) {
-      this.esPass = false;
-      this.model.pass.identificacion = '';
-    } else {
-      this.esPass = true;
-    }
-  }
-
-  editaPass() {
-
-    this.editaPass_ = true;
-    this.editedPass = false;
-    this.passOd = Object.assign({}, this.model.pass);
-  }
-
-  goEditaPass() {
-
-    this.editaPass_ = false;
-    this.goPass = true;
-    this.model.pass.accion = 'U';
-    this.model.pass.valuePa = this.valuePa;
-
-    this.pasajeroService.mantenimiento(this.model.pass)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.goPass = false;
-            this.editedPass = true;
-          } else {
-
-            this.goPass = false;
-            // this.messService.error(data.mensaje);
-            // this.showMess();
-            this.toastService.showWarning(data.mensaje);
-          }
-        },
-        error => {
-
-          console.log(error);
-          this.goPass = false;
-
-          // this.messService.error('Hubo un error al actualizar el pasajero');
-          // this.showMess();
-          this.toastService.showWarning('Hubo un error al actualizar el pasajero');
-        });
-  }
-
-  cancelEditaPass() {
-
-    this.editaPass_ = false;
-    this.model.pass = Object.assign({}, this.passOd);
-  }
-
-  getPasse(form: NgForm) {
-    this.goPass = true;
-
-    const correo = this.model.pass.correo;
-
-    this.pasajeroService.getById(correo).subscribe(passenger => {
-
-      if (passenger.success) {
-
-        if (passenger.data.length === 0) {
-
-          this.esPass = false;
-          this.model.pass = {};
-          // this.defaultPa();
-          this.model.pass.correo = correo;
-          this.model.pass.ident = true;
-        } else
-          if (passenger.data.length > 0) {
-
-            this.esPass = true;
-            this.model.pass = passenger.data[0];
-            this.model.pass.valuePa = this.model.pass.idpais;
-            jQuery('#pais').val('' + this.model.pass.idpais);
-            this.model.pass.ident = true;
-          }
-      } else {
-
-      }
-
-      this.goPass = false;
-    });
-
-  }
-
-  guardar(form: NgForm) {
-
-    this.loading = true;
-
-    this.model.accion = this.accion;
-
-    this.model.pass.valuePa = jQuery('#pais').val();
-
-    let mensaje = '';
-    let mensaje_err = '';
-
-    switch (this.accion) {
-      case 'I':
-        mensaje = 'Reserva creada con éxito';
-        mensaje_err = 'Ocurrió un error al crear la reserva';
-        break;
-      case 'U':
-        mensaje = 'Reserva modificada con éxito';
-        mensaje_err = 'Ocurrió un error al modificar la reserva';
-        break;
-    }
-
-    if (this.model.esProforma) {
-      this.model.estado = 'Pr';
-    } else {
-      this.model.estado = 'Re';
-    }
-
-    if (this.esTotal) {
-      this.model.total = this.total0;
-    }
-
-    this.reservaService.mantenimiento(this.model)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.loading = false;
-            this.esPass = false;
-            this.loadAllRooms();
-            form.resetForm();
-            this.getByDate();
-            this.quitRes();
-
-            jQuery('#reservaModal').modal('hide');
-            this.toastService.showSuccess(mensaje);
-            this.paso = 1;
-          } else {
-
-            this.loading = false;
-
-            this.toastService.showError(data.mensaje);
-          }
-        },
-        error => {
-
-          console.log(error);
-          this.loading = false;
-
-          // this.messService.error(mensaje_err);
-          // this.showMess();
-          this.toastService.showError(mensaje_err);
-        });
-  }
-
-  guardarPago(form: NgForm) {
-
-    this.loading = true;
-
-    this.model.pago.idreserva = this.model.idreserva;
-
-    let mensaje = '';
-    let mensaje_err = '';
-
-    switch (this.accion) {
-      case 'I':
-        mensaje = 'Pago generado con éxito';
-        mensaje_err = 'Ocurrió un error al generar el pago';
-        break;
-      case 'U':
-        mensaje = 'Pago modificado con éxito';
-        mensaje_err = 'Ocurrió un error al modificar el pago';
-        break;
-    }
-
-    this.pagoService.mantenimiento(this.model.pago)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.loading = false;
-            this.getPagos();
-
-            // this.messService.success(mensaje);
-            // this.showMessPago();
-            jQuery('#pagoModal').modal('hide');
-            this.toastService.showSuccess(mensaje);
-          } else {
-
-            this.loading = false;
-            // this.messService.error(data.mensaje);
-            // this.showMessPago();
-            this.toastService.showError(data.mensaje);
-          }
-        },
-        error => {
-
-          console.log(error);
-          this.loading = false;
-
-          // this.messService.error(mensaje_err);
-          // this.showMessPago();
-          this.toastService.showError(mensaje_err);
-        });
+    this.onCerrar();
+    this.getReservasByDate(this.current);
   }
 
   delete() {
@@ -469,557 +148,202 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.model.accion = 'D';
 
-    const mensaje = 'Reserva cancelada con éxito';
-    const mensaje_err = 'Ocurrió un error al cancelar la reserva';
-
     this.reservaService.mantenimiento(this.model)
       .subscribe(
-        data => {
+        response => {
 
-          if (data.success) {
+          this.loading = false;
 
-            this.loading = false;
-            this.loadAllRooms();
-            this.getByDate();
+          if (response.success) {
 
-            jQuery('#detalleEstadosModal').modal('hide');
-
-            // this.messService.success(mensaje);
-            // this.showMess();
-
+            this.onCerrar();
+            this.toastService.showSuccess(response.mensaje);
+            jQuery('#estadosModal').modal('hide');
             jQuery('#reservaModal').modal('hide');
-            this.toastService.showSuccess(mensaje);
-
-            this.quitRes();
           } else {
-
-            this.loading = false;
-
-            // jQuery('#detalleEstadosModal').modal('hide');
-
-            // this.messService.error(data.mensaje);
-            // this.showMess();
-            this.toastService.showError(data.mensaje);
+            this.toastService.showError(response.mensaje);
           }
         },
         error => {
 
-          console.log(error);
           this.loading = false;
-
-          jQuery('#detalleEstadosModal').modal('hide');
-
-          // this.messService.error(mensaje_err);
-          // this.showMess();
-          this.toastService.showError(mensaje_err);
+          this.toastService.showError('Ocurrió un error al cancelar la reserva.');
+          console.log(error);
         });
   }
 
-  deletePago() {
+  // deletePago() {
+
+  //   this.loading = true;
+
+  //   this.model.pago.accion = 'D';
+  //   this.model.pago.idReserva = this.model.idReserva;
+
+  //   const mensaje = 'Pago eliminado con éxito';
+  //   const mensaje_err = 'Ocurrió un error al eliminar el pago';
+
+  //   this.pagoService.mantenimiento(this.model.pago)
+  //     .subscribe(
+  //       data => {
+
+  //         if (data.success) {
+
+  //           this.loading = false;
+  //           this.getPagos();
+  //           jQuery('#pagoModal').modal('hide');
+  //           this.toastService.showSuccess(mensaje);
+  //         } else {
+
+  //           this.loading = false;
+  //           this.toastService.showError(data.mensaje);
+  //         }
+  //       },
+  //       error => {
+
+  //         console.log(error);
+  //         this.loading = false;
+  //         this.toastService.showError(mensaje_err);
+  //       });
+  // }
+
+
+  cambiaEstado() {
 
     this.loading = true;
-
-    this.model.pago.accion = 'D';
-    this.model.pago.idreserva = this.model.idreserva;
-
-    const mensaje = 'Pago eliminado con éxito';
-    const mensaje_err = 'Ocurrió un error al eliminar el pago';
-
-    this.pagoService.mantenimiento(this.model.pago)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.loading = false;
-            this.getPagos();
-
-            // this.messService.success(mensaje);
-            // this.showMessPago();
-            jQuery('#pagoModal').modal('hide');
-            this.toastService.showSuccess(mensaje);
-          } else {
-
-            this.loading = false;
-
-            // this.messService.error(data.mensaje);
-            // this.showMessPago();
-            this.toastService.showError(data.mensaje);
-          }
-        },
-        error => {
-
-          console.log(error);
-          this.loading = false;
-
-          // this.messService.error(mensaje_err);
-          // this.showMessPago();
-          this.toastService.showError(mensaje_err);
-        });
-  }
-
-  check(check: string) {
-
-    this.loading = true;
-
-    this.model.accion = 'Es';
 
     let mensaje = '';
     let mensaje_err = '';
 
-    switch (check) {
-      case 'Ci':
-        mensaje = 'Check-in éxitoso';
-        mensaje_err = 'Ocurrió un error en el check in';
-        break;
-      case 'Co':
-        mensaje = 'Check-out éxitoso';
-        mensaje_err = 'Ocurrió un error en el check-out';
-        break;
+    switch (this.model.a_estado) {
       case 'Re':
         mensaje = 'Reserva confirmada con exito';
         mensaje_err = 'Ocurrió un error al confirmar la reserva';
         break;
       case 'Ca':
-        mensaje = 'Reserva cancelada con exito';
-        mensaje_err = 'Ocurrió un error al cancelar la reserva';
+        mensaje = 'Proforma cancelada con exito';
+        mensaje_err = 'Ocurrió un error al cancelar la proforma';
         break;
     }
 
-    if (check === 'Co' && (this.model.total - this.model.totalpagado) > 0) {
+    const reserva = {
+      estado: this.model.a_estado,
+      idReserva: this.model.idReserva,
+      detalleEstado: this.model.observacion
+    };
 
-      jQuery('#detalleEstadosModal').modal('hide');
-
-      // this.messService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
-      // this.showMess();
-      this.toastService.showWarning('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
-      this.loading = false;
-      return;
-    }
-
-    this.model.estado = check;
-
-    this.reservaService.mantenimiento(this.model)
+    this.reservaService.cambiaEstado(reserva)
       .subscribe(
-        data => {
+        response => {
 
-          if (data.success) {
+          this.loading = false;
 
-            jQuery('#detalleEstadosModal').modal('hide');
+          if (response.success) {
 
-            this.loading = false;
-            this.loadAllRooms();
-            this.getByDate();
-            this.quitRes();
-
-            // this.messService.success(mensaje);
-            // this.showMess();
-            jQuery('#reservaModal').modal('hide');
             this.toastService.showSuccess(mensaje);
+            this.getReservasByDate(this.current);
+            jQuery('#reservaModal').modal('hide');
           } else {
-
-            jQuery('#detalleEstadosModal').modal('hide');
-
-            this.loading = false;
-
-            // this.messService.error(data.mensaje);
-            // this.showMess();
-            this.toastService.showError(data.mensaje);
+            this.toastService.showError(response.mensaje);
           }
         },
         error => {
-
-          jQuery('#detalleEstadosModal').modal('hide');
-
           console.log(error);
           this.loading = false;
-
-          // this.messService.error(mensaje_err);
-          // this.showMess();
           this.toastService.showError(mensaje_err);
         });
   }
 
-  clickDay(_room, dia: number) {
+  cancelaPago() {
 
-    if (this.isReserved(_room, dia)) {
-      this.getReserveDet(_room, dia);
-    }
+    this.modelPago.idReserva = this.idReserva;
+    this.modelPago.accion = 'D';
 
-    const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idhabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+    const mensajeError = 'Ocurrió un error al eliminar el pago';
 
-    if (indexDb !== -1) {
+    this.pagoService.mantenimiento(this.modelPago)
+      .subscribe(
+        response => {
 
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.getDateString('/', this.reservadosDb[indexDb].fedesde)
-        && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.getDateString('/', this.reservadosDb[indexDb].fehasta)) {
-        return;
-      }
-    }
+          if (response.success) {
+            this.toastService.showSuccess(response.mensaje);
+            this.idReserva = '' + this.idReserva;
+            jQuery('#confirmaModal').modal('hide');
+            jQuery('#pagosModal').modal('show');
+          } else {
+            this.toastService.showError(response.mensaje);
+          }
+        },
+        error => {
 
-    if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-      < new Date(new Date().getTime() - (1000 * 60 * 60 * 24))) {
-      return;
-    }
-
-    if (_room.noClick === undefined) {
-      _room.noClick = 1;
-    }
-
-    if (_room.noClick === 1) {
-
-      this.marco(_room, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-
-      _room.noClick++;
-
-      return;
-    } else if (_room.noClick === 2) {
-
-      this.marco(_room, new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-
-      _room.noClick = 1;
-
-      return;
-    }
-
-    this.noReserve = this.reservados.length;
-  }
-
-  marco(_room, dateIn: Date) {
-
-    const index = this.findById(this.reservados, _room.idhabitacion);
-
-    if (_room.noClick === 1) {
-
-      if (index === -1) {
-
-        this.reservados.push({
-          idhabitacion: _room.idhabitacion,
-          habitacion: _room.habitacion,
-          tarifa: _room.tarifa,
-          fedesde: dateIn,
-          fehasta: dateIn
+          console.log(error);
+          this.toastService.showError(mensajeError);
         });
-
-      } else {
-        this.reservados.splice(index, 1);
-
-        this.reservados.push({
-          idhabitacion: _room.idhabitacion,
-          habitacion: _room.habitacion,
-          tarifa: _room.tarifa,
-          fedesde: dateIn,
-          fehasta: dateIn
-        });
-      }
-    } else if (_room.noClick === 2) {
-
-      if (index !== -1) {
-
-        const obj = this.reservados[index];
-
-        if (dateIn.getTime() === obj.fedesde.getTime() &&
-          dateIn.getTime() === obj.fehasta.getTime()) {
-
-          this.reservados.splice(index, 1);
-        } else {
-
-          obj.fehasta = dateIn;
-          this.reservados[index] = obj;
-        }
-
-      }
-
-    }
   }
 
-  findById(arreglo: any[], id: number) {
-    for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idhabitacion === id) {
-        return i;
-      }
-    }
+  // findById(arreglo: any[], id: number) {
+  //   for (let i = 0; i < arreglo.length; i++) {
+  //     if (arreglo[i].idHabitacion === id) {
+  //       return i;
+  //     }
+  //   }
 
-    return -1;
-  }
+  //   return -1;
+  // }
 
-  findById0(arreglo: any[], id: number) {
-    for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idadicional === id) {
-        return i;
-      }
-    }
+  // findById0(arreglo: any[], id: number) {
+  //   for (let i = 0; i < arreglo.length; i++) {
+  //     if (arreglo[i].idAdicional === id) {
+  //       return i;
+  //     }
+  //   }
 
-    return -1;
-  }
+  //   return -1;
+  // }
 
-  findByIdDb(arreglo: any[], id: number, feIn: Date) {
-    for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idhabitacion === id &&
-        (feIn >= this.getDateString('/', arreglo[i].fedesde)
-          && feIn <= this.getDateString('/', arreglo[i].fehasta))) {
-        return i;
-      }
-    }
+  // findByIdDb(arreglo: any[], id: number, feIn: Date) {
+  //   for (let i = 0; i < arreglo.length; i++) {
+  //     if (arreglo[i].idHabitacion === id &&
+  //       (feIn >= this.getDateString('/', arreglo[i].feDesde)
+  //         && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
+  //       return i;
+  //     }
+  //   }
 
-    return -1;
-  }
+  //   return -1;
+  // }
 
-  delReserve(_room) {
+  onReservar(reservados) {
 
-    const index = this.findById(this.reservados, _room.idhabitacion);
-
-    if (index !== -1) {
-      this.reservados.splice(index, 1);
-    }
-
-    this.noReserve = this.reservados.length;
-  }
-
-  getLim(_op: string, _room, dia: number) {
-
-    const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idhabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-
-    if (indexDb !== -1) {
-
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
-        === this.getDateString('/', this.reservadosDb[indexDb].fedesde).getTime()
-        && _op === 'I') {
-        return true;
-      }
-
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
-        === this.getDateString('/', this.reservadosDb[indexDb].fehasta).getTime()
-        && _op === 'O') {
-        return true;
-      }
-    }
-  }
-
-  isSelected(_room, dia: number) {
-
-    const index = this.findById(this.reservados, _room.idhabitacion);
-    const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idhabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-
-    if (indexDb !== -1) {
-
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.getDateString('/', this.reservadosDb[indexDb].fedesde)
-        && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.getDateString('/', this.reservadosDb[indexDb].fehasta)) {
-
-        if (this.reservadosDb[indexDb].estado === 'Re') {
-          return { '_reserved': true };
-        } else if (this.reservadosDb[indexDb].estado === 'Ci') {
-          return { '_occupied': true };
-        } else if (this.reservadosDb[indexDb].estado === 'Co') {
-          return { '_checked-out': true };
-        } else if (this.reservadosDb[indexDb].estado === 'Pr') {
-          return { '_proform': true };
-        }
-      }
-    }
-
-    if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-      < new Date(new Date().getTime() - (1000 * 60 * 60 * 24))) {
-      return { '_blocked': true };
-    }
-
-    if (index !== -1) {
-
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.reservados[index].fedesde
-        && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.reservados[index].fehasta) {
-        return { '_selected': true };
-      }
-    }
-
-    return { '_nah': true };
-  }
-
-  setReserva() {
-
-    jQuery('#reservaModal').modal('show');
-
-    setTimeout(() => {
-      jQuery('#pais').select2();
-      jQuery('#adicional').select2();
-
-      const self = this;
-      self.changedAd(jQuery('#adicional').val());
-      jQuery('#adicional').on('select2:select', function (e) {
-        self.changedAd(jQuery('#adicional').val());
-      });
-
-      jQuery('.form-control.tarifa').select2();
-      this.model.habitaciones.forEach(habitacion => {
-        if (this.tarifasall.length) {
-          habitacion.idtarifa = this.tarifasall[0].idtarifa;
-          habitacion.tarifa = this.tarifasall[0].valor;
-        }
-      });
-      jQuery('.form-control.tarifa').on('select2:select', function (e) {
-        // self.changedAd(jQuery('#adicional').val());
-        const idhabitacion = e.target.name.split('-')[1];
-        self.changeTarifa(idhabitacion, e.target.value);
-      });
-
-    }, 200);
-
-    // this.setDay2();
-    this.model.habitaciones = this.reservados;
     this.accion = 'I';
-    this.esModi = true;
-    this.pagos = [];
-    this.paso = 1;
+
+    // ASIGNO LOS RESERVADOS QUE VIENE DEL COMPONENTE CALENDARIO
+    this.reservasCliente = reservados;
+
+    // ASIGNO EL NUEVO MODELO PARA QUE LOS COMPONENTES
+    // REGISTREN EL CAMBIO DE ESTADO
+    this.model = Object.assign({ habitaciones: this.reservasCliente }, this.model);
+    jQuery('#reservaModal').modal('show');
   }
 
-  setDay2() {
+  // setDay2() {
 
-    for (let i = 0; i < this.reservados.length; i++) {
+  //   for (let i = 0; i < this.reservadosCliente.length; i++) {
 
-      if (this.reservados[i].fedesde === this.reservados[i].fehasta) {
+  //     if (this.reservadosCliente[i].feDesde === this.reservadosCliente[i].feHasta) {
 
-        this.reservados[i].fedasta = new Date(this.reservados[i].fehasta.getTime() + (1000 * 60 * 60 * 24));
-      }
-    }
-  }
-
-  getTotal() {
-
-    if (!this.model.habitaciones || this.model.habitaciones.length === 0) {
-
-      return 0;
-    }
-
-    const habitaciones = this.model.habitaciones;
-    const adicionales = this.model.valueAd || [];
-
-    let sum = 0;
-    for (let i = 0; i < habitaciones.length; i++) {
-
-      sum = sum + (this.nightDiff(habitaciones[i].fedesde, habitaciones[i].fehasta) * habitaciones[i].tarifa);
-    }
-
-    for (let i = 0; i < adicionales.length; i++) {
-
-      sum = sum + (adicionales[i].tarifa * adicionales[i].cantidad);
-    }
-
-    this.model.total = sum;
-
-    return this.model.total;
-  }
-
-  modiTarifa(room: any) {
-
-    this.auxValor = Object.assign({}, room);
-    this.modiVal = true;
-  }
-
-  modiTarifa0(adi: any) {
-
-    this.auxValor0 = Object.assign({}, adi);
-  }
-
-  goModiVal() {
-
-    this.auxValor = {
-      idhabitacion: 0, habitacion: '', tarifa: 0,
-      fedesde: new Date(), fehasta: new Date()
-    };
-    this.modiVal = false;
-  }
-
-  goModiVal0() {
-
-    this.auxValor0 = { idadicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
-  }
-
-  cancelTarifa(room: any) {
-
-    const index = this.findById(this.model.habitaciones, room.idhabitacion);
-
-    this.model.habitaciones[index] = Object.assign({}, this.auxValor);
-    this.auxValor = {
-      idhabitacion: 0, habitacion: '', tarifa: 0,
-      fedesde: new Date(), fehasta: new Date()
-    };
-    this.modiVal = false;
-  }
-
-  cancelTarifa0(adi: any) {
-
-    const index = this.findById0(this.model.valueAd, adi.idadicional);
-
-    this.model.valueAd[index] = Object.assign({}, this.auxValor0);
-    this.auxValor0 = { idadicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
-  }
-
-  private nightDiff(fedesde: Date, fehasta: Date) {
-
-    return this.reservaService.getNumeroNoches(fedesde, fehasta);
-  }
-
-
-  // changedPa(e: any): void {
-
-  //   this.model.pass.valuePa = e.value;
+  //       this.reservadosCliente[i].fedasta = new Date(this.reservadosCliente[i].feHasta.getTime() + (1000 * 60 * 60 * 24));
+  //     }
+  //   }
   // }
 
-  changedAd(values): void {
-    this.model.valueAd = [];
+  onSetModiReserva(model) {
 
-    for (let i = 0; i < values.length; i++) {
-
-      // const index = this.findById0(this._adicionales, e.value[i]);
-      const index = this._adicionales.findIndex(x => x.idadicional === Number(values[i]));
-      this._adicionales[index].cantidad = 1;
-      this.model.valueAd.push(this._adicionales[index]);
-    }
-
-  }
-
-  setAds(arreglo: any[]) {
-
-    let valueAd = [];
-    for (let i = 0; i < arreglo.length; i++) {
-      valueAd.push('' + arreglo[i].idadicional);
-    }
-    return valueAd;
-  }
-
-  // setPa(idPais: any): void {
-
-  //   this.valuePa = '' + idPais;
-  // }
-
-  getWeekDay(dia: number) {
-
-    const now = new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0);
-    return this.current.dias[now.getDay()];
-  }
-
-  setModi() {
-
-    for (let i = 0; i < this.model.habitaciones.length; i++) {
-      this.model.habitaciones[i].modeltarifa = this.tarifasall.find(x => x.idtarifa === this.model.habitaciones[i].idtarifa);
-    }
-
-    this.esModi = true;
-    this.paso = 1;
+    this.model = model;
+    this.accion = 'U';
 
     if (this.contEdita === 0) {
-      this.reservadosDbOd = Object.assign([], this.reservadosDb);
-      this.habitacionesOd = Object.assign([], this.model.habitaciones);
+      this.reservasBDOld = Object.assign([], this.reservasBD);
+      this.habitacionesOld = Object.assign([], this.model.habitaciones);
     }
 
     this.contEdita++;
@@ -1028,347 +352,225 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     while (this.model.habitaciones.length !== cont) {
 
-      for (let i = 0; i < this.reservadosDb.length; i++) {
-        if (this.reservadosDb[i].idreserva === this.model.idreserva) {
-          this.reservadosDb.splice(i, 1);
+      for (let i = 0; i < this.reservasBD.length; i++) {
+        if (this.reservasBD[i].idReserva === this.model.idReserva) {
+          this.reservasBD.splice(i, 1);
           cont++;
         }
       }
     }
-    this.reservados = this.model.habitaciones;
+    this.reservasCliente = this.model.habitaciones;
 
     jQuery('#reservaModal').modal('hide');
   }
 
-  setNuevoPago() {
+  onModiReserva(reservadosCliente) {
 
-    this.model.pago = {};
-    this.model.pago.accion = 'I';
-  }
+    // this.reservadosCliente = this.reservadosCliente;
+    // this.model.habitaciones = this.reservadosCliente;
 
-  goModi() {
-
-    // this.setDay2();
-    this.model.habitaciones = this.reservados;
-
+    this.reservasCliente = reservadosCliente;
+    this.model.habitaciones = reservadosCliente;
+    this.model = Object.assign({}, this.model);
     jQuery('#reservaModal').modal('show');
-
-    setTimeout(() => {
-      jQuery('#pais').select2();
-      jQuery('#adicional').select2();
-
-      jQuery('#adicional').val(this.setAds(this.model.valueAd));
-      jQuery('#adicional').trigger('change');
-
-      const self = this;
-
-      self.changedAd(jQuery('#adicional').val());
-      jQuery('#adicional').on('select2:select', function (e) {
-        self.changedAd(jQuery('#adicional').val());
-      });
-
-      jQuery('.form-control.tarifa').select2();
-
-      jQuery('.form-control.tarifa').each(function (index) {
-
-        const sele = jQuery('.form-control.tarifa')[index];
-        const name = sele.name;
-        const idhabitacion = name.split('-')[1];
-        const idtarifa = self.model.habitaciones.find(x => x.idhabitacion === Number(idhabitacion)).idtarifa;
-        jQuery('#' + name).val('' + idtarifa);
-        jQuery('#' + name).trigger('change');
-      })
-      jQuery('.form-control.tarifa').on('select2:select', function (e) {
-        const idhabitacion = e.target.name.split('-')[1];
-        self.changeTarifa(idhabitacion, e.target.value);
-      });
-
-    }, 200);
   }
 
-  quitModi() {
+  // CUANDO CANCELA LA MODIFICACION
+  // AL MOMENTO DE ESCOGER LAS HABITACIONES
+  onCancelarModi() {
 
-    this.reservadosDb = Object.assign([], this.reservadosDbOd);
-    this.model.habitaciones = Object.assign([], this.habitacionesOd);
-    this.reservados = [];
-    this.esModi = false;
+    this.accion = 'I';
+
     this.contEdita = 0;
-
+    this.reservasCliente = [];
+    this.reservasBD = Object.assign([], this.reservasBDOld);
+    this.model.habitaciones = Object.assign([], this.habitacionesOld);
     jQuery('#reservaModal').modal('show');
-
-    setTimeout(() => {
-      jQuery('#pais').select2();
-      jQuery('#adicional').select2();
-      jQuery('.form-control.tarifa').select2();
-    }, 200);
   }
 
-  quitRes() {
+  // CERRAR DESDE MODAL
+  onCerrar() {
+
+    this.accion = 'I';
 
     if (this.contEdita > 0) {
 
-      this.reservadosDb = Object.assign([], this.reservadosDbOd);
-      this.model.habitaciones = Object.assign([], this.habitacionesOd);
+      this.reservasBD = Object.assign([], this.reservasBDOld);
+      this.model.habitaciones = Object.assign([], this.habitacionesOld);
     }
 
-    this.esPass = false;
     this.model = {};
-    this.model.pass = {};
+    this.model.pasajero = {};
     this.model.notas = '';
-    this.model.ident = true;
-    this.reservados = [];
-    this.valueAd = [];
+    // this.model.ident = true;
+    this.reservasCliente = [];
 
-    this.accion = 'I';
     this.contEdita = 0;
   }
 
-  setCancel() {
-
-    this.accion = 'D';
+  onSetCancelarReserva() {
+    this.mensajeConfirmacion = '¿Estás seguro de cancelar la Reserva?';
+    // CANCELAR
+    this.accionConfirmacion = 'CANCELAR_RESERVA';
     this.model.a_estado = 'Ca';
-    this.confirmacionService.go('¿Está seguro de cancelar la reserva?');
+    this.model = Object.assign({}, this.model);
+    jQuery('#reservaModal').modal('hide');
+    jQuery('#confirmaModal').modal('show');
   }
 
-  getReserveDet(_room, dia: number) {
+  onSetCancelarPago(model) {
+    this.mensajeConfirmacion = '¿Estás seguro de eliminar el pago por $' + model.monto + '?';
+    // CANCELAR
+    this.accionConfirmacion = 'CANCELAR_PAGO';
+    this.modelPago = model;
+    jQuery('#pagosModal').modal('hide');
+    jQuery('#confirmaModal').modal('show');
+  }
 
-    const indexDb = this.findByIdDb(this.reservadosDb, _room.idhabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-    this.esModi = false;
+  onConfirma() {
+    if (this.accionConfirmacion === 'CANCELAR_RESERVA') {
 
-    this.esPass = true;
-    this.model = {};
-    this.model.pass = {};
-    this.model.notas = '';
-    this.model.ident = true;
-    this.reservados = [];
+      jQuery('#confirmaModal').modal('hide');
+      jQuery('#estadosModal').modal('show');
+    } else if (this.accionConfirmacion === 'CANCELAR_PROFORMA'
+      || this.accionConfirmacion === 'CONFIRMAR_PROFORMA') {
+      this.cambiaEstado();
+      jQuery('#confirmaModal').modal('hide');
+    } else if (this.accionConfirmacion === 'CANCELAR_PAGO') {
+      this.cancelaPago();
+    }
+  }
 
-    this.reservaService.getById(this.reservadosDb[indexDb].idreserva).subscribe(
+  onCancelaConfirma() {
+    jQuery('#confirmaModal').modal('hide');
+    if (this.accionConfirmacion === 'CANCELAR_PAGO') {
+      jQuery('#pagosModal').modal('show');
+    } else {
+      jQuery('#reservaModal').modal('show');
+    }
+  }
+
+  onCancelaEstados() {
+    jQuery('#estadosModal').modal('hide');
+    jQuery('#reservaModal').modal('show');
+  }
+
+  onSuccessEstados() {
+    this.getReservasByDate(this.current);
+  }
+
+  onCambiarEstado(estado) {
+    if (estado === 'Ca') {
+
+      this.mensajeConfirmacion = '¿Estás seguro de cancelar la Proforma?';
+      // CANCELAR PROFORMA
+      this.accionConfirmacion = 'CANCELAR_PROFORMA';
+      this.model.a_estado = estado;
+      this.model = Object.assign({}, this.model);
+      jQuery('#reservaModal').modal('hide');
+      jQuery('#confirmaModal').modal('show');
+    } else if (estado === 'Re') {
+
+      this.mensajeConfirmacion = '¿Estás seguro de confirmar la Proforma?';
+      // CANCELAR PROFORMA
+      this.accionConfirmacion = 'CONFIRMAR_PROFORMA';
+      this.model.a_estado = estado;
+      this.model = Object.assign({}, this.model);
+      jQuery('#reservaModal').modal('hide');
+      jQuery('#confirmaModal').modal('show');
+    } else {
+      // ESTADOS Ci Co
+      jQuery('#reservaModal').modal('hide');
+      this.model.a_estado = estado;
+      this.model = Object.assign({}, this.model);
+      jQuery('#estadosModal').modal('show');
+    }
+  }
+
+  onDetalle(params) {
+
+    this.loadingDetalle = true;
+
+    this.accion = undefined;
+    const { _room, dia, current } = params;
+
+    // CAPTURO LA FECHA DEL CUADRITO CLICK
+    const clickCuadrito = moment({ y: current.anio, M: current.noMonth, d: dia });
+
+    // BUSCO LA RESERVA
+    const indexReservaBD = this.reservasBD.findIndex(x => x.idHabitacion === _room.idHabitacion
+      && clickCuadrito >= moment(x.feDesde, 'DD[/]MM[/]YYYY')
+      && clickCuadrito <= moment(x.feHasta, 'DD[/]MM[/]YYYY'));
+
+    jQuery('#reservaModal').modal('show');
+
+    // ENVIO EL ID DE LA RESERVA QUE ENCONTRAMOS
+    this.reservaService.getById(this.reservasBD[indexReservaBD].idReserva).subscribe(
+      reservas => {
+
+        this.loadingDetalle = false;
+
+        if (reservas.success) {
+          // tslint:disable-next-line:prefer-const
+          let model = reservas.data[0];
+          this.idReserva = model.idReserva;
+          this.totalReserva = model.total;
+          // CONFIGURO LAS FECHAS TIPO DATE()
+          model.habitaciones = this.setDateHab(model.habitaciones);
+          this.model = Object.assign({}, model);
+          jQuery('[data-toggle="tooltip"]').tooltip('dispose');
+        } else {
+          this.loadingDetalle = false;
+          this.toastService.showError('Ocurrió un error al obtener la reserva.');
+        }
+      });
+  }
+
+  onPagos() {
+    jQuery('#reservaModal').modal('hide');
+    jQuery('#pagosModal').modal('show');
+  }
+
+  onSucessPago(totalPagado) {
+    // REGRESO EL TOTAL PAGADO PARA ACTUALIZAR EL OBJETO
+    if (totalPagado !== undefined) {
+      this.model.totalPagado = totalPagado;
+      this.model = Object.assign({}, this.model);
+    }
+  }
+
+  private setDateHab(habitaciones: any[]) {
+
+    for (let i = 0; i < habitaciones.length; i++) {
+
+      habitaciones[i].feDesde = moment(habitaciones[i].feDesde, 'DD[/]MM[/]YYYY').toDate();
+      habitaciones[i].feHasta = moment(habitaciones[i].feHasta, 'DD[/]MM[/]YYYY').toDate();
+    }
+
+    return habitaciones;
+  }
+
+  private getReservasByDate(current?: CurrentMonth) {
+
+    if (!current) {
+      this.current = new CurrentMonth();
+    } else {
+      this.current = current;
+    }
+
+    const feDesde = moment({ y: this.current.anio, M: this.current.noMonth, d: 1 });
+
+    const feHasta = feDesde.clone().endOf('month').format('DD[/]MM[/]YYYY');
+
+    this.reservaService.getByDate('C', feDesde.format('DD[/]MM[/]YYYY'), feHasta).subscribe(
       reservas => {
 
         if (reservas.success) {
-
-          this.model = reservas.data[0];
-          jQuery('#pais').val(this.model.pass.idpais);
-          jQuery('#pais').trigger('change');
-
-          // this.setAds(this.model.valueAd);
-
-          // this.setPa(this.model.pass.idPais);
-          this.model.habitaciones = this.setDateHab(this.model.habitaciones);
-
-          if (this.model.habitaciones[0].tarifadet === '-') {
-            this.esTotal = true;
-            this.total0 = this.model.total;
-          }
-
-          this.accion = 'U';
-
-          this.model.pago = {};
-
-          this.getPagos();
-
-          jQuery('#reservaModal').modal('show');
-          jQuery('[data-toggle="tooltip"]').tooltip('dispose');
-
-          setTimeout(() => {
-            jQuery('#pais').select2();
-            jQuery('#adicional').select2();
-            jQuery('.form-control.tarifa').select2();
-          }, 200);
+          this.reservasBD = reservas.data;
         } else {
-
-          console.log('Error>> getById>> ' + reservas.mensaje);
+          console.log('Error>> getByDate>> ' + reservas.mensaje);
         }
       });
-  }
-
-  setElimPago(model: any) {
-
-    this.accion = 'DP';
-    this.model.pago = Object.assign({}, model);
-    this.confirmacionService.go('¿Desea eliminar el registro?');
-  }
-
-  getPagos() {
-
-    this.pagoService.getAll(this.model.idreserva)
-      .subscribe(pagos => {
-        if (pagos.success) {
-
-          this.model.pago = {};
-          this.pagos = pagos.data;
-
-          let sum = 0;
-
-          for (let i = 0; i < pagos.data.length; i++) {
-
-            sum += pagos.data[i].monto;
-          }
-
-          this.model.totalpagado = sum;
-        } else {
-
-          console.log('Error>> pagoService>> ' + pagos.mensaje);
-        }
-      });
-  }
-
-  getToolTip(_op, _room, dia: number) {
-
-    const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idhabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-    const reserva = this.reservadosDb[indexDb];
-
-    if (_op === 'I') {
-      return '' + reserva.pasajero;
-    }
-
-    if (_op === 'O') {
-      return '' + reserva.pasajero;
-    }
-
-  }
-
-  isReserved(_room, dia: number) {
-
-    const indexDb = this.findByIdDb(this.reservadosDb,
-      _room.idhabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
-
-    if (indexDb !== -1) {
-
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        >= this.getDateString('/', this.reservadosDb[indexDb].fedesde)
-        && new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
-        <= this.getDateString('/', this.reservadosDb[indexDb].fehasta)) {
-        return true;
-      }
-
-      return false;
-    }
-
-    return false;
-  }
-
-  ocultaBtnModi(op: string) {
-
-    switch (op) {
-
-      case 'Ci':
-
-        if (this.model.estado === 'Co') {
-          return false;
-        }
-
-        if (this.model.estado === 'Ci') {
-          return false;
-        }
-
-        if (this.model.habitaciones[0].fedesde.getTime()
-          === this.toDay.getTime()) {
-          return true;
-        }
-
-
-        return false;
-      case 'Co':
-
-        if (this.model.estado === 'Ci') {
-          return true;
-        }
-
-        return false;
-      case 'D':
-
-        if (this.model.estado === 'Ci') {
-          return false;
-        }
-
-        if (this.model.estado === 'Co') {
-          return false;
-        }
-
-        return true;
-      case 'U':
-
-        // if (this.toDay.getTime() < this.model.habitaciones[0].fedesde.getTime()) {
-        //   return true;
-        // }
-
-        // return false;
-
-        if (this.model.estado === 'Ci') {
-          return false;
-        }
-
-        return true;
-    }
-  }
-
-  getEstado() {
-
-    return this.reservaService.getEstado(this.model);
-  }
-
-  private setDateHab(arreglo: any[]) {
-
-    for (let i = 0; i < arreglo.length; i++) {
-
-      arreglo[i].fedesde = this.getDateString('/', arreglo[i].fedesde);
-      arreglo[i].fehasta = this.getDateString('/', arreglo[i].fehasta);
-    }
-
-    return arreglo;
-  }
-
-  // private defaultPa() {
-
-  //   if (this.paises.length > 0) {
-
-  //     this.valuePa = this.paises[0].id;
-  //     this.model.pass.valuePa = this.valuePa;
-  //   }
-  // }
-
-  private loadAllTarifas() {
-
-    this.tarifaService.getAll().subscribe(tarifas => {
-
-      if (tarifas.success) {
-
-        this.tarifas = tarifas.agrupado;
-        this.tarifasall = tarifas.data;
-      } else {
-        console.log('Error>> loadAllRooms>> ' + tarifas.mensaje);
-      }
-    });
-  }
-
-  private loadAllRooms() {
-
-    this.habitacionService.getAll().subscribe(rooms => {
-
-      if (rooms.success) {
-        this.rooms = rooms.data;
-      } else {
-        console.log('Error>> loadAllRooms>> ' + rooms.mensaje);
-      }
-      this.loading_hab = false;
-    });
-  }
-
-  private loadAllAirlines() {
-
-    this.aerolineaService.getAll().subscribe(aerolineas => {
-
-      if (aerolineas.success) {
-        this.aerolineas = aerolineas.data;
-      } else {
-        console.log('Error>> loadAllAirlines>> ' + aerolineas.mensaje);
-      }
-    });
   }
 
   private loadAllFormaPagos() {
@@ -1383,101 +585,69 @@ export class ReservaComponent implements OnInit, AfterViewChecked, OnDestroy {
     });
   }
 
+  private loadAllTarifas() {
+
+    this.tarifaService.getAll()
+      .subscribe(response => {
+
+        if (response.success) {
+          this.tarifasFormat = response.agrupado;
+          this.tarifas = response.data;
+        } else {
+          console.log('Error>> loadAllRooms>> ' + response.mensaje);
+        }
+      });
+  }
+
+  private loadAllAirlines() {
+
+    this.aerolineaService.getAll()
+      .subscribe(response => {
+
+        if (response.success) {
+          this.aerolineas = response.data;
+        } else {
+          console.log('Error>> loadAllAirlines>> ' + response.mensaje);
+        }
+      });
+  }
+
   private loadAllFuentes() {
 
-    this.fuenteService.getAll().subscribe(fuente => {
+    this.fuenteService.getAll()
+      .subscribe(response => {
 
-      if (fuente.success) {
-        this.fuentes = fuente.data;
-      } else {
-        console.log('Error>> loadAllFuentes>> ' + fuente.mensaje);
-      }
-    });
-  }
-
-  private setSelect2Paises() {
-
-    this.paisService.getAll().subscribe(
-      paises => {
-
-        if (paises.success) {
-
-          for (let i = 0; i < paises.data.length; i++) {
-            this.paises.push({ id: '' + paises.data[i].idpais, text: paises.data[i].pais });
-          }
-
-          // this.defaultPa();
+        if (response.success) {
+          this.fuentes = response.data;
         } else {
-          console.log('Error>> loadAllFormaPagos>> ' + paises.mensaje);
+          console.log('Error>> loadAllFuentes>> ' + response.mensaje);
         }
-
       });
   }
 
-  private setSelect2Adicionales() {
-
-    // this.optionsAdi = { multiple: true };
+  private loadAllAdicionales() {
 
     this.adicionalService.getAll().subscribe(
-      adicionales => {
+      response => {
 
-        if (adicionales.success) {
-
-          // this.adicionales = new Array<Select2OptionData>();
-          this._adicionales = adicionales.data;
-
-          for (let i = 0; i < adicionales.data.length; i++) {
-            this.adicionales.push({ id: '' + adicionales.data[i].idadicional, text: adicionales.data[i].adicional });
-          }
-
+        if (response.success) {
+          this.adicionales = response.data;
         } else {
-          console.log('Error>> loadAllFormaPagos>> ' + adicionales.mensaje);
+          console.log('Error>> loadAllFormaPagos>> ' + response.mensaje);
         }
       });
   }
 
-  private getByDate() {
+  private loadAllPaises() {
 
-    const fedesde = '01' + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
-    const fehasta = this.current.finMes + '/' + (this.current.noMonth + 1) + '/' + this.current.anio;
-
-    this.reservaService.getByDate('C', fedesde, fehasta).subscribe(
-      reservas => {
-
-        if (reservas.success) {
-
-          this.reservadosDb = reservas.data;
+    this.paisService.getAll().subscribe(
+      response => {
+        if (response.success) {
+          this.paises = response.data;
         } else {
-
-          console.log('Error>> getByDate>> ' + reservas.mensaje);
+          console.log('Error>> loadAllFormaPagos>> ' + response.mensaje);
         }
       });
-  }
-
-  private getDateString(delimiter: string, date: string) {
-
-    const auxDate = date.split(delimiter);
-    return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
-  }
-
-  private showMess() {
-
-    jQuery('#reservaModal').modal('hide');
-
-    setTimeout(() => {
-
-      jQuery('#messModal').modal('show');
-    }, 200);
-  }
-
-  private showMessPago() {
-
-    jQuery('#pagoModal').modal('hide');
-
-    setTimeout(() => {
-
-      jQuery('#messModal').modal('show');
-    }, 200);
   }
 
 }

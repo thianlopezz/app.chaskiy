@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ReservaService } from '../reserva/reserva.service';
-import { ConfirmacionEventService } from '../../compartido/components/modal-confirmacion/confirmacion-event.service';
 import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 import { AutenticacionService } from '../../publico/services/autenticacion.service';
 declare var jQuery: any;
@@ -41,10 +39,8 @@ export class HomeComponent implements OnInit {
   subscription: any;
   model: any;
 
-  constructor(private router: Router,
-    private autenticacionService: AutenticacionService,
+  constructor(private autenticacionService: AutenticacionService,
     private reservaService: ReservaService,
-    private confirmaEventService: ConfirmacionEventService,
     private mensajeService: MensajeService) { }
 
   ngOnInit() {
@@ -66,85 +62,13 @@ export class HomeComponent implements OnInit {
     this.getLlegadas(new Date());
     this.getSalidas(new Date());
     this.getEstancias(new Date());
-
-    this.subscription = this.confirmaEventService.getAcceptChangeEmitter()
-      .subscribe(resp => this.selectedVal(resp));
   }
 
-  selectedVal(resp) {
-
-    if (resp.model) {
-      this.model = resp.model;
-    }
-
-    if (resp.modo === 'Ci' || resp.modo === 'Co') {
-
-      this.model.estadoDetalle = resp.model.observacion;
-      this.check(resp.modo);
-    }
-  }
-
-  check(check: string) {
-
-    this.model.accion = 'Es';
-    this.model.pass = {};
-
-    let mensaje = '';
-    let mensaje_err = '';
-
-    switch (check) {
-      case 'Ci':
-        mensaje = 'Check-in éxitoso';
-        mensaje_err = 'Ocurrió un error en el check in';
-        break;
-      case 'Co':
-        mensaje = 'Check-out éxitoso';
-        mensaje_err = 'Ocurrió un error en el check-out';
-        break;
-    }
-
-    if (check === 'Co' && (this.model.total - this.model.totalPagado) > 0) {
-
-      jQuery('#detalleEstadosModal').modal('hide');
-
-      this.mensajeService.error('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente');
-      this.showMess();
-      return;
-    }
-
-    this.model.estado = check;
-
-
-    this.reservaService.mantenimiento(this.model)
-      .subscribe(
-      data => {
-
-        if (data.success) {
-
-          this.refresca();
-
-          jQuery('#detalleEstadosModal').modal('hide');
-          this.getByDate();
-
-          this.mensajeService.success(mensaje);
-          this.showMess();
-        } else {
-
-          jQuery('#detalleEstadosModal').modal('hide');
-
-          this.mensajeService.error(data.mensaje);
-          this.showMess();
-        }
-      },
-      error => {
-
-        jQuery('#detalleEstadosModal').modal('hide');
-
-        console.log(error);
-
-        this.mensajeService.error(mensaje_err);
-        this.showMess();
-      });
+  onCambiarEstado(event) {
+    // ESTADOS Ci Co
+    this.model = Object.assign({}, event.model);
+    this.model.a_estado = event.estado;
+    jQuery('#estadosModal').modal('show');
   }
 
   private refresca() {
@@ -359,6 +283,14 @@ export class HomeComponent implements OnInit {
         }
         this.loadingestancias = false;
       });
+  }
+
+  onSuccessEstados() {
+    this.refresca();
+  }
+
+  onCancelaEstados() {
+    jQuery('#estadosModal').modal('hide');
   }
 }
 

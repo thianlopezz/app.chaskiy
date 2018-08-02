@@ -11,7 +11,7 @@ export class HospedajeService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C" idhospedaje = "' + chasker.idhospedaje + '" />');
+        const param = encodeURIComponent('<params accion="C" idHospedaje = "' + chasker.idHospedaje + '" />');
         return this.http.get('/api/hospedaje/all/' + param, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
@@ -20,8 +20,8 @@ export class HospedajeService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        registro.idhospedaje = chasker.idhospedaje;
-        registro.idhsuario = chasker.idhsuario;
+        registro.idHospedaje = chasker.idHospedaje;
+        registro.idUsuario = chasker.idUsuario;
         return this.http.post('/api/hospedaje/', registro, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }

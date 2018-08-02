@@ -13,7 +13,6 @@ import { ContrasenaComponent } from './contrasena/contrasena.component';
 import { HabitacionComponent } from './habitacion/habitacion.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { AdicionalComponent } from './adicional/adicional.component';
-import { ModalPagoComponent } from './components/modal-pago/modal-pago.component';
 
 import { AdicionalService } from './adicional/adicional.service';
 import { HabitacionService } from './habitacion/habitacion.service';
@@ -43,6 +42,10 @@ import { NotificacionService } from './notificaciones/notificacion.service';
 
 import { CardNotificacionesComponent } from './components/card-notificaciones/card-notificaciones.component';
 import { PasajeroComponent } from './pasajero/pasajero.component';
+import { CalendarioComponent } from './reserva/calendario/calendario.component';
+import { ModalReservaComponent } from './reserva/modal-reserva/modal-reserva.component';
+import { DetalleReservaComponent } from './reserva/modal-reserva/detalle-reserva/detalle-reserva.component';
+import { ModalPagoComponent } from './pagos/modal-pago/modal-pago.component';
 
 @NgModule({
   imports: [
@@ -69,7 +72,10 @@ import { PasajeroComponent } from './pasajero/pasajero.component';
     TarifaComponent,
     NotificacionesComponent,
     CardNotificacionesComponent,
-    PasajeroComponent
+    PasajeroComponent,
+    CalendarioComponent,
+    ModalReservaComponent,
+    DetalleReservaComponent
   ],
   providers: [
     AdicionalService,

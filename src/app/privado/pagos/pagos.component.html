@@ -1,8 +1,9 @@
 <br>
 <br>
 <br>
+<br>
 <div class="container">
-	<h3 class="display-4">Pagos</h3>
+	<h2>Pagos</h2>
 	<hr class="my-2">
 </div>
 <div class="container">
@@ -10,7 +11,7 @@
 		<div class="col-lg-9 col-md-10 col-sm-12">
 			<div class="row">
 				<div class="col-md-4">
-					<h3 class="display-5">Ingresos</h3>
+					<h3>Ingresos</h3>
 				</div>
 				<div class="col-md-8">
 					<div class="row">
@@ -40,44 +41,48 @@
 			</div>
 			<div class="row mt-4">
 				<div class="col-md-12">
-					<h3 class="display-5">Detalles</h3>
-					<hr>
-					<table class="table table-hover ml-auto mr-auto">
-						<thead>
-							<tr>
-								<th>Forma de Pago</th>
-								<th>Generado por</th>
-								<th>Fecha</th>
-								<th>Monto</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let pago of pagos">
-								<td width="25%">{{pago.formapago}}</td>
-								<td width="35%">{{pago.usuario}}</td>
-								<td width="20%">{{pago.fecha}}</td>
-								<td width="20%">{{pago.monto | currency:'USD':true}}</td>
-							</tr>
-							<tr *ngIf="loading_pg">
-								<td colspan="4">
-									<app-spinner></app-spinner>
-								</td>
-							</tr>
-							<tr *ngIf="!loading_pg && pagos.length===0">
-								<td class="text-center" colspan="4">
-									<p class="text-muted">No existen pagos</p>
-								</td>
-							</tr>
-							<tr>
-								<td width="25%"></td>
-								<td width="35%"></td>
-								<td width="20%">
-									<strong>Total</strong>
-								</td>
-								<td width="20%">{{totalPagos | currency:'USD':true}}</td>
-							</tr>
-						</tbody>
-					</table>
+					<h3>Detalles</h3>
+					<hr class="my-2">
+					<div class="card">
+						<div class="card-body">
+							<table class="table table-hover ml-auto mr-auto">
+								<thead>
+									<tr>
+										<th>Forma de Pago</th>
+										<th>Generado por</th>
+										<th>Fecha</th>
+										<th>Monto</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let pago of pagos">
+										<td width="25%">{{pago.formapago}}</td>
+										<td width="35%">{{pago.usuario}}</td>
+										<td width="20%">{{pago.fecha}}</td>
+										<td width="20%">{{pago.monto | currency:'USD'}}</td>
+									</tr>
+									<tr *ngIf="loading_pg">
+										<td colspan="4">
+											<app-spinner></app-spinner>
+										</td>
+									</tr>
+									<tr *ngIf="!loading_pg && pagos.length===0">
+										<td class="text-center" colspan="4">
+											<p class="text-muted">No existen pagos</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="25%"></td>
+										<td width="35%"></td>
+										<td width="20%">
+											<strong>Total</strong>
+										</td>
+										<td width="20%">{{totalPagos | currency:'USD'}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<hr class="my-2">

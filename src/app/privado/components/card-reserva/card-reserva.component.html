@@ -9,92 +9,113 @@
 </div>
 <div *ngFor="let reserva of reservas; let i = index">
   <div class="card mb-2">
-    <div class="row">
-      <div class="col-md-auto pr-0 hidden-md-down">
-        <div class="reservation-dates mb-1 mt-1">
-          <div class="dashboard-arrival-date">
-            <p class="stacked-dates-day">{{reserva.fedesde | date : 'dd'}}</p>
-            <p class="stacked-dates-month">{{reserva.fedesde | date : 'MMM'}}</p>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-2 col-sm-12">
+          <div class="reservation-dates">
+            <div class="dashboard-arrival-date">
+              <p class="stacked-dates-day">{{reserva.feDesde | date : 'dd'}}</p>
+              <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
+            </div>
+            <div class="dashboard-departure-date">
+              <p class="stacked-dates-day">{{addDay(reserva.feHasta) | date : 'dd'}}</p>
+              <p class="stacked-dates-month">{{addDay(reserva.feHasta) | date : 'MMM'}}</p>
+            </div>
           </div>
-          <div class="dashboard-departure-date">
-            <p class="stacked-dates-day">{{addDay(reserva.fehasta) | date : 'dd'}}</p>
-            <p class="stacked-dates-month">{{addDay(reserva.fehasta) | date : 'MMM'}}</p>
+          <div class="medium mb-1">
+            <p>{{reserva.feDesde | date : 'dd MMM'}} | {{addDay(reserva.feHasta) | date : 'dd MMM'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="mb-0">{{reserva.pasajero}}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              {{reserva.adultos}}&nbsp;adultos&nbsp;{{reserva.ninos}}&nbsp;niños &nbsp;-&nbsp;{{nightDiff(reserva)}}&nbsp;noches
+              <span *ngIf="reserva.estado" [ngClass]="getEstadoStyle(reserva)" class="badge badge-pill">{{getEstado(reserva)}}</span>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <label [for]="'correo' + i" class="mb-0">
+                <small class="form-text text-muted">
+                  Correo
+                </small>
+              </label>
+              <p [id]="'correo' + i" class="mb-0">
+                <a [href]="'mailto:' + reserva.correo + '?Subject=Reserva%20' + reserva.idReserva" target="_top">{{reserva.correo}}</a>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label [for]="'contacto' + i" class="mb-0">
+                <small class="form-text text-muted">
+                  Contacto
+                </small>
+              </label>
+              <p [id]="'contacto' + i" class="mb-0">{{reserva.noContacto}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label [for]="'habitacion' + i" class="mb-0">
+                <small class="form-text text-muted">
+                  Habitaciones
+                </small>
+              </label>
+              <p [id]="'habitacion' + i" class="mb-0">{{reserva.habitaciones}}</p>
+            </div>
+          </div>
+          <div class="row" *ngIf="reserva.adicionales!=''">
+            <div class="col-md-12">
+              <label [for]="'adicionales' + i" class="mb-0">
+                <small class="form-text text-muted">
+                  Adicionales
+                </small>
+              </label>
+              <p [id]="'adicionales' + i" class="mb-0">{{reserva.adicionales}}</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4 pl-2 mt-auto mb-auto">
-        <div class="row">
-          <div class="col-md-12">
-            <h3 class="mb-0">{{reserva.pasajero}}</h3>
-          </div>
+    </div>
+    <div class="card-footer p-1">
+      <div class="btn-toolbar float-right" role="toolbar" aria-label="botonera">
+        <div *ngIf="ocultaBtnModi('Ci', reserva)" class="btn-group mr-1" role="group" aria-label="Check-in">
+          <button type="button" class="btn btn-outline-danger" (click)="_cambiarEstado('Ci', reserva)" title="Check-in">
+            <i class="fa fa-bed" aria-hidden="true"></i>
+          </button>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            {{reserva.noPersonas}}&nbsp;personas
-            &nbsp;-&nbsp;{{nightDiff(reserva)}}&nbsp;noches
-            <span *ngIf="reserva.estado" [ngClass]="getEstadoStyle(reserva)" class="badge badge-pill">{{getEstado(reserva)}}</span>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-12">
-            <label [for]="'correo' + i" class="mb-0">
-              <small class="form-text text-muted">
-                Correo
-              </small>
-            </label>
-            <p [id]="'correo' + i" class="mb-0">
-              <a [href]="'mailto:' + reserva.correo + '?Subject=Reserva%20' + reserva.idReserva" target="_top">{{reserva.correo}}</a>
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <label [for]="'contacto' + i" class="mb-0">
-              <small class="form-text text-muted">
-                Contacto
-              </small>
-            </label>
-            <p [id]="'contacto' + i" class="mb-0">{{reserva.nocontacto}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-5 mt-auto mb-auto">
-        <div class="row">
-          <div class="col-md-12">
-            <label [for]="'habitacion' + i" class="mb-0">
-              <small class="form-text text-muted">
-                Habitaciones
-              </small>
-            </label>
-            <p [id]="'habitacion' + i" class="mb-0">{{reserva.habitaciones}}</p>
-          </div>
-        </div>
-        <div class="row" *ngIf="reserva.adicionales!=''">
-          <div class="col-md-12">
-            <label [for]="'adicionales' + i" class="mb-0">
-              <small class="form-text text-muted">
-                Adicionales
-              </small>
-            </label>
-            <p [id]="'adicionales' + i" class="mb-0">{{reserva.adicionales}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-auto mt-1">
-        <div class="row">
-          <div class="col-md-12">
-            <a *ngIf="ocultaBtnModi('Ci', reserva)" href="javascript:;" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title="Check-in" (click)="go('Ci', reserva)" data-toggle="modal" data-target="#detalleEstadosModal">
-              <i class="fa fa-bed" aria-hidden="true"></i>
-            </a>
-            <a *ngIf="ocultaBtnModi('Co', reserva)" href="javascript:;" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Check-out" (click)="go('Co', reserva)" data-toggle="modal" data-target="#detalleEstadosModal">
+        <div *ngIf="ocultaBtnModi('Co', reserva)" class="btn-group mr-1" role="group" aria-label="Check-out">
+          <div class="btn-group mr-1" role="group" aria-label="Editar">
+            <button type="button" class="btn btn-outline-warning" (click)="_cambiarEstado('Co', reserva)" title="Check-out">
               <i class="fa fa-external-link-square" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.femodificacion | date : 'dd/MM/yyyy')">
-              <i class="fa fa-info" aria-hidden="true"></i>
-            </a>
+            </button>
           </div>
         </div>
+        <div class="btn-group mr-1" role="group" aria-label="info">
+          <button type="button" class="btn btn-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.femodificacion | date : 'dd/MM/yyyy')">
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
+      <!-- <a *ngIf="ocultaBtnModi('Ci', reserva)" href="javascript:;" class="badge badge-pill badge-danger" data-toggle="tooltip"
+        data-html="true" title="Check-in" (click)="go('Ci', reserva)" data-toggle="modal" data-target="#estadosModal">
+        <i class="fa fa-bed" aria-hidden="true"></i>
+      </a>
+      <a *ngIf="ocultaBtnModi('Co', reserva)" href="javascript:;" class="badge badge-pill badge-warning" data-toggle="tooltip"
+        data-html="true" title="Check-out" (click)="go('Co', reserva)" data-toggle="modal" data-target="#estadosModal">
+        <i class="fa fa-external-link-square" aria-hidden="true"></i>
+      </a>
+      <a href="javascript:;" class="badge badge-pill badge-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.femodificacion | date : 'dd/MM/yyyy')">
+        <i class="fa fa-info" aria-hidden="true"></i>
+      </a> -->
     </div>
   </div>
 </div>

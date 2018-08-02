@@ -8,8 +8,6 @@ import { HttpModule } from '@angular/http';
 import { GenericoComponent } from './generico/generico.component';
 import { ModalConfirmacionComponent } from './components/modal-confirmacion/modal-confirmacion.component';
 import { ModalMensajeComponent } from './components/modal-mensaje/modal-mensaje.component';
-import { ConfirmacionEventService } from './components/modal-confirmacion/confirmacion-event.service';
-import { ConfirmacionService } from './components/modal-confirmacion/confirmacion.service';
 import { MensajeService } from './components/modal-mensaje/mensaje.service';
 import { MyDatePickerModule } from 'mydatepicker';
 
@@ -39,8 +37,6 @@ import { FiltrarPipe } from './pipes/filtrar.pipe';
     FiltrarPipe
   ],
   providers: [
-    ConfirmacionEventService,
-    ConfirmacionService,
     MensajeService,
     ToastService
   ],

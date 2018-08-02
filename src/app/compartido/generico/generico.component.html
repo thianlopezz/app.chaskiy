@@ -103,7 +103,7 @@
   <div *ngIf="showReserve" class="row">
     <div class="col-lg-3 col-md-2 col-sm-12">
       <div class="card" ><!-- style="width: 20rem;" -->
-        <img class="card-img-top" [src]="'https://correo-generico.herokuapp.com/logo_hospedaje'+ model.hospedaje.idhospedaje +'.png'" alt="Logo">
+        <img class="card-img-top" [src]="'https://correo-generico.herokuapp.com/logo_hospedaje'+ model.hospedaje.idHospedaje +'.png'" alt="Logo">
         <div class="card-body">
           <h4 class="card-title">{{model.hospedaje.hospedaje}}</h4>
           <div class="row">
@@ -139,32 +139,32 @@
                   <strong>Correo electrónico</strong>
                 </label>
                 <p name="correo" class="text-muted">
-                  {{model.pass.correo}}
+                  {{model.pasajero.correo}}
                 </p>
               </div>
               <div class="form-group">
                 <label for="pasajero">
                   <strong>Nombre</strong>
                 </label>
-                <p name="pasajero" class="text-muted">{{model.pass.pasajero}}</p>
+                <p name="pasajero" class="text-muted">{{model.pasajero.pasajero}}</p>
               </div>
               <div class="form-group">
                 <label for="pais">
                   <strong>Pais</strong>
                 </label>
-                <p name="pais" class="text-muted">{{model.pass.pais}}</p>
+                <p name="pais" class="text-muted">{{model.pasajero.pais}}</p>
               </div>
               <div class="form-group">
                 <label for="noContacto">
                   <strong>Número de contacto</strong>
                 </label>
-                <p name="noContacto" class="text-muted">{{model.pass.nocontacto}}</p>
+                <p name="noContacto" class="text-muted">{{model.pasajero.noContacto}}</p>
               </div>
               <div class="form-group">
                 <label for="noPersonas">
                   <strong>Número de personas</strong>
                 </label>
-                <p name="noPersonas" class="text-muted">{{model.nopersonas}}</p>
+                <p name="noPersonas" class="text-muted">{{model.adultos}}&nbsp;adultos&nbsp;{{model.ninos}}&nbsp;niños</p>
               </div>
             </div>
             <div class="col-md-6">
@@ -178,7 +178,7 @@
                 <label for="adicional">
                   <strong>Adicionales</strong>
                 </label>
-                <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.valueAd">
+                <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let adi of model.adicionales">
                   <h6 class="alert-heading">{{' ' + adi.adicional}}
                   </h6>
                 </div>
@@ -190,16 +190,16 @@
                 <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let room of model.habitaciones">
                   <h6 class="alert-heading">{{' ' + room.habitacion}}
                     <small>
-                       {{nightDiff(room.fedesde, room.fehasta)}} noche(s)
+                       {{nightDiff(room.feDesde, room.feHasta)}} noche(s)
                     </small>
                   </h6>
-                  <strong>{{room.fedesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.fehasta | date : 'dd/MMM/yyyy'}}</strong>
+                  <strong>{{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}</strong>
                 </div>
               </div>
               <hr class="my-4">
               <div class="d-flex flex-row-reverse">
                 <div class="p-2">
-                  <h4>{{getTotal() | currency:'USD':true}}</h4>
+                  <h4>{{getTotal() | currency:'USD'}}</h4>
                 </div>
                 <div class="p-2">
                   <h4>Total</h4>
@@ -207,7 +207,7 @@
               </div>
               <div *ngIf="model.estado!='Pr'" class="d-flex flex-row-reverse">
                 <div class="p-2">
-                  <h5>{{model.totalpagado | currency:'USD':true}}</h5>
+                  <h5>{{model.totalPagado | currency:'USD'}}</h5>
                 </div>
                 <div class="p-2">
                   <h5>Pagado</h5>
@@ -215,7 +215,7 @@
               </div>
               <div *ngIf="model.estado!='Pr'" class="d-flex flex-row-reverse">
                 <div class="p-2">
-                  <h5>{{getTotal() - model.totalpagado | currency:'USD':true}}</h5>
+                  <h5>{{getTotal() - model.totalPagado | currency:'USD'}}</h5>
                 </div>
                 <div class="p-2">
                   <h5>Saldo</h5>

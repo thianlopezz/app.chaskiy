@@ -1,0 +1,133 @@
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="pagosModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title">Pagos
+        </h5>
+        <button type="button" class="close" (click)="cerrarModalPagos()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="col-md-12">
+          <div class="row mt-1">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-primary add pull-right" (click)="setNuevo()">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Registrar
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="card-deck mt-2">
+              <div class="card text-center">
+                <div class="card-header text-info">
+                  <h3>Total</h3>
+                </div>
+                <div class="card-block">
+                  <h1 class="card-title">{{total | currency:'USD'}}</h1>
+                </div>
+              </div>
+              <div class="card text-center">
+                <div class="card-header text-success">
+                  <h3>Pagado</h3>
+                </div>
+                <div class="card-block">
+                  <h1 class="card-title">{{totalPagado | currency:'USD'}}</h1>
+                </div>
+              </div>
+              <div class="card text-center">
+                <div class="card-header text-warning">
+                  <h3>Saldo</h3>
+                </div>
+                <div class="card-block">
+                  <h1 class="card-title">{{total - totalPagado | currency:'USD'}}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="20%">Forma de Pago</th>
+                  <th width="40%">Generado por</th>
+                  <th width="15%">Fecha</th>
+                  <th width="15%">Monto</th>
+                  <th width="10%">Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="!loading && pagos.length==0">
+                  <td colspan="5" align="center">No se han efectuado pagos</td>
+                </tr>
+                <tr *ngIf="loading">
+                  <td colspan="5" align="center">
+                    <app-spinner></app-spinner>
+                  </td>
+                </tr>
+                <tr *ngFor="let pago of pagos">
+                  <td width="20%">{{pago.formaPago}}</td>
+                  <td width="40%">{{pago.usuario}}</td>
+                  <td width="15%">{{pago.fecha}}</td>
+                  <td width="15%">{{pago.monto | currency:'USD'}}</td>
+                  <td width="10%" class="text-center">
+                    <div class="btn-group grid-btn" role="group">
+                      <button type="button" (click)="_cancelarPago(pago)" class="btn btn-link text-danger" data-toggle="modal" data-target="#confirmModal">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="cerrarModalPagos()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="model" class="modal fade" data-backdrop="static" data-keyboard="false" id="pagoModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title">Registro de pago
+        </h5>
+        <button type="button" class="close" (click)="cerrarModalPago()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="pagoForm" name="form" class="col-md-12" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }"
+          novalidate>
+          <div class="form-group">
+            <label for="formaPago">Forma de pago</label>
+            <select class="form-control col-md-5" name="formaPago" [(ngModel)]="model.idForma" #formaPago="ngModel" required>
+              <option *ngFor="let op of formaPagos" [value]="op.idForma">{{op.forma}}</option>
+            </select>
+            <div *ngIf="f.submitted && !formaPago.valid" class="invalid-feedback">La forma de pago es requerida</div>
+          </div>
+          <div class="form-group">
+            <label for="monto">Monto</label>
+            <input type="text" class="form-control  col-md-5" name="monto" [(ngModel)]="model.monto" #monto="ngModel" appMoneda="true"
+              required />
+            <div *ngIf="f.submitted && !monto.valid" class="invalid-feedback">El monto es requerido</div>
+          </div>
+          <div class="form-group">
+            <label for="notasp">Notas</label>
+            <textarea class="form-control" id="notasp" name="notasp" rows="2" [(ngModel)]="model.notas" #notasp="ngModel">{{model.notas}}</textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <img *ngIf="loading" src="/assets/images/loading.svg" />
+        <button *ngIf="!loading" type="submit" class="btn btn-primary" form="pagoForm">Guardar</button>
+        <button *ngIf="!loading" type="button" class="btn btn-light" (click)="cerrarModalPago()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
