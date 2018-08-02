@@ -550,7 +550,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     return habitaciones;
   }
 
-  private getReservasByDate(current?: CurrentMonth) {
+  getReservasByDate(current?: CurrentMonth) {
 
     if (!current) {
       this.current = new CurrentMonth();

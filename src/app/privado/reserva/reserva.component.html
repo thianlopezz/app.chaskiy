@@ -6,13 +6,13 @@
     (cancelar)="onCerrar()" (modificar)="onModiReserva($event)" (cancelarModificacion)="onCancelarModi()" (detalle)="onDetalle($event)"
     (siguiente)="getReservasByDate($event)" (anterior)="getReservasByDate($event)"></app-calendario>
   <!-- MODAL RESERVA -->
-  <app-modal-reserva [model]="model" [accion]="accion" [loadingDetalle]="loadingDetalle" [tarifas]="tarifas" [tarifasFormat]="tarifasFormat" [adicionales]="adicionales" [paises]="paises" [aerolineas]="aerolineas" [fuentes]="fuentes" (guardarSuccess)="onGuardarSuccess($event)"
-    (modificar)="onSetModiReserva($event)" (pagos)="onPagos($event)" (cancelarReserva)="onSetCancelarReserva()" (cerrar)="onCerrar($event)" (cambiarEstado)="onCambiarEstado($event)"></app-modal-reserva>  
+  <app-modal-reserva [model]="model" [accion]="accion" [loadingDetalle]="loadingDetalle" [tarifas]="tarifas" [tarifasFormat]="tarifasFormat" [adicionales]="adicionales" [paises]="paises" [aerolineas]="aerolineas" [fuentes]="fuentes" (guardarSuccess)="onGuardarSuccess()"
+    (modificar)="onSetModiReserva($event)" (pagos)="onPagos()" (cancelarReserva)="onSetCancelarReserva()" (cerrar)="onCerrar()" (cambiarEstado)="onCambiarEstado($event)"></app-modal-reserva>  
   <!-- MODAL PAGO -->
   <app-modal-pago [idReserva]="idReserva" [total]="model.total || 0" [formaPagos]="formaPagos" (success)="onSucessPago($event)" (cancelarPago)="onSetCancelarPago($event)"></app-modal-pago>
   <!-- CONFIRMACION -->
   <app-modal-confirmacion [mensaje]="mensajeConfirmacion" (confirmar)="onConfirma()" (cancelar)="onCancelaConfirma()"></app-modal-confirmacion>
   <!-- ESTADOS -->
-  <app-modal-estados [model]="model" (success)="onSuccessEstados($event)" (cancelaEstados)="onCancelaEstados()"></app-modal-estados>
+  <app-modal-estados [model]="model" (success)="onSuccessEstados()" (cancelaEstados)="onCancelaEstados()"></app-modal-estados>
 </div>
 <!-- FIN CONTAINER -->

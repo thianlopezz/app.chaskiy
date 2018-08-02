@@ -285,7 +285,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onSuccessEstados() {
+  onSuccessEstados(event) {
     this.refresca();
   }
 
