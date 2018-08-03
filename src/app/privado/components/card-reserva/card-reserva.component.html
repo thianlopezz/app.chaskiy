@@ -18,12 +18,12 @@
               <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
             </div>
             <div class="dashboard-departure-date">
-              <p class="stacked-dates-day">{{addDay(reserva.feHasta) | date : 'dd'}}</p>
-              <p class="stacked-dates-month">{{addDay(reserva.feHasta) | date : 'MMM'}}</p>
+              <p class="stacked-dates-day">{{reserva.feHasta | date : 'dd'}}</p>
+              <p class="stacked-dates-month">{{reserva.feHasta | date : 'MMM'}}</p>
             </div>
           </div>
           <div class="medium mb-1">
-            <p>{{reserva.feDesde | date : 'dd MMM'}} | {{addDay(reserva.feHasta) | date : 'dd MMM'}}</p>
+            <p>{{reserva.feDesde | date : 'dd MMM'}} | {{reserva.feHasta | date : 'dd MMM'}}</p>
           </div>
         </div>
         <div class="col-md-6 col-sm-12">

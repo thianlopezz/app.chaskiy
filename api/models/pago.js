@@ -29,18 +29,11 @@ function Pago() {
           // ENVIO DE RECEPCION DE PAGO
           if (pago.accion === 'I') {
 
-            const datos = result[0][0];
-            let claves = '';
+            const claves = result[0][0];
             const plantilla = './plantillas/Chaskiy/recepcion_pago';
             const asunto = 'Recepción de pago';
             const destinatario = datos.correo;
             const idHospedaje = datos.idHospedaje;
-
-            for (var name in datos) {
-
-              var value = datos[name];
-              claves = claves + ';' + name + ':' + value;
-            }
 
             CorreoGenerico.enviar(asunto, destinatario, claves, plantilla, idHospedaje);
           }

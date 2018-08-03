@@ -112,30 +112,6 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     this.cdRef.detectChanges();
   }
 
-  // selectedVal(resp) {
-
-  //   if (resp === 'aceptar') {
-
-  //     if (this.accion === 'D') {
-  //       jQuery('#estadosModal').modal('show');
-  //     } else
-  //       if (this.accion === 'DP') {
-  //         this.deletePago();
-  //       }
-  //   } else {
-
-  //     if (resp.modo === 'Ci' || resp.modo === 'Co') {
-
-  //       this.model.detalleEstado = resp.model.observacion;
-  //       this.check(resp.modo);
-  //     } else if (resp.modo === 'Ca') {
-
-  //       this.model.detalleEstado = resp.model.observacion;
-  //       this.delete();
-  //     }
-  //   }
-  // }
-
   onGuardarSuccess() {
 
     this.onCerrar();
@@ -171,41 +147,6 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
           console.log(error);
         });
   }
-
-  // deletePago() {
-
-  //   this.loading = true;
-
-  //   this.model.pago.accion = 'D';
-  //   this.model.pago.idReserva = this.model.idReserva;
-
-  //   const mensaje = 'Pago eliminado con éxito';
-  //   const mensaje_err = 'Ocurrió un error al eliminar el pago';
-
-  //   this.pagoService.mantenimiento(this.model.pago)
-  //     .subscribe(
-  //       data => {
-
-  //         if (data.success) {
-
-  //           this.loading = false;
-  //           this.getPagos();
-  //           jQuery('#pagoModal').modal('hide');
-  //           this.toastService.showSuccess(mensaje);
-  //         } else {
-
-  //           this.loading = false;
-  //           this.toastService.showError(data.mensaje);
-  //         }
-  //       },
-  //       error => {
-
-  //         console.log(error);
-  //         this.loading = false;
-  //         this.toastService.showError(mensaje_err);
-  //       });
-  // }
-
 
   cambiaEstado() {
 
@@ -266,7 +207,16 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
           if (response.success) {
             this.toastService.showSuccess(response.mensaje);
-            this.idReserva = '' + this.idReserva;
+
+            // DE ALGUNA MENERA DEBO CAMBIAR idReserva
+            // PARA QUE DETECTE Y VAYA A NGONCHANGE DEL MODAL PAGOS
+            // Y QUE CARGUE LOS REGISTROS DESDE LA BD
+            if (Number.isInteger(this.idReserva)) {
+              this.idReserva = '' + this.idReserva;
+            } else {
+              this.idReserva = Number(this.idReserva);
+            }
+
             jQuery('#confirmaModal').modal('hide');
             jQuery('#pagosModal').modal('show');
           } else {
@@ -280,38 +230,6 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  // findById(arreglo: any[], id: number) {
-  //   for (let i = 0; i < arreglo.length; i++) {
-  //     if (arreglo[i].idHabitacion === id) {
-  //       return i;
-  //     }
-  //   }
-
-  //   return -1;
-  // }
-
-  // findById0(arreglo: any[], id: number) {
-  //   for (let i = 0; i < arreglo.length; i++) {
-  //     if (arreglo[i].idAdicional === id) {
-  //       return i;
-  //     }
-  //   }
-
-  //   return -1;
-  // }
-
-  // findByIdDb(arreglo: any[], id: number, feIn: Date) {
-  //   for (let i = 0; i < arreglo.length; i++) {
-  //     if (arreglo[i].idHabitacion === id &&
-  //       (feIn >= this.getDateString('/', arreglo[i].feDesde)
-  //         && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
-  //       return i;
-  //     }
-  //   }
-
-  //   return -1;
-  // }
-
   onReservar(reservados) {
 
     this.accion = 'I';
@@ -324,17 +242,6 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     this.model = Object.assign({ habitaciones: this.reservasCliente }, this.model);
     jQuery('#reservaModal').modal('show');
   }
-
-  // setDay2() {
-
-  //   for (let i = 0; i < this.reservadosCliente.length; i++) {
-
-  //     if (this.reservadosCliente[i].feDesde === this.reservadosCliente[i].feHasta) {
-
-  //       this.reservadosCliente[i].fedasta = new Date(this.reservadosCliente[i].feHasta.getTime() + (1000 * 60 * 60 * 24));
-  //     }
-  //   }
-  // }
 
   onSetModiReserva(model) {
 

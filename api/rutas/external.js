@@ -16,6 +16,7 @@ router.post('/habitacion/disponible/:idHospedaje', (req, res) => {
 
 router.post('/reservar', (req, res) => {
 
+    req.body.desdePagina = true;
     Reserva.mantenimiento(req.body, res);
 });
 

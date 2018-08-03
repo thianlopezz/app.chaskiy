@@ -10,7 +10,7 @@
           <div class="dropdown">
             <button class="btn btn-link text-secondary dropdown-toggle" type="button" id="ddTipo" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              {{!model.estado || model.estado !== 'Pr' ? 'Reserva' : 'Proforma'}}
+               {{!model.estado || model.estado !== 'Pr' ? 'Reserva | ' + (model.idReserva || '') : 'Proforma'}}
             </button>
             <div class="dropdown-menu" aria-labelledby="ddTipo">
               <a class="dropdown-item" href="javascript:;" (click)="handleChangeReservaProforma('Re')">Reserva</a>
@@ -126,7 +126,7 @@
                       <div class="col-5">
                         <h4>Total</h4>
                       </div>
-                      <div *ngIf="!modificarTotal" class="col-7">
+                      <div *ngIf="!modificarTotal" class="col-7 p-0">
                         <a *ngIf="!esTotal" class="pull-right" href="javascript:;" (click)="modiTotal('!total')">
                           <h4 *ngIf="!modificarTotal">{{getTotal() | currency:'USD'}}
                             <small>

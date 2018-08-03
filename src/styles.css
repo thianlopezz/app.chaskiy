@@ -31,24 +31,6 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 2rem;
 }
 
-.modal-open .modal {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-/* .modal-header {
-  background: rgba(0, 34, 51, 0.88);
-  color: white;
-} */
-
-.btn-icon {
-  font-size: 1.4rem;
-}
-
-.bg-primary {
-  background-color: #1f3d4c !important;
-}
-
 .bg-circle {
   display: inline-block;
   width: 60px;
@@ -100,4 +82,12 @@ button.close {
 
 .tach {
     text-decoration: line-through;
+}
+
+/* PARA QUE EL MODAL DE RESERVA NO SE AGRANDE MUCHO
+CUANDO SE TIENE MUCHAS HABITACIONES */
+.scroll-15{
+	max-height: 15rem;
+	overflow-y: auto;
+	overflow-x: hidden;
 }

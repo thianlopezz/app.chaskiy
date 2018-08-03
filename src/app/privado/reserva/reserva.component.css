@@ -21,9 +21,3 @@
 
     font-size: .9rem;
 }
-
-.scroll-15{
-	max-height: 15rem;
-	overflow-y: auto;
-	overflow-x: hidden;
-}

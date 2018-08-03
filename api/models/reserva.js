@@ -38,8 +38,6 @@ function Reserva() {
 
   this.mantenimiento = function (reserva, res) {
 
-    console.log(reserva);
-
     let params = setXml(reserva);
 
     DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
@@ -49,7 +47,7 @@ function Reserva() {
         res.send({ success: false, mensaje: '' + error });
       } else if (result[0][0].err == undefined) {
 
-        enviaCorreo(result[0][0], reserva.accion, reserva.estado)
+        enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
           .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
           .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
 
@@ -147,20 +145,14 @@ function Reserva() {
     return retorno;
   }
 
-  function enviaCorreo(datos, accion, estado) {
+  function enviaCorreo(datos, accion, estado, desdePagina) {
 
     return new Promise((resolve, reject) => {
 
-      let claves = '';
+      let claves = datos;
       let plantilla = '';
       let asunto = '';
       let destinatario = datos.destinatario;
-
-      for (let name in datos) {
-
-        let value = datos[name];
-        claves = claves + ';' + name + ':' + value;
-      }
 
       // SI ES UNA CREACION DE RESERVA O UNA MODIFICACION
       if (accion === 'I' || accion === 'U') {
@@ -171,8 +163,15 @@ function Reserva() {
         // SI ES UNA CREACION Y PROFORMA
         if (estado == 'Pr') {
 
-          asunto = 'Proforma de reserva ' + datos.idReserva;
-          plantilla = './plantillas/Reservas/proforma_reserva';
+          if(desdePagina){
+
+            asunto = 'Reserva';
+            plantilla = './plantillas/Reservas/reserva_desde_pagina';
+          } else {
+
+            asunto = 'Proforma de reserva ' + datos.idReserva;
+            plantilla = './plantillas/Reservas/proforma_reserva';
+          }
         }
         // SI ES UNA CANCELACION DE RESERVA
       } else if (accion == 'D') {

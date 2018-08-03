@@ -20,7 +20,7 @@ function CorreoGenerico() {
         };
 
         return new Promise(function(resolve, reject){
-            axios.post(`${API}/api/send`, correo)
+            axios.post(`${API}/api/send/v2`, correo)
                 .then(() => {
                     resolve(correo);
                 })
