@@ -3,7 +3,9 @@ var moment = require('moment');
 var md5 = require('md5');
 const axios = require('axios');
 
-const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+// const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+const API = process.env.CORREO_GENERICO || 'https://correo-generico.herokuapp.com';
+
 const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 
 function Registro() {

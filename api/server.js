@@ -4,8 +4,8 @@ const http = require('http');
 const process = require('process');
 const bodyParser = require('body-parser');
 
-const api = require('./api/rutas/api');
-const external = require('./api/rutas/external');
+const api = require('./rutas/api');
+const external = require('./rutas/external');
 
 const forceSSL = function () {
   return function (req, res, next) {
@@ -20,18 +20,18 @@ const forceSSL = function () {
 
 const app = express();
 app.enable('trust proxy');
-var connection = require('./api/connection');
+var connection = require('./connection');
 if (process.env.SQL_USER) { app.use(forceSSL()); } 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.use('/api', api);
 app.use('/chaskiy/api', external);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 const port = process.env.PORT || '5000';
