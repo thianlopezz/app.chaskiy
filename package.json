@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "node index.js",
+    "start": "pm2 start index.js",
     "start:dev": "npm-run-all --parallel test:watch open:srv",
     "open:srv": "nodemon index.js",
     "test:watch": "ng build --output-path dist --watch",
@@ -12,8 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod",
-    "start-proxy": "! pgrep cloud_sql_proxy > /dev/null && cloud_sql_proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:$SQL_PORT &"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
