@@ -21,7 +21,8 @@ const forceSSL = function () {
 const app = express();
 app.enable('trust proxy');
 var connection = require('./connection');
-if (process.env.SQL_USER) { app.use(forceSSL()); } 
+// if (process.env.SQL_USER) { app.use(forceSSL()); } 
+app.use(forceSSL());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

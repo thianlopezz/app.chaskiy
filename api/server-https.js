@@ -23,14 +23,13 @@ const app = express();
 // app.enable('trust proxy');
 var connection = require('./connection');
 
-var key = fs.readFileSync(path.join(__dirname, './certs/private.key'));
-var cert = fs.readFileSync(path.join(__dirname, './certs/primary.cer'));
-var ca = fs.readFileSync(path.join(__dirname, './certs/intermediate.cer'));
+var key = fs.readFileSync(path.join(__dirname, './certs/www.chaskiy.com.key'));
+var cert = fs.readFileSync(path.join(__dirname, './certs/www.chaskiy.com.crt'));
+// var ca = fs.readFileSync(path.join(__dirname, './certs/intermediate.cer'));
 
 var options = {
   key: key,
-  cert: cert,
-  ca: ca
+  cert: cert
 };
 
 app.use(forceSSL());
@@ -47,7 +46,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-const port = process.env.PORT || '80';
+const port = process.env.PORT || '443';
 app.set('port', port);
 
 connection.init();
