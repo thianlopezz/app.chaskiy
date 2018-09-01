@@ -5,6 +5,7 @@ import { MensajeService } from '../components/modal-mensaje/mensaje.service';
 import { RegistroService } from '../../publico/registro/registro.service';
 import { ReservaService } from '../../privado/reserva/reserva.service';
 import { SocialService } from '../../privado/services/social.service';
+import * as moment from 'moment';
 
 declare var jQuery: any;
 
@@ -316,7 +317,9 @@ export class GenericoComponent implements OnInit {
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
 
-      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
+      // SE RESTA PARA QUE CUENTE BIEN LAS NOCHES
+      const feHasta = moment(habitaciones[i].feHasta).subtract('days', 1);
+      sum = sum + (this.nightDiff(habitaciones[i].feDesde, feHasta.toDate()) * habitaciones[i].tarifa);
     }
 
     for (let i = 0; i < adicionales.length; i++) {

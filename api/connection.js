@@ -12,7 +12,7 @@ function Connection() {
         host: 'localhost',
         user: 'root',
         password: 'password',
-        database: 'chaskiy'
+        database: 'chaskiy-db'
       };
 
     console.log('Conne>> params>>');

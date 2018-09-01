@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "pm2 start api/server.js",
-    "start:prod": "pm2 start api/server-https.js",
+    "start": "ng build && node api/server.js",
+    "start:prod": "pm2 start api/server.js --name chaskiy",
     "start:dev": "npm-run-all --parallel test:watch open:srv",
     "open:srv": "nodemon api/server.js",
     "test:watch": "ng build --output-path dist --watch",
