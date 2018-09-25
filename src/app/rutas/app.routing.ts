@@ -17,25 +17,33 @@ import { TarifaComponent } from '../privado/tarifa/tarifa.component';
 import { Err404Component } from '../compartido/err404/err404.component';
 import { RouteActivatorService } from '../privado/services/route-activator.service';
 import { PasajeroComponent } from '../privado/pasajero/pasajero.component';
+import { TerminosComponent } from '../publico/terminos/terminos.component';
+import { PrivacidadComponent } from '../publico/privacidad/privacidad.component';
+import { ConfiguracionComponent } from '../privado/configuracion/configuracion.component';
 
 const appRoutes: Routes = [
     { path: '', component: IndexComponent },
     { path: 'index', component: IndexComponent },
     { path: 'registro', component: RegistroComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'terminos', component: TerminosComponent },
+    { path: 'privacidad', component: PrivacidadComponent },
 
     { path: 'generico', component: GenericoComponent },
     { path: '404', component: Err404Component },
 
-    { path: 'home', component: HomeComponent, canActivate: [RouteActivatorService] },
+    { path: 'dashboard', component: HomeComponent, canActivate: [RouteActivatorService] },
     { path: 'reservas', component: ReservaComponent, canActivate: [RouteActivatorService] },
-    { path: 'pasajero', component: PasajeroComponent, canActivate: [RouteActivatorService] },
-    { path: 'habitacion', component: HabitacionComponent, canActivate: [RouteActivatorService] },
-    { path: 'adicional', component: AdicionalComponent, canActivate: [RouteActivatorService] },
-    { path: 'contrasena', component: ContrasenaComponent, canActivate: [RouteActivatorService] },
     { path: 'pagos', component: PagosComponent, canActivate: [RouteActivatorService] },
+    { path: 'habitaciones', component: HabitacionComponent, canActivate: [RouteActivatorService] },
+    { path: 'pasajeros', component: PasajeroComponent, canActivate: [RouteActivatorService] },
     { path: 'hospedaje', component: HospedajeComponent, canActivate: [RouteActivatorService] },
-    { path: 'tarifa', component: TarifaComponent, canActivate: [RouteActivatorService] },
+    { path: 'configuracion', component: ConfiguracionComponent, canActivate: [RouteActivatorService] },
+
+    { path: 'contrasena', component: ContrasenaComponent, canActivate: [RouteActivatorService] },
+
+    { path: 'adicionales', component: AdicionalComponent, canActivate: [RouteActivatorService] },
+    { path: 'tarifas', component: TarifaComponent, canActivate: [RouteActivatorService] },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

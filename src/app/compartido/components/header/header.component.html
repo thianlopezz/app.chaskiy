@@ -1,21 +1,69 @@
 <nav class="navbar navbar-expand-md bg-light">
-  <a class="navbar-brand" href="#">Expand at md</a>
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent"
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img src="/assets/images/brand.svg" width="60" alt="">
+    Chaskiy
+  </a>
+  <button class="navbar-toggler collapsed " type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-  <div class="navbar-collapse collapse" id="navContent">
+  <!-- NO SESSION -->
+  <div *ngIf="!chasker" class="navbar-collapse collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Inicio</a>
+        <a class="nav-link" [routerLink]="['/']">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Solicita una prueba</a>
+        <a class="nav-link" [routerLink]="['/prueba']">Solicita una prueba</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-md-0">
-      <a class="btn btn-outline-primary" href="#">Iniciar sesión</a>
+      <a class="btn btn-outline-primary" [routerLink]="['/login']">Iniciar sesión</a>
+    </form>
+  </div>
+  <!-- SESSION -->
+  <div *ngIf="chasker" class="navbar-collapse collapse" id="navContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/reservas']">Reservas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/pagos']">Pagos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/habitaciones']">Habitaciones</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/pasajeros']">Pasajeros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/hospedaje']">Hospedaje</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/configuracion']">Configuración</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-md-0">
+      <div class="dropdown">
+        <a class="dropdown-toggle" [routerLink]="" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{chasker.nombre}}
+        </a>      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" [routerLink]="['/contrasena']">
+            Cambiar contraseña
+            <i class="fa fa-key" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="" (click)="logOut()">
+            Cerrar sesión
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
     </form>
   </div>
 </nav>
