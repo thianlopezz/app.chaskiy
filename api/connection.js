@@ -28,11 +28,11 @@ function Connection() {
       //   database: 'chaskiy-db'
       // };
       config = {
-        connectionLimit: 10,
-        host: 'localhost',
+        connectionLimit: 15,
+        host: '192.168.99.100',
         user: 'root',
         password: 'password',
-        database: 'chaskiy-db'
+        database: 'chaskiy'
       };
     }
 

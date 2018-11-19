@@ -54,7 +54,7 @@
                           <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length>0" class="help-block form-control-feedback">Seleccione al menos una habitación</div>
                         </div>
                         <div class="col-sm-12 col-md-4">
-                          <label for="'tarifa-' + room.idHabitacion" [ngClass]="{'tach': esTotal}">Tarifa</label>
+                          <label for="'tarifa-' + room.idHabitacion" [ngClass]="{'tach': esSubTotal}">Tarifa</label>
                           <select class="form-control tarifa" [id]="'tarifa-' + room.idHabitacion" [name]="'tarifa-' + room.idHabitacion" style="width: 100%">
                             <optgroup *ngFor="let tipo of tarifasFormat" [label]="tipo.tipoTarifa">
                               <option *ngFor="let tarifa of tipo.tarifas" [value]="tarifa.idTarifa">{{tarifa.tarifa}}</option>
@@ -62,11 +62,11 @@
                           </select>
                         </div>
                         <div class="col-sm-12 col-md-3 my-auto mt-sm-2">
-                          <p *ngIf="!esTotal">
+                          <p *ngIf="!esSubTotal">
                             {{room.tarifa | currency:'USD'}} x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
                             <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD'}}</strong>
                           </p>
-                          <p *ngIf="esTotal">
+                          <p *ngIf="esSubTotal">
                             {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
                           </p>
                         </div>
@@ -102,7 +102,7 @@
                             </div>
                             <div *ngIf="auxAdicional.idAdicional != adi.idAdicional">
                               <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
-                                <small *ngIf="!esTotal">
+                                <small *ngIf="!esSubTotal">
                                   Tarifa
                                   <a href="javascript:;" (click)="modiTarifaAdicional(adi)" style="cursor:pointer">
                                     &nbsp;{{adi.tarifa | currency:'USD'}} x&nbsp;{{adi.cantidad}}&nbsp;
@@ -118,39 +118,58 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-8"></div>
-                  <div class="col-md-4">
-                    <hr class="my-1">
+                <hr class="my-1">
+                <div class="row text-right">
+                  <!-- SUBTOTAL -->
+                  <div class="col-md-5">
                     <div class="row">
                       <div class="col-5">
-                        <h4>Total</h4>
+                        <h4>Subtotal</h4>
                       </div>
-                      <div *ngIf="!modificarTotal" class="col-7 p-0">
-                        <a *ngIf="!esTotal" class="pull-right" href="javascript:;" (click)="modiTotal('!total')">
-                          <h4 *ngIf="!modificarTotal">{{getTotal() | currency:'USD'}}
+                      <div *ngIf="!modificarSubTotal" class="col-7 p-0">
+                        <a *ngIf="!esSubTotal" class="pull-right" href="javascript:;" (click)="modiSubTotal('!total')">
+                          <h4 *ngIf="!modificarSubTotal">
+                            <small>
+                              {{subTotal | currency:'USD'}}
+                              <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </small>
+                          </h4>
+                        </a>
+                        <a *ngIf="esSubTotal" class="pull-right" href="javascript:;" (click)="modiSubTotal()">
+                          <h4 *ngIf="!modificarSubTotal">{{subTotal | currency:'USD'}}
                             <small>
                               <i class="fa fa-caret-down" aria-hidden="true"></i>
                             </small>
                           </h4>
                         </a>
-                        <a *ngIf="esTotal" class="pull-right" href="javascript:;" (click)="modiTotal()">
-                          <h4 *ngIf="!modificarTotal">{{total | currency:'USD'}}
-                            <small>
-                              <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </small>
-                          </h4>
-                        </a>
                       </div>
-                      <input *ngIf="modificarTotal" type="text" class="form-control col-5" name="vTotal" placeholder="Valor total" [(ngModel)]="total"
-                        appMoneda="true" #vTotal="ngModel" />
-                      <button *ngIf="modificarTotal" type="button" class="btn btn-link text-primary px-0 col-1" (click)="goModiTotal()">
+                      <input *ngIf="modificarSubTotal" type="text" class="form-control col-5" name="vSubTotal" placeholder="Subtotal"
+                        [(ngModel)]="subTotal" appMoneda="true" #vSubTotal="ngModel" />
+                      <button *ngIf="modificarSubTotal" type="button" class="btn btn-link text-primary px-0 col-1" (click)="goModiSubTotal()">
                         <i class="fa fa-check" aria-hidden="true"></i>
                       </button>
-                      <button *ngIf="modificarTotal" type="button" class="btn btn-link text-danger px-0 col-1" (click)="cancelModiTotal(adi)">
+                      <button *ngIf="modificarSubTotal" type="button" class="btn btn-link text-danger px-0 col-1" (click)="cancelModiSubTotal(adi)">
                         <i class="fa fa-times" aria-hidden="true"></i>
                       </button>
                     </div>
+                  </div>                                    
+                  <!-- IVA -->
+                  <div class="col-md-4">
+                    <h4>
+                      <div class="d-inline-flex custom-control custom-checkbox">
+                        <input id="checkIva" type="checkbox" class="custom-control-input" [(ngModel)]="esIva" name ="vEsIva" #vEsIva="ngModel" (change)="getSubTotal()">
+                        <label class="custom-control-label" for="checkIva">IVA</label>
+                      </div>
+                      <small>({{IVA*100}}%)</small>
+                      <small>                        
+                        {{subTotal * IVA | currency:'USD'}}                        
+                      </small>
+                    </h4>
+                  </div>
+                  <div class="col-md-3">
+                    <h4>Total
+                      {{(subTotal * IVA) + +subTotal | currency:'USD'}}
+                    </h4>
                   </div>
                 </div>
               </div>
@@ -254,8 +273,7 @@
                     <hr class="my-1">
                     <div class="d-flex flex-row-reverse">
                       <div class="p-2">
-                        <h4 *ngIf="!esTotal">{{getTotal() | currency:'USD'}}</h4>
-                        <h4 *ngIf="esTotal">{{total | currency:'USD'}}</h4>
+                        <h4>{{(subTotal * IVA) + +subTotal | currency:'USD'}}</h4>
                       </div>
                       <div class="p-2">
                         <h4>Total</h4>
@@ -266,7 +284,7 @@
               </div>
             </form>
           </div>
-          <a class="col-1 px-0 my-auto mr-auto text-center" href="javascript:;" (click)="siguiente()">
+          <a class="col-1 px-0 my-auto mr-auto text-center" [routerLink]="" (click)="siguiente()">
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </a>
         </div>

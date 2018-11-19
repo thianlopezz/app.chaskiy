@@ -6,12 +6,19 @@ import { PasajeroService } from '../../pasajero/pasajero.service';
 
 declare var jQuery: any;
 
+// TODO: href="javascript:;" [routerLink]=""
+// FIXME: nightdiff no desde dom
+
 @Component({
   selector: 'app-modal-reserva',
   templateUrl: './modal-reserva.component.html',
   styleUrls: ['./modal-reserva.component.css']
 })
 export class ModalReservaComponent implements OnInit, OnChanges {
+
+  IVA = 0.12;
+  esIva = false;
+  valorIva;
 
   @Input() model: any = {};
   @Input() accion;
@@ -70,19 +77,19 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   // BANDERA PARA DECIR QUE NO/SI SE CONSIDERARON
   // TARIFAS PARA LA(S) HABITACION(ES) Y GUARDAR
   // CON UN VALOR TOTAL DE RESERVA
-  esTotal = false;
+  esSubTotal = false;
 
   // BANDERA PARA CONTROLAR LA MODIFICACION
   // DEL TOTAL DE LA RESERVA
-  modificarTotal = false;
+  modificarSubTotal = false;
 
   // VARIABLE DONDE SE ASIGNA EL TOTAL DE LA RESERVA
   // EN CASO DE QUE esTotal = true;
-  total = 0;
+  subTotal = 0;
 
   // VARIABLE PARA GUARDAR EL VALOR ANTIGUO DEL VALOR
   // TOTOTAL DE LA RESERVA
-  totalOld;
+  subTotalOld;
 
   auxAdicional: any = {};
 
@@ -103,13 +110,18 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
     // VERIFICO SI EL MODEL DE LA RESERVA QUE LLEGA AL COMPONENTE ES DE TIPO 'TOTAL'
     if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifadet === '-') {
-      this.esTotal = true;
-      this.total = this.model.total;
+      this.esSubTotal = true;
+      this.subTotal = this.model.total;
     }
 
     // SETEO LOS SELECTS
     setTimeout(() => {
       this.setSelects();
+
+      if (!this.esSubTotal) {
+        this.subTotal = this.getSubTotal();
+      }
+
     }, 10);
 
     // SETEAMOS CATALOGOS
@@ -129,7 +141,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
       // RESERVA Y TOTAL FALSO
       this.model.estado = 'Re';
-      this.esTotal = false;
+      this.esSubTotal = false;
 
       // INICIALIZO LOS SELECT2
       jQuery('.form-control.tarifa').select2();
@@ -241,9 +253,16 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     }
 
     // SI ES MODO TOTAL LE ASIGNAMOS TOTAL AL MODELO
-    if (this.esTotal) {
-      this.model.total = this.total;
+    if (this.esSubTotal) {
+      this.model.subTotal = this.subTotal;
     }
+
+    this.model.iva = {
+      valor: this.subTotal,
+      porcentaje: this.IVA * 100,
+      iva: this.subTotal * this.IVA,
+      total: +this.subTotal + +(this.subTotal * this.IVA).toFixed(2)
+    };
 
     this.reservaService.mantenimiento(this.model)
       .subscribe(
@@ -283,7 +302,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   _modificar() {
 
     this.paso = 1;
-    this.modificarTotal = false;
+    this.modificarSubTotal = false;
 
     for (let i = 0; i < this.model.habitaciones.length; i++) {
       this.model.habitaciones[i].modelTarifa = this.tarifas.find(x => x.idTarifa === this.model.habitaciones[i].idTarifa);
@@ -296,8 +315,8 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   _cerrar() {
 
     this.paso = 1;
-    this.esTotal = false;
-    this.modificarTotal = false;
+    this.esSubTotal = false;
+    this.modificarSubTotal = false;
     jQuery('#reservaModal').modal('hide');
     this.cerrar.next();
   }
@@ -328,13 +347,13 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     // vERIFICAMOS QUE TODAS LAS HABITACIONES TENGAN ASIGNADAS TARIFAS
     const index = this.model.habitaciones.findIndex(x => x.idTarifa === undefined);
 
-    if (!this.esTotal && index !== -1) {
+    if (!this.esSubTotal && index !== -1) {
       this.toastService.showWarning('Todas las habitaciones deben tener asignada una tarifa.');
       return;
     }
 
     // VALIDAMOS QUE NO ESTE MODIFICANDO
-    if (this.modificarTotal) {
+    if (this.modificarSubTotal) {
       this.toastService.showWarning('Termina de modificar el total de la reserva');
       return;
     }
@@ -350,7 +369,14 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   // SUMA TOTAL DE RESERVA SIEMPRE QUE esTotal = false
-  getTotal() {
+  getSubTotal() {
+
+    // SET VALOR DE IVA
+    if (this.esIva) {
+      this.IVA = 0.12;
+    } else {
+      this.IVA = 0;
+    }
 
     if (!this.model.habitaciones || this.model.habitaciones.length === 0) {
       return 0;
@@ -360,6 +386,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     const adicionales = this.model.adicionales || [];
 
     let sum = 0;
+
     // SUMO TOTAL DE TARIFA DE HABITACION POR EL NUMERO DE NOCHES
     habitaciones.forEach(habitacion => {
       sum = sum + (this.nightDiff(habitacion.feDesde, habitacion.feHasta) * habitacion.tarifa);
@@ -370,8 +397,8 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       sum = sum + (adicional.tarifa * adicional.cantidad);
     });
 
-    this.model.total = sum;
-    return this.model.total;
+    this.model.subTotal = sum;
+    return this.model.subTotal;
   }
 
   handleChangeAdicional(idAdicionales = []): void {
@@ -387,25 +414,16 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       this.adicionales[index].cantidad = 1;
       this.model.adicionales.push(this.adicionales[index]);
     }
+
+    if (!this.esSubTotal) {
+      this.subTotal = this.getSubTotal();
+    }
   }
 
   private nightDiff(feDesde: Date, feHasta: Date) {
 
     return this.reservaService.getNumeroNoches(feDesde, feHasta);
   }
-
-  // PARECE QUE NO SIRVE
-  // lockIdent() {
-
-  //   this.model.ident = !this.model.ident;
-
-  //   if (!this.model.ident) {
-  //     this.esPass = false;
-  //     this.model.pasajero.identificacion = '';
-  //   } else {
-  //     this.esPass = true;
-  //   }
-  // }
 
   intentModificarPasajero() {
 
@@ -548,31 +566,35 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     const habitacion = this.model.habitaciones.find(x => x.idHabitacion === Number(idHabitacion));
     habitacion.tarifa = this.tarifas.find(x => x.idTarifa === Number(idTarifa)).valor;
     habitacion.idTarifa = Number(idTarifa);
-    this.esTotal = false;
-  }
+    this.esSubTotal = false;
 
-  modiTotal(opcion) {
-    if (opcion === '!total') {
-      this.total = this.model.total;
+    if (!this.esSubTotal) {
+      this.subTotal = this.getSubTotal();
     }
-    this.modificarTotal = true;
-    this.totalOld = this.total;
   }
 
-  goModiTotal() {
-    this.esTotal = true;
-    this.modificarTotal = false;
+  modiSubTotal(opcion) {
+    if (opcion === '!total') {
+      this.subTotal = this.model.subTotal;
+    }
+    this.modificarSubTotal = true;
+    this.subTotalOld = this.subTotal;
+  }
+
+  goModiSubTotal() {
+    this.esSubTotal = true;
+    this.modificarSubTotal = false;
     for (let i = 0; i < this.model.habitaciones.length; i++) {
       this.model.habitaciones[i].idTarifa = undefined;
       this.model.habitaciones[i].tarifa = 0;
     }
   }
 
-  cancelModiTotal() {
-    if (this.esTotal) {
-      this.total = this.totalOld;
+  cancelModiSubTotal() {
+    if (this.esSubTotal) {
+      this.subTotal = this.subTotalOld;
     }
-    this.modificarTotal = false;
+    this.modificarSubTotal = false;
   }
 
   modiTarifaAdicional(adi: any) {
