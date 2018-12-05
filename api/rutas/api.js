@@ -87,9 +87,9 @@ router.post('/register/uprecupera', (req, res) => {
 });
 
 //P A I S E S
-router.get('/paises/all/:param', (req, res) => {
+router.get('/paises/all/', (req, res) => {
 
-  paises.get(req.params.param, res);
+  paises.get(res);
 });
 
 //S O C I A L
@@ -132,9 +132,9 @@ router.use(function (req, res, next) {
 // R U T A S  P R I V A D A S
 
 //F U E N T E
-router.get('/fuente/all/:param', (req, res) => {
+router.get('/fuente/all/', (req, res) => {
 
-  fuente.get(req.params.param, res);
+  fuente.get(res);
 });
 
 //H O S P E D A J E
@@ -178,9 +178,9 @@ router.post('/habitaciones/', (req, res) => {
 });
 
 //A E R O L I N E A S
-router.get('/aerolineas/all/:param', (req, res) => {
+router.get('/aerolineas/all/', (req, res) => {
 
-  aerolineas.get(req.params.param, res);
+  aerolineas.get(res);
 });
 
 router.post('/aerolineas/', (req, res) => {
@@ -232,9 +232,9 @@ router.post('/reservas/estado', (req, res) => {
 });
 
 //F O R M A  P A G O S
-router.get('/formapago/all/:param', (req, res) => {
+router.get('/formapago/all/', (req, res) => {
 
-  formas.get(req.params.param, res);
+  formas.get(res);
 });
 
 router.post('/formapago/', (req, res) => {
@@ -254,9 +254,9 @@ router.post('/pago/', (req, res) => {
 });
 
 //T A R I F A
-router.get('/tarifa/all/:param', (req, res) => {
-
-  tarifa.get(req.params.param, res);
+router.get('/tarifa/all/:idHospedaje', (req, res) => {
+  
+  tarifa.get(req.params.idHospedaje, res);
 });
 
 router.get('/tarifa/alltipos/', (req, res) => {

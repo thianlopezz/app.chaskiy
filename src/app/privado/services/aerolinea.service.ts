@@ -7,10 +7,8 @@ export class AerolineaService {
 
     constructor(private http: Http) { }
 
-    getAll() {
-
-        const param = encodeURIComponent('<params accion="C" />');
-        return this.http.get('/api/aerolineas/all/' + param, this.jwt())
+    get() {
+        return this.http.get('/api/aerolineas/all/', this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

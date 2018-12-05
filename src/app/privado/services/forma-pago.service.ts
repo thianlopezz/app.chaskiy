@@ -7,10 +7,8 @@ export class FormaPagoService {
 
     constructor(private http: Http) { }
 
-    getAll() {
-
-        const param = encodeURIComponent('<params accion="C" />');
-        return this.http.get('/api/formapago/all/' + param, this.jwt())
+    get() {
+        return this.http.get('/api/formapago/all/', this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

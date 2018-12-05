@@ -2,11 +2,11 @@ const DataAccess = require('./DataAccess');
 
 function FormaPago() {
 
-  this.get = function (params, res) {
+  this.get = function (res) {
 
     const dataAccess = new DataAccess();
 
-    dataAccess.execJsonToSp('cat_formapago', params)
+    dataAccess.execJsonToSp('cat_formapago', { accion: 'C' })
       .then(result => {
         res.send({ success: true, data: result[0] });
       })

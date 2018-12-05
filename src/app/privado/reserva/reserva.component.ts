@@ -482,7 +482,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
   private loadAllFormaPagos() {
 
-    this.formaService.getAll().subscribe(formas => {
+    this.formaService.get().subscribe(formas => {
 
       if (formas.success) {
         this.formaPagos = formas.data;
@@ -508,7 +508,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
   private loadAllAirlines() {
 
-    this.aerolineaService.getAll()
+    this.aerolineaService.get()
       .subscribe(response => {
 
         if (response.success) {
@@ -521,7 +521,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
   private loadAllFuentes() {
 
-    this.fuenteService.getAll()
+    this.fuenteService.get()
       .subscribe(response => {
 
         if (response.success) {
@@ -547,7 +547,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
   private loadAllPaises() {
 
-    this.paisService.getAll().subscribe(
+    this.paisService.get().subscribe(
       response => {
         if (response.success) {
           this.paises = response.data;

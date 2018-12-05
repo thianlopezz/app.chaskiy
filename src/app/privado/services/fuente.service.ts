@@ -9,10 +9,9 @@ export class FuenteService {
 
     constructor(private http: Http) { }
 
-    getAll() {
+    get() {
 
-        const param = encodeURIComponent('<params accion="C" />');
-        return this.http.get('/api/fuente/all/' + param, this.jwt())
+        return this.http.get('/api/fuente/all/', this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

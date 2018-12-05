@@ -11,8 +11,7 @@ export class TarifaService {
 
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    const param = encodeURIComponent('<params accion="C0" idHospedaje = "' + chasker.idHospedaje + '" />');
-    return this.http.get('/api/tarifa/all/' + param, this.jwt())
+    return this.http.get('/api/tarifa/all/' + chasker.idHospedaje , this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 

@@ -2,11 +2,11 @@ const DataAccess = require('./DataAccess');
 
 function Fuente() {
 
-  this.get = function (params, res) {
+  this.get = function (res) {
 
     const dataAccess = new DataAccess();
 
-    dataAccess.execArrayToSp('cat_fuente', params)
+    dataAccess.execJsonToSp('cat_fuente', { accion: 'C' })
       .then(result => {
         res.send({ success: true, data: result[0] });
       })

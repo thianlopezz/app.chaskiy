@@ -2,11 +2,11 @@ const DataAccess = require('./DataAccess');
 
 function Pais() {
 
-  this.get = function (params, res) {
+  this.get = function (res) {
 
     const dataAccess = new DataAccess();
 
-    dataAccess.execArrayToSp('cat_pais', params)
+    dataAccess.execJsonToSp('cat_pais', { accion: 'C' })
       .then(result => {
         res.send({ success: true, data: result[0] });
       })

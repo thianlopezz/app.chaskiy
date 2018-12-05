@@ -88,7 +88,7 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
 
   private setSelect2Paises() {
 
-    this.paisService.getAll().subscribe(
+    this.paisService.get().subscribe(
       paises => {
 
         if (paises.success) {

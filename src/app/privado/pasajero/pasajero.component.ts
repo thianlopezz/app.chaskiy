@@ -175,7 +175,7 @@ export class PasajeroComponent implements OnInit, AfterViewInit {
 
   private setSelect2Paises() {
 
-    this.paisService.getAll().subscribe(
+    this.paisService.get().subscribe(
       response => {
 
         if (response.success) {
