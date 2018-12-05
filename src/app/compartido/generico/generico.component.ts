@@ -375,7 +375,7 @@ export class GenericoComponent implements OnInit {
 
   private loadSocial() {
 
-    this.socialService.getAll().subscribe(social => {
+    this.socialService.get().subscribe(social => {
 
       if (social.success) {
 

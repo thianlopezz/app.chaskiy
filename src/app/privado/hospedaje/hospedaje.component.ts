@@ -7,6 +7,7 @@ import { ToastService } from '../../compartido/services/toast.service';
 
 declare var jQuery: any;
 
+// FIXME: Arreglar input pag web
 @Component({
   selector: 'app-hospedaje',
   templateUrl: './hospedaje.component.html',
@@ -126,11 +127,12 @@ export class HospedajeComponent implements OnInit, AfterViewInit {
 
   private loadSocial() {
 
-    this.socialService.getAll().subscribe(social => {
+    this.socialService.get().subscribe(social => {
 
       if (social.success) {
 
         this.redes = social.data;
+
         this.mapSocial();
       } else {
         console.log('Error>> loadInfo>> ' + social.mensaje);

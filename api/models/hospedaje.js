@@ -2,11 +2,11 @@ const DataAccess = require('./DataAccess');
 
 function Hospedaje() {
 
-  this.get = function (params, res) {
+  this.get = function (idHospedaje, res) {
 
     const dataAccess = new DataAccess();
 
-    dataAccess.execArrayToSp('ho_hospedaje', params)
+    dataAccess.execJsonToSp('ho_hospedaje', { accion: 'C', idHospedaje })
       .then(result => {
         res.send({ success: true, data: result });
       })
@@ -19,10 +19,8 @@ function Hospedaje() {
   this.mantenimiento = function (hospedaje, res) {
 
     const dataAccess = new DataAccess();
-
-    var params = setxml(hospedaje);
-
-    dataAccess.execArrayToSp('ho_hospedaje', [params])
+    
+    dataAccess.execJsonToSp('ho_hospedaje', hospedaje)
       .then(result => {
         if (result[0][0].err == undefined) {
           res.send({ success: true, mensaje: result[0][0].mensaje });

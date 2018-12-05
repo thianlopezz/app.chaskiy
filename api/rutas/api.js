@@ -93,9 +93,9 @@ router.get('/paises/all/', (req, res) => {
 });
 
 //S O C I A L
-router.get('/social/all/:param', (req, res) => {
+router.get('/social/all/', (req, res) => {
 
-  social.get(req.params.param, res);
+  social.get(res);
 });
 
 // B R O K E R
@@ -138,9 +138,9 @@ router.get('/fuente/all/', (req, res) => {
 });
 
 //H O S P E D A J E
-router.get('/hospedaje/all/:param', (req, res) => {
+router.get('/hospedaje/all/:idHabitacion', (req, res) => {
 
-  hospedaje.get(req.params.param, res);
+  hospedaje.get(req.params.idHabitacion, res);
 });
 
 router.post('/hospedaje', (req, res) => {

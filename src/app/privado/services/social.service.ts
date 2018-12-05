@@ -7,12 +7,9 @@ export class SocialService {
 
     constructor(private http: Http) { }
 
-    getAll() {
+    get() {
 
-        const chasker = JSON.parse(localStorage.getItem('chasker'));
-
-        const param = encodeURIComponent('<params accion="C" />');
-        return this.http.get('/api/social/all/' + param, this.jwt())
+        return this.http.get('/api/social/all/', this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 
