@@ -10,9 +10,7 @@ export class HabitacionService {
     getAll() {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
-
-        const param = encodeURIComponent('<params accion="C" idHospedaje = "' + chasker.idHospedaje + '" />');
-        return this.http.get('/api/habitaciones/all/' + param, this.jwt())
+        return this.http.get('/api/habitaciones/all/' + chasker.idHospedaje, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

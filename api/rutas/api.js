@@ -167,9 +167,9 @@ router.get('/auth/islogged/', (req, res) => {
 });
 
 //H A B I T A C I O N E S
-router.get('/habitaciones/all/:param', (req, res) => {
+router.get('/habitaciones/all/:idHospedaje', (req, res) => {
 
-  habitaciones.get(req.params.param, res);
+  habitaciones.get(req.params.idHospedaje, res);
 });
 
 router.post('/habitaciones/', (req, res) => {
