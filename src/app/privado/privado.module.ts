@@ -46,6 +46,7 @@ import { CalendarioComponent } from './reserva/calendario/calendario.component';
 import { ModalReservaComponent } from './reserva/modal-reserva/modal-reserva.component';
 import { DetalleReservaComponent } from './reserva/modal-reserva/detalle-reserva/detalle-reserva.component';
 import { ModalPagoComponent } from './pagos/modal-pago/modal-pago.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { ModalPagoComponent } from './pagos/modal-pago/modal-pago.component';
     PasajeroComponent,
     CalendarioComponent,
     ModalReservaComponent,
-    DetalleReservaComponent
+    DetalleReservaComponent,
+    ConfiguracionComponent
   ],
   providers: [
     AdicionalService,

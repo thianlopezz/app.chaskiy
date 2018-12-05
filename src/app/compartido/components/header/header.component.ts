@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { AutenticacionService } from '../../../publico/services/autenticacion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   chasker: any;
 
   constructor(private cdRef: ChangeDetectorRef,
+    private router: Router,
     private autenticacionService: AutenticacionService) { }
 
   ngOnInit() {
@@ -23,6 +25,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
 
   isLogged() {
     return this.autenticacionService.getLogin();
+  }
+
+  logOut() {
+    this.autenticacionService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

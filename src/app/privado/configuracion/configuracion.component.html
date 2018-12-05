@@ -1,0 +1,52 @@
+<br>
+<br>
+<div class="container">
+  <h2>Configuración
+  </h2>
+  <hr class="my-2">
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="row mb-1">
+        <div class="col-md-6 col-sm-12">
+          <div class="card hoverable" [routerLink]="['/adicionales']">
+            <div class="card-body" >
+              <h5 class="card-title">Adicionales</h5>
+              <p class="card-text">Registra, edita o elimina los servicios adicionales que manejas en tu hospedaje. Los
+                adicionales se pueden registrar al
+                momento de hacer una reserva y/o mientras no se haya hecho el proceso de check-out.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="card hoverable" [routerLink]="['/tarifas']">
+            <div class="card-body">
+              <h5 class="card-title">Tarifas</h5>
+              <p class="card-text">Registra, edita o elimina las tarifas que manejas en tu hospedaje. Las tarifas se
+                asignan a las habitaciones al
+                memomento de hacer una reserva y suman a la cuenta final dependiendo los días que se ocupe la
+                habitación.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            Configura opciones relevantes en tu sistema, como adicionales o las tarifas de tu negocio.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <app-card-notificaciones></app-card-notificaciones>
+      </div>
+
+    </div>
+  </div>
+</div>

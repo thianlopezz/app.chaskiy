@@ -4,8 +4,9 @@ $body-bg: #fafafa;
 // $bg-secondary: #0277bd;
 
 $theme-colors: (
-  "primary": rgba(0, 34, 51, 0.88),
-  "secondary": rgba(229, 150, 7, 1)
+  "primary": #37474f,
+  "secondary": #ffc107,
+  "info": #00d3e6
 );
 
 @import "node_modules/bootstrap/scss/bootstrap";

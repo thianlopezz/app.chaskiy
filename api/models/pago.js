@@ -4,26 +4,26 @@ const CorreoGenerico = require('./CorreoGenerico');
 
 function Pago() {
 
-    this.get = function(params, res) {
-        DataAccess.exec_arraysp('pg_pago', [params], function(error, result) {
-            if (error) {
+    this.get = function (params, res) {
 
+        const dataAccess = new DataAccess();
+
+        dataAccess.execJsonToSp('pg_pago', params)
+            .then(result => {
+                res.send({ success: true, data: result[0] });
+            })
+            .catch(error => {
                 console.log('Error>> Pago.get>>' + error);
                 res.send({ success: false, mensaje: '' + error });
-            }
-            else
-                res.send({ success: true, data: result[0] });
-        })
+            })
     };
 
-    this.mantenimiento = function(pago, res) {
+    this.mantenimiento = function (pago, res) {
 
-        DataAccess.exec_objectsp('pg_pago', pago, function(error, result) {
-            if (error) {
-                console.log('Error>> Pago.mantenimiento>>' + error);
-                res.send({ success: false, mensaje: error });
-            }
-            else {
+        const dataAccess = new DataAccess();
+
+        dataAccess.execJsonToSp('pg_pago', pago)
+            .then(result => {
                 if (result[0][0].err == undefined) {
 
                     // ENVIO DE RECEPCION DE PAGO
@@ -42,8 +42,11 @@ function Pago() {
                 } else {
                     res.send({ success: false, mensaje: result[0][0].mensaje });
                 }
-            }
-        });
+            })
+            .catch(error => {
+                console.log('Error>> Pago.mantenimiento>>' + error);
+                res.send({ success: false, mensaje: error });
+            })
     };
 
 }

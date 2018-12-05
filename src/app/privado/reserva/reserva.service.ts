@@ -41,7 +41,7 @@ export class ReservaService {
         new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24)
       );
     }
-
+debugger;
     return this.http.post('/api/reservas', reserve, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }

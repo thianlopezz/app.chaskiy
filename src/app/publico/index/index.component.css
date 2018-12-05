@@ -1,55 +1,16 @@
+.cuadro-img {
+    background:url("../../../assets/images/backgroud_inicio.jpg");
+    background-size: cover; 
+	  height: 100vh;
+}
 
-.cuadro-img .container{
-  margin-top: 10rem;
+.jumbotron{
+    background-color: rgba(237, 249, 255, 0.86);
 }
-.features{
-  margin-left: 6rem;
-  margin-right: 6rem;
-}
-.clientes{  
+
+.clientes {
   background: #ffffff;
 }
-.row.clientes{  
-  margin-left: 4rem;
-  margin-right: 4rem;
-}
-
-/*// B L O Q U E  B I E N V E N I D O S*/
-.cuadro-img{
-    background: url("/assets/images/back_inicio.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-	  height: 90vh;
-    /*overflow: hidden;*/
-}
-.cuadro-img .texto{
-  margin-top: auto!important;
-  margin-bottom: auto!important;
-}
-
-.cuadro-img p{
-  font-size: 1.7rem;
-  color: #ffffff;
-}
-
-.cuadro-img h1{
-  color: #ffffff;
-}
-
-.cuadro-img .img{
-  font-size: 7rem;
-  color: #658dc1;
-  text-align: center;
-}
-
-.caracteristicas .img{
-  font-size: 6rem;
-  color: #658dc1;
-  text-align: center;
-}
-
-.caracteristicas h2{
-  color: #38557b;
+.card {
+  border-left: 2px solid #ffc107;
 }

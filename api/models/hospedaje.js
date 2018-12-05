@@ -3,36 +3,37 @@ const DataAccess = require('./DataAccess');
 function Hospedaje() {
 
   this.get = function (params, res) {
-    DataAccess.exec_arraysp('ho_hospedaje', [params], function(error, result){
-      if (error) {
 
+    const dataAccess = new DataAccess();
+
+    dataAccess.execArrayToSp('ho_hospedaje', params)
+      .then(result => {
+        res.send({ success: true, data: result });
+      })
+      .catch(error => {
         console.log('Error>> Hospedaje.get>>' + error);
         res.send({ success: false, mensaje: '' + error });
-      }
-      else {
-        res.send({ success: true, data: result });
-      }        
-    })
+      })
   };
 
   this.mantenimiento = function (hospedaje, res) {
 
+    const dataAccess = new DataAccess();
+
     var params = setxml(hospedaje);
 
-    DataAccess.exec_arraysp('ho_hospedaje', [params], function(error, result){
-
-      if (error) {
-        console.log('Error>> Hospedaje.mantenimiento>>' + error);
-        res.send({ success: false, mensaje: error });
-      }
-      else {
-        if (result[0][0].err == undefined){
+    dataAccess.execArrayToSp('ho_hospedaje', [params])
+      .then(result => {
+        if (result[0][0].err == undefined) {
           res.send({ success: true, mensaje: result[0][0].mensaje });
         } else {
           res.send({ success: false, mensaje: result[0][0].mensaje });
-        }          
-      }
-    });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Hospedaje.mantenimiento>>' + error);
+        res.send({ success: false, mensaje: error });
+      })
   };
 
   function setSociales(redes) {

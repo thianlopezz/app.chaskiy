@@ -3,22 +3,24 @@ var md5 = require('md5');
 
 function autenticacion() {
 
-  this.logIn = function(usuario, password, res, callback) {
-    DataAccess.exec_arraysp('seg_login', [usuario, md5(password)], function(error, result){
+  this.logIn = function (usuario, password, res) {
 
-      if (error) {
+    return new Promise((resolve, reject) => {
 
-        console.log('Error>> auth.logIn>>' + error);
-        return callback({ success: false, mensaje: '' + error });
-      } else {
-
-        if (result[0][0].err == undefined){
-          return callback({ success: true, usuario: result[0][0] });
-        }          
-        else {
-          return callback({ success: false, mensaje: result[0][0].mensaje });
-        }          
-      }
+      const dataAccess = new DataAccess();
+      
+      dataAccess.execArrayToSp('seg_login', [usuario, password])
+        .then(result => {
+          if (result[0][0].err == undefined) {
+            resolve({ success: true, usuario: result[0][0] });
+          } else {
+            reject({ success: false, mensaje: result[0][0].mensaje });
+          }
+        })
+        .catch(error => {
+          console.log('Error>> auth.logIn>>' + error);
+          reject({ success: false, mensaje: result[0][0].mensaje });
+        })
     })
   };
 

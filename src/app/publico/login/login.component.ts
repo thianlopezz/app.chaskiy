@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutenticacionService } from '../services/autenticacion.service';
+import * as md5 from 'md5';
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
     model: any = {};
@@ -22,30 +23,28 @@ export class LoginComponent implements OnInit {
         private autenticacionService: AutenticacionService) { }
 
     ngOnInit() {
-        // reset login status
-        this.autenticacionService.logout();
-
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        jQuery('#wrapper').removeClass('toggled');
+        if (this.autenticacionService.getLogin()) {
+            this.router.navigate(['/dashboard']);
+        }
     }
 
     login() {
         this.loading = true;
-        this.autenticacionService.login(this.model)
+        this.autenticacionService.login({ username: this.model.username, password: md5(this.model.password) })
             .subscribe(
                 data => {
 
                     if (data.success) {
-                        this.router.navigate(['/home']);
+                        this.router.navigate(['/dashboard']);
                     } else {
 
-                      this.error = {error: true, mensaje: data.mensaje};
-                      this.loading = false;
+                        this.error = { error: true, mensaje: data.mensaje };
+                        this.loading = false;
                     }
                 },
                 error => {
 
-                    this.error = {error: true, mensaje: error};
+                    this.error = { error: true, mensaje: error };
                     this.loading = false;
                 });
     }

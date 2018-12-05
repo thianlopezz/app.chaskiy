@@ -4,21 +4,21 @@ var jwt = require('jsonwebtoken');
 
 const secret = 'encourage!';
 
-var autenticacion = require('../models/autenticacion');
-var habitaciones = require('../models/habitacion');
-var aerolineas = require('../models/aerolinea');
-var pasajeros = require('../models/pasajero');
-var paises = require('../models/pais');
-var adicionales = require('../models/adicional');
-var reservas = require('../models/reserva');
-var formas = require('../models/formapago');
-var pagos = require('../models/pago');
-var registros = require('../models/registro');
-var estadisticas = require('../models/estadistica');
-var hospedaje = require('../models/hospedaje');
-var social = require('../models/social');
-var fuente = require('../models/fuente');
-var tarifa = require('../models/tarifa');
+const autenticacion = require('../models/autenticacion');
+const habitaciones = require('../models/habitacion');
+const aerolineas = require('../models/aerolinea');
+const pasajeros = require('../models/pasajero');
+const paises = require('../models/pais');
+const adicionales = require('../models/adicional');
+const reservas = require('../models/reserva');
+const formas = require('../models/formapago');
+const pagos = require('../models/pago');
+const registros = require('../models/registro');
+const estadisticas = require('../models/estadistica');
+const hospedaje = require('../models/hospedaje');
+const social = require('../models/social');
+const fuente = require('../models/fuente');
+const tarifa = require('../models/tarifa');
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -31,23 +31,22 @@ router.get('/', (req, res) => {
 // Get all posts
 router.post('/auth/login', (req, res) => {
 
-  autenticacion.logIn(req.body.username, req.body.password, res, function(result){
-
-      if(result.success){
+  autenticacion.logIn(req.body.username, req.body.password, res)
+    .then(result => {
+      if (result.success) {
         var token = jwt.sign(result, secret, {
-                  expiresIn: "24h"
-                });
+          expiresIn: "24h"
+        });
 
         result.usuario.token = token;
 
         res.json(result);
       }
-      else{
+      else {
         res.json(result);
       }
-
-  });
-
+    })
+    .catch(error => res.json(error))
 });
 
 // E X T  R E S E R V A
@@ -57,7 +56,7 @@ router.get('/reservas/ex/:id/:token', (req, res) => {
 });
 
 router.get('/reservas/confirma/:id', (req, res) => {
-  
+
   reservas.confirma(req.params.id, res);
 });
 
@@ -100,19 +99,19 @@ router.get('/social/all/:param', (req, res) => {
 });
 
 // B R O K E R
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
 
   // check header or url parameters or post parameters for token
   //var token = req.body.token || req.query.token || req.headers['x-access-token'];
   var token = req.headers['x-access-token'];
-  
+
   if (token) {
-    
-    jwt.verify(token, secret, function(err, decoded) {
+
+    jwt.verify(token, secret, function (err, decoded) {
       if (err) {
-        
+
         return res.json({ success: false, err: -1, mensaje: 'Failed to authenticate token.' });
-      } else {        
+      } else {
         req.decoded = decoded;
         next();
       }
@@ -123,8 +122,8 @@ router.use(function(req, res, next) {
     // if there is no token
     // return an error
     return res.status(403).send({
-        success: false,
-        mensaje: 'No token provided.'
+      success: false,
+      mensaje: 'No token provided.'
     });
 
   }
@@ -201,9 +200,9 @@ router.post('/pasajeros/', (req, res) => {
 });
 
 //A D I C I O N A L
-router.get('/adicionales/all/:param', (req, res) => {
+router.get('/adicionales/all/:idHospedaje', (req, res) => {
 
-  adicionales.get(req.params.param, res);
+  adicionales.get(req.params.idHospedaje, res);
 });
 
 router.post('/adicionales/', (req, res) => {
@@ -261,7 +260,7 @@ router.get('/tarifa/all/:param', (req, res) => {
 });
 
 router.get('/tarifa/alltipos/', (req, res) => {
-  
+
   tarifa.getTipos(res);
 });
 

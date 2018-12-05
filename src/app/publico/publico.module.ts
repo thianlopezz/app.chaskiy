@@ -11,6 +11,8 @@ import { RegistroService } from './registro/registro.service';
 import { AutenticacionService } from './services/autenticacion.service';
 
 import { CompartidoModule } from '../compartido/compartido.module';
+import { TerminosComponent } from './terminos/terminos.component';
+import { PrivacidadComponent } from './privacidad/privacidad.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { CompartidoModule } from '../compartido/compartido.module';
   declarations: [
     IndexComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    TerminosComponent,
+    PrivacidadComponent
   ],
   providers: [
     AutenticacionService,

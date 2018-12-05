@@ -3,34 +3,36 @@ const DataAccess = require('./DataAccess');
 function Aerolinea() {
 
   this.get = function (params, res) {
-    DataAccess.exec_arraysp('cat_aerolinea', [params], function (error, result) {
-      if (error) {
 
-        console.log('Error>> Aerolinea.get>>' + error);
-        res.send({ success: false, mensaje: '' + error });
-      }
-      else {
-        res.send({ success: true, data: result[0] });
-      }
+    const dataAccess = new DataAccess();
+
+    dataAccess.execJsonToSp('cat_aerolinea', params)
+    .then(result=>{
+      res.send({ success: true, data: result[0] });
+    })
+    .catch(error=>{
+      console.log('Error>> Aerolinea.get>>' + error);
+      res.send({ success: false, mensaje: '' + error });
     })
   };
 
   this.mantenimiento = function (aerolinea, res) {
-    DataAccess.exec_objectsp('cat_aerolinea', [aerolinea], function (error, result) {
-      if (error) {
-        console.log('Error>> Aerolinea.mantenimiento>>' + error);
-        res.send({ success: false, mensaje: error });
+
+    const dataAccess = new DataAccess();
+
+    dataAccess.execJsonToSp('cat_aerolinea', aerolinea)
+    .then(result=>{
+      if (result[0][0].err == undefined) {
+        res.send({ success: true, mensaje: result[0][0].mensaje });
       }
       else {
-        if (result[0][0].err == undefined) {
-          res.send({ success: true, mensaje: result[0][0].mensaje });
-        }
-        else {
-          res.send({ success: false, mensaje: result[0][0].mensaje });
-        }
-
+        res.send({ success: false, mensaje: result[0][0].mensaje });
       }
-    })    
+    })
+    .catch(error=>{
+      console.log('Error>> Aerolinea.mantenimiento>>' + error);
+      res.send({ success: false, mensaje: error });
+    })
   };
 
 }

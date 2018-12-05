@@ -534,7 +534,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
   private loadAllAdicionales() {
 
-    this.adicionalService.getAll().subscribe(
+    this.adicionalService.get().subscribe(
       response => {
 
         if (response.success) {

@@ -7,143 +7,126 @@ const CorreoGenerico = require('./CorreoGenerico');
 function Reserva() {
 
   this.get = function (params, res) {
-    DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
-      if (error) {
 
+    const dataAcess = new DataAcess();
+
+    dataAcess.execJsonToSp('res_reserva', params)
+      .then(result => {
+        res.send({ success: true, data: result[0] });
+      })
+      .catch(error => {
         console.log('Error>> Reserva.get>> ' + error);
         res.send({ success: false, mensaje: '' + error });
-      } else {
-        res.send({ success: true, data: result[0] });
-      }
-    })
+      })
   };
 
   this.getById = function (params, res) {
-    DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
 
-      if (error) {
+    const dataAcess = new DataAcess();
 
-        console.log('Error>> Reserva.getById>> ' + error);
-        res.send({ success: false, mensaje: '' + error });
-      } else {
+    dataAcess.execJsonToSp('res_reserva', params)
+      .then(result => {
 
         result[0][0].pasajero = result[1][0];
         result[0][0].adicionales = result[2];
         result[0][0].habitaciones = result[3];
 
         res.send({ success: true, data: result[0] });
-      }
-    })
+      })
+      .catch(error => {
+        console.log('Error>> Reserva.getById>> ' + error);
+        res.send({ success: false, mensaje: '' + error });
+      });
   };
 
   this.mantenimiento = function (reserva, res) {
 
-    let params = setXml(reserva);
+    const dataAcess = new DataAcess();
 
-    DataAcess.exec_arraysp('res_reserva', [params], function (error, result) {
-      if (error) {
+    dataAcess.execArrayToSp('res_reserva', reserva)
+      .then(result => {
+        if (result[0][0].err === undefined) {
 
+          enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
+            .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
+            .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
+
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
         console.log('Error>> Reserva.mantenimiento>>' + error);
         res.send({ success: false, mensaje: '' + error });
-      } else if (result[0][0].err == undefined) {
-
-        enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
-          .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
-          .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
-
-      } else {
-        res.send({ success: false, mensaje: result[0][0].mensaje });
-      }
-    })
+      })
   };
 
   this.cambiaEstado = function (reserva, res) {
 
-    DataAcess.exec_objectsp('res_cambiaEstado', reserva, function (error, result) {
-      if (error) {
+    const dataAcess = new DataAcess();
 
+    dataAcess.execJsonToSp('res_cambiaEstado', reserva)
+      .then(result => {
+        if (result[0][0].err === undefined) {
+
+          res.send({ success: true, mensaje: 'Mantenimiento exitoso' });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
         console.log('Error>> Reserva.cambiaEstado>>' + error);
         res.send({ success: false, mensaje: '' + error });
-      } else if (result[0][0].err == undefined) {
-
-        res.send({ success: true, mensaje: 'Mantenimiento exitoso' });
-      } else {
-        res.send({ success: false, mensaje: result[0][0].mensaje });
-      }
-    })
+      })
   };
 
   this.getByIdEx = function (id, token, res) {
-    DataAcess.exec_arraysp('res_exte', [id, token], function (error, result) {
 
-      if (error) {
+    const dataAcess = new DataAcess();
 
+    dataAcess.execArrayToSp('res_exte', [id, token])
+      .then(result => {
+
+        if (result[0][0].err === undefined) {
+
+          result[0][0].pasajero = result[1][0];
+          result[0][0].adicionales = result[2];
+          result[0][0].habitaciones = result[3];
+          result[0][0].hospedaje = result[4][0];
+          result[0][0].hospedaje.redes = result[5];
+
+          res.send({ success: true, data: result[0] });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].err });
+        }
+      })
+      .catch(error => {
         console.log('Error>> Reserva.getByIdEx>> ' + error);
         res.send({ success: false, mensaje: '' + error });
-      }
-
-      if (result[0][0].err === undefined) {
-
-        result[0][0].pasajero = result[1][0];
-        result[0][0].adicionales = result[2];
-        result[0][0].habitaciones = result[3];
-        result[0][0].hospedaje = result[4][0];
-        result[0][0].hospedaje.redes = result[5];
-
-        res.send({ success: true, data: result[0] });
-      } else {
-        res.send({ success: false, mensaje: result[0][0].err });
-      }
-    })
+      })
   };
 
   this.confirma = function (id, res) {
-    DataAcess.exec_arraysp('res_confirma', [id], function (error, result) {
 
-      if (error) {
+    const dataAcess = new DataAcess();
 
+    dataAcess.execArrayToSp('res_confirma', [id])
+      .then(result => {
+        if (result[0][0].err === undefined) {
+
+          enviaCorreo(result[0][0], 'I', 'Re')
+            .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
+            .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
+        } else {
+
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
         console.log('Error>> Reserva.confirma>> ' + error);
         res.send({ success: false, mensaje: '' + error });
-      } else if (result[0][0].err == undefined) {
-
-        enviaCorreo(result[0][0], 'I', 'Re')
-          .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
-          .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
-      } else {
-
-        res.send({ success: false, mensaje: result[0][0].mensaje });
-      }
-    })
+      })
   };
-
-  function setHabitaciones(habitaciones) {
-
-    var retorno = "";
-
-    for (var i = 0; i < habitaciones.length; i++) {
-
-      retorno = retorno + habitaciones[i].idHabitacion + ';'
-        + (habitaciones[i].tarifa || 0) + ';'
-        + (habitaciones[i].idTarifa || 0) + ';'
-        + moment(habitaciones[i].feDesde).format('DD[/]MM[/]YYYY') + ';'
-        + moment(habitaciones[i].feHasta).format('DD[/]MM[/]YYYY') + '|';
-    }
-
-    return retorno;
-  }
-
-  function setAdicionales(adicionales) {
-
-    var retorno = "";
-
-    for (var i = 0; i < adicionales.length; i++) {
-      retorno = retorno + adicionales[i].idAdicional + ';'
-        + adicionales[i].tarifa + ';'
-        + adicionales[i].cantidad + '|';
-    }
-
-    return retorno;
-  }
 
   function enviaCorreo(datos, accion, estado, desdePagina) {
 
@@ -161,9 +144,9 @@ function Reserva() {
         plantilla = './plantillas/Reservas/confirmacion_reserva';
 
         // SI ES UNA CREACION Y PROFORMA
-        if (estado == 'Pr') {
+        if (estado === 'Pr') {
 
-          if(desdePagina){
+          if (desdePagina) {
 
             asunto = 'Reserva';
             plantilla = './plantillas/Reservas/reserva_desde_pagina';
@@ -174,11 +157,11 @@ function Reserva() {
           }
         }
         // SI ES UNA CANCELACION DE RESERVA
-      } else if (accion == 'D') {
+      } else if (accion === 'D') {
 
         asunto = 'Cancelación de reserva ' + datos.idReserva;
         plantilla = './plantillas/Reservas/cancelacion_reserva';
-      } else if (accion == 'Es') {
+      } else if (accion === 'Es') {
         return resolve({ success: true, mensaje: 'Reserva cancelada con éxito' });
       }
 
@@ -189,45 +172,6 @@ function Reserva() {
           reject(error);
         });
     })
-  }
-
-  function setXml(data) {
-
-    data.idReserva = data.idReserva || 0;
-    data.notas = data.notas || '';
-    data.pasajero.idPais = data.pasajero.idPais || 0;
-    data.adicionales = data.adicionales || [];
-    data.estado = data.estado || '';
-    data.estadoDetalle = data.estadoDetalle || '';
-    data.feDesde = moment(data.feDesde).format('DD[/]MM[/]YYYY') || '';
-    data.feHasta = moment(data.feHasta).format('DD[/]MM[/]YYYY') || '';
-
-    let token = md5(moment().format('DDMMYYYYhhmmss'));
-
-    return '<params accion= "' + data.accion
-      + '" idHospedaje= "' + data.idHospedaje
-      + '" idAerolinea= "' + data.idAerolinea
-      + '" idReserva= "' + data.idReserva
-      + '" adultos= "' + data.adultos
-      + '" ninos= "' + data.ninos
-      + '" notas= "' + data.notas
-      + '" idHabitacion= "' + setHabitaciones(data.habitaciones)
-      + '" idAdicional= "' + setAdicionales(data.adicionales)
-      + '" idPais= "' + data.pasajero.idPais
-      + '" pasajero= "' + data.pasajero.pasajero
-      + '" noContacto= "' + (data.pasajero.noContacto || '')
-      + '" correo= "' + data.pasajero.correo
-      + '" habitacionLength= "' + data.habitaciones.length
-      + '" adicionalLength= "' + data.adicionales.length
-      + '" total= "' + data.total
-      + '" idUsuario= "' + data.idUsuario
-      + '" estado= "' + data.estado
-      + '" feDesde= "' + data.feDesde
-      + '" feHasta= "' + data.feHasta
-      + '" detalleEstado= "' + data.detalleEstado
-      + '" token= "' + token
-      + '" idFuente= "' + data.idFuente
-      + '" />';
   }
 
 }

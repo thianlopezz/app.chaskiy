@@ -2,119 +2,77 @@ const connection = require('../connection');
 
 function DataAccess() {
 
-    this.exec_objectsp = function (stored_procedure, data = {}, callback) {
-        connection.acquire(function (error, con) {
-            if (error) {
-                callback(error);
-            } else {
+    this.execJsonToSp = function (stored_procedure, data = {}) {
+        return new Promise((resolve, reject) => {
+            connection.acquire()
+                .then(conn => {
 
-                const params = getParamsObject(data);
-
-                const exec = 'call ' + stored_procedure + '(\'' + params + '\')';
-
-                console.log('exec>> ' + exec);
-
-                con.query(exec, function (error, result) {
-
-                    con.release();
-
-                    if (error) {
-                        callback(error);
-                    } else {
-                        callback(null, result);
-                    }
+                    const exec = 'call ' + stored_procedure + '(\'' + JSON.stringify(data) + '\')';
+                    console.log('exec>> ' + exec);
+                    conn.query(exec, function (error, result) {
+                        conn.release();
+                        if (error) {
+                            console.log('Error>> Metodo: "execJsonToSp", "con.query">> ' + error);
+                            reject(error);
+                        } else {
+                            resolve(result);
+                        }
+                    });
+                }).catch(error => {
+                    console.log('Error>> Metodo: "execJsonToSp", "connection.acquire">> ' + error);
+                    reject(error);
                 });
-            }
         });
     };
 
-    this.exec_arraysp = function (stored_procedure, data = [], callback) {
-        connection.acquire(function (error, con) {
-            if (error) {
-                callback(error);
-            } else {
-
-                const params = getParamsArray(data);
-
-                const exec = 'call ' + stored_procedure + '(' + params + ')';
-
-                console.log('exec>> ' + exec);
-
-                con.query(exec, function (error, result) {
-
-                    con.release();
-
-                    if (error) {
-                        callback(error);
-                    } else {
-                        callback(null, result);
-                    }
-                });
-            }
+    this.execArrayToSp = function (stored_procedure, data = []) {
+        return new Promise((resolve, reject) => {
+            connection.acquire()
+                .then(conn => {
+                    const params = getParamsArray(data);
+                    const exec = 'call ' + stored_procedure + '(' + params + ')';
+                    console.log('exec>> ' + exec);
+                    conn.query(exec, function (error, result) {
+                        conn.release();
+                        if (error) {
+                            console.log('Error>> Metodo: "execArrayToSp", "con.query">> ' + error);
+                            reject(error);
+                        } else {
+                            resolve(result);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.log('Error>> Metodo: "execArrayToSp", "connection.acquire">> ' + error);
+                    reject(error);
+                })
         });
     };
 
-    this.exec_query = function (sql, callback) {
-        connection.acquire(function (error, con) {
-            if (error) {
-                callback(error);
-            } else {
-
-                console.log('query>> ' + sql);
-
-                con.query(sql, function (error, result) {
-
-                    con.release();
-
-                    if (error) {
-                        callback(error);
-                    } else {
-                        callback(null, result);
-                    }
+    this.execQuery = function (sql) {
+        return new Promise((resolve, reject) => {
+            connection.acquire()
+                .then(conn => {
+                    console.log('query>> ' + sql);
+                    conn.query(sql, function (error, result) {
+                        conn.release();
+                        if (error) {
+                            console.log('Error>> Metodo: "execQuery", "con.query">> ' + error);
+                            reject(error);
+                        } else {
+                            resolve(result);
+                        }
+                    });
+                }).catch(error => {
+                    console.log('Error>> Metodo: "execQuery", "connection.acquire">> ' + error);
+                    reject(error);
                 });
-            }
-        });
-    };
-
-    this.getParamsObject = function (data) {
-        return getParamsObject(data);
+        })
     };
 
     this.getParamsArray = function (array) {
         return getParamsArray(array);
     };
-
-    this.attachProperty = function (xml, array = []) {
-
-        const index = xml.indexOf('/>');
-
-        if (index === -1) {
-            throw (new Error('El xml no posee un formato correcto'))
-        } else {
-
-            xml = xml.substring(0, index) + ' ';
-            for (let prop in array) {
-                xml += prop + ' = "' + array[prop] + '" ';
-            }
-
-            xml += '/>';
-
-            return xml;
-        }
-    }
-
-    function getParamsObject(data) {
-
-        let params = '<params ';
-
-        for (let prop in data) {
-            params += prop + ' = "' + data[prop] + '" ';
-        }
-
-        params += '/>';
-
-        return params;
-    }
 
     function getParamsArray(array) {
 
@@ -130,4 +88,4 @@ function DataAccess() {
     }
 }
 
-module.exports = new DataAccess();
+module.exports = DataAccess;

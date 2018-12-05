@@ -1,25 +1,27 @@
 // var connection = require('../connection');
-const DataAcess = require('./DataAccess');
+const DataAccess = require('./DataAccess');
 
 var moment = require('moment');
 
 function Habitacion() {
 
   this.get = function (params, res) {
-    DataAcess.exec_arraysp('hab_habitacion', [params], function (error, result) {
 
-      if (error) {
+    const dataAccess = new DataAccess();
 
-        console.log('Error>> Habitacion.get>>' + error);
-        res.send({ success: false, mensaje: '' + error });
-      }
-      else {
-        res.send({ success: true, data: result[0] });
-      }
+    dataAccess.execJsonToSp('hab_habitacion', params)
+    .then(result=>{
+      res.send({ success: true, data: result[0] });
+    })
+    .catch(error=>{
+      console.log('Error>> Habitacion.get>>' + error);
+      res.send({ success: false, mensaje: '' + error });
     })
   };
 
   this.getDisponibles = function (feDesde, feHasta, idHospedaje, res) {
+
+    const dataAccess = new DataAccess();
 
     const formato = 'DD[/]MM[/]YYYY';
 
@@ -32,15 +34,12 @@ function Habitacion() {
       });
     }
 
-    DataAcess.exec_arraysp('hab_disponibles', [feDesde, feHasta, idHospedaje], function (error, result) {
+    dataAccess.execArrayToSp('hab_disponibles', [feDesde, feHasta, idHospedaje], function (error, result) {
 
       if (error) {
-
         console.log('Error>> Habitacion.getDisponibles>>' + error);
         res.send({ success: false, mensaje: '' + error });
-      }
-      else {
-
+      } else {
         res.send({ success: true, data: result[0] });
       }
     })
@@ -48,19 +47,20 @@ function Habitacion() {
 
   this.mantenimiento = function (habitacion, res) {
 
-    DataAcess.exec_objectsp('hab_habitacion', habitacion, function (error, result) {
+    const dataAccess = new DataAccess();
 
-      if (error) {
-        console.log('Error>> Habitacion.mantenimiento>>' + error);
-        res.send({ success: false, mensaje: error });
-      }
-      else {
-        if (result[0][0].err == undefined)
-          res.send({ success: true, mensaje: result[0][0].mensaje });
-        else
-          res.send({ success: false, mensaje: result[0][0].mensaje });
-      }
-    });
+    dataAccess.execJsonToSp('hab_habitacion', habitacion)
+    .then(result=>{
+      if (result[0][0].err == undefined){
+        res.send({ success: true, mensaje: result[0][0].mensaje });
+      } else {
+        res.send({ success: false, mensaje: result[0][0].mensaje });
+      }        
+    })
+    .catch(error=>{
+      console.log('Error>> Habitacion.mantenimiento>>' + error);
+      res.send({ success: false, mensaje: error });
+    })
   };
 
 }

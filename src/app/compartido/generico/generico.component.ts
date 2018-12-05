@@ -5,6 +5,7 @@ import { MensajeService } from '../components/modal-mensaje/mensaje.service';
 import { RegistroService } from '../../publico/registro/registro.service';
 import { ReservaService } from '../../privado/reserva/reserva.service';
 import { SocialService } from '../../privado/services/social.service';
+import * as moment from 'moment';
 
 declare var jQuery: any;
 
@@ -29,8 +30,8 @@ export class GenericoComponent implements OnInit {
 
   redes: any[] = [];
 
-  showReserve= false;
-  showMensajeReserva= false;
+  showReserve = false;
+  showMensajeReserva = false;
   mensaje = '';
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -67,11 +68,11 @@ export class GenericoComponent implements OnInit {
             }
 
             this.activaCuenta(this.token);
-          break;
+            break;
           case 'UP':
 
             this.token = params['token'];
-          break;
+            break;
           case 'RE':
 
             this.id = params['id'] || params['ID'];
@@ -88,7 +89,7 @@ export class GenericoComponent implements OnInit {
             this.model.hospedaje = {};
 
             this.getReserveDet(this.id, this.token);
-          break;
+            break;
         }
       }, error => {
 
@@ -100,24 +101,24 @@ export class GenericoComponent implements OnInit {
 
     this.registroService.activa(token)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
-          this.muestra = true;
-        } else {
+            this.muestra = true;
+          } else {
 
-          this.mensajeService.error(data.mensaje);
+            this.mensajeService.error(data.mensaje);
+            this.showMess();
+          }
+        },
+        error => {
+
+          console.log(error);
+
+          this.mensajeService.error(error);
           this.showMess();
-        }
-      },
-      error => {
-
-        console.log(error);
-
-        this.mensajeService.error(error);
-        this.showMess();
-      });
+        });
   }
 
   confirma() {
@@ -126,29 +127,29 @@ export class GenericoComponent implements OnInit {
 
     this.reservaService.confirmaReserva(this.id)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.loading = false;
+            this.mensajeService.success(data.mensaje);
+            this.showMess();
+            this.getReserveDet(this.id, this.token);
+          } else {
+
+            this.loading = false;
+            this.mensajeService.error(data.mensaje);
+            this.showMess();
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
-          this.mensajeService.success(data.mensaje);
+
+          this.mensajeService.error(error);
           this.showMess();
-          this.getReserveDet(this.id, this.token);
-        } else {
-
-          this.loading = false;
-          this.mensajeService.error(data.mensaje);
-          this.showMess();
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-
-        this.mensajeService.error(error);
-        this.showMess();
-      });
+        });
   }
 
   getEstadoStyle(reserva: any) {
@@ -193,33 +194,33 @@ export class GenericoComponent implements OnInit {
 
     this.registroService.upRecupera(this.model)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
+            this.loading = false;
+            this.mensajeService.success(data.mensaje);
+            this.showMess();
+
+            setTimeout(() => {
+
+              this.router.navigate(['/login']);
+            }, 900);
+          } else {
+
+            this.loading = false;
+            this.mensajeService.error(data.mensaje);
+            this.showMess();
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
-          this.mensajeService.success(data.mensaje);
+
+          this.mensajeService.error(error);
           this.showMess();
-
-          setTimeout(() => {
-
-            this.router.navigate(['/login']);
-          }, 900);
-        } else {
-
-          this.loading = false;
-          this.mensajeService.error(data.mensaje);
-          this.showMess();
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-
-        this.mensajeService.error(error);
-        this.showMess();
-      });
+        });
   }
 
   recupera(form: NgForm) {
@@ -245,31 +246,31 @@ export class GenericoComponent implements OnInit {
 
     this.registroService.enviaRecupera(this.model)
       .subscribe(
-      data => {
+        data => {
 
-        if (data.success) {
+          if (data.success) {
 
-          this.loading = false;
+            this.loading = false;
 
-          this.mensajeService.success(mensaje);
-          this.showMess();
-        } else {
+            this.mensajeService.success(mensaje);
+            this.showMess();
+          } else {
 
+            this.loading = false;
+            this.loading0 = false;
+            this.mensajeService.error(data.mensaje);
+            this.showMess();
+          }
+        },
+        error => {
+
+          console.log(error);
           this.loading = false;
           this.loading0 = false;
-          this.mensajeService.error(data.mensaje);
+
+          this.mensajeService.error(mensaje_err);
           this.showMess();
-        }
-      },
-      error => {
-
-        console.log(error);
-        this.loading = false;
-        this.loading0 = false;
-
-        this.mensajeService.error(mensaje_err);
-        this.showMess();
-      });
+        });
   }
 
   getReserveDet(idReserva: number, token: string) {
@@ -331,7 +332,9 @@ export class GenericoComponent implements OnInit {
 
   private nightDiff(feDesde: Date, feHasta: Date) {
 
-    return this.reservaService.getNumeroNoches(feDesde, feHasta);
+    // SE RESTA PARA QUE CUENTE BIEN LAS NOCHES
+    const _feHasta = moment(feHasta).subtract('days', 1);
+    return this.reservaService.getNumeroNoches(feDesde, _feHasta.toDate());
   }
 
   valuechange_pass(newVal) {
@@ -390,8 +393,8 @@ export class GenericoComponent implements OnInit {
       if (arreglo[i].idHabitacion === id &&
         (feIn >= this.getDateString('/', arreglo[i].feDesde)
           && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
-            return i;
-          }
+        return i;
+      }
     }
 
     return -1;

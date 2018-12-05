@@ -138,7 +138,7 @@ export class AdicionalComponent implements OnInit {
 
   private loadAllAdds() {
     this.loadingAdicional = true;
-    this.addService.getAll().subscribe(adds => {
+    this.addService.get().subscribe(adds => {
 
       if (adds.success) {
         this.adds = adds.data;
