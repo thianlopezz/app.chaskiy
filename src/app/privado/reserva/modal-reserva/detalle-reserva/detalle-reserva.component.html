@@ -135,15 +135,17 @@
           <div class="col-md-4">
             <h4>
               Por pagar
-              <small *ngIf="!esTotal">{{getTotal() - model.totalPagado | currency:'USD'}}</small>
-              <small *ngIf="esTotal">{{total - model.totalPagado | currency:'USD'}}</small>
+              <small>{{model.total - model.totalPagado | currency:'USD'}}</small>
+              <!-- <small *ngIf="!esTotal">{{model.total - model.totalPagado | currency:'USD'}}</small>
+              <small *ngIf="esTotal">{{model.total - model.totalPagado | currency:'USD'}}</small> -->
             </h4>
           </div>
           <div class="col-md-4">
             <h4>
               Total
-              <small *ngIf="!esTotal"> {{getTotal() | currency:'USD'}}</small>
-              <small *ngIf="esTotal">{{total | currency:'USD'}}</small>
+              <small> {{model.total | currency:'USD'}}</small>
+              <!-- <small *ngIf="!esTotal"> {{model.total | currency:'USD'}}</small>
+              <small *ngIf="esTotal">{{model.total | currency:'USD'}}</small> -->
             </h4>
           </div>
         </div>

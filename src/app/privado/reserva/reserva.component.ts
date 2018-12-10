@@ -108,7 +108,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     // PARA CONTROLAR LA CREACION DE TOOLTIPS
-    jQuery('[data-toggle="tooltip"]').tooltip();
+    jQuery('[datac-toggle="tooltip"]').tooltip();
     this.cdRef.detectChanges();
   }
 
@@ -467,9 +467,9 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
     const feDesde = moment({ y: this.current.anio, M: this.current.noMonth, d: 1 });
 
-    const feHasta = feDesde.clone().endOf('month').format('DD[/]MM[/]YYYY');
+    const feHasta = feDesde.clone().endOf('month');
 
-    this.reservaService.getByDate('C', feDesde.format('DD[/]MM[/]YYYY'), feHasta).subscribe(
+    this.reservaService.getByDate('C', feDesde.toDate(), feHasta.toDate()).subscribe(
       reservas => {
 
         if (reservas.success) {

@@ -32,7 +32,7 @@ function Tarifa() {
 
         const dataAccess = new DataAccess();
 
-        dataAccess.execJsonToSp('ta_tipos', { accion: 'C1' })
+        dataAccess.execArrayToSp('ta_tipos')
             .then(result => {
                 res.send({ success: true, data: result[0] });
             })

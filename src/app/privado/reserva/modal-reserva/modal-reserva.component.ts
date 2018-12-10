@@ -109,9 +109,15 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   ngOnChanges() {
 
     // VERIFICO SI EL MODEL DE LA RESERVA QUE LLEGA AL COMPONENTE ES DE TIPO 'TOTAL'
-    if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifadet === '-') {
+    if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifaDetalle === '-') {
       this.esSubTotal = true;
       this.subTotal = this.model.total;
+    }
+
+    if (this.model && this.model.iva && this.model.iva.iva > 0) {
+      this.esIva = true;
+      this.subTotal = this.getSubTotal();
+      debugger;
     }
 
     // SETEO LOS SELECTS
@@ -257,12 +263,21 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       this.model.subTotal = this.subTotal;
     }
 
+    // REEMPLAZO TABS Y BREAKLINES
+    this.model.notas = this.model.notas || '';
+    this.model.notas = this.model.notas.replace(/\n/g, '');
+    this.model.notas = this.model.notas.replace(/\t/g, '');
+
+    // CONFIGURAMOS EL IVA
     this.model.iva = {
       valor: this.subTotal,
       porcentaje: this.IVA * 100,
       iva: this.subTotal * this.IVA,
       total: +this.subTotal + +(this.subTotal * this.IVA).toFixed(2)
     };
+
+    // CONFIGURAMOS EL TOTAL
+    this.model.total = this.model.iva.total;
 
     this.reservaService.mantenimiento(this.model)
       .subscribe(
@@ -392,6 +407,12 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       sum = sum + (this.nightDiff(habitacion.feDesde, habitacion.feHasta) * habitacion.tarifa);
     });
 
+    // SI ESTA EN MODO ACTUALIZACION Y ES SUBTOTAL NO SE PARA BOLA
+    // A LA SUMA DE TARIFA DE HABITACIONES Y SE PONE EL SUBOTOTAL
+    if (this.accion === 'U' && this.esSubTotal) {
+      sum = this.model.subtotal;
+    }
+
     // SUMO EL TOTAL DE LA TARIFA DEL ADICIONAL POR LA CANTIDAD
     adicionales.forEach(adicional => {
       sum = sum + (adicional.tarifa * adicional.cantidad);
@@ -469,7 +490,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     this.loadingPasajero = true;
     const correo = this.model.pasajero.correo;
 
-    this.pasajeroService.getById(correo)
+    this.pasajeroService.getByCorreo(correo)
       .subscribe(response => {
 
         if (response.success) {

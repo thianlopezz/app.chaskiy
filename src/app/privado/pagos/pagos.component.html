@@ -54,9 +54,9 @@
 								</thead>
 								<tbody>
 									<tr *ngFor="let pago of pagos">
-										<td width="25%">{{pago.formapago}}</td>
+										<td width="25%">{{pago.formaPago}}</td>
 										<td width="35%">{{pago.usuario}}</td>
-										<td width="20%">{{pago.fecha}}</td>
+										<td width="20%">{{pago.feCreacionFormat}}</td>
 										<td width="20%">{{pago.monto | currency:'USD'}}</td>
 									</tr>
 									<tr *ngIf="loading_pg">

@@ -9,21 +9,15 @@ export class ReservaService {
 
   getById(id: number) {
 
-    const chasker = JSON.parse(localStorage.getItem('chasker'));
-    const param = encodeURIComponent('<params accion = "C1" idReserva= "' + id
-      + '" idHospedaje="' + chasker.idHospedaje + '" />');
-    return this.http.get('/api/reservas/' + param, this.jwt())
+    return this.http.get('/api/reservas/' + id, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
-  getByDate(consulta: string, feDesde: string, feHasta: string) {
+  getByDate(consulta: string, feDesde: Date, feHasta: Date) {
     // DD/MM/AAAA
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    const param = encodeURIComponent('<params accion = "' + consulta + '" feDesde= "' + feDesde + '" feHasta= "' + feHasta
-      + '" idHospedaje= "' + chasker.idHospedaje + '" />');
-
-    return this.http.get('/api/reservas/all/' + param, this.jwt())
+    return this.http.post('/api/reservas/all/' + consulta, { feDesde, feHasta, idHospedaje: chasker.idHospedaje }, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
@@ -41,7 +35,7 @@ export class ReservaService {
         new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24)
       );
     }
-debugger;
+
     return this.http.post('/api/reservas', reserve, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }

@@ -148,10 +148,10 @@ router.post('/hospedaje', (req, res) => {
   hospedaje.mantenimiento(req.body, res);
 });
 
-//P A I S E S
-router.get('/statistic/:param', (req, res) => {
+// S T A T S
+router.post('/statistic/pagos', (req, res) => {
 
-  estadisticas.get(req.params.param, res);
+  estadisticas.getPagos(req.body, res);
 });
 
 // P A S S W O R D
@@ -189,9 +189,14 @@ router.post('/aerolineas/', (req, res) => {
 });
 
 //P A S A J E R O
-router.get('/pasajeros/all/:param', (req, res) => {
+router.get('/pasajeros/all/:idHospedaje', (req, res) => {
 
-  pasajeros.get(req.params.param, res);
+  pasajeros.get(req.params.idHospedaje, res);
+});
+
+router.get('/pasajeros/correo/:correo/:idHospedaje', (req, res) => {
+
+  pasajeros.getByCorreo(req.params.correo, req.params.idHospedaje, res);
 });
 
 router.post('/pasajeros/', (req, res) => {
@@ -211,14 +216,14 @@ router.post('/adicionales/', (req, res) => {
 });
 
 //R E S E R V A
-router.get('/reservas/all/:param', (req, res) => {
+router.post('/reservas/all/:accion', (req, res) => {
 
-  reservas.get(req.params.param, res);
+  reservas.get(req.params.accion, req.body, res);
 });
 
-router.get('/reservas/:param', (req, res) => {
+router.get('/reservas/:idReserva', (req, res) => {
 
-  reservas.getById(req.params.param, res);
+  reservas.getById(req.params.idReserva, res);
 });
 
 router.post('/reservas/', (req, res) => {
@@ -243,9 +248,14 @@ router.post('/formapago/', (req, res) => {
 });
 
 //P A G O S
-router.get('/pago/all/:param', (req, res) => {
+router.get('/pago/all/:idReserva', (req, res) => {
 
-  pagos.get(req.params.param, res);
+  pagos.get(req.params.idReserva, res);
+});
+
+router.post('/pago/rango/', (req, res) => {
+
+  pagos.getByRango(req.body, res);
 });
 
 router.post('/pago/', (req, res) => {
@@ -255,7 +265,7 @@ router.post('/pago/', (req, res) => {
 
 //T A R I F A
 router.get('/tarifa/all/:idHospedaje', (req, res) => {
-  
+
   tarifa.get(req.params.idHospedaje, res);
 });
 

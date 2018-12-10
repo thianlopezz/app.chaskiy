@@ -1,14 +1,32 @@
-const DataAccess = require('./DataAccess');
+const moment = require('moment');
 
+const DataAccess = require('./DataAccess');
 const CorreoGenerico = require('./CorreoGenerico');
 
 function Pago() {
 
-    this.get = function (params, res) {
+    this.get = function (idReserva, res) {
 
         const dataAccess = new DataAccess();
 
-        dataAccess.execJsonToSp('pg_pago', params)
+        dataAccess.execJsonToSp('pg_pago', { accion: 'C', idReserva })
+            .then(result => {
+                res.send({ success: true, data: result[0] });
+            })
+            .catch(error => {
+                console.log('Error>> Pago.get>>' + error);
+                res.send({ success: false, mensaje: '' + error });
+            })
+    };
+
+    this.getByRango = function (params, res) {
+
+        const dataAccess = new DataAccess();
+
+        params.feDesde = moment(params.feDesde).format('YYYY-MM-DD');
+        params.feHasta = moment(params.feHasta).format('YYYY-MM-DD');
+
+        dataAccess.execJsonToSp('pg_pago', Object.assign({ accion: 'C1' }, params))
             .then(result => {
                 res.send({ success: true, data: result[0] });
             })

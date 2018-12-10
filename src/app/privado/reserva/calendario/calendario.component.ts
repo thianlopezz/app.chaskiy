@@ -125,10 +125,15 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
         const obj = this.reservasCliente[index];
 
-        if (dateIn === moment(obj.feDesde) &&
-          dateIn === moment(obj.feHasta)) {
+        if (dateIn.isSame(moment(obj.feDesde)) &&
+          dateIn.isSame(moment(obj.feHasta))) {
 
           this.reservasCliente.splice(index, 1);
+        } else if (dateIn.isBefore(moment(obj.feDesde))) {
+
+          obj.feDesde = dateIn.toDate();
+          obj.feHasta = dateIn.toDate();
+          this.reservasCliente[index] = obj;
         } else {
 
           obj.feHasta = dateIn.toDate();

@@ -208,7 +208,7 @@ export class HomeComponent implements OnInit {
     const feHasta = _feHasta.getDate() + '/' + (_feHasta.getMonth() + 1) + '/' + _feHasta.getFullYear();
 
 
-    this.reservaService.getByDate('C2', feDesde, feHasta).subscribe(
+    this.reservaService.getByDate('C2', _feDesde, _feHasta).subscribe(
       reservas => {
 
         if (reservas.success) {
@@ -228,7 +228,7 @@ export class HomeComponent implements OnInit {
 
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
-    this.reservaService.getByDate('C3', feDesde, feDesde).subscribe(
+    this.reservaService.getByDate('C3', _feDesde, _feDesde).subscribe(
       reservas => {
 
         if (reservas.success) {
@@ -251,7 +251,7 @@ export class HomeComponent implements OnInit {
     const feHasta = _feHasta.getDate() + '/' + (_feHasta.getMonth() + 1) + '/' + _feHasta.getFullYear();
 
 
-    this.reservaService.getByDate('C4', feHasta, feHasta).subscribe(
+    this.reservaService.getByDate('C4', _feHasta, _feHasta).subscribe(
       reservas => {
 
         if (reservas.success) {
@@ -271,7 +271,7 @@ export class HomeComponent implements OnInit {
 
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
-    this.reservaService.getByDate('C5', feDesde, feDesde).subscribe(
+    this.reservaService.getByDate('C5', _feDesde, _feDesde).subscribe(
       reservas => {
 
         if (reservas.success) {

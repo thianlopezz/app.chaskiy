@@ -210,6 +210,7 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
     return this.reservaService.getNumeroNoches(feDesde, feHasta);
   }
 
+  // FIXME: REVISAR SI ES PRUDENTE QUE VAYA
   getTotal() {
 
     if (!this.model.habitaciones || this.model.habitaciones.length === 0) {

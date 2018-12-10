@@ -1,16 +1,18 @@
 const DataAcess = require('./DataAccess');
 const moment = require('moment');
-const md5 = require('md5');
 
 const CorreoGenerico = require('./CorreoGenerico');
 
 function Reserva() {
 
-  this.get = function (params, res) {
+  this.get = function (accion, params, res) {
+
+    params.feDesde = moment(params.feDesde).format('YYYY-MM-DD');
+    params.feHasta = moment(params.feHasta).format('YYYY-MM-DD');
 
     const dataAcess = new DataAcess();
 
-    dataAcess.execJsonToSp('res_reserva', params)
+    dataAcess.execJsonToSp('res_reserva', Object.assign({ accion }, params))
       .then(result => {
         res.send({ success: true, data: result[0] });
       })
@@ -20,16 +22,17 @@ function Reserva() {
       })
   };
 
-  this.getById = function (params, res) {
+  this.getById = function (idReserva, res) {
 
     const dataAcess = new DataAcess();
 
-    dataAcess.execJsonToSp('res_reserva', params)
+    dataAcess.execJsonToSp('res_reserva', { accion: 'C1', idReserva })
       .then(result => {
 
         result[0][0].pasajero = result[1][0];
         result[0][0].adicionales = result[2];
         result[0][0].habitaciones = result[3];
+        result[0][0].iva = result[4][0];
 
         res.send({ success: true, data: result[0] });
       })
@@ -42,8 +45,10 @@ function Reserva() {
   this.mantenimiento = function (reserva, res) {
 
     const dataAcess = new DataAcess();
+    
+    reserva.habitaciones = setHabitacionesDate(reserva.habitaciones);
 
-    dataAcess.execArrayToSp('res_reserva', reserva)
+    dataAcess.execJsonToSp('res_reserva', reserva)
       .then(result => {
         if (result[0][0].err === undefined) {
 
@@ -172,6 +177,15 @@ function Reserva() {
           reject(error);
         });
     })
+  }
+
+  function setHabitacionesDate(habitaciones) {
+    
+    habitaciones.forEach(habitacion => {
+      habitacion.feDesde = moment(habitacion.feDesde).format('YYYY-MM-DD');
+      habitacion.feHasta = moment(habitacion.feHasta).format('YYYY-MM-DD');
+    });
+    return habitaciones;
   }
 
 }

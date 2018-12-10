@@ -94,10 +94,11 @@ export class ModalEstadosComponent implements OnInit {
     }
 
     const reserva = {
+      accion: 'Es',
       estado: this.model.a_estado,
       idReserva: this.model.idReserva,
       detalleEstado: this.model.observacion,
-      feHasta: feHasta.format('DD[/]MM[/]YYYY'),
+      feHasta: feHasta.format('YYYY-MM-DD'),
       esMismoDia
     };
 

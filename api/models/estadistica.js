@@ -1,12 +1,17 @@
+const moment = require('moment');
+
 const DataAccess = require('./DataAccess');
 
 function Estadistica() {
 
-  this.get = function (params, res) {
+  this.getPagos = function (params, res) {
 
     const dataAccess = new DataAccess();
 
-    dataAccess.execJsonToSp('st_statistic', params)
+    params.feDesde = moment(params.feDesde).format('YYYY-MM-DD');
+    params.feHasta = moment(params.feHasta).format('YYYY-MM-DD');
+
+    dataAccess.execJsonToSp('st_statistic', Object.assign({accion: 'C1'}, params))
       .then(result => {
         res.send({ success: true, data: result[0] });
       })

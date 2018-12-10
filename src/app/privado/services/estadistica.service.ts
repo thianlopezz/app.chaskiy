@@ -11,13 +11,7 @@ export class EstadisticaService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C1"'
-            + ' idHospedaje = "' + chasker.idHospedaje
-            + '" feDesde = "' + feDesde
-            + '" feHasta = "' + feHasta
-            + '" />');
-
-        return this.http.get('/api/statistic/' + param, this.jwt())
+        return this.http.post('/api/statistic/pagos', { feDesde, feHasta, idHospedaje: chasker.idHospedaje }, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

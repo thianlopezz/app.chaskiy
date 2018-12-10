@@ -7,24 +7,17 @@ export class PagoService {
 
     constructor(private http: Http) { }
 
-    getAll(idReserva: string) {
+    get(idReserva: string) {
 
-        const param = encodeURIComponent('<params accion="C" idReserva="' + idReserva + '" />');
-        return this.http.get('/api/pago/all/' + param, this.jwt())
+        return this.http.get('/api/pago/all/' + idReserva, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 
-    getByDate(feDesde: string, feHasta: string) {
+    getByRango(feDesde: Date, feHasta: Date) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C0"'
-            + ' idHospedaje = "' + chasker.idHospedaje
-            + '" feDesde = "' + feDesde
-            + '" feHasta = "' + feHasta
-            + '" />');
-
-        return this.http.get('/api/pago/all/' + param, this.jwt())
+        return this.http.post('/api/pago/rango/', { feDesde, feHasta, idHospedaje: chasker.idHospedaje }, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

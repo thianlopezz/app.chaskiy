@@ -11,19 +11,15 @@ export class PasajeroService {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C"'
-            + ' idHospedaje = "' + chasker.idHospedaje + '" />');
-        return this.http.get('/api/pasajeros/all/' + param, this.jwt())
+        return this.http.get('/api/pasajeros/all/' + chasker.idHospedaje, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 
-    getById(correo: string) {
+    getByCorreo(correo: string) {
 
         const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-        const param = encodeURIComponent('<params accion="C1" correo = "' + correo
-            + '" idHospedaje = "' + chasker.idHospedaje + '" />');
-        return this.http.get('/api/pasajeros/all/' + param, this.jwt())
+        return this.http.get('/api/pasajeros/correo/' + correo + '/' + chasker.idHospedaje, this.jwt())
             .pipe(map((response: Response) => response.json()));
     }
 

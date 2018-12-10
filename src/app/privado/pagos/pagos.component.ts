@@ -1,9 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { EstadisticaService } from '../services/estadistica.service';
 import { PagoService } from '../pagos/pago.service';
 import { ChartOptions } from '../models/chart-options';
 import { CurrentMonth } from '../models/current-month';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-pagos',
@@ -121,13 +123,14 @@ export class PagosComponent implements OnInit {
 
     this.hbHasta = { show: false };
 
-    const feDesde = this.feDesde.date.day + '/' + this.feDesde.date.month + '/' + this.feDesde.date.year;
-    const feHasta = this.feHasta.date.day + '/' + this.feHasta.date.month + '/' + this.feHasta.date.year;
+    // TODO: revisar logica
+    const feDesde = moment({ d: this.feDesde.date.day, M: this.feDesde.date.month - 1, y: this.feDesde.date.year});
+    const feHasta = moment({ d: this.feHasta.date.day, M: this.feHasta.date.month - 1, y: this.feHasta.date.year });
 
     const ceros = this.genCeros(this.feDesde._date, this.feHasta._date);
 
-    this.getMonthIcom(ceros, feDesde, feHasta);
-    this.getDetalles(feDesde, feHasta);
+    this.getMonthIcom(ceros, feDesde.toDate(), feHasta.toDate());
+    this.getDetalles(feDesde.toDate(), feHasta.toDate());
   }
 
   private getMonthIcom(ceros, feDesde, feHasta) {
@@ -178,7 +181,7 @@ export class PagosComponent implements OnInit {
 
     this.loading_pg = true;
 
-    this.pagoService.getByDate(feDesde, feHasta).subscribe(
+    this.pagoService.getByRango(feDesde, feHasta).subscribe(
       pagos => {
 
         if (pagos.success) {

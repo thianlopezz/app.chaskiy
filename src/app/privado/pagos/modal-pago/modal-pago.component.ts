@@ -55,7 +55,7 @@ export class ModalPagoComponent implements OnInit, OnChanges {
 
     this.loading = true;
 
-    this.pagoService.getAll(this.idReserva)
+    this.pagoService.get(this.idReserva)
       .subscribe(pagos => {
 
         this.loading = false;
