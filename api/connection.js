@@ -7,6 +7,7 @@ function Connection() {
 
   this.init = function () {
 
+    // FIXME: setear ENV
     let config = {
       connectionLimit: 15,
       host: '192.168.99.100',

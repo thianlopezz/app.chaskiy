@@ -1,0 +1,60 @@
+<br>
+<br>
+<div class="container">
+  <h2>Reservas por fuentes de captación</h2>
+  <hr class="my-2">
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Reservas</h3>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="mydate">Desde</label>
+              <my-date-picker id="mydate" name="mydate" [options]="myDatePickerOptions" [(ngModel)]="feDesde"
+                (dateChanged)="onDateChanged($event, 'D')"></my-date-picker>
+              <div [hidden]="!hbDesde.show" class="helper-p">
+                <p class="text-warning mb-0">{{hbDesde.mensaje}}</p>
+              </div>
+              <!-- <small [hidden]="!hbDesde.show" class="form-text text-muted">{{hbDesde.mensaje}}</small> -->
+            </div>
+            <div class="col-md-6">
+              <label for="mydate0">Hasta</label>
+              <my-date-picker id="mydate0" name="mydate0" [options]="myDatePickerOptions" [(ngModel)]="feHasta"
+                (dateChanged)="onDateChanged($event, 'H')"></my-date-picker>
+              <div [hidden]="!hbHasta.show" class="helper-p">
+                <p class="text-warning mb-0">{{hbHasta.mensaje}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2">
+      <div class="row">
+        <div class="col-md-12">
+          <app-card-chart [options]="chart"></app-card-chart>
+        </div>
+      </div>
+      <hr class="my-2">
+      <!-- <card-reservas [reservas]="reservadosDb"></card-reservas> -->
+    </div>
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            Genera estadísticas de tus reservas frente a los diferentes fuentes de captación en un rango de fechas determinado.
+          </p>
+        </div>
+      </div>
+      <div class="mt-2">
+        <app-card-notificaciones></app-card-notificaciones>
+      </div>
+    </div>
+  </div>
+</div>

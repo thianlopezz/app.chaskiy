@@ -154,6 +154,16 @@ router.post('/statistic/pagos', (req, res) => {
   estadisticas.getPagos(req.body, res);
 });
 
+router.post('/statistic/ocupacion', (req, res) => {
+
+  estadisticas.getOcupacionPorRango(req.body, res);
+});
+
+router.get('/statistic/captacion/:idHospedaje', (req, res) => {
+
+  estadisticas.getCaptacion(req.params.idHospedaje, res);
+});
+
 // P A S S W O R D
 router.post('/register/password', (req, res) => {
 

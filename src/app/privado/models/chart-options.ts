@@ -9,7 +9,11 @@ export class ChartOptions {
 
     options: any = {};
 
-    constructor(data: any) {
+    constructor(data: any, type?) {
+
+        if (type) {
+            this.type = type;
+        }
 
         this.data = data;
     }

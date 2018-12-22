@@ -17,6 +17,7 @@ export class CardChartComponent implements OnInit, OnChanges {
   @Input() options: ChartOptions;
 
   chart;
+  _chart;
 
   constructor() { }
 
@@ -26,12 +27,12 @@ export class CardChartComponent implements OnInit, OnChanges {
 
     const options = changes.options.currentValue;
 
-    if (this.chart === undefined) {
+    if (!this.chart) {
 
-      const _chart = this.myChart.nativeElement.getContext('2d');
+      this._chart = this.myChart.nativeElement.getContext('2d');
 
       this.chart = new Chart(
-        _chart,
+        this._chart,
         {
           'type': options.type || 'line',
           'data': options.data || {},
@@ -39,15 +40,18 @@ export class CardChartComponent implements OnInit, OnChanges {
         }
       );
 
+    } else {
+      this.chart.destroy();
+
+      this.chart = new Chart(
+        this._chart,
+        {
+          'type': options.type || 'line',
+          'data': options.data || {},
+          'options': options.options || {}
+        }
+      );
     }
-
-    this.chart.data.labels.pop();
-    this.chart.data.datasets.forEach((dataset) => {
-      dataset.data.pop();
-    });
-
-    this.chart.data = options.data;
-    this.chart.update();
   }
 
 }

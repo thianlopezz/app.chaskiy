@@ -20,6 +20,8 @@ import { PasajeroComponent } from '../privado/pasajero/pasajero.component';
 import { TerminosComponent } from '../publico/terminos/terminos.component';
 import { PrivacidadComponent } from '../publico/privacidad/privacidad.component';
 import { ConfiguracionComponent } from '../privado/configuracion/configuracion.component';
+import { OcupacionComponent } from '../privado/ocupacion/ocupacion.component';
+import { CaptacionComponent } from '../privado/captacion/captacion.component';
 
 const appRoutes: Routes = [
     { path: '', component: IndexComponent },
@@ -35,6 +37,8 @@ const appRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent, canActivate: [RouteActivatorService] },
     { path: 'reservas', component: ReservaComponent, canActivate: [RouteActivatorService] },
     { path: 'pagos', component: PagosComponent, canActivate: [RouteActivatorService] },
+    { path: 'ocupacion', component: OcupacionComponent, canActivate: [RouteActivatorService] },
+    { path: 'captacion', component: CaptacionComponent, canActivate: [RouteActivatorService] },
     { path: 'habitaciones', component: HabitacionComponent, canActivate: [RouteActivatorService] },
     { path: 'pasajeros', component: PasajeroComponent, canActivate: [RouteActivatorService] },
     { path: 'hospedaje', component: HospedajeComponent, canActivate: [RouteActivatorService] },
