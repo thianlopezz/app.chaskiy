@@ -1,4 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { CurrentMonth } from '../../models/current-month';
 import { HabitacionService } from '../../habitacion/habitacion.service';
 
@@ -10,7 +18,6 @@ import * as moment from 'moment';
   styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit, OnChanges {
-
   @Input() accion = 'I';
 
   @Input() reservasBD: any = [];
@@ -48,11 +55,9 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
   // CUANDO SE DA CLICK EN LOS CUADRITOS
   clickCuadrito(_room, dia: number) {
-
     // VERIFICAMOS QUE LA HABITACION EN LA QUE SE DA CLICK
     // ESTA EN RESERVADOS, SI LO ESTA DEBEMOS MOSTRAR EL DETALLE
     if (this.estaReservada(_room, dia)) {
-
       this.detalle.next({
         _room,
         dia,
@@ -62,7 +67,11 @@ export class CalendarioComponent implements OnInit, OnChanges {
       return;
     }
 
-    const clickCuadrito = moment({ y: this.current.anio, M: this.current.noMonth, d: dia });
+    const clickCuadrito = moment({
+      y: this.current.anio,
+      M: this.current.noMonth,
+      d: dia
+    });
 
     // SI DOY CLICK EN UN CUADRO QUE ESTE ANTES DE LA FECHA DE HOY
     // REGRESO SIN HACER NADA
@@ -76,12 +85,10 @@ export class CalendarioComponent implements OnInit, OnChanges {
     }
 
     if (_room.noClick === 1) {
-
       this.marcar(_room, clickCuadrito);
       _room.noClick++;
       return;
     } else if (_room.noClick === 2) {
-
       this.marcar(_room, clickCuadrito);
       _room.noClick = 1;
       return;
@@ -92,13 +99,12 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   marcar(_room, dateIn: moment.Moment) {
-
-    const index = this.reservasCliente.findIndex(x => x.idHabitacion === _room.idHabitacion);
+    const index = this.reservasCliente.findIndex(
+      x => x.idHabitacion === _room.idHabitacion
+    );
 
     if (_room.noClick === 1) {
-
       if (index === -1) {
-
         this.reservasCliente.push({
           idHabitacion: _room.idHabitacion,
           habitacion: _room.habitacion,
@@ -106,9 +112,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
           feDesde: dateIn.toDate(),
           feHasta: dateIn.toDate()
         });
-
       } else {
-
         this.reservasCliente.splice(index, 1);
 
         this.reservasCliente.push({
@@ -120,50 +124,65 @@ export class CalendarioComponent implements OnInit, OnChanges {
         });
       }
     } else if (_room.noClick === 2) {
-
       if (index !== -1) {
-
         const obj = this.reservasCliente[index];
 
-        if (dateIn.isSame(moment(obj.feDesde)) &&
-          dateIn.isSame(moment(obj.feHasta))) {
-
+        if (
+          dateIn.isSame(moment(obj.feDesde)) &&
+          dateIn.isSame(moment(obj.feHasta))
+        ) {
           this.reservasCliente.splice(index, 1);
         } else if (dateIn.isBefore(moment(obj.feDesde))) {
-
           obj.feDesde = dateIn.toDate();
           obj.feHasta = dateIn.toDate();
           this.reservasCliente[index] = obj;
         } else {
-
           obj.feHasta = dateIn.toDate();
           this.reservasCliente[index] = obj;
         }
-
       }
-
     }
 
     this.estaSeleccionada();
   }
 
   getLim(_op: string, _room, dia: number) {
-
-    const indexDb = this.findByIdDb(this.reservasBD,
+    const indexDb = this.findByIdDb(
+      this.reservasBD,
       _room.idHabitacion,
-      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0));
+      new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0)
+    );
 
     if (indexDb !== -1) {
-
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
-        === this.getDateString('/', this.reservasBD[indexDb].feDesde).getTime()
-        && _op === 'I') {
+      if (
+        new Date(
+          this.current.anio,
+          this.current.noMonth,
+          dia,
+          0,
+          0,
+          0,
+          0
+        ).getTime() ===
+          this.getDateString('/', this.reservasBD[indexDb].feDesde).getTime() &&
+        _op === 'I'
+      ) {
         return true;
       }
 
-      if (new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime()
-        === this.getDateString('/', this.reservasBD[indexDb].feHasta).getTime()
-        && _op === 'O') {
+      if (
+        new Date(
+          this.current.anio,
+          this.current.noMonth,
+          dia,
+          0,
+          0,
+          0,
+          0
+        ).getTime() ===
+          this.getDateString('/', this.reservasBD[indexDb].feHasta).getTime() &&
+        _op === 'O'
+      ) {
         return true;
       }
     }
@@ -171,7 +190,6 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
   // PARA ENVIAR EL ESTILO BLOQUEADO MARCADO RESERVADO CHECKEDIN CHECKEDOUT
   estaSeleccionada() {
-
     this.cuadritos = new Array(this.habitaciones.length);
 
     for (let i = 0; i < this.habitaciones.length; i++) {
@@ -179,22 +197,30 @@ export class CalendarioComponent implements OnInit, OnChanges {
     }
 
     for (let i = 0; i < this.habitaciones.length; i++) {
-
       for (let j = 0; j < this.current.days.length; j++) {
-
         // AGARRO EL INDEX DE LA RESERVA ENTRE reservadosCliente
-        const indexReservaCliente = this.reservasCliente.findIndex(x => x.idHabitacion === this.habitaciones[i].idHabitacion);
+        const indexReservaCliente = this.reservasCliente.findIndex(
+          x => x.idHabitacion === this.habitaciones[i].idHabitacion
+        );
 
         // AGARRO LA FECHA DEL CUADRITO DONDE SE DIO CLICK
-        const fechaCuadrito = moment({ y: this.current.anio, M: this.current.noMonth, d: this.current.days[j].day + 1 });
+        const fechaCuadrito = moment({
+          y: this.current.anio,
+          M: this.current.noMonth,
+          d: this.current.days[j].day + 1
+        });
 
         // BUSCO SI LA HABITACION ESTA RESERVADA
-        const indexReservasBD = this.reservasBD.findIndex(x => x.idHabitacion === this.habitaciones[i].idHabitacion
-          && fechaCuadrito >= moment(x.feDesde, 'DD[/]MM[/]YYYY')
-          && fechaCuadrito <= moment(x.feHasta, 'DD[/]MM[/]YYYY'));
+        const indexReservasBD = this.reservasBD.findIndex(
+          x =>
+            x.idHabitacion === this.habitaciones[i].idHabitacion &&
+            fechaCuadrito >= moment(x.feDesde, 'DD[/]MM[/]YYYY') &&
+            fechaCuadrito <= moment(x.feHasta, 'DD[/]MM[/]YYYY')
+        );
 
-        if (this.estaReservada(this.habitaciones[i], this.current.days[j].day + 1)) {
-
+        if (
+          this.estaReservada(this.habitaciones[i], this.current.days[j].day + 1)
+        ) {
           if (this.reservasBD[indexReservasBD].estado === 'Re') {
             this.cuadritos[i][j] = '_reserved';
           } else if (this.reservasBD[indexReservasBD].estado === 'Ci') {
@@ -205,9 +231,12 @@ export class CalendarioComponent implements OnInit, OnChanges {
             this.cuadritos[i][j] = '_proform';
           }
         } else if (indexReservaCliente !== -1) {
-
-          if (fechaCuadrito >= moment(this.reservasCliente[indexReservaCliente].feDesde)
-            && fechaCuadrito <= moment(this.reservasCliente[indexReservaCliente].feHasta)) {
+          if (
+            fechaCuadrito >=
+              moment(this.reservasCliente[indexReservaCliente].feDesde) &&
+            fechaCuadrito <=
+              moment(this.reservasCliente[indexReservaCliente].feHasta)
+          ) {
             this.cuadritos[i][j] = '_selected';
           } else if (fechaCuadrito < moment().subtract(1, 'days')) {
             this.cuadritos[i][j] = '_blocked';
@@ -224,14 +253,20 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   getToolTip(_op, _room, dia: number) {
-
     // AGARRO LA FECHA DEL CUADRITO DONDE SE DIO CLICK
-    const fechaCuadrito = moment({ y: this.current.anio, M: this.current.noMonth, d: dia });
+    const fechaCuadrito = moment({
+      y: this.current.anio,
+      M: this.current.noMonth,
+      d: dia
+    });
 
     // BUSCO SI LA HABITACION ESTA RESERVADA
-    const indexReservasBD = this.reservasBD.findIndex(x => x.idHabitacion === _room.idHabitacion
-      && fechaCuadrito >= moment(x.feDesde, 'DD[/]MM[/]YYYY')
-      && fechaCuadrito <= moment(x.feHasta, 'DD[/]MM[/]YYYY'));
+    const indexReservasBD = this.reservasBD.findIndex(
+      x =>
+        x.idHabitacion === _room.idHabitacion &&
+        fechaCuadrito >= moment(x.feDesde, 'DD[/]MM[/]YYYY') &&
+        fechaCuadrito <= moment(x.feHasta, 'DD[/]MM[/]YYYY')
+    );
 
     const reserva = this.reservasBD[indexReservasBD];
 
@@ -245,17 +280,22 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   estaReservada(_room, dia: number) {
-
     // AGARRO LA FECHA DEL CUADRITO DONDE SE DIO CLICK
-    const fechaClick = moment({ y: this.current.anio, M: this.current.noMonth, d: dia });
+    const fechaClick = moment({
+      y: this.current.anio,
+      M: this.current.noMonth,
+      d: dia
+    });
 
     // BUSCO SI LA HABITACION ESTA RESERVADA
-    const indexReservasBD = this.reservasBD.findIndex(x => x.idHabitacion === _room.idHabitacion
-      && fechaClick >= moment(x.feDesde, 'DD[/]MM[/]YYYY')
-      && fechaClick <= moment(x.feHasta, 'DD[/]MM[/]YYYY'));
+    const indexReservasBD = this.reservasBD.findIndex(
+      x =>
+        x.idHabitacion === _room.idHabitacion &&
+        fechaClick >= moment(x.feDesde, 'DD[/]MM[/]YYYY') &&
+        fechaClick <= moment(x.feHasta, 'DD[/]MM[/]YYYY')
+    );
 
     if (indexReservasBD !== -1) {
-
       return true;
     }
 
@@ -263,62 +303,78 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   _reservar() {
-
     this.reservar.next(this.reservasCliente);
   }
 
   _cancelar() {
-
     this.cancelar.next();
   }
 
   _modificar() {
-
     this.modificar.next(this.reservasCliente);
   }
 
   _cancelarModi() {
-
     this.cancelarModificacion.next();
     this.estaSeleccionada();
   }
 
   _siguiente() {
-
+    const diff = moment(
+      `${this.current.anio}-${this.current.noMonth + 1}-01`
+    ).diff(moment(), 'years', true);
+    // VALIDAMOS QUE NO SE PUEDA AVANZAR HASTA DESPUES DE HOY A UN ANIO
+    if (diff >= 0.8) {
+      return;
+    }
     this.current.nextMonth();
     this.siguiente.next(this.current);
   }
 
   _anterior() {
-
     this.current.previousMonth();
     this.anterior.next(this.current);
   }
 
   private getWeekDay(dia: number) {
-
-    const now = new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0);
+    const now = new Date(
+      this.current.anio,
+      this.current.noMonth,
+      dia,
+      0,
+      0,
+      0,
+      0
+    );
     return this.current.dias[now.getDay()];
   }
 
   private findByIdDb(arreglo: any[], id: number, feIn: Date) {
-
-    return arreglo.findIndex(x => x.idHabitacion === id && feIn >= this.getDateString('/', x.feDesde)
-      && feIn <= this.getDateString('/', x.feHasta));
+    return arreglo.findIndex(
+      x =>
+        x.idHabitacion === id &&
+        feIn >= this.getDateString('/', x.feDesde) &&
+        feIn <= this.getDateString('/', x.feHasta)
+    );
   }
 
   private getDateString(delimiter: string, date: string) {
-
     const auxDate = date.split(delimiter);
-    return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
+    return new Date(
+      Number(auxDate[2]),
+      Number(auxDate[1]) - 1,
+      Number(auxDate[0]),
+      0,
+      0,
+      0,
+      0
+    );
   }
 
   private loadAllRooms() {
-
     this.loadingHabitaciones = true;
 
     this.habitacionService.getAll().subscribe(response => {
-
       this.loadingHabitaciones = false;
 
       if (response.success) {
@@ -329,5 +385,4 @@ export class CalendarioComponent implements OnInit, OnChanges {
       }
     });
   }
-
 }
