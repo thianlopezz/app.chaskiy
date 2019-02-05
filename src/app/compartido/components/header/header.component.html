@@ -32,7 +32,11 @@
   <!-- SESSION -->
   <div *ngIf="chasker" class="navbar-collapse collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active" *ngFor="let route of chasker.routes">
+      <li
+        class="nav-item active"
+        *ngFor="let route of chasker.routes"
+        [hidden]="route.hidden === true"
+      >
         <a class="nav-link" [routerLink]="['/' + route.route]">{{
           route.text
         }}</a>
