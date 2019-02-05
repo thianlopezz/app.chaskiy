@@ -1,0 +1,86 @@
+<br />
+<br />
+<div class="container">
+  <h2>Marcar</h2>
+  <hr class="my-2" />
+</div>
+<div class="container">
+  <div class="row my-2">
+    <div class="col-sm-12 col-md-8 offset-md-2">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-subtitle mb-2 text-muted text-center">DD</h4>
+            <h1 class="card-title text-center">{{ fecha.dia }}</h1>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-subtitle mb-2 text-muted text-center">MM</h4>
+            <h1 class="card-title text-center">{{ fecha.mes }}</h1>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-subtitle mb-2 text-muted text-center">
+              {{ fecha.anio }}
+            </h4>
+            <h1 class="card-title text-center">2019</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-sm-12 col-md-8 offset-md-2">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-subtitle mb-2 text-muted text-center">HH</h4>
+            <h1 class="card-title text-center">{{ hora.hora }}</h1>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-subtitle mb-2 text-muted text-center">mm</h4>
+            <h1 class="card-title text-center">{{ hora.minuto }}</h1>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-subtitle mb-2 text-muted text-center">ss</h4>
+            <h1 class="card-title text-center">{{ hora.segundo }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-sm-12 col-md-8 offset-md-2">
+      <div *ngIf="marca" class="card-deck">
+        <div
+          class="card hoverable"
+          (click)="!marca.idMarcacion && marcar('ENTRADA')"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-center">Marcar entrada</h3>
+            <h4 class="card-subtitle mb-2 text-muted text-center">
+              {{ marca.feEntrada | date: "dd/MM/yyyy HH:mm:ss" }}
+            </h4>
+          </div>
+        </div>
+        <div
+          class="card hoverable"
+          (click)="marca.feEntrada && marcar('SALIDA')"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-center">Marcar salida</h3>
+            <h4 class="card-subtitle mb-2 text-muted text-center">
+              {{ marca.feSalida | date: "dd/MM/yyyy HH:mm:ss" }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

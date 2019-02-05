@@ -49,6 +49,8 @@ import { ModalPagoComponent } from './pagos/modal-pago/modal-pago.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { OcupacionComponent } from './ocupacion/ocupacion.component';
 import { CaptacionComponent } from './captacion/captacion.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { MarcacionComponent } from './marcacion/marcacion.component';
 
 @NgModule({
   imports: [
@@ -81,7 +83,9 @@ import { CaptacionComponent } from './captacion/captacion.component';
     DetalleReservaComponent,
     ConfiguracionComponent,
     OcupacionComponent,
-    CaptacionComponent
+    CaptacionComponent,
+    AnalyticsComponent,
+    MarcacionComponent
   ],
   providers: [
     AdicionalService,

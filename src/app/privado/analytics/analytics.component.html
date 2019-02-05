@@ -1,0 +1,52 @@
+<br />
+<br />
+<div class="container">
+  <h2>Analítica</h2>
+  <hr class="my-2" />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="row mb-1">
+        <div class="col-md-6 col-sm-12">
+          <div class="card hoverable" [routerLink]="['/analytics/ocupacion']">
+            <div class="card-body">
+              <h5 class="card-title">Niveles de ocupación</h5>
+              <p class="card-text">
+                Revisa los niveles de ocupación que genera tu hospedaje en un
+                rango definido de fechas.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="card hoverable" [routerLink]="['/analytics/captacion']">
+            <div class="card-body">
+              <h5 class="card-title">Fuentes de captación</h5>
+              <p class="card-text">
+                ¿Por dónde llegan más tus reservas? Revisa esta información y
+                toma decisiones a partir de esta importante estadística.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            Sabemos lo importante que es la toma de decisiones, te lo hacemos
+            más fácil con estos importantes datos estadísticos para tu
+            hospedaje.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <app-card-notificaciones></app-card-notificaciones>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,35 +22,97 @@ import { PrivacidadComponent } from '../publico/privacidad/privacidad.component'
 import { ConfiguracionComponent } from '../privado/configuracion/configuracion.component';
 import { OcupacionComponent } from '../privado/ocupacion/ocupacion.component';
 import { CaptacionComponent } from '../privado/captacion/captacion.component';
+import { AnalyticsComponent } from '../privado/analytics/analytics.component';
+import { MarcacionComponent } from '../privado/marcacion/marcacion.component';
 
 const appRoutes: Routes = [
-    { path: '', component: IndexComponent },
-    { path: 'index', component: IndexComponent },
-    { path: 'registro', component: RegistroComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'terminos', component: TerminosComponent },
-    { path: 'privacidad', component: PrivacidadComponent },
+  { path: '', component: IndexComponent },
+  { path: 'index', component: IndexComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'terminos', component: TerminosComponent },
+  { path: 'privacidad', component: PrivacidadComponent },
 
-    { path: 'generico', component: GenericoComponent },
-    { path: '404', component: Err404Component },
+  { path: 'generico', component: GenericoComponent },
+  { path: '404', component: Err404Component },
 
-    { path: 'dashboard', component: HomeComponent, canActivate: [RouteActivatorService] },
-    { path: 'reservas', component: ReservaComponent, canActivate: [RouteActivatorService] },
-    { path: 'pagos', component: PagosComponent, canActivate: [RouteActivatorService] },
-    { path: 'ocupacion', component: OcupacionComponent, canActivate: [RouteActivatorService] },
-    { path: 'captacion', component: CaptacionComponent, canActivate: [RouteActivatorService] },
-    { path: 'habitaciones', component: HabitacionComponent, canActivate: [RouteActivatorService] },
-    { path: 'pasajeros', component: PasajeroComponent, canActivate: [RouteActivatorService] },
-    { path: 'hospedaje', component: HospedajeComponent, canActivate: [RouteActivatorService] },
-    { path: 'configuracion', component: ConfiguracionComponent, canActivate: [RouteActivatorService] },
+  {
+    path: 'dashboard',
+    component: HomeComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'reservas',
+    component: ReservaComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'pagos',
+    component: PagosComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'habitaciones',
+    component: HabitacionComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'pasajeros',
+    component: PasajeroComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'hospedaje',
+    component: HospedajeComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'configuracion',
+    component: ConfiguracionComponent,
+    canActivate: [RouteActivatorService]
+  },
 
-    { path: 'contrasena', component: ContrasenaComponent, canActivate: [RouteActivatorService] },
+  {
+    path: 'contrasena',
+    component: ContrasenaComponent,
+    canActivate: [RouteActivatorService]
+  },
 
-    { path: 'adicionales', component: AdicionalComponent, canActivate: [RouteActivatorService] },
-    { path: 'tarifas', component: TarifaComponent, canActivate: [RouteActivatorService] },
+  {
+    path: 'adicionales',
+    component: AdicionalComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'tarifas',
+    component: TarifaComponent,
+    canActivate: [RouteActivatorService]
+  },
 
-    // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+  {
+    path: 'analytics',
+    component: AnalyticsComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'analytics/ocupacion',
+    component: OcupacionComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'analytics/captacion',
+    component: CaptacionComponent,
+    canActivate: [RouteActivatorService]
+  },
+
+  {
+    path: 'marcar',
+    component: MarcacionComponent,
+    canActivate: [RouteActivatorService]
+  },
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

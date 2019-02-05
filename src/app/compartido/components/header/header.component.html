@@ -1,10 +1,16 @@
 <nav class="navbar navbar-expand-md bg-light">
   <a class="navbar-brand" [routerLink]="['/']">
-    <img src="/assets/images/brand.svg" width="60" alt="">
-    Chaskiy
+    <img src="/assets/images/brand.svg" width="60" alt="" /> Chaskiy
   </a>
-  <button class="navbar-toggler collapsed " type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent"
-    aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler collapsed "
+    type="button"
+    data-toggle="collapse"
+    data-target="#navContent"
+    aria-controls="navContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <!-- NO SESSION -->
@@ -18,7 +24,9 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-md-0">
-      <a class="btn btn-outline-primary" [routerLink]="['/login']">Iniciar sesión</a>
+      <a class="btn btn-outline-primary" [routerLink]="['/login']"
+        >Iniciar sesión</a
+      >
     </form>
   </div>
   <!-- SESSION -->
@@ -40,6 +48,9 @@
         <a class="nav-link" [routerLink]="['/pasajeros']">Pasajeros</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/analytics']">Analíticas</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" [routerLink]="['/hospedaje']">Hospedaje</a>
       </li>
       <li class="nav-item">
@@ -48,19 +59,24 @@
     </ul>
     <form class="form-inline my-2 my-md-0">
       <div class="dropdown">
-        <a class="dropdown-toggle" [routerLink]="" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          {{chasker.nombre}}
-        </a>      
+        <a
+          class="dropdown-toggle"
+          [routerLink]=""
+          role="button"
+          id="dropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{ chasker.nombre }}
+        </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item" [routerLink]="['/contrasena']">
-            Cambiar contraseña
-            <i class="fa fa-key" aria-hidden="true"></i>
+            Cambiar contraseña <i class="fa fa-key" aria-hidden="true"></i>
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="" (click)="logOut()">
-            Cerrar sesión
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i>
           </a>
         </div>
       </div>
