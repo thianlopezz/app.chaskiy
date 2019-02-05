@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <!-- DETALLE -->
-      <app-detalle-reserva *ngIf="!loadingDetalle && !accion" [model]="model" (success)="_success()" (modificar)="_modificar()" (pagos)="_pagos($event)" (cambiarEstado)="_cambiarEstado($event)" (cancelarReserva)='_cancelarReserva()' (cerrar)="_cerrar($event)"></app-detalle-reserva>
+      <app-detalle-reserva *ngIf="!loadingDetalle && !accion" [model]="model" [aerolineas]="aerolineas" [fuentes]="fuentes" (success)="_success()" (modificar)="_modificar()" (pagos)="_pagos($event)" (cambiarEstado)="_cambiarEstado($event)" (cancelarReserva)='_cancelarReserva()' (cerrar)="_cerrar($event)"></app-detalle-reserva>
       <app-spinner *ngIf="loadingDetalle"></app-spinner>
       <!-- EDITAR/INSERTAR -->
       <div *ngIf="accion" class="modal-header bg-primary text-light">

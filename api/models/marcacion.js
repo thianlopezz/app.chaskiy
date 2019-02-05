@@ -30,7 +30,7 @@ function Marcacion() {
       let result = await dataAccess.execJsonToSp("ma_marcacion", params);
 
       if (result[0][0].error === undefined) {
-        res.send({ success: true, data: result[0][0] });
+        res.send({ success: true, ...result[0][0] });
       } else {
         res.send({ success: true, ...result[0][0] });
       }

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges
+} from '@angular/core';
 import { ReservaService } from '../../reserva.service';
 import { ToastService } from '../../../../compartido/services/toast.service';
 import * as moment from 'moment';
@@ -11,8 +18,9 @@ declare var jQuery: any;
   styleUrls: ['./detalle-reserva.component.css']
 })
 export class DetalleReservaComponent implements OnInit, OnChanges {
-
   @Input() model: any = {};
+  @Input() aerolineas = [];
+  @Input() fuentes = [];
 
   @Output() success = new EventEmitter<any>();
   @Output() cancelarReserva = new EventEmitter<any>();
@@ -31,24 +39,44 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
   mensajeConfirmacion;
 
-  constructor(private reservaService: ReservaService) { }
+  constructor(
+    private reservaService: ReservaService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.paso = 1;
   }
 
   ngOnChanges() {
-
     this.paso = 1;
-
-    if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifaDetalle === '-') {
+    if (
+      this.model &&
+      this.model.habitaciones &&
+      this.model.habitaciones[0].tarifaDetalle === '-'
+    ) {
       this.esTotal = true;
       this.total = this.model.total;
+    }
+
+    // MAPEAR {value:, text} catalogos
+    if (
+      this.aerolineas &&
+      !this.aerolineas[0].text &&
+      !this.aerolineas[0].value
+    ) {
+      this.aerolineas = this.aerolineas.map(aerolinea => {
+        return { value: aerolinea.idAerolinea, text: aerolinea.aerolinea };
+      });
+    }
+    if (this.fuentes && !this.fuentes[0].text && !this.fuentes[0].value) {
+      this.fuentes = this.fuentes.map(fuente => {
+        return { value: fuente.idFuente, text: fuente.fuente };
+      });
     }
   }
 
   confirmar() {
-
     jQuery('#confirmaModal').modal('hide');
     setTimeout(() => {
       jQuery('#estadosModal').modal('show');
@@ -67,81 +95,7 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
     this.cambiarEstado.next(estado);
   }
 
-  // cambiaEstado(check?: string) {
-
-  //   this.loading = true;
-
-  //   this.model.accion = 'Es';
-
-  //   let mensaje = '';
-  //   let mensaje_err = '';
-
-  //   if (!check) {
-
-  //     check = this.model.a_estado;
-  //   }
-
-  //   switch (check) {
-  //     case 'Ci':
-  //       mensaje = 'Check-in éxitoso';
-  //       mensaje_err = 'Ocurrió un error en el check in';
-  //       break;
-  //     case 'Co':
-  //       mensaje = 'Check-out éxitoso';
-  //       mensaje_err = 'Ocurrió un error en el check-out';
-  //       break;
-  //     case 'Re':
-  //       mensaje = 'Reserva confirmada con exito';
-  //       mensaje_err = 'Ocurrió un error al confirmar la reserva';
-  //       break;
-  //     case 'Ca':
-  //       mensaje = 'Reserva cancelada con exito';
-  //       mensaje_err = 'Ocurrió un error al cancelar la reserva';
-  //       break;
-  //   }
-
-  //   if (check === 'Co' && (this.model.total - this.model.totalPagado) > 0) {
-
-  //     // jQuery('#estadosModal').modal('hide');
-
-  //     this.toastService.showWarning('No se puede realizar el proceso de check-out debido a que hay un saldo pendiente.');
-  //     this.loading = false;
-  //     return;
-  //   }
-
-  //   this.model.estado = check;
-
-  //   this.reservaService.mantenimiento(this.model)
-  //     .subscribe(
-  //       data => {
-
-  //         if (data.success) {
-
-  //           jQuery('#estadosModal').modal('hide');
-
-  //           this.loading = false;
-  //           jQuery('#reservaModal').modal('hide');
-  //           this.toastService.showSuccess(mensaje);
-  //         } else {
-
-  //           jQuery('#estadosModal').modal('hide');
-
-  //           this.loading = false;
-  //           this.toastService.showError(data.mensaje);
-  //         }
-  //       },
-  //       error => {
-
-  //         jQuery('#estadosModal').modal('hide');
-
-  //         console.log(error);
-  //         this.loading = false;
-  //         this.toastService.showError(mensaje_err);
-  //       });
-  // }
-
   setCancelar() {
-
     this.cancelarReserva.next({});
     // this.model.a_estado = 'Ca';
     // this.model = Object.assign({}, this.model);
@@ -149,11 +103,8 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
   }
 
   ocultaBtn(op: string) {
-
     switch (op) {
-
       case 'Ci':
-
         if (this.model.estado === 'Co') {
           return false;
         }
@@ -166,11 +117,11 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
         // CUANDO YA PASO EL DIA DE LLEGADA O DESPUES
         if (this.model.habitaciones) {
-
           this.model.habitaciones.forEach(habitacion => {
-
-            if (moment().isSame(moment(habitacion.feDesde.getTime())) ||
-              moment().isAfter(moment(habitacion.feDesde.getTime()))) {
+            if (
+              moment().isSame(moment(habitacion.feDesde.getTime())) ||
+              moment().isAfter(moment(habitacion.feDesde.getTime()))
+            ) {
               bandera = true;
             }
           });
@@ -178,14 +129,12 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
         return bandera;
       case 'Co':
-
         if (this.model.estado === 'Ci') {
           return true;
         }
 
         return false;
       case 'D':
-
         if (this.model.estado === 'Ci') {
           return false;
         }
@@ -196,7 +145,6 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
         return true;
       case 'U':
-
         if (this.model.estado === 'Ci' || this.model.estado === 'Co') {
           return false;
         }
@@ -206,15 +154,12 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
   }
 
   nightDiff(feDesde: Date, feHasta: Date) {
-
     return this.reservaService.getNumeroNoches(feDesde, feHasta);
   }
 
   // FIXME: REVISAR SI ES PRUDENTE QUE VAYA
   getTotal() {
-
     if (!this.model.habitaciones || this.model.habitaciones.length === 0) {
-
       return 0;
     }
 
@@ -223,13 +168,14 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
-
-      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
+      sum =
+        sum +
+        this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) *
+          habitaciones[i].tarifa;
     }
 
     for (let i = 0; i < adicionales.length; i++) {
-
-      sum = sum + (adicionales[i].tarifa * adicionales[i].cantidad);
+      sum = sum + adicionales[i].tarifa * adicionales[i].cantidad;
     }
 
     this.model.total = sum;
@@ -238,12 +184,10 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
   }
 
   getEstado() {
-
     return this.reservaService.getEstado(this.model);
   }
 
   _modificar() {
-
     this.modificar.next();
   }
 
@@ -259,8 +203,40 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
     this.paso = 2;
   }
 
-  // _cancelarReserva() {
-  //   this.cancelarReserva.next();
-  // }
+  modificarAerolinea(idAerolinea) {
+    this.modificarCamposIndividuales({
+      idReserva: this.model.idReserva,
+      idAerolinea
+    });
+  }
 
+  modificarFuente(idFuente) {
+    this.modificarCamposIndividuales({
+      idReserva: this.model.idReserva,
+      idFuente
+    });
+  }
+
+  modificarNotas(notas) {
+    this.modificarCamposIndividuales({
+      idReserva: this.model.idReserva,
+      notas
+    });
+  }
+
+  modificarCamposIndividuales(reserva) {
+    this.reservaService.modificarCamposIndividuales(reserva).subscribe(
+      data => {
+        if (data.success) {
+          this.toastService.showSuccess(data.mensaje);
+        } else {
+          this.toastService.showError(data.mensaje);
+        }
+      },
+      error => {
+        this.toastService.showError('Ocurrió un error, inténtalo más tarde.');
+        console.log(error);
+      }
+    );
+  }
 }

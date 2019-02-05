@@ -1,0 +1,23 @@
+<p *ngIf="!esModificar" class="text-muted">
+  <a (click)="desbloquea()">
+    {{ text }}
+    <i class="fa fa-caret-down text-primary" aria-hidden="true"></i>
+  </a>
+</p>
+<div *ngIf="esModificar" class="row mx-auto">
+  <input type="text" class="form-control col-9" [(ngModel)]="value" />
+  <button
+    type="button"
+    class="btn btn-link text-primary px-0 col-1"
+    (click)="_modificar()"
+  >
+    <i class="fa fa-check" aria-hidden="true"></i>
+  </button>
+  <button
+    type="button"
+    class="btn btn-link text-primary px-0 col-1"
+    (click)="cancelar()"
+  >
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </button>
+</div>

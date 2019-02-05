@@ -73,19 +73,18 @@ const appRoutes: Routes = [
   },
 
   {
-    path: 'contrasena',
-    component: ContrasenaComponent,
-    canActivate: [RouteActivatorService]
-  },
-
-  {
-    path: 'adicionales',
+    path: 'configuracion/adicionales',
     component: AdicionalComponent,
     canActivate: [RouteActivatorService]
   },
   {
-    path: 'tarifas',
+    path: 'configuracion/tarifas',
     component: TarifaComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'contrasena',
+    component: ContrasenaComponent,
     canActivate: [RouteActivatorService]
   },
 
@@ -111,8 +110,8 @@ const appRoutes: Routes = [
     canActivate: [RouteActivatorService]
   },
 
-  // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  // otherwise redirect to 404
+  { path: '**', redirectTo: '404' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

@@ -86,7 +86,7 @@ router.get("/social/all/", (req, res) => {
   social.get(res);
 });
 
-// B R O K E R
+// ===============B R O K E R==================
 router.use(function(req, res, next) {
   // check header or url parameters or post parameters for token
   //var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -209,6 +209,11 @@ router.post("/reservas/", (req, res) => {
 
 router.post("/reservas/estado", (req, res) => {
   reservas.cambiaEstado(req.body, res);
+});
+
+// C A M P O S  I N D I V I D U A L E S
+router.post("/reservas/individuales", (req, res) => {
+  reservas.camposIndividuales(req.body, res);
 });
 
 //F O R M A  P A G O S

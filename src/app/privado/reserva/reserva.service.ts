@@ -4,12 +4,11 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReservaService {
-
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   getById(id: number) {
-
-    return this.http.get('/api/reservas/' + id, this.jwt())
+    return this.http
+      .get('/api/reservas/' + id, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
@@ -17,53 +16,65 @@ export class ReservaService {
     // DD/MM/AAAA
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.post('/api/reservas/all/' + consulta, { feDesde, feHasta, idHospedaje: chasker.idHospedaje }, this.jwt())
+    return this.http
+      .post(
+        '/api/reservas/all/' + consulta,
+        { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
+        this.jwt()
+      )
       .pipe(map((response: Response) => response.json()));
   }
 
   mantenimiento(reserve: any) {
-
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     reserve.idHospedaje = chasker.idHospedaje;
     reserve.idUsuario = chasker.idUsuario;
 
     if (reserve.estado === 'Co') {
-
       const today = new Date();
       reserve.feHasta = new Date(
-        new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24)
+        new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate(),
+          0,
+          0,
+          0,
+          0
+        ).getTime() -
+          1000 * 60 * 60 * 24
       );
     }
 
-    return this.http.post('/api/reservas', reserve, this.jwt())
+    return this.http
+      .post('/api/reservas', reserve, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
   cambiaEstado(reserva) {
-
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     reserva.idUsuario = chasker.idUsuario;
 
-    return this.http.post('/api/reservas/estado/', reserva, this.jwt())
+    return this.http
+      .post('/api/reservas/estado/', reserva, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
   getByIdEx(id: number, token: string) {
-
-    return this.http.get('/api/reservas/ex/' + id + '/' + token, this.jwt())
+    return this.http
+      .get('/api/reservas/ex/' + id + '/' + token, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
   confirmaReserva(id: number) {
-
-    return this.http.get('/api/reservas/confirma/' + id, this.jwt())
+    return this.http
+      .get('/api/reservas/confirma/' + id, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
   getEstado(reserva: any) {
-
     if (reserva.estado === 'Ca') {
       return 'Cancelada';
     } else if (reserva.estado === 'Ci') {
@@ -80,12 +91,19 @@ export class ReservaService {
   }
 
   getNumeroNoches(feDesde: Date, feHasta: Date) {
-
     let diaDesde = feDesde.getDate();
     const mesDesde = feDesde.getMonth();
     const anioDesde = feDesde.getFullYear();
 
-    feHasta = new Date(feHasta.getFullYear(), feHasta.getMonth(), feHasta.getDate(), 0, 0, 0, 0);
+    feHasta = new Date(
+      feHasta.getFullYear(),
+      feHasta.getMonth(),
+      feHasta.getDate(),
+      0,
+      0,
+      0,
+      0
+    );
     feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
 
     let cont = 0;
@@ -93,9 +111,7 @@ export class ReservaService {
     if (feDesde.getTime() > feHasta.getTime()) {
       return 0;
     } else {
-
       while (feDesde.getTime() !== feHasta.getTime()) {
-
         diaDesde++;
         feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
         cont++;
@@ -105,8 +121,18 @@ export class ReservaService {
     }
   }
 
-  private jwt() {
+  // modificacion de campos individuales
+  modificarCamposIndividuales(reserva) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
 
+    reserva.idUsuario = chasker.idUsuario;
+
+    return this.http
+      .post('/api/reservas/individuales/', reserva, this.jwt())
+      .pipe(map((response: Response) => response.json()));
+  }
+
+  private jwt() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     if (chasker && chasker.token) {

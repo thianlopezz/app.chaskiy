@@ -17,6 +17,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FiltrarPipe } from './pipes/filtrar.pipe';
+import { PInputComponent } from './components/p-input/p-input.component';
+import { PSelectComponent } from './components/p-select/p-select.component';
+import { PTextAreaComponent } from './components/p-text-area/p-text-area.component';
 
 @NgModule({
   imports: [
@@ -34,12 +37,12 @@ import { FiltrarPipe } from './pipes/filtrar.pipe';
     HeaderComponent,
     FooterComponent,
     HttpModule,
-    FiltrarPipe
+    FiltrarPipe,
+    PInputComponent,
+    PSelectComponent,
+    PTextAreaComponent
   ],
-  providers: [
-    MensajeService,
-    ToastService
-  ],
+  providers: [MensajeService, ToastService],
   declarations: [
     GenericoComponent,
     ModalConfirmacionComponent,
@@ -48,7 +51,10 @@ import { FiltrarPipe } from './pipes/filtrar.pipe';
     SpinnerComponent,
     HeaderComponent,
     FooterComponent,
-    FiltrarPipe
+    FiltrarPipe,
+    PInputComponent,
+    PSelectComponent,
+    PTextAreaComponent
   ]
 })
-export class CompartidoModule { }
+export class CompartidoModule {}

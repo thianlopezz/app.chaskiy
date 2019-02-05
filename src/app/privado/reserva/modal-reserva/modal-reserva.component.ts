@@ -1,21 +1,29 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { ReservaService } from '../reserva.service';
-import { NgForm } from '@angular/forms';
-import { ToastService } from '../../../compartido/services/toast.service';
-import { PasajeroService } from '../../pasajero/pasajero.service';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from "@angular/core";
+import { ReservaService } from "../reserva.service";
+import { NgForm } from "@angular/forms";
+import { ToastService } from "../../../compartido/services/toast.service";
+import { PasajeroService } from "../../pasajero/pasajero.service";
 
 declare var jQuery: any;
 
 // TODO: href="javascript:;" [routerLink]=""
 // FIXME: nightdiff no desde dom
+// TODO: IVA NO QUEMADO
 
 @Component({
-  selector: 'app-modal-reserva',
-  templateUrl: './modal-reserva.component.html',
-  styleUrls: ['./modal-reserva.component.css']
+  selector: "app-modal-reserva",
+  templateUrl: "./modal-reserva.component.html",
+  styleUrls: ["./modal-reserva.component.css"]
 })
 export class ModalReservaComponent implements OnInit, OnChanges {
-
   IVA = 0.12;
   esIva = false;
   valorIva;
@@ -94,22 +102,28 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   auxAdicional: any = {};
 
   auxHabitacion: any = {
-    idHabitacion: 0, habitacion: '', tarifa: 0,
-    feDesde: new Date(), feHasta: new Date()
+    idHabitacion: 0,
+    habitacion: "",
+    tarifa: 0,
+    feDesde: new Date(),
+    feHasta: new Date()
   };
 
-  constructor(private reservaService: ReservaService,
+  constructor(
+    private reservaService: ReservaService,
     private pasajeroService: PasajeroService,
-    private toastService: ToastService) { }
+    private toastService: ToastService
+  ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
-
     // VERIFICO SI EL MODEL DE LA RESERVA QUE LLEGA AL COMPONENTE ES DE TIPO 'TOTAL'
-    if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifaDetalle === '-') {
+    if (
+      this.model &&
+      this.model.habitaciones &&
+      this.model.habitaciones[0].tarifaDetalle === "-"
+    ) {
       this.esSubTotal = true;
       this.subTotal = this.model.total;
     }
@@ -117,7 +131,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     if (this.model && this.model.iva && this.model.iva.iva > 0) {
       this.esIva = true;
       this.subTotal = this.getSubTotal();
-      debugger;
     }
 
     // SETEO LOS SELECTS
@@ -127,7 +140,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       if (!this.esSubTotal) {
         this.subTotal = this.getSubTotal();
       }
-
     }, 10);
 
     // SETEAMOS CATALOGOS
@@ -136,38 +148,34 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   setSelects() {
-
     // ARTIFICIO PARA OBTENER FUNCIONES DENTRO DE LOS
     // EVENTS DE JQUERY - SELECT2
     const self = this;
 
     // DOS POSIBILIDADES DE ACCION
     // INSERTAR
-    if (this.accion === 'I') {
-
+    if (this.accion === "I") {
       // RESERVA Y TOTAL FALSO
-      this.model.estado = 'Re';
+      this.model.estado = "Re";
       this.esSubTotal = false;
 
       // INICIALIZO LOS SELECT2
-      jQuery('.form-control.tarifa').select2();
-      jQuery('#adicional').select2();
-      jQuery('#pais').select2();
+      jQuery(".form-control.tarifa").select2();
+      jQuery("#adicional").select2();
+      jQuery("#pais").select2();
 
       // VACIO LOS SELECT
-      jQuery('#adicional').val([]);
+      jQuery("#adicional").val([]);
 
       // ASIGNO EVENTOS
       // EVENTO SELECT - ADICIONAL
-      jQuery('#adicional').on('select2:select', function (e) {
-
+      jQuery("#adicional").on("select2:select", function(e) {
         // EJECUTO EL CAMBIO DE ADICIONAL
-        self.handleChangeAdicional(jQuery('#adicional').val());
+        self.handleChangeAdicional(jQuery("#adicional").val());
       });
 
       // ASIGNO EVENTO A CLASE TARIFA .tarifa
-      jQuery('.form-control.tarifa').on('select2:select', function (e) {
-
+      jQuery(".form-control.tarifa").on('select2:select', function(e) {
         // DE ESTA MANERA CAPTURO EL ID DE LA HABITACION
         // ESTE ID SE AUTGENERO DENTRO DEL FOR DE CADA ROW
         // DE HABITACION AGREGADA, DESDE EL ATRIBUTO NAME
@@ -179,9 +187,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
       // ASIGNO LA PRIMERA TARIFA POR DEFAULT
       if (this.model.habitaciones) {
-
         this.model.habitaciones.forEach(habitacion => {
-
           if (this.tarifas.length) {
             habitacion.idTarifa = this.tarifas[0].idTarifa;
             habitacion.tarifa = this.tarifas[0].valor;
@@ -189,7 +195,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
         });
       }
     } else if (this.accion === 'U') {
-
       this.pasajeroRegistrado = true;
 
       // INICIALIZO SELECT2
@@ -201,29 +206,32 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       jQuery('#pais').val(this.model.pasajero.idPais);
       jQuery('#pais').trigger('change');
 
-      jQuery('#adicional').val(this.setAdicionalesFormatoSelect2(this.model.adicionales));
+      jQuery('#adicional').val(
+        this.setAdicionalesFormatoSelect2(this.model.adicionales)
+      );
       jQuery('#adicional').trigger('change');
 
       // ASIGNO LOS ADICINALES AL MODELO
       this.handleChangeAdicional(jQuery('#adicional').val());
 
       // CONFIGURO EVENTO ON CHANGE
-      jQuery('#adicional').on('select2:select', function (e) {
+      jQuery('#adicional').on('select2:select', function(e) {
         self.handleChangeAdicional(jQuery('#adicional').val());
       });
 
-      jQuery('.form-control.tarifa').on('select2:select', function (e) {
+      jQuery('.form-control.tarifa').on('select2:select', function(e) {
         const idHabitacion = e.target.name.split('-')[1];
         self.handleChangeTarifa(idHabitacion, e.target.value);
       });
 
       // CARGO LOS VALORES DE TARIFAS DE LAS HABITACIONES
-      jQuery('.form-control.tarifa').each(function (index) {
-
+      jQuery('.form-control.tarifa').each(function(index) {
         const sele = jQuery('.form-control.tarifa')[index];
         const name = sele.name;
         const idHabitacion = name.split('-')[1];
-        const idTarifa = self.model.habitaciones.find(x => x.idHabitacion === Number(idHabitacion)).idTarifa;
+        const idTarifa = self.model.habitaciones.find(
+          x => x.idHabitacion === Number(idHabitacion)
+        ).idTarifa;
         jQuery('#' + name).val('' + idTarifa);
         jQuery('#' + name).trigger('change');
       });
@@ -231,7 +239,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   setAdicionalesFormatoSelect2(adicionales: any[]) {
-
     // tslint:disable-next-line:prefer-const
     let arregloAdicionales = [];
     adicionales.forEach(adicional => {
@@ -242,7 +249,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   // PROCESO DE GUARDAR REGISTRO
   guardar(form: NgForm) {
-
     // SET CARGANDO
     this.loading = true;
 
@@ -265,8 +271,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
     // REEMPLAZO TABS Y BREAKLINES
     this.model.notas = this.model.notas || '';
-    this.model.notas = this.model.notas.replace(/\n/g, '');
-    this.model.notas = this.model.notas.replace(/\t/g, '');
 
     // CONFIGURAMOS EL IVA
     this.model.iva = {
@@ -279,33 +283,29 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     // CONFIGURAMOS EL TOTAL
     this.model.total = this.model.iva.total;
 
-    this.reservaService.mantenimiento(this.model)
-      .subscribe(
-        response => {
+    this.reservaService.mantenimiento(this.model).subscribe(
+      response => {
+        this.loading = false;
 
-          this.loading = false;
+        if (response.success) {
+          form.resetForm();
+          this.pasajeroRegistrado = false;
+          this.paso = 1;
 
-          if (response.success) {
+          this.toastService.showSuccess(response.mensaje);
+          jQuery('#reservaModal').modal('hide');
 
-            form.resetForm();
-            this.pasajeroRegistrado = false;
-            this.paso = 1;
-
-            this.toastService.showSuccess(response.mensaje);
-            jQuery('#reservaModal').modal('hide');
-
-            this._success();
-          } else {
-
-            this.toastService.showError(response.mensaje);
-          }
-        },
-        error => {
-
-          this.loading = false;
-          this.toastService.showError('Ocurrió un error al crear la reserva.');
-          console.log(error);
-        });
+          this._success();
+        } else {
+          this.toastService.showError(response.mensaje);
+        }
+      },
+      error => {
+        this.loading = false;
+        this.toastService.showError('Ocurrió un error al crear la reserva.');
+        console.log(error);
+      }
+    );
   }
 
   // CUANDO ES EXITOSO EL GUARDADO
@@ -315,12 +315,13 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   // CUANDO PRESIONA EL BOTON MODIFICAR
   _modificar() {
-
     this.paso = 1;
     this.modificarSubTotal = false;
 
     for (let i = 0; i < this.model.habitaciones.length; i++) {
-      this.model.habitaciones[i].modelTarifa = this.tarifas.find(x => x.idTarifa === this.model.habitaciones[i].idTarifa);
+      this.model.habitaciones[i].modelTarifa = this.tarifas.find(
+        x => x.idTarifa === this.model.habitaciones[i].idTarifa
+      );
     }
 
     this.modificar.next(this.model);
@@ -328,7 +329,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   // CUANDO CANCELA
   _cerrar() {
-
     this.paso = 1;
     this.esSubTotal = false;
     this.modificarSubTotal = false;
@@ -342,7 +342,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   _cambiarEstado(estado) {
-
     this.cambiarEstado.next(estado);
   }
 
@@ -352,7 +351,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   // CUANDO PRECIONA SIGUIENTE
   siguiente() {
-
     // VALIDAMOS QUE AL MENOS TENGA UNA HABITACION
     if (this.model.habitaciones.length === 0) {
       this.toastService.showWarning('Selecciona al menos una habitación');
@@ -360,16 +358,22 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     }
 
     // vERIFICAMOS QUE TODAS LAS HABITACIONES TENGAN ASIGNADAS TARIFAS
-    const index = this.model.habitaciones.findIndex(x => x.idTarifa === undefined);
+    const index = this.model.habitaciones.findIndex(
+      x => x.idTarifa === undefined
+    );
 
     if (!this.esSubTotal && index !== -1) {
-      this.toastService.showWarning('Todas las habitaciones deben tener asignada una tarifa.');
+      this.toastService.showWarning(
+        'Todas las habitaciones deben tener asignada una tarifa.'
+      );
       return;
     }
 
     // VALIDAMOS QUE NO ESTE MODIFICANDO
     if (this.modificarSubTotal) {
-      this.toastService.showWarning('Termina de modificar el total de la reserva');
+      this.toastService.showWarning(
+        'Termina de modificar el total de la reserva'
+      );
       return;
     }
 
@@ -385,7 +389,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   // SUMA TOTAL DE RESERVA SIEMPRE QUE esTotal = false
   getSubTotal() {
-
     // SET VALOR DE IVA
     if (this.esIva) {
       this.IVA = 0.12;
@@ -404,7 +407,10 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
     // SUMO TOTAL DE TARIFA DE HABITACION POR EL NUMERO DE NOCHES
     habitaciones.forEach(habitacion => {
-      sum = sum + (this.nightDiff(habitacion.feDesde, habitacion.feHasta) * habitacion.tarifa);
+      sum =
+        sum +
+        this.nightDiff(habitacion.feDesde, habitacion.feHasta) *
+          habitacion.tarifa;
     });
 
     // SI ESTA EN MODO ACTUALIZACION Y ES SUBTOTAL NO SE PARA BOLA
@@ -415,7 +421,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
     // SUMO EL TOTAL DE LA TARIFA DEL ADICIONAL POR LA CANTIDAD
     adicionales.forEach(adicional => {
-      sum = sum + (adicional.tarifa * adicional.cantidad);
+      sum = sum + adicional.tarifa * adicional.cantidad;
     });
 
     this.model.subTotal = sum;
@@ -423,15 +429,15 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   handleChangeAdicional(idAdicionales = []): void {
-
     this.model.adicionales = [];
 
     // RECORRO TODOS LOS IDS QUE VIENEN DEL SELECT 2
     // PARA BUSCAR EL OBJETO ADICIONAL CON SUS DATOS
     // Y ASIGNARLO A EL ARREGLO DE ADICIONALES DEL MODELO
     for (let i = 0; i < idAdicionales.length; i++) {
-
-      const index = this.adicionales.findIndex(x => x.idAdicional === Number(idAdicionales[i]));
+      const index = this.adicionales.findIndex(
+        x => x.idAdicional === Number(idAdicionales[i])
+      );
       this.adicionales[index].cantidad = 1;
       this.model.adicionales.push(this.adicionales[index]);
     }
@@ -442,95 +448,79 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   private nightDiff(feDesde: Date, feHasta: Date) {
-
     return this.reservaService.getNumeroNoches(feDesde, feHasta);
   }
 
   intentModificarPasajero() {
-
     this.modificarPasajero = true;
     this.pasajeroOld = Object.assign({}, this.model.pasajero);
   }
 
   guardarPasajero() {
-
     this.modificarPasajero = false;
     this.loadingPasajero = true;
     this.model.pasajero.accion = 'U';
     this.model.pasajero.idPais = jQuery('#pais').val();
 
-    this.pasajeroService.mantenimiento(this.model.pasajero)
-      .subscribe(
-        response => {
+    this.pasajeroService.mantenimiento(this.model.pasajero).subscribe(
+      response => {
+        this.loadingPasajero = false;
 
-          this.loadingPasajero = false;
-
-          if (response.success) {
-            this.toastService.showSuccess(response.mensaje);
-          } else {
-            this.toastService.showError(response.mensaje);
-          }
-        },
-        error => {
-
-          this.loadingPasajero = false;
-          this.toastService.showError('Hubo un error al actualizar el pasajero');
-          console.log(error);
-        });
+        if (response.success) {
+          this.toastService.showSuccess(response.mensaje);
+        } else {
+          this.toastService.showError(response.mensaje);
+        }
+      },
+      error => {
+        this.loadingPasajero = false;
+        this.toastService.showError('Hubo un error al actualizar el pasajero');
+        console.log(error);
+      }
+    );
   }
 
   cancelIntentModificarPasajero() {
-
     this.modificarPasajero = false;
     this.model.pasajero = Object.assign({}, this.pasajeroOld);
   }
 
   getPasajero() {
-
     this.loadingPasajero = true;
     const correo = this.model.pasajero.correo;
 
-    this.pasajeroService.getByCorreo(correo)
-      .subscribe(response => {
-
+    this.pasajeroService.getByCorreo(correo).subscribe(
+      response => {
         if (response.success) {
-
           this.loadingPasajero = false;
 
           if (response.data.length === 0) {
-
             this.pasajeroRegistrado = false;
             this.model.pasajero = {};
             this.model.pasajero.correo = correo;
             // this.model.pasajero.ident = true;
-          } else
-            if (response.data.length > 0) {
-
-              this.pasajeroRegistrado = true;
-              this.model.pasajero = response.data[0];
-              this.model.pasajero.valuePa = this.model.pasajero.idPais;
-              jQuery('#pais').val('' + this.model.pasajero.idPais);
-              // this.model.pasajero.ident = true;
-            }
+          } else if (response.data.length > 0) {
+            this.pasajeroRegistrado = true;
+            this.model.pasajero = response.data[0];
+            this.model.pasajero.valuePa = this.model.pasajero.idPais;
+            jQuery('#pais').val('' + this.model.pasajero.idPais);
+            // this.model.pasajero.ident = true;
+          }
         } else {
           this.toastService.showError(response.mensaje);
         }
       },
-        error => {
-
-          this.loadingPasajero = false;
-          this.toastService.showError('Hubo un error al actualizar el pasajero');
-          console.log(error);
-        });
-
+      error => {
+        this.loadingPasajero = false;
+        this.toastService.showError('Hubo un error al actualizar el pasajero');
+        console.log(error);
+      }
+    );
   }
 
   ocultaBtnModi(op: string) {
-
     switch (op) {
-
       case 'Ci':
-
         if (this.model.estado === 'Co') {
           return false;
         }
@@ -539,22 +529,21 @@ export class ModalReservaComponent implements OnInit, OnChanges {
           return false;
         }
 
-        if (this.model.habitaciones && this.model.habitaciones[0].feDesde.getTime()
-          === this.toDay.getTime()) {
+        if (
+          this.model.habitaciones &&
+          this.model.habitaciones[0].feDesde.getTime() === this.toDay.getTime()
+        ) {
           return true;
         }
 
-
         return false;
       case 'Co':
-
         if (this.model.estado === 'Ci') {
           return true;
         }
 
         return false;
       case 'D':
-
         if (this.model.estado === 'Ci') {
           return false;
         }
@@ -565,7 +554,6 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
         return true;
       case 'U':
-
         if (this.model.estado === 'Ci') {
           return false;
         }
@@ -581,11 +569,14 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   handleChangeTarifa(idHabitacion, idTarifa) {
-
     // SE BUSCA LA HABITACION Y LA TARIFA PARA ASIGNAR VALORES Y SE PONE EN MODO
     // esTotal = false
-    const habitacion = this.model.habitaciones.find(x => x.idHabitacion === Number(idHabitacion));
-    habitacion.tarifa = this.tarifas.find(x => x.idTarifa === Number(idTarifa)).valor;
+    const habitacion = this.model.habitaciones.find(
+      x => x.idHabitacion === Number(idHabitacion)
+    );
+    habitacion.tarifa = this.tarifas.find(
+      x => x.idTarifa === Number(idTarifa)
+    ).valor;
     habitacion.idTarifa = Number(idTarifa);
     this.esSubTotal = false;
 
@@ -619,32 +610,42 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   modiTarifaAdicional(adi: any) {
-
     this.auxAdicional = Object.assign({}, adi);
   }
 
   goModiTarifaAdicional() {
-
-    this.auxAdicional = { idAdicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
+    this.auxAdicional = {
+      idAdicional: 0,
+      adicional: '',
+      tarifa: 0,
+      cantidad: 0
+    };
   }
 
   cancelTarifaAdicional(adi: any) {
-
-    const index = this.model.adicionales.findIndex(x => x.idAdicional === adi.idAdicional);
+    const index = this.model.adicionales.findIndex(
+      x => x.idAdicional === adi.idAdicional
+    );
 
     this.model.adicionales[index] = Object.assign({}, this.auxAdicional);
-    this.auxAdicional = { idAdicional: 0, adicional: '', tarifa: 0, cantidad: 0 };
+    this.auxAdicional = {
+      idAdicional: 0,
+      adicional: '',
+      tarifa: 0,
+      cantidad: 0
+    };
   }
 
   delReserve(_room) {
-
     if (this.model.habitaciones.length === 1) {
-
-      this.toastService.showWarning('La reserva debe tener al menos una habitación.');
+      this.toastService.showWarning(
+        'La reserva debe tener al menos una habitación.'
+      );
       return;
     } else {
-
-      const index = this.model.habitaciones.findIndex(x => x.idHabitacion === _room.idHabitacion);
+      const index = this.model.habitaciones.findIndex(
+        x => x.idHabitacion === _room.idHabitacion
+      );
 
       if (index !== -1) {
         this.model.habitaciones.splice(index, 1);
@@ -653,17 +654,20 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   setAdicionalesFormat() {
-
     for (let i = 0; i < this.adicionales.length; i++) {
-      this.adicionalesFormat.push({ id: '' + this.adicionales[i].idAdicional, text: this.adicionales[i].adicional });
+      this.adicionalesFormat.push({
+        id: '' + this.adicionales[i].idAdicional,
+        text: this.adicionales[i].adicional
+      });
     }
   }
 
   setPaisesFormat() {
-
     for (let i = 0; i < this.paises.length; i++) {
-      this.paisesFormat.push({ id: '' + this.paises[i].idPais, text: this.paises[i].pais });
+      this.paisesFormat.push({
+        id: '' + this.paises[i].idPais,
+        text: this.paises[i].pais
+      });
     }
   }
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { MarcacionService } from './marcacion.service';
 import { ToastService } from '../../compartido/services/toast.service';
+import { AutenticacionService } from '../../publico/services/autenticacion.service';
 
 @Component({
   selector: 'app-marcacion',
@@ -13,13 +14,16 @@ export class MarcacionComponent implements OnInit {
   loading;
   fecha = {};
   hora = {};
+  chasker;
 
   constructor(
     private marcacionService: MarcacionService,
+    private authService: AutenticacionService,
     private toastService: ToastService
   ) {}
 
   ngOnInit() {
+    this.chasker = this.authService.getLogin();
     this.initDate();
     this.getMarcacion();
   }
@@ -28,7 +32,8 @@ export class MarcacionComponent implements OnInit {
     let marca = marcas.find(
       x =>
         moment(x.feEntrada).format('DD/MM/YYYY') ===
-        moment().format('DD/MM/YYYY')
+          moment().format('DD/MM/YYYY') &&
+        x.idUsuario === this.chasker.idUsuario
     );
     if (marca) {
       marca.feEntrada = moment(marca.feEntrada).toDate();
@@ -85,7 +90,6 @@ export class MarcacionComponent implements OnInit {
       this.marca.feSalida = moment().toDate();
       marca = { ...this.marca };
     }
-    debugger;
     this.marcacionService.marcar(marca).subscribe(
       data => {
         if (data.success) {

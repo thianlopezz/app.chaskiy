@@ -32,29 +32,10 @@
   <!-- SESSION -->
   <div *ngIf="chasker" class="navbar-collapse collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/reservas']">Reservas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/pagos']">Pagos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/habitaciones']">Habitaciones</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/pasajeros']">Pasajeros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/analytics']">Analíticas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/hospedaje']">Hospedaje</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/configuracion']">Configuración</a>
+      <li class="nav-item active" *ngFor="let route of chasker.routes">
+        <a class="nav-link" [routerLink]="['/' + route.route]">{{
+          route.text
+        }}</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-md-0">

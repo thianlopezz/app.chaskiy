@@ -1,4 +1,9 @@
-import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  ChangeDetectorRef
+} from '@angular/core';
 import { AutenticacionService } from '../../../publico/services/autenticacion.service';
 import { Router } from '@angular/router';
 
@@ -8,15 +13,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, AfterViewChecked {
-
   chasker: any;
 
-  constructor(private cdRef: ChangeDetectorRef,
+  constructor(
+    private cdRef: ChangeDetectorRef,
     private router: Router,
-    private autenticacionService: AutenticacionService) { }
+    private autenticacionService: AutenticacionService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewChecked() {
     this.chasker = this.autenticacionService.getLogin();
@@ -31,5 +36,4 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     this.autenticacionService.logout();
     this.router.navigate(['/login']);
   }
-
 }
