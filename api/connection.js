@@ -1,39 +1,37 @@
-var mysql = require('mysql');
-const process = require('process');
+var mysql = require("mysql");
+const process = require("process");
+
+// FIXME: variebles de entorno te vieron las huevas
 
 function Connection() {
-
   this.pool = null;
 
-  this.init = function () {
-
-    // FIXME: setear ENV
+  this.init = function() {
     let config = {
       connectionLimit: 15,
-      host: '192.168.99.100',
-        user: 'root',
-      password: 'password',
-      database: 'chaskiy'
+      host: process.env.MYSQL_HOST || "localhost",
+      port: process.env.MYSQL_PORT || 3306,
+      user: process.env.MYSQL_USER || "root",
+      password: process.env.MYSQL_PASSWORD || "cha$key16",
+      database: process.env.MYSQL_CHASKIY || "chaskiy"
     };
 
-    console.log('Conne>> params>>');
+    console.log("Conne>> params>>");
     console.log(config);
 
-    this.pool = mysql.createPool(
-      config
-    );
+    this.pool = mysql.createPool(config);
   };
 
-  this.acquire = function () {
+  this.acquire = function() {
     return new Promise((resolve, reject) => {
-      this.pool.getConnection(function (error, connection) {
+      this.pool.getConnection(function(error, connection) {
         if (error) {
           reject(error);
         } else {
           resolve(connection);
         }
       });
-    })
+    });
   };
 }
 
