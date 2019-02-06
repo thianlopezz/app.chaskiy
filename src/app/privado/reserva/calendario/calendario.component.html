@@ -1,31 +1,55 @@
 <div class="row">
   <div class="col-12 my-1">
     <div *ngIf="!accion" class="pull-right">
-      <button type="button" class="btn btn-primary add" (click)="_reservar()" [disabled]="reservasCliente.length==0">
+      <button
+        type="button"
+        class="btn btn-primary add"
+        (click)="_reservar()"
+        [disabled]="reservasCliente.length == 0"
+      >
         <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva
       </button>
-      <button [disabled]="reservasCliente.length==0" type="button" class="btn btn-link text-danger ml-1" (click)="_cancelar()">
+      <button
+        [disabled]="reservasCliente.length == 0"
+        type="button"
+        class="btn btn-link text-danger ml-1"
+        (click)="_cancelar()"
+      >
         <i class="fa fa-times" aria-hidden="true"></i>
         Cancelar
       </button>
     </div>
-    <div *ngIf="accion=='I'" class="pull-right">
-      <button type="button" class="btn btn-primary add" (click)="_reservar()" [disabled]="reservasCliente.length==0">        
+    <div *ngIf="accion == 'I'" class="pull-right">
+      <button
+        type="button"
+        class="btn btn-primary add"
+        (click)="_reservar()"
+        [disabled]="reservasCliente.length == 0"
+      >
         <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva
       </button>
-      <button [disabled]="reservasCliente.length==0" type="button" class="btn btn-link text-danger ml-1" (click)="_cancelar()">
+      <button
+        [disabled]="reservasCliente.length == 0"
+        type="button"
+        class="btn btn-link text-danger ml-1"
+        (click)="_cancelar()"
+      >
         <i class="fa fa-times" aria-hidden="true"></i>
         Cancelar
       </button>
     </div>
-    <div *ngIf="accion=='U'" class="pull-right">
+    <div *ngIf="accion == 'U'" class="pull-right">
       <button type="button" class="btn btn-primary add" (click)="_modificar()">
         <i class="fa fa-check" aria-hidden="true"></i>
         Aceptar
       </button>
-      <button type="button" class="btn btn-link text-danger ml-1" (click)="_cancelarModi()">
+      <button
+        type="button"
+        class="btn btn-link text-danger ml-1"
+        (click)="_cancelarModi()"
+      >
         <i class="fa fa-times" aria-hidden="true"></i>
         Cancelar
       </button>
@@ -41,17 +65,20 @@
           <th rowspan="3" class="align-buttom">#</th>
           <th rowspan="3" class="align-buttom">Habitaciones</th>
           <th [attr.colspan]="current.days.length">
-            <h3 class="center">{{current.mes}}
-              <small>{{current.anio}}</small>
+            <h3 class="center">
+              {{ current.mes }}
+              <small>{{ current.anio }}</small>
             </h3>
           </th>
           <th rowspan="3"></th>
         </tr>
         <tr>
-          <th *ngFor="let dia of current.days">{{getWeekDay(dia.day + 1)}}</th>
+          <th *ngFor="let dia of current.days">
+            {{ getWeekDay(dia.day + 1) }}
+          </th>
         </tr>
         <tr>
-          <th *ngFor="let dia of current.days">{{dia.day + 1}}</th>
+          <th *ngFor="let dia of current.days">{{ dia.day + 1 }}</th>
         </tr>
       </thead>
       <tbody>
@@ -60,30 +87,62 @@
             <app-spinner></app-spinner>
           </td>
         </tr>
-        <tr *ngIf="!loadingHabitaciones && habitaciones.length==0">
-          <td [attr.colspan]="current.days.length + 4" style="text-align:center;">
-            <p>No tienes habitaciones registradas aun, registra tus habitaciones
-              <a [routerLink]="['/room']">aquí</a>
+        <tr *ngIf="!loadingHabitaciones && habitaciones.length == 0">
+          <td
+            [attr.colspan]="current.days.length + 4"
+            style="text-align:center;"
+          >
+            <p>
+              No tienes habitaciones registradas aun, registra tus habitaciones
+              <a [routerLink]="['/habitaciones']">aquí</a>
             </p>
           </td>
         </tr>
         <tr *ngFor="let habitacion of habitaciones; let i = index">
-          <td *ngIf="i==0" [attr.rowspan]="habitaciones.length" class="_nah0 align-middle" (click)="_anterior()">
+          <td
+            *ngIf="i == 0"
+            [attr.rowspan]="habitaciones.length"
+            class="_nah0 align-middle"
+            (click)="_anterior()"
+          >
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </td>
-          <td>{{habitacion.noHabitacion}}</td>
-          <td>{{habitacion.habitacion}}</td>
-          <td *ngFor="let dia of current.days; let j = index" class="dia" (click)="clickCuadrito(habitacion, dia.day + 1)">
-            <div *ngIf="cuadritos && cuadritos.length>0" class="dia text-center" [ngClass]="cuadritos[i][j]">
-              <a *ngIf="getLim('I', habitacion, dia.day + 1)" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('I', habitacion, dia.day + 1)">
+          <td>{{ habitacion.noHabitacion }}</td>
+          <td>{{ habitacion.habitacion }}</td>
+          <td
+            *ngFor="let dia of current.days; let j = index"
+            class="dia"
+            (click)="clickCuadrito(habitacion, dia.day + 1)"
+          >
+            <div
+              *ngIf="cuadritos && cuadritos.length > 0"
+              class="dia text-center"
+              [ngClass]="cuadritos[i][j]"
+            >
+              <a
+                *ngIf="getLim('I', habitacion, dia.day + 1)"
+                href="javascript:;"
+                data-toggle="tooltip"
+                [attr.title]="getToolTip('I', habitacion, dia.day + 1)"
+              >
                 <i class="fa fa-circle" aria-hidden="true"></i>
               </a>
-              <a *ngIf="getLim('O', habitacion, dia.day + 1)" href="javascript:;" data-toggle="tooltip" [attr.title]="getToolTip('O', habitacion, dia.day + 1)">
+              <a
+                *ngIf="getLim('O', habitacion, dia.day + 1)"
+                href="javascript:;"
+                data-toggle="tooltip"
+                [attr.title]="getToolTip('O', habitacion, dia.day + 1)"
+              >
                 <i class="fa fa-circle-thin" aria-hidden="true"></i>
               </a>
             </div>
           </td>
-          <td *ngIf="i==0" [attr.rowspan]="habitaciones.length" class="_nah0 align-middle" (click)="_siguiente()">
+          <td
+            *ngIf="i == 0"
+            [attr.rowspan]="habitaciones.length"
+            class="_nah0 align-middle"
+            (click)="_siguiente()"
+          >
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </td>
         </tr>

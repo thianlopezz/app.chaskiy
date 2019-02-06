@@ -85,7 +85,8 @@ export class AutenticacionService {
       { route: 'analytics', text: 'Analíticas' },
       { route: 'hospedaje', text: 'Hospedaje' },
       { route: 'configuracion', text: 'Configuración' },
-      { route: 'marcar', text: 'Marcar' }
+      { route: 'marcar', text: 'Marcar' },
+      { route: 'contrasena', text: 'Cambiar contrasena', hidden: true }
     ];
   }
 
@@ -94,7 +95,8 @@ export class AutenticacionService {
       { route: 'dashboard', text: 'Dashboard' },
       { route: 'reservas', text: 'Reservas' },
       { route: 'pasajeros', text: 'Pasajeros' },
-      { route: 'marcar', text: 'Marcar' }
+      { route: 'marcar', text: 'Marcar' },
+      { route: 'contrasena', text: 'Cambiar contrasena', hidden: true }
     ];
   }
 }
