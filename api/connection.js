@@ -7,9 +7,9 @@ function Connection() {
   this.init = function() {
     let config = {
       connectionLimit: 15,
-      host: process.env.MYSQL_HOST || "192.168.99.100",
+      host: process.env.MYSQL_HOST || "localhost",
       user: process.env.MYSQL_USER || "root",
-      password: process.env.MYSQL_PASSWORD || "password",
+      password: process.env.MYSQL_PASSWORD || "cha$key16",
       database: process.env.MYSQL_CHASKIY || "chaskiy"
     };
 

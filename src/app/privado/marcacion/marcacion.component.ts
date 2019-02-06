@@ -12,8 +12,8 @@ import { AutenticacionService } from '../../publico/services/autenticacion.servi
 export class MarcacionComponent implements OnInit {
   marca;
   loading;
-  fecha = {};
-  hora = {};
+  fecha: any = {};
+  hora: any = {};
   chasker;
 
   constructor(
