@@ -1,6 +1,8 @@
 var mysql = require("mysql");
 const process = require("process");
 
+// FIXME: variebles de entorno te vieron las huevas
+
 function Connection() {
   this.pool = null;
 
