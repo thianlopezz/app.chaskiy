@@ -11,30 +11,27 @@ declare var jQuery: any;
   styleUrls: ['./contrasena.component.css']
 })
 export class ContrasenaComponent implements OnInit {
-
   model: any = {};
   valid_pass;
   valid_pass0;
 
   loading;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private registerService: RegistroService,
-    private mensajeService: MensajeService) { }
+    private mensajeService: MensajeService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   guardar(form: NgForm) {
-
     if (this.model.password !== this.model.password0) {
-
       this.valid_pass = true;
       return;
     }
 
     if (this.model.password.length < 6) {
-
       this.valid_pass0 = true;
       return;
     }
@@ -44,51 +41,42 @@ export class ContrasenaComponent implements OnInit {
 
     this.loading = true;
 
-    this.registerService.password(this.model)
-      .subscribe(
+    this.registerService.password(this.model).subscribe(
       data => {
-
         if (data.success) {
-
           this.loading = false;
           this.mensajeService.success(data.mensaje);
           this.showMess();
 
           setTimeout(() => {
-
-            this.router.navigate(['/home']);
+            this.router.navigate(['/dashboard']);
           }, 900);
         } else {
-
           this.loading = false;
           this.mensajeService.error(data.mensaje);
           this.showMess();
         }
       },
       error => {
-
         console.log(error);
         this.loading = false;
 
         this.mensajeService.error(error);
         this.showMess();
-      });
+      }
+    );
   }
 
   private showMess() {
-
     setTimeout(() => {
-
       jQuery('#messModal').modal('show');
     }, 200);
   }
 
   valuechange_pass(newVal) {
-
     if (this.model.password !== this.model.password0) {
       this.valid_pass = true;
     } else {
-
       this.valid_pass = false;
 
       if (this.model.password.length < 6) {
@@ -96,9 +84,6 @@ export class ContrasenaComponent implements OnInit {
       } else {
         this.valid_pass0 = false;
       }
-
     }
-
   }
-
 }
