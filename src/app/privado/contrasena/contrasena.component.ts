@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { RegistroService } from '../../publico/registro/registro.service';
 import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 declare var jQuery: any;
-
+// TODO: poner toastr en vez de modal
 @Component({
   selector: 'app-contrasena',
   templateUrl: './contrasena.component.html',
