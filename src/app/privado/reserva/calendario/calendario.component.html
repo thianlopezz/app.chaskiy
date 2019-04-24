@@ -1,12 +1,7 @@
 <div class="row">
   <div class="col-12 my-1">
     <div *ngIf="!accion" class="pull-right">
-      <button
-        type="button"
-        class="btn btn-primary add"
-        (click)="_reservar()"
-        [disabled]="reservasCliente.length == 0"
-      >
+      <button type="button" class="btn btn-primary add" (click)="_reservar()" [disabled]="reservasCliente.length == 0">
         <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva
       </button>
@@ -21,12 +16,7 @@
       </button>
     </div>
     <div *ngIf="accion == 'I'" class="pull-right">
-      <button
-        type="button"
-        class="btn btn-primary add"
-        (click)="_reservar()"
-        [disabled]="reservasCliente.length == 0"
-      >
+      <button type="button" class="btn btn-primary add" (click)="_reservar()" [disabled]="reservasCliente.length == 0">
         <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva
       </button>
@@ -45,11 +35,7 @@
         <i class="fa fa-check" aria-hidden="true"></i>
         Aceptar
       </button>
-      <button
-        type="button"
-        class="btn btn-link text-danger ml-1"
-        (click)="_cancelarModi()"
-      >
+      <button type="button" class="btn btn-link text-danger ml-1" (click)="_cancelarModi()">
         <i class="fa fa-times" aria-hidden="true"></i>
         Cancelar
       </button>
@@ -88,10 +74,7 @@
           </td>
         </tr>
         <tr *ngIf="!loadingHabitaciones && habitaciones.length == 0">
-          <td
-            [attr.colspan]="current.days.length + 4"
-            style="text-align:center;"
-          >
+          <td [attr.colspan]="current.days.length + 4" style="text-align:center;">
             <p>
               No tienes habitaciones registradas aun, registra tus habitaciones
               <a [routerLink]="['/habitaciones']">aquí</a>
@@ -99,12 +82,7 @@
           </td>
         </tr>
         <tr *ngFor="let habitacion of habitaciones; let i = index">
-          <td
-            *ngIf="i == 0"
-            [attr.rowspan]="habitaciones.length"
-            class="_nah0 align-middle"
-            (click)="_anterior()"
-          >
+          <td *ngIf="i == 0" [attr.rowspan]="habitaciones.length" class="_nah0 align-middle" (click)="_anterior()">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </td>
           <td>{{ habitacion.noHabitacion }}</td>
@@ -114,11 +92,7 @@
             class="dia"
             (click)="clickCuadrito(habitacion, dia.day + 1)"
           >
-            <div
-              *ngIf="cuadritos && cuadritos.length > 0"
-              class="dia text-center"
-              [ngClass]="cuadritos[i][j]"
-            >
+            <div *ngIf="cuadritos && cuadritos.length > 0" class="dia text-center" [ngClass]="cuadritos[i][j]">
               <a
                 *ngIf="getLim('I', habitacion, dia.day + 1)"
                 href="javascript:;"
@@ -137,12 +111,7 @@
               </a>
             </div>
           </td>
-          <td
-            *ngIf="i == 0"
-            [attr.rowspan]="habitaciones.length"
-            class="_nah0 align-middle"
-            (click)="_siguiente()"
-          >
+          <td *ngIf="i == 0" [attr.rowspan]="habitaciones.length" class="_nah0 align-middle" (click)="_siguiente()">
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </td>
         </tr>

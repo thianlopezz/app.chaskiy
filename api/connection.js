@@ -1,7 +1,5 @@
-var mysql = require("mysql");
-const process = require("process");
-
-// FIXME: variebles de entorno te vieron las huevas
+var mysql = require('mysql');
+const process = require('process');
 
 function Connection() {
   this.pool = null;
@@ -9,15 +7,15 @@ function Connection() {
   this.init = function() {
     let config = {
       connectionLimit: 15,
-      host: process.env.MYSQL_HOST || "localhost",
+      host: process.env.MYSQL_HOST || '192.168.99.100',
       port: process.env.MYSQL_PORT || 3306,
-      user: process.env.MYSQL_USER || "root",
-      password: process.env.MYSQL_PASSWORD || "cha$key16",
-      database: process.env.MYSQL_CHASKIY || "chaskiy"
+      user: process.env.MYSQL_USER || 'root',
+      password: process.env.MYSQL_PASSWORD || 'password',
+      database: process.env.MYSQL_CHASKIY || 'chaskiy'
     };
 
-    console.log("Conne>> params>>");
-    console.log(config);
+    console.log('Conne>> params>>');
+    console.log({ ...config, password: undefined });
 
     this.pool = mysql.createPool(config);
   };

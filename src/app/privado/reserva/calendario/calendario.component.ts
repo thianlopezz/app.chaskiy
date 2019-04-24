@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  Input,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CurrentMonth } from '../../models/current-month';
 import { HabitacionService } from '../../habitacion/habitacion.service';
 
@@ -99,9 +91,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   marcar(_room, dateIn: moment.Moment) {
-    const index = this.reservasCliente.findIndex(
-      x => x.idHabitacion === _room.idHabitacion
-    );
+    const index = this.reservasCliente.findIndex(x => x.idHabitacion === _room.idHabitacion);
 
     if (_room.noClick === 1) {
       if (index === -1) {
@@ -127,10 +117,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
       if (index !== -1) {
         const obj = this.reservasCliente[index];
 
-        if (
-          dateIn.isSame(moment(obj.feDesde)) &&
-          dateIn.isSame(moment(obj.feHasta))
-        ) {
+        if (dateIn.isSame(moment(obj.feDesde)) && dateIn.isSame(moment(obj.feHasta))) {
           this.reservasCliente.splice(index, 1);
         } else if (dateIn.isBefore(moment(obj.feDesde))) {
           obj.feDesde = dateIn.toDate();
@@ -155,15 +142,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
     if (indexDb !== -1) {
       if (
-        new Date(
-          this.current.anio,
-          this.current.noMonth,
-          dia,
-          0,
-          0,
-          0,
-          0
-        ).getTime() ===
+        new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime() ===
           this.getDateString('/', this.reservasBD[indexDb].feDesde).getTime() &&
         _op === 'I'
       ) {
@@ -171,15 +150,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
       }
 
       if (
-        new Date(
-          this.current.anio,
-          this.current.noMonth,
-          dia,
-          0,
-          0,
-          0,
-          0
-        ).getTime() ===
+        new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0).getTime() ===
           this.getDateString('/', this.reservasBD[indexDb].feHasta).getTime() &&
         _op === 'O'
       ) {
@@ -218,9 +189,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
             fechaCuadrito <= moment(x.feHasta, 'DD[/]MM[/]YYYY')
         );
 
-        if (
-          this.estaReservada(this.habitaciones[i], this.current.days[j].day + 1)
-        ) {
+        if (this.estaReservada(this.habitaciones[i], this.current.days[j].day + 1)) {
           if (this.reservasBD[indexReservasBD].estado === 'Re') {
             this.cuadritos[i][j] = '_reserved';
           } else if (this.reservasBD[indexReservasBD].estado === 'Ci') {
@@ -232,10 +201,8 @@ export class CalendarioComponent implements OnInit, OnChanges {
           }
         } else if (indexReservaCliente !== -1) {
           if (
-            fechaCuadrito >=
-              moment(this.reservasCliente[indexReservaCliente].feDesde) &&
-            fechaCuadrito <=
-              moment(this.reservasCliente[indexReservaCliente].feHasta)
+            fechaCuadrito >= moment(this.reservasCliente[indexReservaCliente].feDesde) &&
+            fechaCuadrito <= moment(this.reservasCliente[indexReservaCliente].feHasta)
           ) {
             this.cuadritos[i][j] = '_selected';
           } else if (fechaCuadrito < moment().subtract(1, 'days')) {
@@ -320,9 +287,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   _siguiente() {
-    const diff = moment(
-      `${this.current.anio}-${this.current.noMonth + 1}-01`
-    ).diff(moment(), 'years', true);
+    const diff = moment(`${this.current.anio}-${this.current.noMonth + 1}-01`).diff(moment(), 'years', true);
     // VALIDAMOS QUE NO SE PUEDA AVANZAR HASTA DESPUES DE HOY A UN ANIO
     if (diff >= 0.8) {
       return;
@@ -337,15 +302,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   private getWeekDay(dia: number) {
-    const now = new Date(
-      this.current.anio,
-      this.current.noMonth,
-      dia,
-      0,
-      0,
-      0,
-      0
-    );
+    const now = new Date(this.current.anio, this.current.noMonth, dia, 0, 0, 0, 0);
     return this.current.dias[now.getDay()];
   }
 
@@ -360,15 +317,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
   private getDateString(delimiter: string, date: string) {
     const auxDate = date.split(delimiter);
-    return new Date(
-      Number(auxDate[2]),
-      Number(auxDate[1]) - 1,
-      Number(auxDate[0]),
-      0,
-      0,
-      0,
-      0
-    );
+    return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
   }
 
   private loadAllRooms() {

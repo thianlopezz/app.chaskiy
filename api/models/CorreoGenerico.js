@@ -1,10 +1,10 @@
-const axios = require("axios");
+const axios = require('axios');
 
-// const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
-const API =
-  process.env.CORREO_GENERICO || "https://correo-generico.herokuapp.com";
+const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+// const API =
+//   process.env.CORREO_GENERICO || "https://correo-generico.herokuapp.com";
 
-const TOKEN_CORREO = process.env.TOKEN_CORREO || "123";
+const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 
 function CorreoGenerico() {
   this.enviar = function(asunto, destinatario, claves, plantilla, idHospedaje) {
@@ -24,7 +24,7 @@ function CorreoGenerico() {
           resolve(correo);
         })
         .catch(error => {
-          console.log("Err>>" + error);
+          console.log('Err>>' + error);
           reject(error);
         });
     });

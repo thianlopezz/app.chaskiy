@@ -2,15 +2,32 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <!-- DETALLE -->
-      <app-detalle-reserva *ngIf="!loadingDetalle && !accion" [model]="model" [aerolineas]="aerolineas" [fuentes]="fuentes" (success)="_success()" (modificar)="_modificar()" (pagos)="_pagos($event)" (cambiarEstado)="_cambiarEstado($event)" (cancelarReserva)='_cancelarReserva()' (cerrar)="_cerrar($event)"></app-detalle-reserva>
+      <app-detalle-reserva
+        *ngIf="!loadingDetalle && !accion"
+        [model]="model"
+        [aerolineas]="aerolineas"
+        [fuentes]="fuentes"
+        (success)="_success()"
+        (modificar)="_modificar()"
+        (pagos)="_pagos($event)"
+        (cambiarEstado)="_cambiarEstado($event)"
+        (cancelarReserva)="_cancelarReserva()"
+        (cerrar)="_cerrar($event)"
+      ></app-detalle-reserva>
       <app-spinner *ngIf="loadingDetalle"></app-spinner>
       <!-- EDITAR/INSERTAR -->
       <div *ngIf="accion" class="modal-header bg-primary text-light">
         <h4 class="modal-title">
           <div class="dropdown">
-            <button class="btn btn-link text-secondary dropdown-toggle" type="button" id="ddTipo" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-               {{!model.estado || model.estado !== 'Pr' ? 'Reserva | ' + (model.idReserva || '') : 'Proforma'}}
+            <button
+              class="btn btn-link text-secondary dropdown-toggle"
+              type="button"
+              id="ddTipo"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{ !model.estado || model.estado !== 'Pr' ? 'Reserva | ' + (model.idReserva || '') : 'Proforma' }}
             </button>
             <div class="dropdown-menu" aria-labelledby="ddTipo">
               <a class="dropdown-item" href="javascript:;" (click)="handleChangeReservaProforma('Re')">Reserva</a>
@@ -25,88 +42,165 @@
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </a>
           <div class="col-10 px-0">
-            <form id="formReserva" name="form" (ngSubmit)="f.form.valid && guardar(f)" #f="ngForm" [ngClass]="{ 'was-validated': f.submitted }"
-              novalidate>
-              <div [hidden]="paso!==1">
+            <form
+              id="formReserva"
+              name="form"
+              (ngSubmit)="f.form.valid && guardar(f)"
+              #f="ngForm"
+              [ngClass]="{ 'was-validated': f.submitted }"
+              novalidate
+            >
+              <div [hidden]="paso !== 1">
                 <ul class="nav nav-tabs" id="valorestab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="habitaciones-tab" data-toggle="tab" href="#habitaciones" role="tab" aria-controls="habitaciones"
-                      aria-expanded="true">Habitaciones</a>
+                    <a
+                      class="nav-link active"
+                      id="habitaciones-tab"
+                      data-toggle="tab"
+                      href="#habitaciones"
+                      role="tab"
+                      aria-controls="habitaciones"
+                      aria-expanded="true"
+                      >Habitaciones</a
+                    >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adicionales-tab" data-toggle="tab" href="#adicionales" role="tab" aria-controls="adicionales">Adicionales</a>
+                    <a
+                      class="nav-link"
+                      id="adicionales-tab"
+                      data-toggle="tab"
+                      href="#adicionales"
+                      role="tab"
+                      aria-controls="adicionales"
+                      >Adicionales</a
+                    >
                   </li>
                 </ul>
                 <div class="tab-content" id="TabContent">
-                  <div class="tab-pane fade show active" id="habitaciones" role="tabpanel" aria-labelledby="habitaciones">
-                    <br>
+                  <div
+                    class="tab-pane fade show active"
+                    id="habitaciones"
+                    role="tabpanel"
+                    aria-labelledby="habitaciones"
+                  >
+                    <br />
                     <div class="scroll-15">
                       <div class="row" *ngFor="let room of model.habitaciones">
                         <div class="col-sm-12 col-md-5">
                           <div class="alert alert-primary alert-dismissible show" role="alert">
-                            <button *ngIf="auxHabitacion.idHabitacion != room.idHabitacion" type="button" class="close" aria-label="Close" (click)="delReserve(room)">
+                            <button
+                              *ngIf="auxHabitacion.idHabitacion != room.idHabitacion"
+                              type="button"
+                              class="close"
+                              aria-label="Close"
+                              (click)="delReserve(room)"
+                            >
                               <span aria-hidden="true">&times;</span>
                             </button>
-                            <h6 class="alert-heading">{{' ' + room.habitacion}}
-                              <br> {{room.feDesde | date : 'dd/MMM/yyyy'}}{{' - '}}{{room.feHasta | date : 'dd/MMM/yyyy'}}
+                            <h6 class="alert-heading">
+                              {{ ' ' + room.habitacion }} <br />
+                              {{ room.feDesde | date: 'dd/MMM/yyyy' }}{{ ' - '
+                              }}{{ room.feHasta | date: 'dd/MMM/yyyy' }}
                             </h6>
                           </div>
-                          <div *ngIf="model.habitaciones" [hidden]="model.habitaciones.length>0" class="help-block form-control-feedback">Seleccione al menos una habitación</div>
+                          <div
+                            *ngIf="model.habitaciones"
+                            [hidden]="model.habitaciones.length > 0"
+                            class="help-block form-control-feedback"
+                          >
+                            Seleccione al menos una habitación
+                          </div>
                         </div>
                         <div class="col-sm-12 col-md-4">
-                          <label for="'tarifa-' + room.idHabitacion" [ngClass]="{'tach': esSubTotal}">Tarifa</label>
-                          <select class="form-control tarifa" [id]="'tarifa-' + room.idHabitacion" [name]="'tarifa-' + room.idHabitacion" style="width: 100%">
+                          <label for="'tarifa-' + room.idHabitacion" [ngClass]="{ tach: esSubTotal }">Tarifa</label>
+                          <select
+                            class="form-control tarifa"
+                            [id]="'tarifa-' + room.idHabitacion"
+                            [name]="'tarifa-' + room.idHabitacion"
+                            style="width: 100%"
+                          >
                             <optgroup *ngFor="let tipo of tarifasFormat" [label]="tipo.tipoTarifa">
-                              <option *ngFor="let tarifa of tipo.tarifas" [value]="tarifa.idTarifa">{{tarifa.tarifa}}</option>
+                              <option *ngFor="let tarifa of tipo.tarifas" [value]="tarifa.idTarifa">{{
+                                tarifa.tarifa
+                              }}</option>
                             </optgroup>
                           </select>
                         </div>
                         <div class="col-sm-12 col-md-3 my-auto mt-sm-2">
                           <p *ngIf="!esSubTotal">
-                            {{room.tarifa | currency:'USD'}} x&nbsp;{{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
-                            <strong>= {{room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency:'USD'}}</strong>
+                            {{ room.tarifa | currency: 'USD' }} x&nbsp;{{
+                              nightDiff(room.feDesde, room.feHasta)
+                            }}&nbsp;noche(s)&nbsp;
+                            <strong
+                              >= {{ room.tarifa * nightDiff(room.feDesde, room.feHasta) | currency: 'USD' }}</strong
+                            >
                           </p>
-                          <p *ngIf="esSubTotal">
-                            {{nightDiff(room.feDesde, room.feHasta)}}&nbsp;noche(s)&nbsp;
-                          </p>
+                          <p *ngIf="esSubTotal">{{ nightDiff(room.feDesde, room.feHasta) }}&nbsp;noche(s)&nbsp;</p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="tab-pane fade" id="adicionales" role="tabpanel" aria-labelledby="adicionales">
-                    <br>
+                    <br />
                     <div class="scroll-15">
                       <div class="form-group">
                         <select id="adicional" name="adicional" multiple="multiple" style="width: 100%">
-                          <option *ngFor="let add of adicionalesFormat" [value]="add.id">{{add.text}}</option>
+                          <option *ngFor="let add of adicionalesFormat" [value]="add.id">{{ add.text }}</option>
                         </select>
                       </div>
                       <div class="row">
-                        <div *ngIf="model.adicionales && model.adicionales.length===0" class="alert alert-warning col-md-12 text-center" role="alert">
+                        <div
+                          *ngIf="model.adicionales && model.adicionales.length === 0"
+                          class="alert alert-warning col-md-12 text-center"
+                          role="alert"
+                        >
                           No existen adicionales asignados a la reserva.
                         </div>
                         <div class="col-md-6" *ngFor="let adi of model.adicionales">
                           <div class="alert alert-primary alert-dismissible fade show" role="alert">
                             <div *ngIf="auxAdicional.idAdicional == adi.idAdicional" class="row align-middle">
-                              <input type="text" class="form-control col-5" name="adTarifa" placeholder="{{'Tarifa para ' + adi.adicional}}" [(ngModel)]="adi.tarifa"
-                                appMoneda="true" #tarifa0="ngModel" />
-                              <i class="fa fa-times col-1 px-0 text-center my-auto" aria-hidden="true"></i>
-                              <input type="number" class="form-control col-4" name="adCantidad" placeholder="Cantidad" [(ngModel)]="adi.cantidad" #tarifa0="ngModel"
+                              <input
+                                type="text"
+                                class="form-control col-5"
+                                name="adTarifa"
+                                placeholder="{{ 'Tarifa para ' + adi.adicional }}"
+                                [(ngModel)]="adi.tarifa"
+                                appMoneda="true"
+                                #tarifa0="ngModel"
                               />
-                              <button type="button" class="btn btn-link text-primary px-0 col-1" (click)="goModiTarifaAdicional()">
+                              <i class="fa fa-times col-1 px-0 text-center my-auto" aria-hidden="true"></i>
+                              <input
+                                type="number"
+                                class="form-control col-4"
+                                name="adCantidad"
+                                placeholder="Cantidad"
+                                [(ngModel)]="adi.cantidad"
+                                #tarifa0="ngModel"
+                              />
+                              <button
+                                type="button"
+                                class="btn btn-link text-primary px-0 col-1"
+                                (click)="goModiTarifaAdicional()"
+                              >
                                 <i class="fa fa-check" aria-hidden="true"></i>
                               </button>
-                              <button type="button" class="btn btn-link text-danger px-0 col-1" (click)="cancelTarifaAdicional(adi)">
+                              <button
+                                type="button"
+                                class="btn btn-link text-danger px-0 col-1"
+                                (click)="cancelTarifaAdicional(adi)"
+                              >
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </button>
                             </div>
                             <div *ngIf="auxAdicional.idAdicional != adi.idAdicional">
-                              <h6 class="alert-heading">{{' ' + adi.adicional}}&nbsp;
+                              <h6 class="alert-heading">
+                                {{ ' ' + adi.adicional }}&nbsp;
                                 <small *ngIf="!esSubTotal">
                                   Tarifa
                                   <a href="javascript:;" (click)="modiTarifaAdicional(adi)" style="cursor:pointer">
-                                    &nbsp;{{adi.tarifa | currency:'USD'}} x&nbsp;{{adi.cantidad}}&nbsp;
-                                    <strong>= {{adi.tarifa * adi.cantidad | currency:'USD'}}</strong>&nbsp;
+                                    &nbsp;{{ adi.tarifa | currency: 'USD' }} x&nbsp;{{ adi.cantidad }}&nbsp;
+                                    <strong>= {{ adi.tarifa * adi.cantidad | currency: 'USD' }}</strong
+                                    >&nbsp;
                                     <i class="fa fa-caret-down" aria-hidden="true"></i>
                                   </a>
                                 </small>
@@ -118,7 +212,7 @@
                     </div>
                   </div>
                 </div>
-                <hr class="my-1">
+                <hr class="my-1" />
                 <div class="row text-right">
                   <!-- SUBTOTAL -->
                   <div class="col-md-5">
@@ -130,121 +224,228 @@
                         <a *ngIf="!esSubTotal" class="pull-right" href="javascript:;" (click)="modiSubTotal('!total')">
                           <h4 *ngIf="!modificarSubTotal">
                             <small>
-                              {{subTotal | currency:'USD'}}
+                              {{ subTotal | currency: 'USD' }}
                               <i class="fa fa-caret-down" aria-hidden="true"></i>
                             </small>
                           </h4>
                         </a>
                         <a *ngIf="esSubTotal" class="pull-right" href="javascript:;" (click)="modiSubTotal()">
-                          <h4 *ngIf="!modificarSubTotal">{{subTotal | currency:'USD'}}
+                          <h4 *ngIf="!modificarSubTotal">
+                            {{ subTotal | currency: 'USD' }}
                             <small>
                               <i class="fa fa-caret-down" aria-hidden="true"></i>
                             </small>
                           </h4>
                         </a>
                       </div>
-                      <input *ngIf="modificarSubTotal" type="text" class="form-control col-5" name="vSubTotal" placeholder="Subtotal"
-                        [(ngModel)]="subTotal" appMoneda="true" #vSubTotal="ngModel" />
-                      <button *ngIf="modificarSubTotal" type="button" class="btn btn-link text-primary px-0 col-1" (click)="goModiSubTotal()">
+                      <input
+                        *ngIf="modificarSubTotal"
+                        type="text"
+                        class="form-control col-5"
+                        name="vSubTotal"
+                        placeholder="Subtotal"
+                        [(ngModel)]="subTotal"
+                        appMoneda="true"
+                        #vSubTotal="ngModel"
+                      />
+                      <button
+                        *ngIf="modificarSubTotal"
+                        type="button"
+                        class="btn btn-link text-primary px-0 col-1"
+                        (click)="goModiSubTotal()"
+                      >
                         <i class="fa fa-check" aria-hidden="true"></i>
                       </button>
-                      <button *ngIf="modificarSubTotal" type="button" class="btn btn-link text-danger px-0 col-1" (click)="cancelModiSubTotal(adi)">
+                      <button
+                        *ngIf="modificarSubTotal"
+                        type="button"
+                        class="btn btn-link text-danger px-0 col-1"
+                        (click)="cancelModiSubTotal(adi)"
+                      >
                         <i class="fa fa-times" aria-hidden="true"></i>
                       </button>
                     </div>
-                  </div>                                    
+                  </div>
                   <!-- IVA -->
                   <div class="col-md-4">
                     <h4>
                       <div class="d-inline-flex custom-control custom-checkbox">
-                        <input id="checkIva" type="checkbox" class="custom-control-input" [(ngModel)]="esIva" name ="vEsIva" #vEsIva="ngModel" (change)="getSubTotal()">
+                        <input
+                          id="checkIva"
+                          type="checkbox"
+                          class="custom-control-input"
+                          [(ngModel)]="esIva"
+                          name="vEsIva"
+                          #vEsIva="ngModel"
+                          (change)="getSubTotal()"
+                        />
                         <label class="custom-control-label" for="checkIva">IVA</label>
                       </div>
-                      <small>({{IVA*100}}%)</small>
-                      <small>                        
-                        {{subTotal * IVA | currency:'USD'}}                        
+                      <small>({{ IVA * 100 }}%)</small>
+                      <small>
+                        {{ subTotal * IVA | currency: 'USD' }}
                       </small>
                     </h4>
                   </div>
                   <div class="col-md-3">
-                    <h4>Total
-                      {{(subTotal * IVA) + +subTotal | currency:'USD'}}
+                    <h4>
+                      Total
+                      {{ subTotal * IVA + +subTotal | currency: 'USD' }}
                     </h4>
                   </div>
                 </div>
               </div>
-              <div [hidden]="paso!==2">
+              <div [hidden]="paso !== 2">
                 <div class="habitaciones">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">No. personas</label>
                         <div class="col-sm-4 pr-1">
-                          <input type="number" placeholder="Adultos" class="form-control" name="adultos" [(ngModel)]="model.adultos" #adultos="ngModel"
-                            required />
-                          <div *ngIf="f.submitted && !adultos.valid" class="invalid-feedback">El número de adultos es requerido</div>
+                          <input
+                            type="number"
+                            placeholder="Adultos"
+                            class="form-control"
+                            name="adultos"
+                            [(ngModel)]="model.adultos"
+                            #adultos="ngModel"
+                            required
+                          />
+                          <div *ngIf="f.submitted && !adultos.valid" class="invalid-feedback">
+                            El número de adultos es requerido
+                          </div>
                         </div>
                         <div class="col-sm-4 pl-1">
-                          <input type="number" placeholder="Niños" class="form-control" name="ninos" [(ngModel)]="model.ninos" #ninos="ngModel" required
+                          <input
+                            type="number"
+                            placeholder="Niños"
+                            class="form-control"
+                            name="ninos"
+                            [(ngModel)]="model.ninos"
+                            #ninos="ngModel"
+                            required
                           />
-                          <div *ngIf="f.submitted && !ninos.valid" class="invalid-feedback">El número de niños es requerido</div>
+                          <div *ngIf="f.submitted && !ninos.valid" class="invalid-feedback">
+                            El número de niños es requerido
+                          </div>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="aerolinea" class="col-sm-4 col-form-label">Aerolínea</label>
                         <div class="col-sm-8">
-                          <select class="form-control" name="aerolinea" [(ngModel)]="model.idAerolinea" #aerolinea="ngModel" required>
-                            <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{op.aerolinea}}</option>
+                          <select
+                            class="form-control"
+                            name="aerolinea"
+                            [(ngModel)]="model.idAerolinea"
+                            #aerolinea="ngModel"
+                            required
+                          >
+                            <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{ op.aerolinea }}</option>
                           </select>
-                          <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">La aerolínea es requerida</div>
+                          <div *ngIf="f.submitted && !aerolinea.valid" class="invalid-feedback">
+                            La aerolínea es requerida
+                          </div>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="fuente" class="col-sm-4 col-form-label">Captado de</label>
                         <div class="col-sm-8">
-                          <select class="form-control" name="fuente" [(ngModel)]="model.idFuente" #fuente="ngModel" required>
-                            <option *ngFor="let op of fuentes" [value]="op.idFuente">{{op.fuente}}</option>
+                          <select
+                            class="form-control"
+                            name="fuente"
+                            [(ngModel)]="model.idFuente"
+                            #fuente="ngModel"
+                            required
+                          >
+                            <option *ngFor="let op of fuentes" [value]="op.idFuente">{{ op.fuente }}</option>
                           </select>
-                          <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">La fuente de captación es requerida</div>
+                          <div *ngIf="f.submitted && !fuente.valid" class="invalid-feedback">
+                            La fuente de captación es requerida
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="notas">Notas</label>
-                        <textarea class="form-control" id="notas" name="notas" rows="5" [(ngModel)]="model.notas" #notas="ngModel" maxlength="600">{{model.notas}}</textarea>
+                        <textarea
+                          class="form-control"
+                          id="notas"
+                          name="notas"
+                          rows="5"
+                          [(ngModel)]="model.notas"
+                          #notas="ngModel"
+                          maxlength="600"
+                          >{{ model.notas }}</textarea
+                        >
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="correo">Correo electrónico</label>
                         <div class="input-group">
-                          <input type="email" class="form-control col-md-10" name="correo" [(ngModel)]="model.pasajero.correo" #correo="ngModel" (blur)="correo.valid && accion!=='U' && getPasajero()"
-                            [readonly]="accion=='U' || modificarPasajero " [email]="true" required/>
+                          <input
+                            type="email"
+                            class="form-control col-md-10"
+                            name="correo"
+                            [(ngModel)]="model.pasajero.correo"
+                            #correo="ngModel"
+                            (blur)="correo.valid && accion !== 'U' && getPasajero()"
+                            [readonly]="accion == 'U' || modificarPasajero"
+                            [email]="true"
+                            required
+                          />
                           <img *ngIf="loadingPasajero" src="/assets/images/loading.svg" />
                         </div>
-                        <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">Ingrese un electrónico válido</div>
+                        <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">
+                          Ingrese un electrónico válido
+                        </div>
                         <div *ngIf="correo.touched && !correo.valid && !f.submitted">
                           <p class="text-danger">Ingrese un electrónico válido</p>
                         </div>
-                        <div *ngIf="pasajeroRegistrado==false && correo.touched && correo.valid">
+                        <div *ngIf="pasajeroRegistrado == false && correo.touched && correo.valid">
                           <p class="text-warning">Pasajero no registrado</p>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <div class="input-group">
-                          <input type="text" class="form-control" name="pasajero" [(ngModel)]="model.pasajero.pasajero" #pasajero="ngModel" [readonly]="pasajeroRegistrado && !modificarPasajero"
-                            maxlength="100" required />
-                          <button *ngIf="pasajeroRegistrado && !modificarPasajero" class="btn btn-link text-primary" type="button" (click)="intentModificarPasajero()">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="pasajero"
+                            [(ngModel)]="model.pasajero.pasajero"
+                            #pasajero="ngModel"
+                            [readonly]="pasajeroRegistrado && !modificarPasajero"
+                            maxlength="100"
+                            required
+                          />
+                          <button
+                            *ngIf="pasajeroRegistrado && !modificarPasajero"
+                            class="btn btn-link text-primary"
+                            type="button"
+                            (click)="intentModificarPasajero()"
+                          >
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                           </button>
-                          <button *ngIf="modificarPasajero" class="btn btn-link text-primary" type="button" (click)="correo.valid && pasajero.valid && noContacto.valid && guardarPasajero()">
+                          <button
+                            *ngIf="modificarPasajero"
+                            class="btn btn-link text-primary"
+                            type="button"
+                            (click)="correo.valid && pasajero.valid && noContacto.valid && guardarPasajero()"
+                          >
                             <i class="fa fa-check" aria-hidden="true"></i>
                           </button>
-                          <button *ngIf="modificarPasajero" class="btn btn-link text-danger px-0" type="button" (click)="cancelIntentModificarPasajero()">
+                          <button
+                            *ngIf="modificarPasajero"
+                            class="btn btn-link text-danger px-0"
+                            type="button"
+                            (click)="cancelIntentModificarPasajero()"
+                          >
                             <i class="fa fa-times" aria-hidden="true"></i>
                           </button>
                         </div>
-                        <div *ngIf="f.submitted && !pasajero.valid" class="invalid-feedback">El nombre es requerido</div>
+                        <div *ngIf="f.submitted && !pasajero.valid" class="invalid-feedback">
+                          El nombre es requerido
+                        </div>
                         <div *ngIf="!f.submitted && !pasajero.valid && pasajero.touched">
                           <p class="text-danger">El nombre es requerido</p>
                         </div>
@@ -252,16 +453,28 @@
                       <div class="form-group row">
                         <label for="pais" class="col-sm-4 col-form-label">País</label>
                         <div class="col-sm-8">
-                          <select id="pais" name="pais" style="width: 100%" [disabled]="pasajeroRegistrado && !modificarPasajero">
-                            <option *ngFor="let pais of paisesFormat" [value]="pais.id">{{pais.text}}</option>
+                          <select
+                            id="pais"
+                            name="pais"
+                            style="width: 100%"
+                            [disabled]="pasajeroRegistrado && !modificarPasajero"
+                          >
+                            <option *ngFor="let pais of paisesFormat" [value]="pais.id">{{ pais.text }}</option>
                           </select>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="noContacto" class="col-sm-4 col-form-label">No. contacto</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" name="noContacto" [(ngModel)]="model.pasajero.noContacto" #noContacto="ngModel" [readonly]="pasajeroRegistrado && !modificarPasajero"
-                            maxlength="15" />
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="noContacto"
+                            [(ngModel)]="model.pasajero.noContacto"
+                            #noContacto="ngModel"
+                            [readonly]="pasajeroRegistrado && !modificarPasajero"
+                            maxlength="15"
+                          />
                         </div>
                       </div>
                     </div>
@@ -270,10 +483,10 @@
                 <div class="row">
                   <div class="col-md-6"></div>
                   <div class="col-md-6">
-                    <hr class="my-1">
+                    <hr class="my-1" />
                     <div class="d-flex flex-row-reverse">
                       <div class="p-2">
-                        <h4>{{(subTotal * IVA) + +subTotal | currency:'USD'}}</h4>
+                        <h4>{{ subTotal * IVA + +subTotal | currency: 'USD' }}</h4>
                       </div>
                       <div class="p-2">
                         <h4>Total</h4>
@@ -291,7 +504,24 @@
       </div>
       <div *ngIf="accion" class="modal-footer">
         <img *ngIf="loading" src="/assets/images/loading.svg" />
-        <button *ngIf="!loading && paso==2 && !modificarPasajero" type="submit" class="btn btn-primary" form="formReserva">Guardar</button>
+        <button
+          type="submit"
+          *ngIf="!loading && paso == 2 && !modificarPasajero"
+          class="btn btn-primary"
+          form="formReserva"
+          (click)="model.enviarCorreo = true"
+        >
+          Guardar y notificar reserva
+        </button>
+        <button
+          type="submit"
+          *ngIf="!loading && paso == 2 && !modificarPasajero"
+          class="btn btn-primary"
+          form="formReserva"
+          (click)="model.enviarCorreo = undefined"
+        >
+          Guardar
+        </button>
         <button *ngIf="!loading" type="button" class="btn btn-light ml-1" (click)="_cerrar()">Cancelar</button>
       </div>
     </div>

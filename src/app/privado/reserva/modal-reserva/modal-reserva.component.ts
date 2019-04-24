@@ -1,16 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges
-} from "@angular/core";
-import { ReservaService } from "../reserva.service";
-import { NgForm } from "@angular/forms";
-import { ToastService } from "../../../compartido/services/toast.service";
-import { PasajeroService } from "../../pasajero/pasajero.service";
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { ReservaService } from '../reserva.service';
+import { NgForm } from '@angular/forms';
+import { ToastService } from '../../../compartido/services/toast.service';
+import { PasajeroService } from '../../pasajero/pasajero.service';
 
 declare var jQuery: any;
 
@@ -19,9 +11,9 @@ declare var jQuery: any;
 // TODO: IVA NO QUEMADO
 
 @Component({
-  selector: "app-modal-reserva",
-  templateUrl: "./modal-reserva.component.html",
-  styleUrls: ["./modal-reserva.component.css"]
+  selector: 'app-modal-reserva',
+  templateUrl: './modal-reserva.component.html',
+  styleUrls: ['./modal-reserva.component.css']
 })
 export class ModalReservaComponent implements OnInit, OnChanges {
   IVA = 0.12;
@@ -103,7 +95,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   auxHabitacion: any = {
     idHabitacion: 0,
-    habitacion: "",
+    habitacion: '',
     tarifa: 0,
     feDesde: new Date(),
     feHasta: new Date()
@@ -119,11 +111,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     // VERIFICO SI EL MODEL DE LA RESERVA QUE LLEGA AL COMPONENTE ES DE TIPO 'TOTAL'
-    if (
-      this.model &&
-      this.model.habitaciones &&
-      this.model.habitaciones[0].tarifaDetalle === "-"
-    ) {
+    if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifaDetalle === '-') {
       this.esSubTotal = true;
       this.subTotal = this.model.total;
     }
@@ -154,28 +142,28 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
     // DOS POSIBILIDADES DE ACCION
     // INSERTAR
-    if (this.accion === "I") {
+    if (this.accion === 'I') {
       // RESERVA Y TOTAL FALSO
-      this.model.estado = "Re";
+      this.model.estado = 'Re';
       this.esSubTotal = false;
 
       // INICIALIZO LOS SELECT2
-      jQuery(".form-control.tarifa").select2();
-      jQuery("#adicional").select2();
-      jQuery("#pais").select2();
+      jQuery('.form-control.tarifa').select2();
+      jQuery('#adicional').select2();
+      jQuery('#pais').select2();
 
       // VACIO LOS SELECT
-      jQuery("#adicional").val([]);
+      jQuery('#adicional').val([]);
 
       // ASIGNO EVENTOS
       // EVENTO SELECT - ADICIONAL
-      jQuery("#adicional").on("select2:select", function(e) {
+      jQuery('#adicional').on('select2:select', function(e) {
         // EJECUTO EL CAMBIO DE ADICIONAL
-        self.handleChangeAdicional(jQuery("#adicional").val());
+        self.handleChangeAdicional(jQuery('#adicional').val());
       });
 
       // ASIGNO EVENTO A CLASE TARIFA .tarifa
-      jQuery(".form-control.tarifa").on('select2:select', function(e) {
+      jQuery('.form-control.tarifa').on('select2:select', function(e) {
         // DE ESTA MANERA CAPTURO EL ID DE LA HABITACION
         // ESTE ID SE AUTGENERO DENTRO DEL FOR DE CADA ROW
         // DE HABITACION AGREGADA, DESDE EL ATRIBUTO NAME
@@ -206,9 +194,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       jQuery('#pais').val(this.model.pasajero.idPais);
       jQuery('#pais').trigger('change');
 
-      jQuery('#adicional').val(
-        this.setAdicionalesFormatoSelect2(this.model.adicionales)
-      );
+      jQuery('#adicional').val(this.setAdicionalesFormatoSelect2(this.model.adicionales));
       jQuery('#adicional').trigger('change');
 
       // ASIGNO LOS ADICINALES AL MODELO
@@ -229,9 +215,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
         const sele = jQuery('.form-control.tarifa')[index];
         const name = sele.name;
         const idHabitacion = name.split('-')[1];
-        const idTarifa = self.model.habitaciones.find(
-          x => x.idHabitacion === Number(idHabitacion)
-        ).idTarifa;
+        const idTarifa = self.model.habitaciones.find(x => x.idHabitacion === Number(idHabitacion)).idTarifa;
         jQuery('#' + name).val('' + idTarifa);
         jQuery('#' + name).trigger('change');
       });
@@ -358,22 +342,16 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     }
 
     // vERIFICAMOS QUE TODAS LAS HABITACIONES TENGAN ASIGNADAS TARIFAS
-    const index = this.model.habitaciones.findIndex(
-      x => x.idTarifa === undefined
-    );
+    const index = this.model.habitaciones.findIndex(x => x.idTarifa === undefined);
 
     if (!this.esSubTotal && index !== -1) {
-      this.toastService.showWarning(
-        'Todas las habitaciones deben tener asignada una tarifa.'
-      );
+      this.toastService.showWarning('Todas las habitaciones deben tener asignada una tarifa.');
       return;
     }
 
     // VALIDAMOS QUE NO ESTE MODIFICANDO
     if (this.modificarSubTotal) {
-      this.toastService.showWarning(
-        'Termina de modificar el total de la reserva'
-      );
+      this.toastService.showWarning('Termina de modificar el total de la reserva');
       return;
     }
 
@@ -407,10 +385,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
     // SUMO TOTAL DE TARIFA DE HABITACION POR EL NUMERO DE NOCHES
     habitaciones.forEach(habitacion => {
-      sum =
-        sum +
-        this.nightDiff(habitacion.feDesde, habitacion.feHasta) *
-          habitacion.tarifa;
+      sum = sum + this.nightDiff(habitacion.feDesde, habitacion.feHasta) * habitacion.tarifa;
     });
 
     // SI ESTA EN MODO ACTUALIZACION Y ES SUBTOTAL NO SE PARA BOLA
@@ -435,9 +410,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     // PARA BUSCAR EL OBJETO ADICIONAL CON SUS DATOS
     // Y ASIGNARLO A EL ARREGLO DE ADICIONALES DEL MODELO
     for (let i = 0; i < idAdicionales.length; i++) {
-      const index = this.adicionales.findIndex(
-        x => x.idAdicional === Number(idAdicionales[i])
-      );
+      const index = this.adicionales.findIndex(x => x.idAdicional === Number(idAdicionales[i]));
       this.adicionales[index].cantidad = 1;
       this.model.adicionales.push(this.adicionales[index]);
     }
@@ -529,10 +502,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
           return false;
         }
 
-        if (
-          this.model.habitaciones &&
-          this.model.habitaciones[0].feDesde.getTime() === this.toDay.getTime()
-        ) {
+        if (this.model.habitaciones && this.model.habitaciones[0].feDesde.getTime() === this.toDay.getTime()) {
           return true;
         }
 
@@ -571,12 +541,8 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   handleChangeTarifa(idHabitacion, idTarifa) {
     // SE BUSCA LA HABITACION Y LA TARIFA PARA ASIGNAR VALORES Y SE PONE EN MODO
     // esTotal = false
-    const habitacion = this.model.habitaciones.find(
-      x => x.idHabitacion === Number(idHabitacion)
-    );
-    habitacion.tarifa = this.tarifas.find(
-      x => x.idTarifa === Number(idTarifa)
-    ).valor;
+    const habitacion = this.model.habitaciones.find(x => x.idHabitacion === Number(idHabitacion));
+    habitacion.tarifa = this.tarifas.find(x => x.idTarifa === Number(idTarifa)).valor;
     habitacion.idTarifa = Number(idTarifa);
     this.esSubTotal = false;
 
@@ -623,9 +589,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   }
 
   cancelTarifaAdicional(adi: any) {
-    const index = this.model.adicionales.findIndex(
-      x => x.idAdicional === adi.idAdicional
-    );
+    const index = this.model.adicionales.findIndex(x => x.idAdicional === adi.idAdicional);
 
     this.model.adicionales[index] = Object.assign({}, this.auxAdicional);
     this.auxAdicional = {
@@ -638,14 +602,10 @@ export class ModalReservaComponent implements OnInit, OnChanges {
 
   delReserve(_room) {
     if (this.model.habitaciones.length === 1) {
-      this.toastService.showWarning(
-        'La reserva debe tener al menos una habitación.'
-      );
+      this.toastService.showWarning('La reserva debe tener al menos una habitación.');
       return;
     } else {
-      const index = this.model.habitaciones.findIndex(
-        x => x.idHabitacion === _room.idHabitacion
-      );
+      const index = this.model.habitaciones.findIndex(x => x.idHabitacion === _room.idHabitacion);
 
       if (index !== -1) {
         this.model.habitaciones.splice(index, 1);
