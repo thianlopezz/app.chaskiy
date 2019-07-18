@@ -24,6 +24,7 @@ import { OcupacionComponent } from '../privado/ocupacion/ocupacion.component';
 import { CaptacionComponent } from '../privado/captacion/captacion.component';
 import { AnalyticsComponent } from '../privado/analytics/analytics.component';
 import { MarcacionComponent } from '../privado/marcacion/marcacion.component';
+import { GaleriaComponent } from '../privado/galeria/galeria.component';
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent },
@@ -103,10 +104,14 @@ const appRoutes: Routes = [
     component: CaptacionComponent,
     canActivate: [RouteActivatorService]
   },
-
   {
     path: 'marcar',
     component: MarcacionComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'galeria',
+    component: GaleriaComponent,
     canActivate: [RouteActivatorService]
   },
 

@@ -12,7 +12,6 @@ import * as moment from 'moment';
   styleUrls: ['./ocupacion.component.css']
 })
 export class OcupacionComponent implements OnInit {
-
   loading_pg = true;
 
   public myDatePickerOptions: IMyDpOptions = {
@@ -51,17 +50,14 @@ export class OcupacionComponent implements OnInit {
   pagos: any[] = [];
   totalPagos = 0;
 
-  constructor(private estadisticaService: EstadisticaService) { }
+  constructor(private estadisticaService: EstadisticaService) {}
 
   ngOnInit() {
-
     this.goStatistics();
   }
 
   onDateChanged(event: IMyDateModel, id: string) {
-
     if (id === 'D') {
-
       this.feDesde = {
         date: {
           year: event.date.year,
@@ -80,7 +76,6 @@ export class OcupacionComponent implements OnInit {
         _date: new Date(this.feHasta.date.year, this.feHasta.date.month - 1, this.feHasta.date.day, 0, 0, 0, 0)
       };
     } else if (id === 'H') {
-
       this.feDesde = {
         date: {
           year: this.feDesde.date.year,
@@ -104,9 +99,7 @@ export class OcupacionComponent implements OnInit {
   }
 
   goStatistics() {
-
     if (this.feDesde._date.getTime() > this.feHasta._date.getTime()) {
-
       this.hbDesde = { show: true, mensaje: 'La fecha desde no puede ser mayor a la fecha hasta' };
       return;
     }
@@ -114,7 +107,6 @@ export class OcupacionComponent implements OnInit {
     this.hbDesde = { show: false };
 
     if (this.feHasta._date.getTime() < this.feDesde._date.getTime()) {
-
       this.hbHasta = { show: true, mensaje: 'La fecha hasta no puede ser menor a la fecha desde' };
       return;
     }
@@ -131,51 +123,44 @@ export class OcupacionComponent implements OnInit {
   }
 
   private getOcupacion(ceros, feDesde, feHasta) {
-
-    this.estadisticaService.getOcupacionPorRango(feDesde, feHasta).subscribe(
-      ocupaciones => {
-
-        if (ocupaciones.success) {
-
-          for (let i = 0; i < ocupaciones.data.length; i++) {
-            for (let j = 0; j < ceros.length; j++) {
-
-              if (ceros[j].mes === ocupaciones.data[i].mes &&
-                ceros[j].anio === ocupaciones.data[i].anio) {
-
-                ceros[j].ocupacion = ocupaciones.data[i].ocupacion;
-                break;
-              }
+    this.estadisticaService.getOcupacionPorRango(feDesde, feHasta).subscribe(ocupaciones => {
+      debugger;
+      if (ocupaciones.success) {
+        for (let i = 0; i < ocupaciones.data.length; i++) {
+          for (let j = 0; j < ceros.length; j++) {
+            if (ceros[j].mes === ocupaciones.data[i].mes && ceros[j].anio === ocupaciones.data[i].anio) {
+              ceros[j].ocupacion = ocupaciones.data[i].ocupacion;
+              break;
             }
           }
-
-          const data = {
-            labels: [],
-            datasets: []
-          };
-
-          const ds = [];
-
-          for (let i = 0; i < ceros.length; i++) {
-
-            data.labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
-            ds.push(ceros[i].ocupacion);
-          }
-
-          data.datasets.push({
-            label: 'Ocupación', borderColor: '#e59607',
-            backgroundColor: 'rgba(31, 61, 76, 0.54)', data: ds
-          });
-          this.chart = new ChartOptions(data);
-        } else {
-
-          console.log('Error>> getOcupacion>> ' + ocupaciones.mensaje);
         }
-      });
+
+        const data = {
+          labels: [],
+          datasets: []
+        };
+
+        const ds = [];
+
+        for (let i = 0; i < ceros.length; i++) {
+          data.labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
+          ds.push(ceros[i].ocupacion);
+        }
+
+        data.datasets.push({
+          label: 'Ocupación',
+          borderColor: '#e59607',
+          backgroundColor: 'rgba(31, 61, 76, 0.54)',
+          data: ds
+        });
+        this.chart = new ChartOptions(data);
+      } else {
+        console.log('Error>> getOcupacion>> ' + ocupaciones.mensaje);
+      }
+    });
   }
 
   private genCeros(feDesde: Date, feHasta: Date): any {
-
     const dataset = [];
 
     let aux = feDesde.getMonth();
@@ -185,15 +170,11 @@ export class OcupacionComponent implements OnInit {
 
     dataset.push({ ocupacion: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear() });
 
-    while (feDesde.getMonth() !== feHasta.getMonth() ||
-      feDesde.getFullYear() !== feHasta.getFullYear()) {
-
+    while (feDesde.getMonth() !== feHasta.getMonth() || feDesde.getFullYear() !== feHasta.getFullYear()) {
       feDesde.setMonth(feDesde.getMonth() + 1);
       dataset.push({ ocupacion: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear() });
     }
 
     return dataset;
   }
-
 }
-

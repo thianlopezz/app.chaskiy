@@ -1,5 +1,5 @@
 <app-spinner *ngIf="loading"></app-spinner>
-<div class="card mt-1 mb-2" style="height:120px;" *ngIf="!loading && reservas.length==0">
+<div class="card mt-1 mb-2" style="height:120px;" *ngIf="!loading && reservas.length == 0">
   <div class="row mb-auto mt-auto">
     <div class="col-md-auto mr-auto ml-auto">
       <i class="fa fa-calendar-times-o" aria-hidden="true"></i>
@@ -14,28 +14,32 @@
         <div class="col-md-2 col-sm-12">
           <div class="reservation-dates">
             <div class="dashboard-arrival-date">
-              <p class="stacked-dates-day">{{reserva.feDesde | date : 'dd'}}</p>
-              <p class="stacked-dates-month">{{reserva.feDesde | date : 'MMM'}}</p>
+              <p class="stacked-dates-day">{{ reserva.feDesde | date: 'dd' }}</p>
+              <p class="stacked-dates-month">{{ reserva.feDesde | date: 'MMM' }}</p>
             </div>
             <div class="dashboard-departure-date">
-              <p class="stacked-dates-day">{{reserva.feHasta | date : 'dd'}}</p>
-              <p class="stacked-dates-month">{{reserva.feHasta | date : 'MMM'}}</p>
+              <p class="stacked-dates-day">{{ reserva.feHasta | date: 'dd' }}</p>
+              <p class="stacked-dates-month">{{ reserva.feHasta | date: 'MMM' }}</p>
             </div>
           </div>
           <div class="medium mb-1">
-            <p>{{reserva.feDesde | date : 'dd MMM'}} | {{reserva.feHasta | date : 'dd MMM'}}</p>
+            <p>{{ reserva.feDesde | date: 'dd MMM' }} | {{ reserva.feHasta | date: 'dd MMM' }}</p>
           </div>
         </div>
         <div class="col-md-6 col-sm-12">
           <div class="row">
             <div class="col-md-12">
-              <h3 class="mb-0">{{reserva.pasajero}}</h3>
+              <h3 class="mb-0">{{ reserva.pasajero }}</h3>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              {{reserva.adultos}}&nbsp;adultos&nbsp;{{reserva.ninos}}&nbsp;niños &nbsp;-&nbsp;{{nightDiff(reserva)}}&nbsp;noches
-              <span *ngIf="reserva.estado" [ngClass]="getEstadoStyle(reserva)" class="badge badge-pill">{{getEstado(reserva)}}</span>
+              {{ reserva.adultos }}&nbsp;adultos&nbsp;{{ reserva.ninos }}&nbsp;niños &nbsp;-&nbsp;{{
+                nightDiff(reserva)
+              }}&nbsp;noches
+              <span *ngIf="reserva.estado" [ngClass]="getEstadoStyle(reserva)" class="badge badge-pill">{{
+                getEstado(reserva)
+              }}</span>
             </div>
           </div>
           <div class="row mt-2">
@@ -46,7 +50,9 @@
                 </small>
               </label>
               <p [id]="'correo' + i" class="mb-0">
-                <a [href]="'mailto:' + reserva.correo + '?Subject=Reserva%20' + reserva.idReserva" target="_top">{{reserva.correo}}</a>
+                <a [href]="'mailto:' + reserva.correo + '?Subject=Reserva%20' + reserva.idReserva" target="_top">{{
+                  reserva.correo
+                }}</a>
               </p>
             </div>
           </div>
@@ -57,7 +63,7 @@
                   Contacto
                 </small>
               </label>
-              <p [id]="'contacto' + i" class="mb-0">{{reserva.noContacto}}</p>
+              <p [id]="'contacto' + i" class="mb-0">{{ reserva.noContacto }}</p>
             </div>
           </div>
         </div>
@@ -69,17 +75,17 @@
                   Habitaciones
                 </small>
               </label>
-              <p [id]="'habitacion' + i" class="mb-0">{{reserva.habitaciones}}</p>
+              <p [id]="'habitacion' + i" class="mb-0">{{ reserva.habitaciones }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="reserva.adicionales!=''">
+          <div class="row" *ngIf="reserva.adicionales != ''">
             <div class="col-md-12">
               <label [for]="'adicionales' + i" class="mb-0">
                 <small class="form-text text-muted">
                   Adicionales
                 </small>
               </label>
-              <p [id]="'adicionales' + i" class="mb-0">{{reserva.adicionales}}</p>
+              <p [id]="'adicionales' + i" class="mb-0">{{ reserva.adicionales }}</p>
             </div>
           </div>
         </div>
@@ -94,13 +100,24 @@
         </div>
         <div *ngIf="ocultaBtnModi('Co', reserva)" class="btn-group mr-1" role="group" aria-label="Check-out">
           <div class="btn-group mr-1" role="group" aria-label="Editar">
-            <button type="button" class="btn btn-outline-warning" (click)="_cambiarEstado('Co', reserva)" title="Check-out">
-              <i class="fa fa-external-link-square" aria-hidden="true"></i>
+            <button
+              type="button"
+              class="btn btn-outline-warning"
+              (click)="_cambiarEstado('Co', reserva)"
+              title="Check-out"
+            >
+              <i class="fas fa-external-link-square-alt"></i>
             </button>
           </div>
         </div>
         <div class="btn-group mr-1" role="group" aria-label="info">
-          <button type="button" class="btn btn-light" data-toggle="tooltip" data-html="true" [title]="reserva.usuario + ' | ' + (reserva.femodificacion | date : 'dd/MM/yyyy')">
+          <button
+            type="button"
+            class="btn btn-light"
+            data-toggle="tooltip"
+            data-html="true"
+            [title]="reserva.usuario + ' | ' + (reserva.femodificacion | date: 'dd/MM/yyyy')"
+          >
             <i class="fa fa-info" aria-hidden="true"></i>
           </button>
         </div>

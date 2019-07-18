@@ -1,40 +1,37 @@
-const DataAccess = require('./DataAccess');
+import DataAccess from './DataAccess';
 
-function Aerolinea() {
-
-  this.get = function (res) {
-
+class Fuente {
+  get(res) {
     const dataAccess = new DataAccess();
 
-    dataAccess.execJsonToSp('cat_aerolinea', { accion: 'C' })
+    dataAccess
+      .execJsonToSp('cat_fuente', { accion: 'C' })
       .then(result => {
         res.send({ success: true, data: result[0] });
       })
       .catch(error => {
-        console.log('Error>> Aerolinea.get>>' + error);
+        console.log('Error>> Fuente.get>>' + error);
         res.send({ success: false, mensaje: '' + error });
-      })
-  };
+      });
+  }
 
-  this.mantenimiento = function (aerolinea, res) {
-
+  mantenimiento(fuente, res) {
     const dataAccess = new DataAccess();
 
-    dataAccess.execJsonToSp('cat_aerolinea', aerolinea)
+    dataAccess
+      .execJsonToSp('cat_fuente', fuente)
       .then(result => {
         if (result[0][0].err == undefined) {
           res.send({ success: true, mensaje: result[0][0].mensaje });
-        }
-        else {
+        } else {
           res.send({ success: false, mensaje: result[0][0].mensaje });
         }
       })
       .catch(error => {
-        console.log('Error>> Aerolinea.mantenimiento>>' + error);
+        console.log('Error>> Fuente.mantenimiento>>' + error);
         res.send({ success: false, mensaje: error });
-      })
-  };
-
+      });
+  }
 }
 
-module.exports = new Aerolinea();
+export default new Fuente();

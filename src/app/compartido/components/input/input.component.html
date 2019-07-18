@@ -1,0 +1,13 @@
+<div class="form-group">
+  <label [for]="name">{{ label }}</label>
+  <input
+    class="form-control"
+    [id]="name"
+    [name]="name"
+    [value]="value"
+    (change)="change($event)"
+    [required]="required"
+  />
+  >
+  <!-- <div *ngIf="errorMesage" class="invalid-feedback">{errorMesage}</div> -->
+</div>

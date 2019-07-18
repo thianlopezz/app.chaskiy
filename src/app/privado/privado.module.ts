@@ -51,15 +51,11 @@ import { OcupacionComponent } from './ocupacion/ocupacion.component';
 import { CaptacionComponent } from './captacion/captacion.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { MarcacionComponent } from './marcacion/marcacion.component';
+import { GaleriaComponent } from './galeria/galeria.component';
+import { SubirModalComponent } from './components/galeria/subir-modal/subir-modal.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    CompartidoModule,
-    MyDatePickerModule
-  ],
+  imports: [CommonModule, FormsModule, RouterModule, CompartidoModule, MyDatePickerModule],
   declarations: [
     CardChartComponent,
     CardReservaComponent,
@@ -85,7 +81,9 @@ import { MarcacionComponent } from './marcacion/marcacion.component';
     OcupacionComponent,
     CaptacionComponent,
     AnalyticsComponent,
-    MarcacionComponent
+    MarcacionComponent,
+    GaleriaComponent,
+    SubirModalComponent
   ],
   providers: [
     AdicionalService,
@@ -107,4 +105,4 @@ import { MarcacionComponent } from './marcacion/marcacion.component';
     NotificacionService
   ]
 })
-export class PrivadoModule { }
+export class PrivadoModule {}

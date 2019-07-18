@@ -1,0 +1,32 @@
+<div
+  *ngIf="_idModal"
+  class="modal fade"
+  [id]="_idModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title" id="exampleModalLabel">{{ _title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- AQUI VA UN DIV DE CLASE modal-body DE BOOTSTRAP -->
+      <!-- <div class="modal-body">        
+      </div> -->
+      <ng-content></ng-content>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">
+          {{ _cancelarText || 'Cerrar' }}
+        </button>
+        <button type="submit" [attr.form]="_idForm" (click)="submit()" class="btn btn-primary">
+          {{ _aceptarText || 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

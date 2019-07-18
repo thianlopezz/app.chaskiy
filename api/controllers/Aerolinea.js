@@ -1,26 +1,25 @@
-const DataAccess = require('./DataAccess');
+import DataAccess from './DataAccess';
 
-function FormaPago() {
-
-  this.get = function (res) {
-
+class Aerolinea {
+  get(res) {
     const dataAccess = new DataAccess();
 
-    dataAccess.execJsonToSp('cat_formapago', { accion: 'C' })
+    dataAccess
+      .execJsonToSp('cat_aerolinea', { accion: 'C' })
       .then(result => {
         res.send({ success: true, data: result[0] });
       })
       .catch(error => {
-        console.log('Error>> FormaPago.get>>' + error);
+        console.log('Error>> Aerolinea.get>>' + error);
         res.send({ success: false, mensaje: '' + error });
-      })
-  };
+      });
+  }
 
-  this.mantenimiento = function (formaPago, res) {
-
+  mantenimiento(aerolinea, res) {
     const dataAccess = new DataAccess();
 
-    dataAccess.execJsonToSp('cat_formapago', formaPago)
+    dataAccess
+      .execJsonToSp('cat_aerolinea', aerolinea)
       .then(result => {
         if (result[0][0].err == undefined) {
           res.send({ success: true, mensaje: result[0][0].mensaje });
@@ -29,11 +28,10 @@ function FormaPago() {
         }
       })
       .catch(error => {
-        console.log('Error>> FormaPago.mantenimiento>>' + error);
+        console.log('Error>> Aerolinea.mantenimiento>>' + error);
         res.send({ success: false, mensaje: error });
-      })
-  };
-
+      });
+  }
 }
 
-module.exports = new FormaPago();
+export default new Aerolinea();

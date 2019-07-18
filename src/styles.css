@@ -1,34 +1,41 @@
 /* @import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; */
-@import "../node_modules/font-awesome/css/font-awesome.css";
-@import "../node_modules/toastr/build/toastr.min.css";
-@import "../node_modules/select2/dist/css/select2.min.css";
+@import '../node_modules/font-awesome/css/font-awesome.css';
+@import '../node_modules/@fortawesome//fontawesome-free/css/all.min.css';
+@import '../node_modules/toastr/build/toastr.min.css';
+@import '../node_modules/select2/dist/css/select2.min.css';
 @import url('https://fonts.googleapis.com/css?family=Hind');
 
 @font-face {
-    font-family: 'century-gothic'; /*a name to be used later*/
-    src: url('/assets/fonts/Century-Gothic.ttf'); /*URL to font*/
+  font-family: 'century-gothic'; /*a name to be used later*/
+  src: url('/assets/fonts/Century-Gothic.ttf'); /*URL to font*/
 }
 
-html {  
+html {
   font-size: 15px;
 }
 
-body{  
+body {
   background: #fafafa;
   font-family: 'Hind', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'century-gothic';
 }
 
-.table td, .table th {
-    padding: .3rem;
+.table td,
+.table th {
+  padding: 0.3rem;
 }
 
 .btn.add {
-    padding: .4rem .9rem;
-    border-radius: 2rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 2rem;
 }
 
 .bg-circle {
@@ -51,13 +58,17 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
 }
 
-.bg-circle a, a:hover, .media a:focus {
+.bg-circle a,
+a:hover,
+.media a:focus {
   text-decoration: none !important;
   outline: none;
   color: #ececec;
 }
 
-.bg-circle-outline a, a:hover, .media a:focus {
+.bg-circle-outline a,
+a:hover,
+.media a:focus {
   text-decoration: none !important;
   outline: none;
   color: #ececec;
@@ -75,21 +86,21 @@ button.close {
   background-color: rgba(31, 61, 76, 0.08);
 }
 
-.bg-negro{
-  background: #363b3e!important;
+.bg-negro {
+  background: #363b3e !important;
   color: #ececec;
 }
 
 .tach {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 /* PARA QUE EL MODAL DE RESERVA NO SE AGRANDE MUCHO
 CUANDO SE TIENE MUCHAS HABITACIONES */
-.scroll-15{
-	max-height: 15rem;
-	overflow-y: auto;
-	overflow-x: hidden;
+.scroll-15 {
+  max-height: 15rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .card.hoverable {
@@ -98,6 +109,6 @@ CUANDO SE TIENE MUCHAS HABITACIONES */
 }
 
 .card.hoverable:hover {
-  transition: border-left 0.2s;  
+  transition: border-left 0.2s;
   border-left: 2px solid #37474f;
 }

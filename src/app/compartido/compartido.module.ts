@@ -20,15 +20,12 @@ import { FiltrarPipe } from './pipes/filtrar.pipe';
 import { PInputComponent } from './components/p-input/p-input.component';
 import { PSelectComponent } from './components/p-select/p-select.component';
 import { PTextAreaComponent } from './components/p-text-area/p-text-area.component';
+import { CardComponent } from './components/card/card.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { InputComponent } from './components/input/input.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MyDatePickerModule,
-    FormsModule,
-    RouterModule,
-    HttpModule
-  ],
+  imports: [CommonModule, MyDatePickerModule, FormsModule, RouterModule, HttpModule],
   exports: [
     // MyDatePickerModule,
     ModalConfirmacionComponent,
@@ -40,7 +37,9 @@ import { PTextAreaComponent } from './components/p-text-area/p-text-area.compone
     FiltrarPipe,
     PInputComponent,
     PSelectComponent,
-    PTextAreaComponent
+    PTextAreaComponent,
+    CardComponent,
+    ModalComponent
   ],
   providers: [MensajeService, ToastService],
   declarations: [
@@ -54,7 +53,10 @@ import { PTextAreaComponent } from './components/p-text-area/p-text-area.compone
     FiltrarPipe,
     PInputComponent,
     PSelectComponent,
-    PTextAreaComponent
+    PTextAreaComponent,
+    CardComponent,
+    ModalComponent,
+    InputComponent
   ]
 })
 export class CompartidoModule {}

@@ -1,10 +1,10 @@
-const DataAcess = require('./DataAccess');
-const moment = require('moment');
+import DataAcess from './DataAccess';
+import moment from 'moment';
 
-const CorreoGenerico = require('./CorreoGenerico');
+import CorreoGenerico from './CorreoGenerico';
 
-function Reserva() {
-  this.get = function(accion, params, res) {
+class Reserva {
+  get(accion, params, res) {
     params.feDesde = moment(params.feDesde).format('YYYY-MM-DD');
     params.feHasta = moment(params.feHasta).format('YYYY-MM-DD');
 
@@ -19,9 +19,9 @@ function Reserva() {
         console.log('Error>> Reserva.get>> ' + error);
         res.send({ success: false, mensaje: '' + error });
       });
-  };
+  }
 
-  this.getById = function(idReserva, res) {
+  getById(idReserva, res) {
     const dataAcess = new DataAcess();
 
     dataAcess
@@ -38,9 +38,9 @@ function Reserva() {
         console.log('Error>> Reserva.getById>> ' + error);
         res.send({ success: false, mensaje: '' + error });
       });
-  };
+  }
 
-  this.mantenimiento = function(reserva, res) {
+  mantenimiento(reserva, res) {
     const dataAcess = new DataAcess();
 
     if (reserva.notas) {
@@ -71,9 +71,9 @@ function Reserva() {
         console.log('Error>> Reserva.mantenimiento>>' + error);
         res.send({ success: false, mensaje: '' + error });
       });
-  };
+  }
 
-  this.camposIndividuales = async function(reserva, res) {
+  camposIndividuales = async function(reserva, res) {
     if (reserva.notas) {
       reserva.notas = reserva.notas.replace(/\n/g, '');
       reserva.notas = reserva.notas.replace(/\t/g, '');
@@ -95,7 +95,7 @@ function Reserva() {
     }
   };
 
-  this.cambiaEstado = function(reserva, res) {
+  cambiaEstado(reserva, res) {
     const dataAcess = new DataAcess();
 
     dataAcess
@@ -111,9 +111,9 @@ function Reserva() {
         console.log('Error>> Reserva.cambiaEstado>>' + error);
         res.send({ success: false, mensaje: '' + error });
       });
-  };
+  }
 
-  this.getByIdEx = function(id, token, res) {
+  getByIdEx(id, token, res) {
     const dataAcess = new DataAcess();
 
     dataAcess
@@ -135,9 +135,9 @@ function Reserva() {
         console.log('Error>> Reserva.getByIdEx>> ' + error);
         res.send({ success: false, mensaje: '' + error });
       });
-  };
+  }
 
-  this.confirma = function(id, res) {
+  confirma(id, res) {
     const dataAcess = new DataAcess();
 
     dataAcess
@@ -155,9 +155,9 @@ function Reserva() {
         console.log('Error>> Reserva.confirma>> ' + error);
         res.send({ success: false, mensaje: '' + error });
       });
-  };
+  }
 
-  function enviaCorreo(datos, accion, estado, desdePagina) {
+  enviaCorreo = function(datos, accion, estado, desdePagina) {
     return new Promise((resolve, reject) => {
       let claves = datos;
       let plantilla = '';
@@ -197,15 +197,15 @@ function Reserva() {
           reject(error);
         });
     });
-  }
+  };
 
-  function setHabitacionesDate(habitaciones) {
+  setHabitacionesDate = function(habitaciones) {
     habitaciones.forEach(habitacion => {
       habitacion.feDesde = moment(habitacion.feDesde).format('YYYY-MM-DD');
       habitacion.feHasta = moment(habitacion.feHasta).format('YYYY-MM-DD');
     });
     return habitaciones;
-  }
+  };
 }
 
-module.exports = new Reserva();
+export default new Reserva();
