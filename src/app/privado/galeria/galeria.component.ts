@@ -74,6 +74,7 @@ export class GaleriaComponent implements OnInit {
         if (response.success) {
           this.toastService.showSuccess(response.mensaje);
           this.imageModel = {};
+          this.loadGallery();
         } else {
           this.toastService.showSuccess(response.mensaje);
         }
