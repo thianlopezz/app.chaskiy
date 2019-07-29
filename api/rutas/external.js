@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import Habitacion from '../controllers/Habitacion';
-import Reserva from '../controllers/reserva';
+import Reserva from '../controllers/Reserva';
 import Pais from '../controllers/pais';
 
 router.get('/', (req, res) => {
