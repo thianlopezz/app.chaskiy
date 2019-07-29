@@ -13,7 +13,6 @@ declare var jQuery: any;
   styleUrls: ['./modal-estados.component.css']
 })
 export class ModalEstadosComponent implements OnInit {
-
   @Input() model: any;
 
   @Output() success = new EventEmitter<any>();
@@ -24,15 +23,11 @@ export class ModalEstadosComponent implements OnInit {
   // tipo_desc: string;
   // mensaje_desc: string;
 
-  constructor(private reservaService: ReservaService,
-    private toastService: ToastService) { }
+  constructor(private reservaService: ReservaService, private toastService: ToastService) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   cambiaEstado(f: NgForm) {
-
     this.loading = true;
 
     let mensaje = '';
@@ -64,20 +59,15 @@ export class ModalEstadosComponent implements OnInit {
     // DEBO ENVIAR LA FECHA MAS ALTA DE LA RESERVA
     // CASO CONTRARIO DEBO ENVIAR FECHA DE HOY
     if (this.model.habitaciones) {
-
       let habitacionFechaMayor;
 
       if (this.model.TIPO === 'HOME') {
-
         feHasta = moment(this.model.fehasta);
       } else {
         this.model.habitaciones.forEach(habitacion => {
-
           if (!habitacionFechaMayor) {
-
             habitacionFechaMayor = habitacion;
           } else {
-
             if (moment(habitacion.feHasta.getTime()) > moment(habitacionFechaMayor.feHasta.getTime())) {
               habitacionFechaMayor = habitacion;
             }
@@ -102,34 +92,29 @@ export class ModalEstadosComponent implements OnInit {
       esMismoDia
     };
 
-    this.reservaService.cambiaEstado(reserva)
-      .subscribe(
-        response => {
+    this.reservaService.cambiaEstado(reserva).subscribe(
+      response => {
+        this.loading = false;
+        f.resetForm();
 
-          this.loading = false;
-          f.resetForm();
-
-          if (response.success) {
-
-            this.success.next('');
-            this.toastService.showSuccess(mensaje);
-            jQuery('#estadosModal').modal('hide');
-          } else {
-            this.toastService.showError(response.mensaje);
-          }
-        },
-        error => {
-
-          console.log(error);
-          this.loading = false;
-          this.toastService.showError(mensaje_err);
-        });
+        if (response.success) {
+          this.success.next('');
+          this.toastService.showSuccess(mensaje);
+          jQuery('#estadosModal').modal('hide');
+        } else {
+          this.toastService.showError(response.mensaje);
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.toastService.showError(mensaje_err);
+      }
+    );
   }
 
   getTipoDesc() {
-
     switch (this.model.a_estado) {
-
       case 'Ca':
         return 'Cancelación';
       case 'Ci':
@@ -140,9 +125,7 @@ export class ModalEstadosComponent implements OnInit {
   }
 
   getDescripcion() {
-
     switch (this.model.a_estado) {
-
       case 'Ca':
         return 'Motivo de la cancelación';
       case 'Ci':
@@ -155,5 +138,4 @@ export class ModalEstadosComponent implements OnInit {
   _cancelaEstados() {
     this.cancelaEstados.next();
   }
-
 }

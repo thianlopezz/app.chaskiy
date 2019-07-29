@@ -53,6 +53,13 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { MarcacionComponent } from './marcacion/marcacion.component';
 import { GaleriaComponent } from './galeria/galeria.component';
 import { SubirModalComponent } from './components/galeria/subir-modal/subir-modal.component';
+import { HabitacionDetalleComponent } from './habitacion-detalle/habitacion-detalle.component';
+import { ImageSelectorComponent } from './components/galeria/image-selector/image-selector.component';
+import { TipoHabitacionComponent } from './tipo-habitacion/tipo-habitacion.component';
+import { EspecificacionComponent } from './especificacion/especificacion.component';
+import { EspecificacionListComponent } from './components/habitacion/especificacion-list/especificacion-list.component';
+import { EspecificacionCardComponent } from './components/habitacion/especificacion-card/especificacion-card.component';
+import { EspecificacionSelectModalComponent } from './components/habitacion/especificacion-select-modal/especificacion-select-modal.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule, CompartidoModule, MyDatePickerModule],
@@ -66,8 +73,6 @@ import { SubirModalComponent } from './components/galeria/subir-modal/subir-moda
     ContrasenaComponent,
     HabitacionComponent,
     ReservaComponent,
-    MonedaDirective,
-    MonedaPipe,
     AdicionalComponent,
     ModalPagoComponent,
     TarifaComponent,
@@ -83,7 +88,14 @@ import { SubirModalComponent } from './components/galeria/subir-modal/subir-moda
     AnalyticsComponent,
     MarcacionComponent,
     GaleriaComponent,
-    SubirModalComponent
+    SubirModalComponent,
+    HabitacionDetalleComponent,
+    ImageSelectorComponent,
+    TipoHabitacionComponent,
+    EspecificacionComponent,
+    EspecificacionListComponent,
+    EspecificacionCardComponent,
+    EspecificacionSelectModalComponent
   ],
   providers: [
     AdicionalService,

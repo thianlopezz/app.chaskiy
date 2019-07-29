@@ -32,6 +32,9 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use('/api', api);
 app.use('/chaskiy/api', external);
 
+const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '/files');
+app.use('/files', express.static(uploadDir));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });

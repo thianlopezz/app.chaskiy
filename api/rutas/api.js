@@ -8,6 +8,8 @@ import { UploadToGallery } from '../helpers/multerConfig';
 
 import Autenticacion from '../controllers/Autenticacion';
 import Habitacion from '../controllers/Habitacion';
+import TipoHabitacion from '../controllers/TipoHabitacion';
+import Especificacion from '../controllers/Especificacion';
 import Aerolinea from '../controllers/Aerolinea';
 import Pasajero from '../controllers/Pasajero';
 import Pais from '../controllers/Pais';
@@ -161,8 +163,45 @@ router.get('/habitaciones/all/:idHospedaje', (req, res) => {
   Habitacion.get(req.params.idHospedaje, res);
 });
 
+router.get('/habitaciones/:idHospedaje/:idHabitacion', (req, res) => {
+  Habitacion.getById(req.params.idHabitacion, req.params.idHospedaje, res);
+});
+
 router.post('/habitaciones/', (req, res) => {
   Habitacion.mantenimiento(req.body, res);
+});
+
+router.get('/habitaciones/foto/:idHospedaje/:idHabitacion', (req, res) => {
+  Habitacion.getImages(req.params.idHabitacion, req.params.idHospedaje, res);
+});
+
+router.post('/habitaciones/foto', (req, res) => {
+  Habitacion.addImage(req.body, res);
+});
+
+router.put('/habitaciones/foto/feature', (req, res) => {
+  Habitacion.feature(req.body, res);
+});
+
+router.post('/habitaciones/foto/delete', (req, res) => {
+  Habitacion.deleteImage(req.body, res);
+});
+
+router.post('/habitaciones/especificacion', (req, res) => {
+  Habitacion.addEspecificacion(req.body, res);
+});
+
+router.post('/habitaciones/especificacion/delete', (req, res) => {
+  Habitacion.deleteEspecificacion(req.body, res);
+});
+
+router.get('/habitaciones/tipo', (req, res) => {
+  TipoHabitacion.get(res);
+});
+
+// E S P E C I F I C A C I O N
+router.get('/especificaciones', (req, res) => {
+  Especificacion.get(res);
 });
 
 //A E R O L I N E A S
@@ -262,11 +301,20 @@ router.post('/marcacion/', (req, res) => {
 });
 
 // G A L E R Y
+router.get('/galeria/:idHospedaje', (req, res) => {
+  Foto.get(req.params.idHospedaje, res);
+});
+
 router.post('/galeria/upload', UploadToGallery.single('file'), (req, res) => {
+  let params = { descripcion: req.body.descripcion, idHospedaje: req.body.idHospedaje };
   if (req.file) {
-    req.body.picture = req.file.filename;
+    params.archivo = req.file.filename;
   }
-  Foto.mantenimiento(req.body, res);
+  Foto.mantenimiento({ ...params, accion: 'I' }, res);
+});
+
+router.post('/galeria/delete', (req, res) => {
+  Foto.mantenimiento({ ...req.body, accion: 'D' }, res);
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ToastService } from '../../../../compartido/services/toast.service';
 
 @Component({
@@ -7,10 +7,8 @@ import { ToastService } from '../../../../compartido/services/toast.service';
   styleUrls: ['./subir-modal.component.css']
 })
 export class SubirModalComponent implements OnInit {
-  file;
-  imagePreview;
-
-  @Output() foto = {};
+  @Input() _loading;
+  @Input() _model: any = {};
 
   @Output() _guardar = new EventEmitter<any>();
 
@@ -24,20 +22,20 @@ export class SubirModalComponent implements OnInit {
   }
 
   handleFileChange(e) {
-    this.file = e.target.files[0];
+    this._model.file = e.target.files[0];
     let fr = new FileReader();
-    fr.readAsDataURL(this.file);
+    fr.readAsDataURL(this._model.file);
     fr.onload = e => {
-      this.imagePreview = fr.result;
+      this._model.imagePreview = fr.result;
     };
   }
 
   guardar() {
-    if (!this.file) {
+    if (!this._model.file) {
       this.toast.showWarning('Debes seleccionar una imagen.');
       return;
     }
 
-    this._guardar.next({ ...this.foto, file: this.file });
+    this._guardar.next({ ...this._model });
   }
 }

@@ -23,6 +23,8 @@ import { PTextAreaComponent } from './components/p-text-area/p-text-area.compone
 import { CardComponent } from './components/card/card.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { InputComponent } from './components/input/input.component';
+import { MonedaDirective } from '../privado/directives/moneda.directive';
+import { MonedaPipe } from '../privado/pipes/moneda.pipe';
 
 @NgModule({
   imports: [CommonModule, MyDatePickerModule, FormsModule, RouterModule, HttpModule],
@@ -39,7 +41,9 @@ import { InputComponent } from './components/input/input.component';
     PSelectComponent,
     PTextAreaComponent,
     CardComponent,
-    ModalComponent
+    ModalComponent,
+    MonedaDirective,
+    MonedaPipe
   ],
   providers: [MensajeService, ToastService],
   declarations: [
@@ -56,7 +60,10 @@ import { InputComponent } from './components/input/input.component';
     PTextAreaComponent,
     CardComponent,
     ModalComponent,
-    InputComponent
+    InputComponent,
+
+    MonedaDirective,
+    MonedaPipe
   ]
 })
 export class CompartidoModule {}

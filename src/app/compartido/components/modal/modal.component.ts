@@ -9,6 +9,8 @@ export class ModalComponent implements OnInit {
   @Input() _idModal;
   @Input() _idForm;
   @Input() _title;
+  @Input() _type;
+  @Input() _loading;
 
   @Input() _cancelarText;
   @Input() _aceptarText;

@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-p-select',
@@ -16,6 +9,7 @@ export class PSelectComponent implements OnInit, OnChanges {
   @Input() text: any = '';
   @Input() value: number;
   @Input() catalog = [];
+  @Input() _inputName = '';
 
   @Output() modificar = new EventEmitter<any>();
 
@@ -40,7 +34,7 @@ export class PSelectComponent implements OnInit, OnChanges {
 
   _modificar() {
     this.esModificar = false;
-    this.text = this.catalog.find(x => x.value === Number(this.value)).text;
+    this.text = this.catalog.find(x => Number(x.value) === Number(this.value)).text;
     this.modificar.next(this.value);
   }
 }

@@ -84,10 +84,10 @@ export class AutenticacionService {
       { route: 'pasajeros', text: 'Pasajeros' },
       { route: 'analytics', text: 'Analíticas' },
       { route: 'hospedaje', text: 'Hospedaje' },
+      { route: 'galeria', text: 'Galería' },
       { route: 'configuracion', text: 'Configuración' },
       { route: 'marcar', text: 'Marcar' },
-      { route: 'contrasena', text: 'Cambiar contrasena', hidden: true },
-      { route: 'galeria', text: 'Galería', hidden: true }
+      { route: 'contrasena', text: 'Cambiar contrasena', hidden: true }
     ];
   }
 

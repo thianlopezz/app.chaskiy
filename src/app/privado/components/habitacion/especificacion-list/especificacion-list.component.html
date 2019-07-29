@@ -1,0 +1,32 @@
+<div class="row">
+  <div
+    *ngFor="let especificacion of _especificaciones"
+    class="col-sm-6 col-md-3 mt-1 pointed"
+    (click)="especificacionClick(especificacion)"
+  >
+    <app-especificacion-card
+      *ngIf="showAddEspecificacion && showDeleteEspecificacion"
+      [_especificacion]="especificacion"
+      (_agregar)="addEspecificacion($event)"
+      (_quitar)="deleteEspecificacion($event)"
+    ></app-especificacion-card>
+    <app-especificacion-card
+      *ngIf="showAddEspecificacion && !showDeleteEspecificacion"
+      [_especificacion]="especificacion"
+      (_agregar)="addEspecificacion($event)"
+    ></app-especificacion-card
+    ><app-especificacion-card
+      *ngIf="!showAddEspecificacion && showDeleteEspecificacion"
+      [_especificacion]="especificacion"
+      (_quitar)="deleteEspecificacion($event)"
+    ></app-especificacion-card>
+  </div>
+  <div *ngIf="showAgregar" class="col-sm-6 col-md-3 mt-1 h-100 pointed" (click)="agregar()">
+    <app-card>
+      <div class="text-center m-auto">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <p>Agregar</p>
+      </div>
+    </app-card>
+  </div>
+</div>

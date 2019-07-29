@@ -124,7 +124,6 @@ export class OcupacionComponent implements OnInit {
 
   private getOcupacion(ceros, feDesde, feHasta) {
     this.estadisticaService.getOcupacionPorRango(feDesde, feHasta).subscribe(ocupaciones => {
-      debugger;
       if (ocupaciones.success) {
         for (let i = 0; i < ocupaciones.data.length; i++) {
           for (let j = 0; j < ceros.length; j++) {

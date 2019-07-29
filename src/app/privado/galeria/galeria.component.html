@@ -11,16 +11,7 @@
   <div class="row">
     <div class="col-lg-9 col-md-10 col-sm-12">
       <div class="row mb-1">
-        <div class="col-sm-4">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
-            <input type="text" name="filtro" class="form-control" placeholder="Buscar" [(ngModel)]="filtro" />
-          </div>
-        </div>
+        <div class="col-sm-4"></div>
         <div class="col-sm-8">
           <button
             type="button"
@@ -30,59 +21,32 @@
             data-target="#adicionalModal"
           >
             <i class="fa fa-plus" aria-hidden="true"></i>
-            Nuevo
+            Imagen
           </button>
         </div>
       </div>
       <div class="card">
         <div class="card-body">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th width="60%">Adicional</th>
-                <th width="30%">Tarifa</th>
-                <th width="10%">Editar/Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let images of (images | filtrar: 'adicional,tarifa':filtro)">
-                <td width="60%">{{ add.adicional }}</td>
-                <td width="30%">{{ add.tarifa | currency: 'USD' }}</td>
-                <td width="10%" class="text-center">
-                  <div class="btn-group grid-btn" role="group">
-                    <button
-                      type="button"
-                      (click)="setModi(add)"
-                      class="btn btn-link text-primary"
-                      data-toggle="modal"
-                      data-target="#adicionalModal"
-                    >
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button
-                      type="button"
-                      (click)="setDelete(add)"
-                      class="btn btn-link text-danger"
-                      data-toggle="modal"
-                      data-target="#confirmaModal"
-                    >
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr *ngIf="loadingImages">
-                <td colspan="3">
-                  <app-spinner></app-spinner>
-                </td>
-              </tr>
-              <tr *ngIf="!loadingImages && images.length === 0">
-                <td class="text-center" colspan="3">
-                  <p class="text-muted">No existen adicionales</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="mansory">
+            <div class="item" *ngFor="let image of images">
+              <img [src]="'/files/gallery/' + image.archivo" />
+              <div class="toolbar">
+                <div>
+                  <!-- <Button class="btn btn-outline-primary rounded-circle mx-1">
+                    <i class="fas fa-pencil-alt"></i>
+                  </Button> -->
+                  <Button
+                    class="btn btn-outline-danger rounded-circle mx-1"
+                    (click)="deleteAttemp(image.idFoto)"
+                    data-toggle="modal"
+                    data-target="#confirmaModal"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -91,8 +55,8 @@
         <div class="card-body">
           <h4 class="card-title">Ayuda</h4>
           <p class="card-text">
-            Registra, edita o elimina los servicios adicionales que manejas en tu hospedaje. Los adicionales se pueden
-            registrar al momento de hacer una reserva y/o mientras no se haya hecho el proceso de check-out.
+            Sube todos los recursos gráficos para asignarlos a las distintas entidades de la aplicación, como
+            habitaciones, adiconales, etc.
           </p>
           <!-- <ul>
 						<li *ngFor="let op of tipos">{{op.tipotarifa}}</li>
@@ -106,66 +70,6 @@
     </div>
   </div>
 </div>
-<!-- MODAL ADICIONAL -->
-<div *ngIf="model" class="modal fade" id="adicionalModal">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-light">
-        <h5 class="modal-title">Adicional</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form
-          id="formAdicional"
-          name="form"
-          class="col-md-12"
-          (ngSubmit)="f.form.valid && guardar(f)"
-          #f="ngForm"
-          [ngClass]="{ 'was-validated': f.submitted }"
-          novalidate
-        >
-          <div class="form-row">
-            <div class="form-group col-sm-12 col-md-8">
-              <label for="adicional">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                name="adicional"
-                [(ngModel)]="model.adicional"
-                #adicional="ngModel"
-                maxlength="100"
-                required
-              />
-              <div *ngIf="f.submitted && !adicional.valid" class="invalid-feedback">
-                El nombre del servicio adicional es requerido
-              </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-4">
-              <label for="tarifa">Tarifa</label>
-              <input
-                type="text"
-                class="form-control"
-                name="tarifa"
-                [(ngModel)]="model.tarifa"
-                #adicional="ngModel"
-                appMoneda="true"
-                required
-              />
-              <div *ngIf="f.submitted && !adicional.valid" class="invalid-feedback">La tarifa es requerida</div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <img *ngIf="loading" src="/assets/images/loading.svg" />
-        <button *ngIf="!loading" type="submit" class="btn btn-primary" form="formAdicional">Guardar</button>
-        <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <app-modal-confirmacion
   [mensaje]="mensajeConfirmacion"
@@ -173,4 +77,4 @@
   (cancelar)="onCancelar()"
 ></app-modal-confirmacion>
 
-<app-subir-modal></app-subir-modal>
+<app-subir-modal [_model]="imageModel" [_loading]="loading" (_guardar)="guardarImagen($event)"></app-subir-modal>

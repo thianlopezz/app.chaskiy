@@ -1,0 +1,15 @@
+<app-card>
+  <div class="text-center m-auto">
+    <img [src]="'/assets/icons/' + _especificacion.icon" class="img-thumbnail" />
+    <p class="mt-2 mb-1">{{ _especificacion.cantidad }}</p>
+    <p>{{ _especificacion.especificacion }}</p>
+    <button *ngIf="showAgregar" type="button" class="btn btn-primary btn-link btn-sm btn-block" (click)="agregar()">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Agregar
+    </button>
+    <button *ngIf="showQuitar" type="button" class="btn btn-danger btn-sm btn-link btn-block" (click)="quitar()">
+      <i class="fas fa-minus"></i>
+      Quitar
+    </button>
+  </div>
+</app-card>

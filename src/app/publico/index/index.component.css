@@ -1,11 +1,11 @@
 .cuadro-img {
-    background:url("../../../assets/images/backgroud_inicio.jpg");
-    background-size: cover; 
-	  height: 100vh;
+  background: url('../../../assets/images/background_inicio.jpg');
+  background-size: cover;
+  height: 100vh;
 }
 
-.jumbotron{
-    background-color: rgba(237, 249, 255, 0.86);
+.jumbotron {
+  background-color: rgba(237, 249, 255, 0.86);
 }
 
 .clientes {

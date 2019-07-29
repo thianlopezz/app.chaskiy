@@ -1,18 +1,18 @@
-<app-modal [_idModal]="'subirModal'" [_title]="'Subir imagen'" [_idForm]="'formFoto'">
+<app-modal [_idModal]="'subirModal'" [_title]="'Subir imagen'" [_idForm]="'formFoto'" [_loading]="_loading">
   <div class="modal-body">
-    <img *ngIf="imagePreview" [src]="imagePreview" class="img-fluid" alt="preview" />
+    <img *ngIf="_model.imagePreview" [src]="_model.imagePreview" class="img-fluid" alt="preview" />
     <p class="text-center m-1">
-      <a *ngIf="!file" [routerLink]="" class="btn btn btn-primary btn-lg btn-block" (click)="openFileInput()"
+      <a *ngIf="!_model.file" [routerLink]="" class="btn btn btn-primary btn-lg btn-block" (click)="openFileInput()"
         >Subir imagen <i class="fas fa-image"></i
       ></a>
-      <a *ngIf="file" [routerLink]="" class="btn btn-link" (click)="openFileInput()">{{ file.name }}</a>
+      <a *ngIf="_model.file" [routerLink]="" class="btn btn-link" (click)="openFileInput()">{{ _model.file.name }}</a>
       <input hidden="true" id="file" name="file" type="file" (change)="handleFileChange($event)" accept="image/*" />
     </p>
     <br />
     <form
       id="formFoto"
       name="formFoto"
-      (ngSubmit)="f.form.valid && guardar(f)"
+      (ngSubmit)="guardar(f)"
       #f="ngForm"
       [ngClass]="{ 'was-validated': f.submitted }"
       novalidate
@@ -23,7 +23,7 @@
           class="form-control"
           id="descripcion"
           name="name"
-          [(ngModel)]="foto.descripcion"
+          [(ngModel)]="_model.descripcion"
           #descripcion="ngModel"
           placeholder="(Opcional)"
         />

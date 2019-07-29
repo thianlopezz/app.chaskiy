@@ -16,6 +16,27 @@ class Habitacion {
       });
   }
 
+  getById(idHabitacion, idHospedaje, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_habitacion', { accion: 'C1', idHabitacion, idHospedaje })
+      .then(result => {
+        if (!result[0] || !result[0][0]) {
+          return res.status(404).send({ success: false });
+        }
+
+        let data = result[0][0];
+        data.especificaciones = result[1];
+
+        res.send({ success: true, data });
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.getById>>' + error);
+        res.send({ success: false, mensaje: '' + error });
+      });
+  }
+
   getDisponibles(feDesde, feHasta, idHospedaje, res) {
     const dataAccess = new DataAccess();
 
@@ -42,6 +63,8 @@ class Habitacion {
   mantenimiento(habitacion, res) {
     const dataAccess = new DataAccess();
 
+    habitacion = { ...habitacion, idTipoHabitacion: habitacion.idTipoHabitacion || 0 };
+
     dataAccess
       .execJsonToSp('hab_habitacion', habitacion)
       .then(result => {
@@ -53,6 +76,110 @@ class Habitacion {
       })
       .catch(error => {
         console.log('Error>> Habitacion.mantenimiento>>' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  getImages(idHabitacion, idHospedaje, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_foto', { accion: 'C', idHospedaje, idHabitacion })
+      .then(result => {
+        res.send({ success: true, data: result[0] });
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.getImages>>' + error);
+        res.send({ success: false, mensaje: '' + error });
+      });
+  }
+
+  addImage(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_foto', { accion: 'I', ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.addImage ==> ', error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  feature(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_featureFoto', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.feature>>' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  addEspecificacion(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_addEspecificacion', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.addEspecificacion ==> ' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  deleteEspecificacion(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_deleteEspecificacion', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.deleteEspecificacion ==> ', error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  deleteImage(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_foto', { accion: 'D', ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.addImage ==> ', error);
         res.send({ success: false, mensaje: error });
       });
   }

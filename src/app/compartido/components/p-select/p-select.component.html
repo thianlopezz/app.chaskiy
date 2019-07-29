@@ -5,23 +5,13 @@
   </a>
 </p>
 <div *ngIf="esModificar" class="row mx-auto">
-  <select name="adicional" class="form-control col-9" [(ngModel)]="value">
-    <option *ngFor="let item of catalog" [value]="item.value">{{
-      item.text
-    }}</option>
+  <select name="_inputName" class="form-control col-9" [(ngModel)]="value">
+    <option *ngFor="let item of catalog" [value]="item.value">{{ item.text }}</option>
   </select>
-  <button
-    type="button"
-    class="btn btn-link text-primary px-0 col-1"
-    (click)="_modificar()"
-  >
+  <button type="button" class="btn btn-link text-primary px-0 col-1" (click)="_modificar()">
     <i class="fa fa-check" aria-hidden="true"></i>
   </button>
-  <button
-    type="button"
-    class="btn btn-link text-danger px-0 col-1"
-    (click)="cancelar()"
-  >
+  <button type="button" class="btn btn-link text-danger px-0 col-1" (click)="cancelar()">
     <i class="fa fa-times" aria-hidden="true"></i>
   </button>
 </div>

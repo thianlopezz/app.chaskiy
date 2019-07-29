@@ -5,19 +5,15 @@
   </a>
 </p>
 <div *ngIf="esModificar" class="row mx-auto">
-  <input type="text" class="form-control col-9" [(ngModel)]="value" />
-  <button
-    type="button"
-    class="btn btn-link text-primary px-0 col-1"
-    (click)="_modificar()"
-  >
+  <input *ngIf="!_type" name="_inputName" type="text" class="form-control col-9" [(ngModel)]="text" />
+  <!-- TIPO MONEDA -->
+  <input *ngIf="_type == 'number'" name="_inputName" type="number" class="form-control col-9" [(ngModel)]="text" />
+  <!-- TIPO MONEDA -->
+  <input *ngIf="_type == 'moneda'" type="text" class="form-control col-9" [(ngModel)]="text" appMoneda="true" />
+  <button type="button" class="btn btn-link text-primary px-0 col-1" (click)="_modificar()">
     <i class="fa fa-check" aria-hidden="true"></i>
   </button>
-  <button
-    type="button"
-    class="btn btn-link text-primary px-0 col-1"
-    (click)="cancelar()"
-  >
+  <button type="button" class="btn btn-link text-danger px-0 col-1" (click)="cancelar()">
     <i class="fa fa-times" aria-hidden="true"></i>
   </button>
 </div>

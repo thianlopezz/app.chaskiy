@@ -15,7 +15,6 @@ declare var jQuery: any;
   styleUrls: ['./generico.component.css']
 })
 export class GenericoComponent implements OnInit {
-
   muestra = false;
   op: string;
   token: string;
@@ -34,35 +33,30 @@ export class GenericoComponent implements OnInit {
   showMensajeReserva = false;
   mensaje = '';
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private registroService: RegistroService,
     private router: Router,
     private mensajeService: MensajeService,
     private reservaService: ReservaService,
-    private socialService: SocialService) { }
+    private socialService: SocialService
+  ) {}
 
   ngOnInit() {
-
-    this.activatedRoute
-      .queryParams
-      .subscribe(params => {
-
+    this.activatedRoute.queryParams.subscribe(
+      params => {
         this.op = params['op'];
 
         if (this.op === undefined) {
-
           this.router.navigate(['/']);
           return;
         }
 
         switch (this.op) {
-
-          case 'AC': /*activa cuenta*/
-
+          case 'AC' /*activa cuenta*/:
             this.token = params['token'];
 
             if (this.token === undefined) {
-
               this.router.navigate(['/']);
               return;
             }
@@ -70,17 +64,13 @@ export class GenericoComponent implements OnInit {
             this.activaCuenta(this.token);
             break;
           case 'UP':
-
             this.token = params['token'];
             break;
           case 'RE':
-
             this.id = params['id'] || params['ID'];
             this.token = params['token'];
 
-
             if (this.id === undefined || this.token === undefined) {
-
               this.router.navigate(['/']);
               return;
             }
@@ -91,96 +81,79 @@ export class GenericoComponent implements OnInit {
             this.getReserveDet(this.id, this.token);
             break;
         }
-      }, error => {
-
+      },
+      error => {
         this.router.navigate(['/']);
-      });
+      }
+    );
   }
 
   private activaCuenta(token: string) {
-
-    this.registroService.activa(token)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.muestra = true;
-          } else {
-
-            this.mensajeService.error(data.mensaje);
-            this.showMess();
-          }
-        },
-        error => {
-
-          console.log(error);
-
-          this.mensajeService.error(error);
+    this.registroService.activa(token).subscribe(
+      data => {
+        if (data.success) {
+          this.muestra = true;
+        } else {
+          this.mensajeService.error(data.mensaje);
           this.showMess();
-        });
+        }
+      },
+      error => {
+        console.log(error);
+
+        this.mensajeService.error(error);
+        this.showMess();
+      }
+    );
   }
 
   confirma() {
-
     this.loading = true;
 
-    this.reservaService.confirmaReserva(this.id)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.loading = false;
-            this.mensajeService.success(data.mensaje);
-            this.showMess();
-            this.getReserveDet(this.id, this.token);
-          } else {
-
-            this.loading = false;
-            this.mensajeService.error(data.mensaje);
-            this.showMess();
-          }
-        },
-        error => {
-
-          console.log(error);
+    this.reservaService.confirmaReserva(this.id).subscribe(
+      data => {
+        if (data.success) {
           this.loading = false;
-
-          this.mensajeService.error(error);
+          this.mensajeService.success(data.mensaje);
           this.showMess();
-        });
+          this.getReserveDet(this.id, this.token);
+        } else {
+          this.loading = false;
+          this.mensajeService.error(data.mensaje);
+          this.showMess();
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+
+        this.mensajeService.error(error);
+        this.showMess();
+      }
+    );
   }
 
   getEstadoStyle(reserva: any) {
-
     if (reserva.estado === 'Ca') {
       return { 'badge-dark': true };
-    } else
-      if (reserva.estado === 'Ci') {
-        return { 'badge-danger': true };
-      } else
-        if (reserva.estado === 'Co') {
-          return { 'badge-warning': true };
-        } else
-          if (reserva.estado === 'Re') {
-            return { 'badge-info': true };
-          } else
-            if (reserva.estado === 'Pr') {
-              return { 'badge-light': true };
-            }
+    } else if (reserva.estado === 'Ci') {
+      return { 'badge-danger': true };
+    } else if (reserva.estado === 'Co') {
+      return { 'badge-warning': true };
+    } else if (reserva.estado === 'Re') {
+      return { 'badge-info': true };
+    } else if (reserva.estado === 'Pr') {
+      return { 'badge-light': true };
+    }
   }
 
   updatePass(form: NgForm) {
-
     if (this.model.password !== this.model.password0) {
-
       this.valid_pass = true;
       return;
     }
 
     if (this.model.password.length < 6) {
-
       this.valid_pass0 = true;
       return;
     }
@@ -192,39 +165,33 @@ export class GenericoComponent implements OnInit {
 
     this.model.tokenRecupera = this.token;
 
-    this.registroService.upRecupera(this.model)
-      .subscribe(
-        data => {
-
-          if (data.success) {
-
-            this.loading = false;
-            this.mensajeService.success(data.mensaje);
-            this.showMess();
-
-            setTimeout(() => {
-
-              this.router.navigate(['/login']);
-            }, 900);
-          } else {
-
-            this.loading = false;
-            this.mensajeService.error(data.mensaje);
-            this.showMess();
-          }
-        },
-        error => {
-
-          console.log(error);
+    this.registroService.upRecupera(this.model).subscribe(
+      data => {
+        if (data.success) {
           this.loading = false;
-
-          this.mensajeService.error(error);
+          this.mensajeService.success(data.mensaje);
           this.showMess();
-        });
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 900);
+        } else {
+          this.loading = false;
+          this.mensajeService.error(data.mensaje);
+          this.showMess();
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+
+        this.mensajeService.error(error);
+        this.showMess();
+      }
+    );
   }
 
   recupera(form: NgForm) {
-
     this.loading = true;
     this.loading0 = true;
 
@@ -244,70 +211,58 @@ export class GenericoComponent implements OnInit {
     //   break;
     // }
 
-    this.registroService.enviaRecupera(this.model)
-      .subscribe(
-        data => {
+    this.registroService.enviaRecupera(this.model).subscribe(
+      data => {
+        if (data.success) {
+          this.loading = false;
 
-          if (data.success) {
-
-            this.loading = false;
-
-            this.mensajeService.success(mensaje);
-            this.showMess();
-          } else {
-
-            this.loading = false;
-            this.loading0 = false;
-            this.mensajeService.error(data.mensaje);
-            this.showMess();
-          }
-        },
-        error => {
-
-          console.log(error);
+          this.mensajeService.success(mensaje);
+          this.showMess();
+        } else {
           this.loading = false;
           this.loading0 = false;
-
-          this.mensajeService.error(mensaje_err);
+          this.mensajeService.error(data.mensaje);
           this.showMess();
-        });
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.loading0 = false;
+
+        this.mensajeService.error(mensaje_err);
+        this.showMess();
+      }
+    );
   }
 
   getReserveDet(idReserva: number, token: string) {
+    this.reservaService.getByIdEx(idReserva, token).subscribe(reservas => {
+      if (reservas.success) {
+        this.showReserve = true;
+        this.showMensajeReserva = false;
 
-    this.reservaService.getByIdEx(idReserva, token).subscribe(
-      reservas => {
+        this.model = reservas.data[0];
+        this.model.habitaciones = this.setDateHab(this.model.habitaciones);
 
-        if (reservas.success) {
+        this.model.pago = {};
+        this.loadSocial();
+      } else {
+        this.showReserve = false;
+        this.showMensajeReserva = true;
+        this.mensaje = reservas.mensaje;
 
-          this.showReserve = true;
-          this.showMensajeReserva = false;
-
-          this.model = reservas.data[0];
-          this.model.habitaciones = this.setDateHab(this.model.habitaciones);
-
-          this.model.pago = {};
-          this.loadSocial();
-        } else {
-
-          this.showReserve = false;
-          this.showMensajeReserva = true;
-          this.mensaje = reservas.mensaje;
-
-          console.log('Error>> getById>> ' + reservas.mensaje);
-        }
-      });
+        console.log('Error>> getById>> ' + reservas.mensaje);
+      }
+    });
   }
 
   getEstado() {
-
     return this.reservaService.getEstado(this.model);
   }
 
   getTotal() {
-
     if (!this.model.habitaciones || this.model.habitaciones.length === 0) {
-
       return 0;
     }
 
@@ -316,13 +271,11 @@ export class GenericoComponent implements OnInit {
 
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
-
-      sum = sum + (this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa);
+      sum = sum + this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa;
     }
 
     for (let i = 0; i < adicionales.length; i++) {
-
-      sum = sum + (adicionales[i].tarifa * adicionales[i].cantidad);
+      sum = sum + adicionales[i].tarifa * adicionales[i].cantidad;
     }
 
     this.model.total = sum;
@@ -331,41 +284,29 @@ export class GenericoComponent implements OnInit {
   }
 
   private nightDiff(feDesde: Date, feHasta: Date) {
-
     // SE RESTA PARA QUE CUENTE BIEN LAS NOCHES
     const _feHasta = moment(feHasta).subtract('days', 1);
     return this.reservaService.getNumeroNoches(feDesde, _feHasta.toDate());
   }
 
   valuechange_pass(newVal) {
-
     if (this.model.password !== this.model.password0) {
-
       this.valid_pass = true;
     } else {
-
       this.valid_pass = false;
 
       if (this.model.password.length < 6) {
-
         this.valid_pass0 = true;
       } else {
-
         this.valid_pass0 = false;
       }
-
     }
-
   }
 
   private mapSocial() {
-
     for (let i = 0; i < this.redes.length; i++) {
-
       for (let j = 0; j < this.model.hospedaje.redes.length; j++) {
-
         if (this.redes[i].idSocial === this.model.hospedaje.redes[j].idsocial) {
-
           this.redes[i].valor = this.model.hospedaje.redes[j].valor;
           // break;
         }
@@ -374,25 +315,22 @@ export class GenericoComponent implements OnInit {
   }
 
   private loadSocial() {
-
     this.socialService.get().subscribe(social => {
-
       if (social.success) {
-
         this.redes = social.data;
         this.mapSocial();
       } else {
         console.log('Error>> loadInfo>> ' + social.mensaje);
       }
-
     });
   }
 
   findByIdDb(arreglo: any[], id: number, feIn: Date) {
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].idHabitacion === id &&
-        (feIn >= this.getDateString('/', arreglo[i].feDesde)
-          && feIn <= this.getDateString('/', arreglo[i].feHasta))) {
+      if (
+        arreglo[i].idHabitacion === id &&
+        (feIn >= this.getDateString('/', arreglo[i].feDesde) && feIn <= this.getDateString('/', arreglo[i].feHasta))
+      ) {
         return i;
       }
     }
@@ -401,14 +339,12 @@ export class GenericoComponent implements OnInit {
   }
 
   private getDateString(delimiter: string, date: string) {
-
     const auxDate = date.split(delimiter);
     return new Date(Number(auxDate[2]), Number(auxDate[1]) - 1, Number(auxDate[0]), 0, 0, 0, 0);
   }
 
   private setDateHab(arreglo: any[]) {
     for (let i = 0; i < arreglo.length; i++) {
-
       arreglo[i].feDesde = this.getDateString('/', arreglo[i].feDesde);
       arreglo[i].feHasta = this.getDateString('/', arreglo[i].feHasta);
     }
@@ -417,12 +353,8 @@ export class GenericoComponent implements OnInit {
   }
 
   private showMess() {
-
     setTimeout(() => {
-
       jQuery('#messModal').modal('show');
     }, 200);
   }
-
 }
-

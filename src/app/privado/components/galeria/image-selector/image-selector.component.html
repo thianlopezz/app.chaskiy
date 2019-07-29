@@ -1,0 +1,21 @@
+<div class="row mb-1">
+  <div class="col-sm-4"><p>Selecciona una imagen</p></div>
+  <div class="col-sm-8">
+    <button type="button" class="btn btn-link btn-primary pull-right" (click)="cancel()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+      Cancelar
+    </button>
+  </div>
+</div>
+<div class="mansory">
+  <div class="item" *ngFor="let image of _images">
+    <img [src]="'/files/gallery/' + image.archivo" />
+    <div class="toolbar">
+      <div>
+        <Button class="btn btn-outline-primary rounded-circle mx-1" (click)="select(image.idFoto)">
+          <i class="fas fa-check"></i>
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>

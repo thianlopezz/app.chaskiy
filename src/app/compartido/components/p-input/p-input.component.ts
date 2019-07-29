@@ -7,6 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PInputComponent implements OnInit {
   @Input() text: any = '';
+  @Input() _inputName = '';
+
+  @Input() _type;
 
   @Output() modificar = new EventEmitter<any>();
 

@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PTextAreaComponent implements OnInit {
   @Input() text: any = '';
+  @Input() _inputName = '';
 
   @Output() modificar = new EventEmitter<any>();
 

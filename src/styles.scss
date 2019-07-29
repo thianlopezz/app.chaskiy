@@ -1,12 +1,63 @@
-
 $body-bg: #fafafa;
 // $bg-primary: #212121;
 // $bg-secondary: #0277bd;
 
 $theme-colors: (
-  "primary": #37474f,
-  "secondary": #ffc107,
-  "info": #00d3e6
+  'primary': #37474f,
+  'secondary': #ffc107,
+  'info': #00d3e6
 );
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+.mansory {
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+
+  &:hover {
+    img {
+      opacity: 0.28;
+    }
+  }
+
+  // Each flex item
+  .item {
+    position: relative;
+    width: 33.33%; // 3 column
+    img {
+      width: 100%;
+      display: block;
+      transition: all 0.8s;
+    }
+    .toolbar {
+      position: absolute;
+      top: 48%;
+      left: 0;
+      width: 100%;
+      padding: 0 3%;
+    }
+    &:hover {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.mansory .item {
+  width: 100%;
+  padding: 7px 0;
+}
+
+@media (max-width: 500px) {
+  .mansory {
+    -webkit-column-count: 1; /* Chrome, Safari, Opera */
+    -moz-column-count: 1; /* Firefox */
+    column-count: 1;
+  }
+}
+
+.pointed {
+  cursor: pointer !important;
+}

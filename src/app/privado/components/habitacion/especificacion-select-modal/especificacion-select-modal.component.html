@@ -1,0 +1,18 @@
+<app-modal
+  [_idModal]="'selectEspecificacionModal'"
+  [_title]="'Especificaciones'"
+  [_loading]="_loading"
+  [_type]="'modal-lg'"
+>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Elige las especificaciones de tu habitación</label>
+      </div>
+      <app-especificacion-list
+        [_especificaciones]="_especificaciones"
+        (_addEspecificacion)="addEspecificacion($event)"
+      ></app-especificacion-list>
+    </form>
+  </div>
+</app-modal>

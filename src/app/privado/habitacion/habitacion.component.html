@@ -52,6 +52,9 @@
                 <!-- <td width="25%">{{room.tarifa | currency:'USD':true}}</td> -->
                 <td width="15%" class="text-center">
                   <div class="btn-group grid-btn" role="group">
+                    <a [routerLink]="[room.idHabitacion]" class="btn btn-link text-primary">
+                      <i class="fas fa-info-circle"></i>
+                    </a>
                     <button
                       type="button"
                       (click)="setModi(room)"
