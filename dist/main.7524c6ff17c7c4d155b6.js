@@ -3006,7 +3006,7 @@
                     this.galeriaService.uploadImage(e.file, e.descripcion).subscribe(
                       e => {
                         e.success
-                          ? (this.toastService.showSuccess(e.mensaje), (this.imageModel = {}))
+                          ? (this.toastService.showSuccess(e.mensaje), (this.imageModel = {}), this.loadGallery())
                           : this.toastService.showSuccess(e.mensaje),
                           this.hideModal(),
                           (this.loading = !1);
