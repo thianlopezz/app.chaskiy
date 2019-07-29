@@ -22,7 +22,6 @@ import { PSelectComponent } from './components/p-select/p-select.component';
 import { PTextAreaComponent } from './components/p-text-area/p-text-area.component';
 import { CardComponent } from './components/card/card.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { InputComponent } from './components/input/input.component';
 import { MonedaDirective } from '../privado/directives/moneda.directive';
 import { MonedaPipe } from '../privado/pipes/moneda.pipe';
 
@@ -60,8 +59,6 @@ import { MonedaPipe } from '../privado/pipes/moneda.pipe';
     PTextAreaComponent,
     CardComponent,
     ModalComponent,
-    InputComponent,
-
     MonedaDirective,
     MonedaPipe
   ]

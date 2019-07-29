@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Chaskiy</title>
+    <base href="/" />
+    <!-- booking verfication -->
+    <meta name="B-verify" content="ad9a1515938ba99c7aad5564da73154892f14300" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      .mid {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -50px;
+        margin-top: -50px;
+      }
+    </style>
+    <link rel="stylesheet" href="styles.6a845315f203ca060f05.css" />
+  </head>
+
+  <body>
+    <app-root>
+      <div class="container mid">
+        <img src="/assets/images/loading.svg" alt="" />
+      </div>
+    </app-root>
+    <script>
+      (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-107717414-1', 'auto'); // <- add the UA-ID from your tracking code
+      // <- remove the last line like me
+    </script>
+    <script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script
+    ><script type="text/javascript" src="polyfills.acaf04f04abdcd61e401.js"></script
+    ><script type="text/javascript" src="scripts.14a693fd9b3900d9c59f.js"></script
+    ><script type="text/javascript" src="main.40ddf53032d78a8790d7.js"></script>
+  </body>
+  <script>
+    // var _zIndex = 1040;
+
+    // $(document).on('show.bs.modal', '.modal', function () {
+    //   var zIndex = _zIndex + (10 * $('.modal:visible').length);
+    //   _zIndex = _zIndex + 1;
+    //   $(this).css('z-index', zIndex);
+    //   setTimeout(function () {
+    //     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+    //   }, 0);
+    // });
+
+    $('#menu-toggle').click(function(e) {
+      e.preventDefault();
+      $('#wrapper').toggleClass('toggled');
+    });
+
+    $(document).ready(function() {
+      var trigger = $('.hamburger'),
+        overlay = $('.overlay'),
+        isClosed = false;
+
+      trigger.click(function() {
+        hamburger_cross();
+      });
+
+      function hamburger_cross() {
+        if (isClosed == true) {
+          overlay.hide();
+          trigger.removeClass('is-open');
+          trigger.addClass('is-closed');
+          isClosed = false;
+        } else {
+          overlay.show();
+          trigger.removeClass('is-closed');
+          trigger.addClass('is-open');
+          isClosed = true;
+        }
+      }
+
+      function _close() {
+        isClosed = true;
+        hamburger_cross();
+      }
+
+      $('[data-toggle="offcanvas"]').click(function() {
+        $('#wrapper').toggleClass('toggled');
+      });
+
+      $(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+      $(function() {
+        $('[data-toggle="popover"]').popover('show');
+      });
+    });
+  </script>
+</html>

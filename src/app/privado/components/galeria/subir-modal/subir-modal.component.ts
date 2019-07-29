@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ToastService } from '../../../../compartido/services/toast.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-subir-modal',
@@ -30,7 +31,7 @@ export class SubirModalComponent implements OnInit {
     };
   }
 
-  guardar() {
+  guardar(f: NgForm) {
     if (!this._model.file) {
       this.toast.showWarning('Debes seleccionar una imagen.');
       return;

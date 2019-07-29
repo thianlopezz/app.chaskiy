@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./especificacion-card.component.css']
 })
 export class EspecificacionCardComponent implements OnInit {
-  @Input() _especificacion = {};
+  @Input() _especificacion: any = {};
 
   @Output() _agregar = new EventEmitter<any>();
   @Output() _quitar = new EventEmitter<any>();
