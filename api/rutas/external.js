@@ -3,7 +3,7 @@ const router = express.Router();
 
 import Habitacion from '../controllers/Habitacion';
 import Reserva from '../controllers/Reserva';
-import Pais from '../controllers/pais';
+import Pais from '../controllers/Pais';
 
 router.get('/', (req, res) => {
   res.send('external works!');
