@@ -24,8 +24,12 @@ const app = express();
 app.enable('trust proxy');
 // if (process.env.SQL_USER) { app.use(forceSSL()); }
 // app.use(forceSSL());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+// CONFIG TO AVOID 413
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
