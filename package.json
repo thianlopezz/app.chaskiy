@@ -15,7 +15,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:prod": "ng build --aot --prod",
-    "build-server": "babel API --out-dir API_DIST --copy-files"
+    "build-server": "babel api --out-dir API_DIST --copy-files"
   },
   "husky": {
     "hooks": {
