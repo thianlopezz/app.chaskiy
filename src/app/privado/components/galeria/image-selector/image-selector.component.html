@@ -9,7 +9,7 @@
 </div>
 <div class="mansory">
   <div class="item" *ngFor="let image of _images">
-    <img [src]="'/files/gallery/' + image.archivo" />
+    <img [src]="'/files/' + image.archivo" />
     <div class="toolbar">
       <div>
         <Button class="btn btn-outline-primary rounded-circle mx-1" (click)="select(image.idFoto)">

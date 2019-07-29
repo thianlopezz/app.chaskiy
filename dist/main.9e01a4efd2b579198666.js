@@ -21800,7 +21800,7 @@
                 ],
                 null,
                 function(e, n) {
-                  e(n, 1, 0, '/files/gallery/' + n.context.$implicit.archivo);
+                  e(n, 1, 0, '/files/' + n.context.$implicit.archivo);
                 }
               );
             }
@@ -41405,7 +41405,7 @@
                 ],
                 null,
                 function(e, n) {
-                  e(n, 1, 0, '/files/gallery/' + n.context.$implicit.archivo),
+                  e(n, 1, 0, '/files/' + n.context.$implicit.archivo),
                     e(
                       n,
                       4,
@@ -63362,6 +63362,17 @@
               return l.ɵvid(
                 0,
                 [
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'p', [['class', 'text-center']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['No existen imagenes para mostrar']))
+                ],
+                null,
+                null
+              );
+            }
+            function _(e) {
+              return l.ɵvid(
+                0,
+                [
                   (e()(), l.ɵeld(0, 0, null, null, 5, 'div', [['class', 'item']], null, null, null, null, null)),
                   (e()(), l.ɵeld(1, 0, null, null, 0, 'img', [], [[8, 'src', 4]], null, null, null, null)),
                   (e()(), l.ɵeld(2, 0, null, null, 3, 'div', [['class', 'toolbar']], null, null, null, null, null)),
@@ -63392,11 +63403,11 @@
                 ],
                 null,
                 function(e, n) {
-                  e(n, 1, 0, '/files/gallery/' + n.context.$implicit.archivo);
+                  e(n, 1, 0, '/files/' + n.context.$implicit.archivo);
                 }
               );
             }
-            function _(e) {
+            function v(e) {
               return l.ɵvid(
                 0,
                 [
@@ -63408,15 +63419,15 @@
                   (e()(), l.ɵeld(5, 0, null, null, 1, 'small', [], null, null, null, null, null)),
                   (e()(), l.ɵted(6, null, ['(', ')'])),
                   (e()(), l.ɵeld(7, 0, null, null, 0, 'hr', [['class', 'my-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(8, 0, null, null, 23, 'div', [['class', 'container']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(9, 0, null, null, 22, 'div', [['class', 'row']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(8, 0, null, null, 25, 'div', [['class', 'container']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(9, 0, null, null, 24, 'div', [['class', 'row']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
                     10,
                     0,
                     null,
                     null,
-                    11,
+                    13,
                     'div',
                     [['class', 'col-lg-9 col-md-10 col-sm-12']],
                     null,
@@ -63467,12 +63478,14 @@
                     null
                   )),
                   (e()(), l.ɵted(-1, null, [' Imagen '])),
-                  (e()(), l.ɵeld(17, 0, null, null, 4, 'div', [['class', 'card']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(18, 0, null, null, 3, 'div', [['class', 'card-body']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(19, 0, null, null, 2, 'div', [['class', 'mansory']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(17, 0, null, null, 6, 'div', [['class', 'card']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(18, 0, null, null, 5, 'div', [['class', 'card-body']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, g)),
+                  l.ɵdid(20, 16384, null, 0, r.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵeld(21, 0, null, null, 2, 'div', [['class', 'mansory']], null, null, null, null, null)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, _)),
                   l.ɵdid(
-                    21,
+                    23,
                     802816,
                     null,
                     0,
@@ -63483,7 +63496,7 @@
                   ),
                   (e()(),
                   l.ɵeld(
-                    22,
+                    24,
                     0,
                     null,
                     null,
@@ -63496,19 +63509,19 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵeld(23, 0, null, null, 5, 'div', [['class', 'card mt-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(24, 0, null, null, 4, 'div', [['class', 'card-body']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(25, 0, null, null, 1, 'h4', [['class', 'card-title']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(25, 0, null, null, 5, 'div', [['class', 'card mt-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(26, 0, null, null, 4, 'div', [['class', 'card-body']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(27, 0, null, null, 1, 'h4', [['class', 'card-title']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Ayuda'])),
-                  (e()(), l.ɵeld(27, 0, null, null, 1, 'p', [['class', 'card-text']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(29, 0, null, null, 1, 'p', [['class', 'card-text']], null, null, null, null, null)),
                   (e()(),
                   l.ɵted(-1, null, [
                     ' Sube todos los recursos gr\xe1ficos para asignarlos a las distintas entidades de la aplicaci\xf3n, como habitaciones, adiconales, etc. '
                   ])),
-                  (e()(), l.ɵeld(29, 0, null, null, 2, 'div', [['class', 'mt-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(31, 0, null, null, 2, 'div', [['class', 'mt-2']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    30,
+                    32,
                     0,
                     null,
                     null,
@@ -63521,10 +63534,10 @@
                     i.View_CardNotificacionesComponent_0,
                     i.RenderType_CardNotificacionesComponent
                   )),
-                  l.ɵdid(31, 114688, null, 0, o.CardNotificacionesComponent, [s.NotificacionService], null, null),
+                  l.ɵdid(33, 114688, null, 0, o.CardNotificacionesComponent, [s.NotificacionService], null, null),
                   (e()(),
                   l.ɵeld(
-                    32,
+                    34,
                     0,
                     null,
                     null,
@@ -63546,7 +63559,7 @@
                     u.RenderType_ModalConfirmacionComponent
                   )),
                   l.ɵdid(
-                    33,
+                    35,
                     114688,
                     null,
                     0,
@@ -63557,7 +63570,7 @@
                   ),
                   (e()(),
                   l.ɵeld(
-                    34,
+                    36,
                     0,
                     null,
                     null,
@@ -63574,7 +63587,7 @@
                     d.RenderType_SubirModalComponent
                   )),
                   l.ɵdid(
-                    35,
+                    37,
                     114688,
                     null,
                     0,
@@ -63586,21 +63599,22 @@
                 ],
                 function(e, n) {
                   var t = n.component;
-                  e(n, 21, 0, t.images),
-                    e(n, 31, 0),
-                    e(n, 33, 0, t.mensajeConfirmacion),
-                    e(n, 35, 0, t.loading, t.imageModel);
+                  e(n, 20, 0, !t.loadingList && 0 == t.images.length),
+                    e(n, 23, 0, t.images),
+                    e(n, 33, 0),
+                    e(n, 35, 0, t.mensajeConfirmacion),
+                    e(n, 37, 0, t.loading, t.imageModel);
                 },
                 function(e, n) {
                   e(n, 6, 0, n.component.images.length);
                 }
               );
             }
-            function v(e) {
+            function y(e) {
               return l.ɵvid(
                 0,
                 [
-                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-galeria', [], null, null, null, _, m)),
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-galeria', [], null, null, null, v, m)),
                   l.ɵdid(1, 114688, null, 0, p.GaleriaComponent, [f.GaleriaService, h.ToastService], null, null)
                 ],
                 function(e, n) {
@@ -63609,9 +63623,9 @@
                 null
               );
             }
-            (n.RenderType_GaleriaComponent = m), (n.View_GaleriaComponent_0 = _), (n.View_GaleriaComponent_Host_0 = v);
-            var y = l.ɵccf('app-galeria', p.GaleriaComponent, v, {}, {}, []);
-            n.GaleriaComponentNgFactory = y;
+            (n.RenderType_GaleriaComponent = m), (n.View_GaleriaComponent_0 = v), (n.View_GaleriaComponent_Host_0 = y);
+            var b = l.ɵccf('app-galeria', p.GaleriaComponent, y, {}, {}, []);
+            n.GaleriaComponentNgFactory = b;
           }.apply(n, l)) || (e.exports = r);
     },
     oK7m: function(e, n, t) {
