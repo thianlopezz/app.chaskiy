@@ -48,7 +48,7 @@ class Reserva {
       reserva.notas = reserva.notas.replace(/\t/g, '');
     }
 
-    reserva.habitaciones = setHabitacionesDate(reserva.habitaciones);
+    reserva.habitaciones = this.setHabitacionesDate(reserva.habitaciones);
 
     dataAcess
       .execJsonToSp('res_reserva', reserva)
@@ -144,7 +144,7 @@ class Reserva {
       .execArrayToSp('res_confirma', [id])
       .then(result => {
         if (result[0][0].err === undefined) {
-          enviaCorreo(result[0][0], 'I', 'Re')
+          this.enviaCorreo(result[0][0], 'I', 'Re')
             .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
             .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
         } else {
