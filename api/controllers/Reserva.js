@@ -56,7 +56,7 @@ class Reserva {
         if (result[0][0].err === undefined) {
           if (reserva.enviarCorreo) {
             console.log(reserva.enviarCorreo);
-            enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
+            this.enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
               .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
               .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
           } else {
