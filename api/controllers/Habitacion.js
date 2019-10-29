@@ -296,8 +296,8 @@ class Habitacion {
 
     if (foto) {
       return foto.archivo;
-    } else if (foto[0]) {
-      return foto[0].archivo;
+    } else if (fotos[0]) {
+      return fotos[0].archivo;
     } else return null;
   }
 

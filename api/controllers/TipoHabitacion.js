@@ -28,7 +28,7 @@ class TipoHabitacion {
         res.send({ success: true, data: result[0][0] });
       })
       .catch(error => {
-        console.log('Error>> Habitacion.getById>>' + error);
+        console.log('Error>> TipoHabitacion.getById>>' + error);
         res.send({ success: false, mensaje: '' + error });
       });
   }
