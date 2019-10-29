@@ -1,0 +1,15 @@
+<app-modal
+  [_idModal]="'selectCamaModal'"
+  [_title]="model.habitacion + ' - ' + model.tipoHabitacion"
+  [_loading]="_loading"
+  [_type]="'modal-lg'"
+>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Elige las camas para tu habitación</label>
+      </div>
+      <app-cama-list [_camas]="_camas" (_addCama)="addCama($event)"></app-cama-list>
+    </form>
+  </div>
+</app-modal>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-p-input',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PInputComponent implements OnInit {
   @Input() text: any = '';
+  @Input() value: any;
   @Input() _inputName = '';
 
   @Input() _type;
@@ -22,16 +23,16 @@ export class PInputComponent implements OnInit {
 
   desbloquea() {
     this.esModificar = true;
-    this.oldValue = this.text;
+    this.oldValue = this.value;
   }
 
   cancelar() {
-    this.text = this.oldValue;
+    this.value = this.oldValue;
     this.esModificar = false;
   }
 
   _modificar() {
     this.esModificar = false;
-    this.modificar.next(this.text);
+    this.modificar.next(this.value);
   }
 }

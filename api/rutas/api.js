@@ -25,6 +25,7 @@ import Fuente from '../controllers/Fuente';
 import Tarifa from '../controllers/Tarifa';
 import Marcacion from '../controllers/Marcacion';
 import Foto from '../controllers/Foto';
+import Cama from '../controllers/Cama';
 
 /* GET api listing. */
 router.get('/', (req, res) => {
@@ -171,6 +172,18 @@ router.post('/habitaciones/', (req, res) => {
   Habitacion.mantenimiento(req.body, res);
 });
 
+router.post('/habitaciones/tipo', (req, res) => {
+  Habitacion.saveTipoHabitacion(req.body, res);
+});
+
+router.post('/habitaciones/tarifa', (req, res) => {
+  Habitacion.saveTarifa(req.body, res);
+});
+
+router.post('/habitaciones/capacidad', (req, res) => {
+  Habitacion.saveCapacidad(req.body, res);
+});
+
 router.get('/habitaciones/foto/:idHospedaje/:idHabitacion', (req, res) => {
   Habitacion.getImages(req.params.idHabitacion, req.params.idHospedaje, res);
 });
@@ -191,8 +204,16 @@ router.post('/habitaciones/especificacion', (req, res) => {
   Habitacion.addEspecificacion(req.body, res);
 });
 
+router.post('/habitaciones/cama', (req, res) => {
+  Habitacion.addCama(req.body, res);
+});
+
 router.post('/habitaciones/especificacion/delete', (req, res) => {
   Habitacion.deleteEspecificacion(req.body, res);
+});
+
+router.post('/habitaciones/cama/delete', (req, res) => {
+  Habitacion.deleteCama(req.body, res);
 });
 
 router.get('/habitaciones/tipo', (req, res) => {
@@ -202,6 +223,11 @@ router.get('/habitaciones/tipo', (req, res) => {
 // E S P E C I F I C A C I O N
 router.get('/especificaciones', (req, res) => {
   Especificacion.get(res);
+});
+
+// C A M A S
+router.get('/camas', (req, res) => {
+  Cama.get(res);
 });
 
 //A E R O L I N E A S

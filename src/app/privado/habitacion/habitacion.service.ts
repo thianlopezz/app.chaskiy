@@ -57,10 +57,25 @@ export class HabitacionService {
       .pipe(map((response: Response) => response.json()));
   }
 
+  addCama(params) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+    params = { ...params, idHospedaje: chasker.idHospedaje, idUsuario: chasker.idUsuario };
+    return this.http
+      .post(`/api/habitaciones/cama`, params, this.jwt())
+      .pipe(map((response: Response) => response.json()));
+  }
+
   deleteEspecificacion(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     return this.http
       .post(`/api/habitaciones/especificacion/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt())
+      .pipe(map((response: Response) => response.json()));
+  }
+
+  deleteCama(params) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+    return this.http
+      .post(`/api/habitaciones/cama/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
@@ -70,6 +85,36 @@ export class HabitacionService {
     room.idHospedaje = chasker.idHospedaje;
     room.idUsuario = chasker.idUsuario;
     return this.http.post('/api/habitaciones/', room, this.jwt()).pipe(map((response: Response) => response.json()));
+  }
+
+  saveTipoHabitacion(room: any) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+
+    room.idHospedaje = chasker.idHospedaje;
+    room.idUsuario = chasker.idUsuario;
+    return this.http
+      .post('/api/habitaciones/tipo', room, this.jwt())
+      .pipe(map((response: Response) => response.json()));
+  }
+
+  saveTarifa(params: any) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+
+    params.idHospedaje = chasker.idHospedaje;
+    params.idUsuario = chasker.idUsuario;
+    return this.http
+      .post('/api/habitaciones/tarifa', params, this.jwt())
+      .pipe(map((response: Response) => response.json()));
+  }
+
+  saveCapacidad(params: any) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+
+    params.idHospedaje = chasker.idHospedaje;
+    params.idUsuario = chasker.idUsuario;
+    return this.http
+      .post('/api/habitaciones/capacidad', params, this.jwt())
+      .pipe(map((response: Response) => response.json()));
   }
 
   private jwt() {

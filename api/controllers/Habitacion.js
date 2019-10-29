@@ -8,7 +8,14 @@ class Habitacion {
     dataAccess
       .execJsonToSp('hab_habitacion', { accion: 'C', idHospedaje })
       .then(result => {
-        res.send({ success: true, data: result[0] });
+        let habitaciones = result[0].map(habitacion => {
+          return {
+            ...habitacion,
+            variantes: result[1].filter(tipo => (tipo.idHabitacion = habitacion.idHabitacion))
+          };
+        });
+
+        res.send({ success: true, data: habitaciones });
       })
       .catch(error => {
         console.log('Error>> Habitacion.get>>' + error);
@@ -28,6 +35,9 @@ class Habitacion {
 
         let data = result[0][0];
         data.especificaciones = result[1];
+        data.fotos = result[2];
+        data.foto = this.getFeaturedFoto(data.fotos);
+        data.variantes = this.getVariantes(result[3], result[4]);
 
         res.send({ success: true, data });
       })
@@ -52,7 +62,14 @@ class Habitacion {
     dataAccess
       .execArrayToSp('hab_disponibles', [feDesde, feHasta, idHospedaje])
       .then(result => {
-        res.send({ success: true, data: result[0] });
+        let habitaciones = result[0].map(habitacion => {
+          return {
+            ...habitacion,
+            variantes: result[1].filter(tipo => (tipo.idHabitacion = habitacion.idHabitacion))
+          };
+        });
+
+        res.send({ success: true, data: habitaciones });
       })
       .catch(error => {
         console.log('Error>> Habitacion.getDisponibles>>' + error);
@@ -148,11 +165,47 @@ class Habitacion {
       });
   }
 
+  addCama(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_addCama', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.addCama ==> ' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
   deleteEspecificacion(params, res) {
     const dataAccess = new DataAccess();
 
     dataAccess
       .execJsonToSp('hab_deleteEspecificacion', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.deleteEspecificacion ==> ', error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  deleteCama(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_deleteCama', { ...params })
       .then(result => {
         if (result[0][0].err == undefined) {
           res.send({ success: true, mensaje: result[0][0].mensaje });
@@ -182,6 +235,81 @@ class Habitacion {
         console.log('Error>> Habitacion.addImage ==> ', error);
         res.send({ success: false, mensaje: error });
       });
+  }
+
+  saveTipoHabitacion(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_saveTipoHabitacion', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.saveTipoHabitacion>>' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  saveTarifa(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_saveTarifa', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.saveTarifa>>' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  saveCapacidad(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_saveCapacidad', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.saveCapacidad>>' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
+  getFeaturedFoto(fotos = []) {
+    let foto = fotos.find(foto => foto.featured == 1);
+
+    if (foto) {
+      return foto.archivo;
+    } else if (foto[0]) {
+      return foto[0].archivo;
+    } else return null;
+  }
+
+  getVariantes(habitacionTipoHabitacion, habitacionCama) {
+    return habitacionTipoHabitacion.map(item => {
+      return {
+        ...item,
+        camas: habitacionCama.filter(
+          habCama => habCama.idHabitacion == item.idHabitacion && habCama.idTipoHabitacion == item.idTipoHabitacion
+        )
+      };
+    });
   }
 }
 

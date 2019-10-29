@@ -5,6 +5,7 @@ import { GaleriaService } from '../galeria/galeria.service';
 import { ToastService } from '../../compartido/services/toast.service';
 import { TipoHabitacionService } from '../tipo-habitacion/tipo-habitacion.service';
 import { EspecificacionService } from '../especificacion/especificacion.service';
+import { CamaService } from '../cama/cama.service';
 
 declare var jQuery: any;
 
@@ -22,15 +23,19 @@ export class HabitacionDetalleComponent implements OnInit {
   tiposHabitacion: any = [];
   tiposHabitacionFormat: any = [];
   especificaciones: any = [];
+  camas: any = [];
 
   loading;
   loadingList;
 
   loadingAddEspecificacion;
+  loadingAddCama;
 
   isChoosing;
 
   mensajeConfirmacion = '';
+
+  varianteSelected = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -39,6 +44,7 @@ export class HabitacionDetalleComponent implements OnInit {
     private galeriaService: GaleriaService,
     private tipoHabitacionService: TipoHabitacionService,
     private espcificacionService: EspecificacionService,
+    private camaService: CamaService,
     private toastService: ToastService
   ) {}
 
@@ -57,6 +63,7 @@ export class HabitacionDetalleComponent implements OnInit {
     this.loadGallery();
     this.loadTiposHabitacion();
     this.loadEspecificaciones();
+    this.loadCamas();
   }
 
   addEspecificacion(especificacion) {
@@ -82,6 +89,46 @@ export class HabitacionDetalleComponent implements OnInit {
       );
   }
 
+  addCama(cama) {
+    this.loadingAddCama = true;
+    this.habitacionService.addCama({ ...this.varianteSelected, ...cama }).subscribe(
+      data => {
+        if (data.success) {
+          this.toastService.showSuccess(data.mensaje);
+          this.loadHabitacion();
+        } else {
+          this.toastService.showError(data.mensaje);
+        }
+
+        this.loadingAddCama = false;
+      },
+      error => {
+        this.toastService.showSuccess('Ocurrió un error al guardar el registro.');
+        console.log(error);
+        this.loadingAddCama = false;
+      }
+    );
+  }
+
+  deleteCama(cama) {
+    this.habitacionService
+      .deleteCama({ idHabitacion: this.idHabitacion, idCama: cama.idCama, idTipoHabitacion: cama.idTipoHabitacion })
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastService.showSuccess(data.mensaje);
+            this.loadHabitacion();
+          } else {
+            this.toastService.showError(data.mensaje);
+          }
+        },
+        error => {
+          this.toastService.showSuccess('Ocurrió un error al guardar el registro.');
+          console.log(error);
+        }
+      );
+  }
+
   deleteEspecificacion(especificacion) {
     this.habitacionService
       .deleteEspecificacion({ idEspecificacion: especificacion.idEspecificacion, idHabitacion: this.idHabitacion })
@@ -103,6 +150,16 @@ export class HabitacionDetalleComponent implements OnInit {
 
   showEspecificacionModal(e) {
     jQuery('#selectEspecificacionModal').modal('show');
+  }
+
+  showCamaModal(e, variante) {
+    jQuery('#selectCamaModal').modal('show');
+    this.varianteSelected = {
+      idHabitacion: this.habitacion.idHabitacion,
+      habitacion: this.habitacion.habitacion,
+      idTipoHabitacion: variante.idTipoHabitacion,
+      tipoHabitacion: variante.tipoHabitacion
+    };
   }
 
   hideModalConfirmacion() {
@@ -155,16 +212,85 @@ export class HabitacionDetalleComponent implements OnInit {
     );
   }
 
-  guardarTarifa(value) {
-    this.guardarHabitacion('tarifa', value);
+  guardarTarifa(value, variante) {
+    this.loading = true;
+
+    let model = {
+      idHabitacion: this.habitacion.idHabitacion,
+      idTipoHabitacion: variante.idTipoHabitacion,
+      tarifa: value
+    };
+
+    this.habitacionService.saveTarifa(model).subscribe(
+      data => {
+        if (data.success) {
+          this.toastService.showSuccess(data.mensaje);
+          this.loadHabitacion();
+        } else {
+          this.toastService.showError(data.mensaje);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.toastService.showSuccess('Ocurrió un error al guardar el registro.');
+        console.log(error);
+        this.loading = false;
+      }
+    );
   }
 
-  guardarCapacidad(value) {
-    this.guardarHabitacion('capacidad', value);
+  guardarCapacidad(value, variante) {
+    this.loading = true;
+
+    let model = {
+      idHabitacion: this.habitacion.idHabitacion,
+      idTipoHabitacion: variante.idTipoHabitacion,
+      capacidad: value
+    };
+
+    this.habitacionService.saveCapacidad(model).subscribe(
+      data => {
+        if (data.success) {
+          this.toastService.showSuccess(data.mensaje);
+          this.loadHabitacion();
+        } else {
+          this.toastService.showError(data.mensaje);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.toastService.showSuccess('Ocurrió un error al guardar el registro.');
+        console.log(error);
+        this.loading = false;
+      }
+    );
   }
 
-  guardarTipoHabtiacion(value) {
-    this.guardarHabitacion('idTipoHabitacion', value);
+  guardarTipoHabitacion(value) {
+    this.loading = true;
+    this.habitacionService
+      .saveTipoHabitacion({
+        idHabitacion: this.habitacion.idHabitacion,
+        tipos: value.map(val => {
+          return { idTipoHabitacion: val };
+        })
+      })
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastService.showSuccess(data.mensaje);
+            this.loadHabitacion();
+          } else {
+            this.toastService.showError(data.mensaje);
+          }
+          this.loading = false;
+        },
+        error => {
+          this.toastService.showSuccess('Ocurrió un error al guardar el registro.');
+          console.log(error);
+          this.loading = false;
+        }
+      );
   }
 
   guardarDescripcion(value) {
@@ -220,7 +346,9 @@ export class HabitacionDetalleComponent implements OnInit {
     this.habitacionService.getById(this.idHabitacion).subscribe(
       response => {
         if (response.success) {
-          this.habitacion = response.data;
+          let habitacion = response.data;
+          habitacion.idTipoHabitacion = habitacion.variantes.map(variante => variante.idTipoHabitacion);
+          this.habitacion = { ...habitacion };
         } else {
           console.log('Error>> loadHabitacion ==> ', response.mensaje);
         }
@@ -294,6 +422,21 @@ export class HabitacionDetalleComponent implements OnInit {
       },
       error => {
         console.log('Error>> loadEspecificaciones ==> ', error);
+      }
+    );
+  }
+
+  loadCamas() {
+    this.camaService.get().subscribe(
+      response => {
+        if (response.success) {
+          this.camas = response.data;
+        } else {
+          console.log('Error>> loadCamas ==> ', response.mensaje);
+        }
+      },
+      error => {
+        console.log('Error>> loadCamas ==> ', error);
       }
     );
   }

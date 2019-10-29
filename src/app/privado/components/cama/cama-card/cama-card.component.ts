@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-especificacion-card',
-  templateUrl: './especificacion-card.component.html',
-  styleUrls: ['./especificacion-card.component.css']
+  selector: 'app-cama-card',
+  templateUrl: './cama-card.component.html',
+  styleUrls: ['./cama-card.component.css']
 })
-export class EspecificacionCardComponent implements OnInit {
-  @Input() _especificacion: any = {};
+export class CamaCardComponent implements OnInit {
+  @Input() _cama: any = {};
 
   @Output() _agregar = new EventEmitter<any>();
   @Output() _quitar = new EventEmitter<any>();
@@ -22,10 +22,10 @@ export class EspecificacionCardComponent implements OnInit {
   }
 
   agregar() {
-    this._agregar.next(this._especificacion);
+    this._agregar.next(this._cama);
   }
 
   quitar() {
-    this._quitar.next(this._especificacion);
+    this._quitar.next(this._cama);
   }
 }

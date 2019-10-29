@@ -1,9 +1,5 @@
 <div class="row">
-  <div
-    *ngFor="let especificacion of _especificaciones"
-    class="col-sm-6 col-md-3 mt-1 pointed"
-    (click)="especificacionClick(especificacion)"
-  >
+  <div *ngFor="let especificacion of _especificaciones" class="col-sm-6 col-md-3 mt-1 pointed">
     <app-especificacion-card
       *ngIf="showAddEspecificacion && showDeleteEspecificacion"
       [_especificacion]="especificacion"

@@ -1,15 +1,16 @@
-<p *ngIf="!esModificar" class="text-muted">
-  <a (click)="desbloquea()">
+<p *ngIf="!esModificar" class="text-muted m-0 p-0">
+  <a (click)="desbloquea()" class="d-flex">
     {{ text }}
-    <i class="fa fa-caret-down text-primary" aria-hidden="true"></i>
+    <ng-content *ngIf="!text"></ng-content>
+    <i class="fa fa-caret-down text-primary my-auto" aria-hidden="true"></i>
   </a>
 </p>
 <div *ngIf="esModificar" class="row mx-auto">
-  <input *ngIf="!_type" name="_inputName" type="text" class="form-control col-9" [(ngModel)]="text" />
+  <input *ngIf="!_type" name="_inputName" type="text" class="form-control col-9" [(ngModel)]="value" />
   <!-- TIPO MONEDA -->
-  <input *ngIf="_type == 'number'" name="_inputName" type="number" class="form-control col-9" [(ngModel)]="text" />
+  <input *ngIf="_type == 'number'" name="_inputName" type="number" class="form-control col-9" [(ngModel)]="value" />
   <!-- TIPO MONEDA -->
-  <input *ngIf="_type == 'moneda'" type="text" class="form-control col-9" [(ngModel)]="text" appMoneda="true" />
+  <input *ngIf="_type == 'moneda'" type="text" class="form-control col-9" [(ngModel)]="value" appMoneda="true" />
   <button type="button" class="btn btn-link text-primary px-0 col-1" (click)="_modificar()">
     <i class="fa fa-check" aria-hidden="true"></i>
   </button>

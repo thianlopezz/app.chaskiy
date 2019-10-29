@@ -57,11 +57,27 @@ class Reserva {
           if (reserva.enviarCorreo) {
             console.log(reserva.enviarCorreo);
             this.enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
-              .then(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }))
-              .catch(() => res.send({ success: true, mensaje: 'Mantenimiento exitoso' }));
+              .then(() =>
+                res.send({
+                  success: true,
+                  mensaje: 'Mantenimiento exitoso',
+                  idReserva: result[0][0].idReserva
+                })
+              )
+              .catch(() =>
+                res.send({
+                  success: true,
+                  mensaje: 'Mantenimiento exitoso',
+                  idReserva: result[0][0].idReserva
+                })
+              );
           } else {
             console.log(reserva.enviarCorreo);
-            res.send({ success: true, mensaje: 'Mantenimiento exitoso' });
+            res.send({
+              success: true,
+              mensaje: 'Mantenimiento exitoso',
+              idReserva: result[0][0].idReserva
+            });
           }
         } else {
           res.send({ success: false, mensaje: result[0][0].mensaje });

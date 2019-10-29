@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { map } from 'rxjs/operators';
 
-// TODO: IMPLEMENTAR MANTENIMIENTO
 @Injectable({
   providedIn: 'root'
 })
-export class EspecificacionService {
+export class CamaService {
   constructor(private http: Http) {}
 
   get() {
-    return this.http.get('/api/especificaciones/', this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/camas/', this.jwt()).pipe(map((response: Response) => response.json()));
   }
 
   // NOT IMPLEMENTED

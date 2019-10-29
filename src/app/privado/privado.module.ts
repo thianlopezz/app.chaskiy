@@ -60,6 +60,10 @@ import { EspecificacionComponent } from './especificacion/especificacion.compone
 import { EspecificacionListComponent } from './components/habitacion/especificacion-list/especificacion-list.component';
 import { EspecificacionCardComponent } from './components/habitacion/especificacion-card/especificacion-card.component';
 import { EspecificacionSelectModalComponent } from './components/habitacion/especificacion-select-modal/especificacion-select-modal.component';
+import { CamaListComponent } from './components/cama/cama-list/cama-list.component';
+import { CamaCardComponent } from './components/cama/cama-card/cama-card.component';
+import { CamaSelectModalComponent } from './components/cama/cama-select-modal/cama-select-modal.component';
+import { CamaComponent } from './cama/cama.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule, CompartidoModule, MyDatePickerModule],
@@ -95,7 +99,11 @@ import { EspecificacionSelectModalComponent } from './components/habitacion/espe
     EspecificacionComponent,
     EspecificacionListComponent,
     EspecificacionCardComponent,
-    EspecificacionSelectModalComponent
+    EspecificacionSelectModalComponent,
+    CamaListComponent,
+    CamaCardComponent,
+    CamaSelectModalComponent,
+    CamaComponent
   ],
   providers: [
     AdicionalService,

@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use('/api', api);
 app.use('/chaskiy/api', external);
 
-const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '/files');
+const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '/files/gallery');
 app.use('/files', express.static(uploadDir));
 
 app.get('*', (req, res) => {

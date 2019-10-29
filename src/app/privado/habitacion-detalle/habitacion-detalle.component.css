@@ -1,0 +1,17 @@
+section {
+  margin-bottom: 5rem;
+}
+
+/* .toolbar {
+  z-index: 20;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  padding-bottom: 0.4em;
+  padding-top: 0.6em;
+} */

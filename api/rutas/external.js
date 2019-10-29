@@ -23,4 +23,12 @@ router.get('/paises', (req, res) => {
   Pais.get(res);
 });
 
+router.get('/habitaciones/all/:idHospedaje', (req, res) => {
+  Habitacion.get(req.params.idHospedaje, res);
+});
+
+router.get('/habitaciones/:idHospedaje/:idHabitacion', (req, res) => {
+  Habitacion.getById(req.params.idHabitacion, req.params.idHospedaje, res);
+});
+
 module.exports = router;

@@ -14,114 +14,157 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-9 col-md-10 col-sm-12">
-      <app-card>
-        <div class="row">
-          <div class="col-md-6 col-sm-12">
-            <div class="form-group">
-              <label for="tarifa">Tarifa web</label>
-              <app-p-input
-                [_type]="'moneda'"
-                [text]="habitacion.tarifa || 'Ingresa la tarifa web'"
-                (modificar)="guardarTarifa($event)"
-              ></app-p-input>
+      <section>
+        <app-card>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="descripcion">Describe tu habitación</label>
+                <app-p-text-area
+                  [text]="habitacion.descripcion || 'Ingresa una descripción de la habitación'"
+                  (modificar)="guardarDescripcion($event)"
+                ></app-p-text-area>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="tipoHabitacion">Funciona como</label>
+                <app-p-select2
+                  [_inputName]="'tipoHabitacion'"
+                  [catalog]="tiposHabitacionFormat"
+                  [value]="habitacion.idTipoHabitacion"
+                  [text]="habitacion.tipoHabitacion || 'Ingresa el tipo de habitación'"
+                  (modificar)="guardarTipoHabitacion($event)"
+                ></app-p-select2>
+              </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="form-group">
-              <label for="tarifa">Capacidad (Personas)</label>
-              <app-p-input
-                [_type]="'number'"
-                [text]="habitacion.capacidad || 'Ingresa la capacidad de la habitación'"
-                (modificar)="guardarCapacidad($event)"
-              ></app-p-input>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="form-group">
-              <label for="tipoHabitacion">Tipo de habitación</label>
-              <app-p-select
-                [_inputName]="'tipoHabitacion'"
-                [catalog]="tiposHabitacionFormat"
-                [value]="habitacion.idTipoHabitacion"
-                [text]="habitacion.tipoHabitacion || 'Ingresa el tipo de habitación'"
-                (modificar)="guardarTipoHabtiacion($event)"
-              ></app-p-select>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <app-p-text-area
-                [text]="habitacion.descripcion || 'Ingresa una descripción de la habitación'"
-                (modificar)="guardarDescripcion($event)"
-              ></app-p-text-area>
-            </div>
+        </app-card>
+      </section>
+      <section>
+        <div class="row mt-4 mb-2">
+          <div class="col-sm-12">
+            <h2>Variantes de habitación</h2>
+            <p>
+              Especifica las camas, el precio y la capacidad que se tendrá por cada variante que puede tener la
+              habitación
+            </p>
           </div>
         </div>
-      </app-card>
-      <div class="row mt-4 mb-2">
-        <div class="col-sm-12">
-          <h2>Especificaciones</h2>
+        <div *ngFor="let variante of habitacion.variantes" class="row mb-2">
+          <div class="col-sm-12 d-flex">
+            <h3 class="text-secondary">
+              <small class="text-primary">{{ habitacion.habitacion }}</small> {{ ' - ' + variante.tipoHabitacion }}
+            </h3>
+            <app-p-input
+              class="ml-auto mr-3"
+              [_type]="'moneda'"
+              [value]="variante.tarifa"
+              (modificar)="guardarTarifa($event, variante)"
+            >
+              <h3 *ngIf="variante.tarifa" class="ml-auto mr-2">
+                <small><i class="fas fa-dollar-sign"></i></small>
+                {{ variante.tarifa }}
+              </h3>
+              {{ variante.tarifa ? '' : 'Ingresa la tarifa web' }}
+            </app-p-input>
+            <app-p-input
+              [_type]="'moneda'"
+              [value]="variante.capacidad"
+              (modificar)="guardarCapacidad($event, variante)"
+            >
+              <h3 *ngIf="variante.capacidad" class="ml-auto mr-2">
+                <small><i class="fas fa-users"></i></small>
+                {{ variante.capacidad }}
+              </h3>
+              {{ variante.capacidad ? '' : 'Ingresa la capacidad' }}</app-p-input
+            >
+          </div>
+          <hr class="w-100 mt-1" />
+          <div class="col-sm-12">
+            <h4>Camas</h4>
+            <app-cama-list
+              class="w-100"
+              [_camas]="variante.camas"
+              (_agregar)="showCamaModal($event, variante)"
+              (_addCama)="addCama($event)"
+              (_deleteCama)="deleteCama($event)"
+            ></app-cama-list>
+          </div>
         </div>
-      </div>
-      <app-especificacion-list
-        [_especificaciones]="habitacion.especificaciones"
-        (_agregar)="showEspecificacionModal($event)"
-        (_addEspecificacion)="addEspecificacion($event)"
-        (_deleteEspecificacion)="deleteEspecificacion($event)"
-      ></app-especificacion-list>
-      <div class="row mt-4 mb-2">
-        <div class="col-sm-4">
-          <h2>Fotos</h2>
+      </section>
+      <section>
+        <div class="row mt-4 mb-2">
+          <div class="col-sm-12">
+            <h2>Especificaciones</h2>
+            <p>Detalla el equipamiento con el que cuenta esta habitación</p>
+          </div>
         </div>
-        <div class="col-sm-8">
-          <button
-            type="button"
-            class="btn btn-primary add pull-right"
-            [disabled]="isChoosing"
-            (click)="isChoosing = true"
-          >
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Foto
-          </button>
+        <app-especificacion-list
+          [_especificaciones]="habitacion.especificaciones"
+          (_agregar)="showEspecificacionModal($event)"
+          (_addEspecificacion)="addEspecificacion($event)"
+          (_deleteEspecificacion)="deleteEspecificacion($event)"
+        ></app-especificacion-list>
+      </section>
+      <section>
+        <div class="row mt-4 mb-2">
+          <div class="col-sm-11">
+            <h2>Fotos</h2>
+            <p>
+              Agrega fotos para esta habitación y presiona en el ícono de la estrella para poner esta foto como
+              principal
+            </p>
+          </div>
+          <div class="col-sm-1">
+            <button
+              type="button"
+              class="btn btn-primary add pull-right"
+              [disabled]="isChoosing"
+              (click)="isChoosing = true"
+            >
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              Foto
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <p *ngIf="!loadingList && habitacionImages.length == 0 && !isChoosing" class="text-muted text-center">
-            No existen fotos para esta habitacion
-          </p>
-          <app-image-selector
-            *ngIf="isChoosing"
-            [_images]="images"
-            (_cancel)="isChoosing = false"
-            (_select)="addImage($event)"
-          ></app-image-selector>
-          <div *ngIf="!isChoosing" class="mansory">
-            <div class="item" *ngFor="let image of habitacionImages">
-              <img [src]="'/files/' + image.archivo" />
-              <div class="toolbar">
-                <div>
-                  <Button
-                    (click)="feature(image.idFoto)"
-                    [class]="'btn btn-outline-' + (image.featured ? 'success' : 'primary') + ' rounded-circle mx-1'"
-                  >
-                    <i class="fas fa-star"></i>
-                  </Button>
-                  <Button
-                    class="btn btn-outline-danger rounded-circle mx-1"
-                    (click)="deleteAttemp(image.idFoto)"
-                    data-toggle="modal"
-                    data-target="#confirmaModal"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </Button>
+        <div class="card">
+          <div class="card-body">
+            <p *ngIf="!loadingList && habitacionImages.length == 0 && !isChoosing" class="text-muted text-center">
+              No existen fotos para esta habitacion
+            </p>
+            <app-image-selector
+              *ngIf="isChoosing"
+              [_images]="images"
+              (_cancel)="isChoosing = false"
+              (_select)="addImage($event)"
+            ></app-image-selector>
+            <div *ngIf="!isChoosing" class="mansory">
+              <div class="item" *ngFor="let image of habitacionImages">
+                <img [src]="'/files/' + image.archivo" />
+                <div class="toolbar">
+                  <div class="mt-auto">
+                    <Button
+                      (click)="feature(image.idFoto)"
+                      [class]="'btn btn-' + (image.featured ? 'success' : 'primary') + ' rounded-circle mx-1'"
+                    >
+                      <i class="fas fa-star"></i>
+                    </Button>
+                    <Button
+                      class="btn btn-danger rounded-circle mx-1"
+                      (click)="deleteAttemp(image.idFoto)"
+                      data-toggle="modal"
+                      data-target="#confirmaModal"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
     <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
       <div class="card mt-2">
@@ -146,6 +189,13 @@
   [_especificaciones]="especificaciones"
   (_addEspecificacion)="addEspecificacion($event)"
 ></app-especificacion-select-modal>
+
+<app-cama-select-modal
+  [model]="varianteSelected"
+  [_loading]="loadingAddCama"
+  [_camas]="camas"
+  (_addCama)="addCama($event)"
+></app-cama-select-modal>
 
 <app-modal-confirmacion
   [mensaje]="mensajeConfirmacion"

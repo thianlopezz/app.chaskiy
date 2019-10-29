@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+// COMPONENT NOT IMPLEMENTED
 @Component({
   selector: 'app-especificacion',
   templateUrl: './especificacion.component.html',

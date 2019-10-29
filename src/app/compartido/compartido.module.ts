@@ -24,6 +24,7 @@ import { CardComponent } from './components/card/card.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { MonedaDirective } from '../privado/directives/moneda.directive';
 import { MonedaPipe } from '../privado/pipes/moneda.pipe';
+import { PSelect2Component } from './components/p-select2/p-select2.component';
 
 @NgModule({
   imports: [CommonModule, MyDatePickerModule, FormsModule, RouterModule, HttpModule],
@@ -39,6 +40,7 @@ import { MonedaPipe } from '../privado/pipes/moneda.pipe';
     PInputComponent,
     PSelectComponent,
     PTextAreaComponent,
+    PSelect2Component,
     CardComponent,
     ModalComponent,
     MonedaDirective,
@@ -60,7 +62,8 @@ import { MonedaPipe } from '../privado/pipes/moneda.pipe';
     CardComponent,
     ModalComponent,
     MonedaDirective,
-    MonedaPipe
+    MonedaPipe,
+    PSelect2Component
   ]
 })
 export class CompartidoModule {}
