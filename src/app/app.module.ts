@@ -14,17 +14,8 @@ import { ErrorHandler } from '@angular/core';
 import { AuthErrorHandler } from './publico/services/auth-error-handler';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule,
-    CompartidoModule,
-    PrivadoModule,
-    PublicoModule,
-    routing
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, RouterModule, CompartidoModule, PrivadoModule, PublicoModule, routing],
   providers: [
     {
       provide: ErrorHandler,
@@ -33,4 +24,4 @@ import { AuthErrorHandler } from './publico/services/auth-error-handler';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

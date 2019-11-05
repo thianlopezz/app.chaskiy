@@ -3,8 +3,8 @@ import moment from 'moment';
 import md5 from 'md5';
 import axios from 'axios';
 
-// const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
-const API = process.env.CORREO_GENERICO || 'https://correo-generico.herokuapp.com';
+const API = process.env.CORREO_GENERICO || 'http://54.215.228.166:3000';
+// const API = process.env.CORREO_GENERICO || 'https://correo-generico.herokuapp.com';
 
 const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 

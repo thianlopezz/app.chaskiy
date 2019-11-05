@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API = process.env.CORREO_GENERICO || 'http://localhost:3000';
+const API = process.env.CORREO_GENERICO || 'http://54.215.228.166:3000';
 // const API =
 //   process.env.CORREO_GENERICO || "https://correo-generico.herokuapp.com";
 
