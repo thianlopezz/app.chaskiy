@@ -22059,10 +22059,14 @@
                     null
                   )),
                   (e()(), l.ɵted(-1, null, [' Cancelar '])),
-                  (e()(), l.ɵeld(8, 0, null, null, 2, 'div', [['class', 'mansory']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(8, 0, null, null, 3, 'div', [['class', 'row mb-1']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(9, 0, null, null, 2, 'div', [['class', 'col-12']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(10, 0, null, null, 1, 'p', [['class', 'text-center']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['No hay im\xe1genes que puedas seleccionar'])),
+                  (e()(), l.ɵeld(12, 0, null, null, 2, 'div', [['class', 'mansory']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, s)),
                   l.ɵdid(
-                    10,
+                    14,
                     802816,
                     null,
                     0,
@@ -22073,7 +22077,7 @@
                   )
                 ],
                 function(e, n) {
-                  e(n, 10, 0, n.component._images);
+                  e(n, 14, 0, n.component._images);
                 },
                 null
               );
@@ -42195,7 +42199,7 @@
                   )
                 ],
                 function(e, n) {
-                  e(n, 1, 0, n.component.images);
+                  e(n, 1, 0, n.component.imagesFilter);
                 },
                 null
               );
@@ -42495,7 +42499,7 @@
                     [[null, 'click']],
                     function(e, n, t) {
                       var l = !0;
-                      return 'click' === n && (l = 0 != (e.component.isChoosing = !0) && l), l;
+                      return 'click' === n && (l = !1 !== e.component.showImageSelector() && l), l;
                     },
                     null,
                     null
@@ -63734,6 +63738,7 @@
                     (this.toastService = s),
                     (this.habitacion = {}),
                     (this.habitacionImages = []),
+                    (this.imagesFilter = []),
                     (this.images = []),
                     (this.tiposHabitacion = []),
                     (this.tiposHabitacionFormat = []),
@@ -63755,6 +63760,12 @@
                     this.loadTiposHabitacion(),
                     this.loadEspecificaciones(),
                     this.loadCamas();
+                }
+                showImageSelector() {
+                  this.isChoosing = !0;
+                }
+                filterImages() {
+                  this.imagesFilter = this.images.filter(e => !this.habitacionImages.find(n => n.idFoto === e.idFoto));
                 }
                 addEspecificacion(e) {
                   (this.loadingAddEspecificacion = !0),
@@ -63992,7 +64003,7 @@
                     this.habitacionService.getFotos(this.idHabitacion).subscribe(
                       e => {
                         e.success
-                          ? (this.habitacionImages = e.data)
+                          ? ((this.habitacionImages = e.data), this.filterImages())
                           : console.log('Error>> loadHabitacionImages ==> ', e.mensaje),
                           (this.loadingList = !1);
                       },
@@ -64004,7 +64015,9 @@
                 loadGallery() {
                   this.galeriaService.get().subscribe(
                     e => {
-                      e.success ? (this.images = e.data) : console.log('Error>> loadGallery ==> ', e.mensaje);
+                      e.success
+                        ? ((this.images = e.data), this.filterImages())
+                        : console.log('Error>> loadGallery ==> ', e.mensaje);
                     },
                     e => {
                       console.log('Error>> loadGallery ==> ', e);

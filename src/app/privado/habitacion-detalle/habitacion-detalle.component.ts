@@ -19,6 +19,7 @@ export class HabitacionDetalleComponent implements OnInit {
   idFoto;
   habitacion: any = {};
   habitacionImages: any = [];
+  imagesFilter: any = [];
   images: any = [];
   tiposHabitacion: any = [];
   tiposHabitacionFormat: any = [];
@@ -64,6 +65,17 @@ export class HabitacionDetalleComponent implements OnInit {
     this.loadTiposHabitacion();
     this.loadEspecificaciones();
     this.loadCamas();
+  }
+
+  showImageSelector() {
+    this.isChoosing = true;
+  }
+
+  filterImages() {
+    debugger;
+    this.imagesFilter = this.images.filter(image => {
+      return !this.habitacionImages.find(habitacionImage => habitacionImage.idFoto === image.idFoto);
+    });
   }
 
   addEspecificacion(especificacion) {
@@ -365,6 +377,7 @@ export class HabitacionDetalleComponent implements OnInit {
       response => {
         if (response.success) {
           this.habitacionImages = response.data;
+          this.filterImages();
         } else {
           console.log('Error>> loadHabitacionImages ==> ', response.mensaje);
         }
@@ -383,6 +396,7 @@ export class HabitacionDetalleComponent implements OnInit {
       response => {
         if (response.success) {
           this.images = response.data;
+          this.filterImages();
         } else {
           console.log('Error>> loadGallery ==> ', response.mensaje);
         }
