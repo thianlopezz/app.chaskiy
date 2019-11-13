@@ -2,6 +2,9 @@ import DataAcess from './DataAccess';
 import moment from 'moment';
 
 import CorreoGenerico from './CorreoGenerico';
+import Axios from 'axios';
+const URL_CORREO_GENERICO = process.env.CORREO_GENERICO || 'http://localhost:3000';
+const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 
 class Reserva {
   get(accion, params, res) {
@@ -188,6 +191,9 @@ class Reserva {
         // SI ES UNA CREACION Y PROFORMA
         if (estado === 'Pr') {
           if (desdePagina) {
+            // ENVIAR NOTIFICACION A HOSPEDAJE
+            CorreoGenerico.enviarConfirmacionReservaWebHospedaje(destinatario, claves);
+
             asunto = 'Reserva';
             plantilla = './plantillas/Reservas/reserva_desde_pagina';
           } else {

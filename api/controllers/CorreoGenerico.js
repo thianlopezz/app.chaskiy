@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API = process.env.CORREO_GENERICO || 'http://54.215.228.166:3000';
+const URL_CORREO_GENERICO = process.env.CORREO_GENERICO || 'http://localhost:3000';
 // const API =
 //   process.env.CORREO_GENERICO || "https://correo-generico.herokuapp.com";
 
@@ -19,7 +19,7 @@ function CorreoGenerico() {
 
     return new Promise(function(resolve, reject) {
       axios
-        .post(`${API}/api/send/v2`, correo)
+        .post(`${URL_CORREO_GENERICO}/api/send/v2`, correo)
         .then(() => {
           resolve(correo);
         })
@@ -28,6 +28,21 @@ function CorreoGenerico() {
           reject(error);
         });
     });
+  };
+
+  this.enviarConfirmacionReservaWebHospedaje = async function(destinatario, claves) {
+    try {
+      await Axios.post(`${URL_CORREO_GENERICO}/api/send/v3`, {
+        asunto: 'Se registró una nueva reserva desde la página web',
+        destinatario,
+        templateId: 'd-9153c95dedc340f29af09c3ba56a9888', // TEMPLATE DE SENGRID
+        token: TOKEN_CORREO,
+        claves
+      });
+    } catch (error) {
+      console.log('Error en envio de correo!');
+      console.log(error);
+    }
   };
 }
 

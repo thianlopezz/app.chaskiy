@@ -12,3 +12,5 @@ INSERT INTO tipoHabitacion (tipoHabitacion, usCreacion, usModificacion)
       VALUES('SUIT PRESIDENCIAL', 0, 0);
 INSERT INTO tipoHabitacion (tipoHabitacion, usCreacion, usModificacion)
       VALUES('CABAÑA', 0, 0);
+INSERT INTO tipoHabitacion (tipoHabitacion, usCreacion, usModificacion)
+      VALUES('TRIPLE', 0, 0);
