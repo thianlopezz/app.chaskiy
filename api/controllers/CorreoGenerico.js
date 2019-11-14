@@ -20,7 +20,12 @@ function CorreoGenerico() {
     return new Promise(function(resolve, reject) {
       axios
         .post(`${URL_CORREO_GENERICO}/api/send/v2`, correo)
-        .then(() => {
+        .then(({ data }) => {
+          if (data.success) {
+            console.trace('Correo enviado al api correctamente.');
+          } else {
+            console.trace('Ocurrio error en api>> ' + data.mensaje);
+          }
           resolve(correo);
         })
         .catch(error => {
@@ -32,13 +37,19 @@ function CorreoGenerico() {
 
   this.enviarConfirmacionReservaWebHospedaje = async function(destinatario, claves) {
     try {
-      await Axios.post(`${URL_CORREO_GENERICO}/api/send/v3`, {
+      let { data } = await axios.post(`${URL_CORREO_GENERICO}/api/send/v3`, {
         asunto: 'Se registró una nueva reserva desde la página web',
         destinatario,
         templateId: 'd-9153c95dedc340f29af09c3ba56a9888', // TEMPLATE DE SENGRID
         token: TOKEN_CORREO,
         claves
       });
+
+      if (data.success) {
+        console.trace('Correo enviado al api correctamente.');
+      } else {
+        console.trace('Ocurrio un error enviando el correo hacia el api>> ' + data.mensaje);
+      }
     } catch (error) {
       console.log('Error en envio de correo!');
       console.log(error);

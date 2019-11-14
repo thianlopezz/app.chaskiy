@@ -58,7 +58,7 @@ class Reserva {
       .then(result => {
         if (result[0][0].err === undefined) {
           if (reserva.enviarCorreo) {
-            console.log(reserva.enviarCorreo);
+            console.trace('Se va a enviar el correo.');
             this.enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
               .then(() =>
                 res.send({
@@ -75,7 +75,7 @@ class Reserva {
                 })
               );
           } else {
-            console.log(reserva.enviarCorreo);
+            console.trace('No se debe enviar el correo.');
             res.send({
               success: true,
               mensaje: 'Mantenimiento exitoso',
@@ -215,7 +215,7 @@ class Reserva {
       CorreoGenerico.enviar(asunto, destinatario, claves, plantilla, datos.idHospedaje)
         .then(resolve({ success: true }))
         .catch(error => {
-          console.log('No se pudo enviar el correo>>' + error.message);
+          console.trace('No se pudo enviar el correo>>' + error.message);
           reject(error);
         });
     });
