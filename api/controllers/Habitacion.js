@@ -65,7 +65,7 @@ class Habitacion {
         let habitaciones = result[0].map(habitacion => {
           return {
             ...habitacion,
-            variantes: result[1].filter(tipo => (tipo.idHabitacion = habitacion.idHabitacion))
+            variantes: result[1].filter(tipo => tipo.idHabitacion == habitacion.idHabitacion)
           };
         });
 
