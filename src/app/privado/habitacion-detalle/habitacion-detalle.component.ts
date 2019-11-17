@@ -72,7 +72,6 @@ export class HabitacionDetalleComponent implements OnInit {
   }
 
   filterImages() {
-    debugger;
     this.imagesFilter = this.images.filter(image => {
       return !this.habitacionImages.find(habitacionImage => habitacionImage.idFoto === image.idFoto);
     });
@@ -307,6 +306,10 @@ export class HabitacionDetalleComponent implements OnInit {
 
   guardarDescripcion(value) {
     this.guardarHabitacion('descripcion', value);
+  }
+
+  guardarPublicadoWeb() {
+    this.guardarHabitacion('publicadoWeb', this.habitacion.publicadoWeb ? 1 : 0);
   }
 
   guardarHabitacion(name, value) {

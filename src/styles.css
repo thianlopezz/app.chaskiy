@@ -63,7 +63,7 @@ a:hover,
 .media a:focus {
   text-decoration: none !important;
   outline: none;
-  color: #ececec;
+  color: #e59607;
 }
 
 .bg-circle-outline a,
@@ -71,7 +71,7 @@ a:hover,
 .media a:focus {
   text-decoration: none !important;
   outline: none;
-  color: #ececec;
+  color: #e59607;
 }
 
 button.close {

@@ -4232,15 +4232,63 @@
                   (e()(), l.ɵeld(0, 0, null, null, 14, 'tr', [], null, null, null, null, null)),
                   (e()(), l.ɵeld(1, 0, null, null, 1, 'td', [['width', '25%']], null, null, null, null, null)),
                   (e()(), l.ɵted(2, null, ['', ''])),
-                  (e()(), l.ɵeld(3, 0, null, null, 1, 'td', [['width', '60%']], null, null, null, null, null)),
-                  (e()(), l.ɵted(4, null, ['', ''])),
+                  (e()(), l.ɵeld(3, 0, null, null, 5, 'td', [['width', '60%']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    5,
+                    4,
                     0,
                     null,
                     null,
+                    4,
+                    'a',
+                    [],
+                    [[1, 'target', 0], [8, 'href', 4]],
+                    [[null, 'click']],
+                    function(e, n, t) {
+                      var r = !0;
+                      return (
+                        'click' === n &&
+                          (r = !1 !== l.ɵnov(e, 5).onClick(t.button, t.ctrlKey, t.metaKey, t.shiftKey) && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(
+                    5,
+                    671744,
+                    null,
+                    0,
+                    r.RouterLinkWithHref,
+                    [r.Router, r.ActivatedRoute, i.LocationStrategy],
+                    { routerLink: [0, 'routerLink'] },
+                    null
+                  ),
+                  l.ɵpad(6, 1),
+                  (e()(), l.ɵted(7, null, ['', ' '])),
+                  (e()(),
+                  l.ɵeld(
+                    8,
+                    0,
+                    null,
+                    null,
+                    0,
+                    'i',
+                    [['class', 'fas fa-external-link-alt']],
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                  )),
+                  (e()(),
+                  l.ɵeld(
                     9,
+                    0,
+                    null,
+                    null,
+                    5,
                     'td',
                     [['class', 'text-center'], ['width', '15%']],
                     null,
@@ -4251,11 +4299,11 @@
                   )),
                   (e()(),
                   l.ɵeld(
-                    6,
+                    10,
                     0,
                     null,
                     null,
-                    8,
+                    4,
                     'div',
                     [['class', 'btn-group grid-btn'], ['role', 'group']],
                     null,
@@ -4264,41 +4312,6 @@
                     null,
                     null
                   )),
-                  (e()(),
-                  l.ɵeld(
-                    7,
-                    0,
-                    null,
-                    null,
-                    3,
-                    'a',
-                    [['class', 'btn btn-link text-primary']],
-                    [[1, 'target', 0], [8, 'href', 4]],
-                    [[null, 'click']],
-                    function(e, n, t) {
-                      var r = !0;
-                      return (
-                        'click' === n &&
-                          (r = !1 !== l.ɵnov(e, 8).onClick(t.button, t.ctrlKey, t.metaKey, t.shiftKey) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(
-                    8,
-                    671744,
-                    null,
-                    0,
-                    r.RouterLinkWithHref,
-                    [r.Router, r.ActivatedRoute, i.LocationStrategy],
-                    { routerLink: [0, 'routerLink'] },
-                    null
-                  ),
-                  l.ɵpad(9, 1),
-                  (e()(),
-                  l.ɵeld(10, 0, null, null, 0, 'i', [['class', 'fas fa-info-circle']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
                     11,
@@ -4364,12 +4377,12 @@
                   ))
                 ],
                 function(e, n) {
-                  e(n, 8, 0, e(n, 9, 0, n.context.$implicit.idHabitacion));
+                  e(n, 5, 0, e(n, 6, 0, n.context.$implicit.idHabitacion));
                 },
                 function(e, n) {
                   e(n, 2, 0, n.context.$implicit.noHabitacion),
-                    e(n, 4, 0, n.context.$implicit.habitacion),
-                    e(n, 7, 0, l.ɵnov(n, 8).target, l.ɵnov(n, 8).href);
+                    e(n, 4, 0, l.ɵnov(n, 5).target, l.ɵnov(n, 5).href),
+                    e(n, 7, 0, n.context.$implicit.habitacion);
                 }
               );
             }
@@ -41905,6 +41918,7 @@
         t('E8Jr'),
         t('KoRY'),
         t('8fd5'),
+        t('s7LF'),
         t('01o5'),
         t('iWb9'),
         t('LSVd'),
@@ -41966,12 +41980,13 @@
             O,
             R,
             I,
-            Y
+            Y,
+            j
           ) {
             'use strict';
             Object.defineProperty(n, '__esModule', { value: !0 });
-            var j = l.ɵcrt({ encapsulation: 0, styles: [t.styles], data: {} });
-            function N(e) {
+            var N = l.ɵcrt({ encapsulation: 0, styles: [t.styles], data: {} });
+            function P(e) {
               return l.ɵvid(
                 0,
                 [
@@ -41987,7 +42002,7 @@
                 }
               );
             }
-            function P(e) {
+            function F(e) {
               return l.ɵvid(
                 0,
                 [
@@ -42002,7 +42017,7 @@
                 }
               );
             }
-            function F(e) {
+            function V(e) {
               return l.ɵvid(
                 0,
                 [
@@ -42045,7 +42060,7 @@
                     { value: [0, 'value'], _type: [1, '_type'] },
                     { modificar: 'modificar' }
                   ),
-                  (e()(), l.ɵand(16777216, null, 0, 1, null, N)),
+                  (e()(), l.ɵand(16777216, null, 0, 1, null, P)),
                   l.ɵdid(9, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵted(10, 0, [' ', ' '])),
                   (e()(),
@@ -42078,7 +42093,7 @@
                     { value: [0, 'value'], _type: [1, '_type'] },
                     { modificar: 'modificar' }
                   ),
-                  (e()(), l.ɵand(16777216, null, 0, 1, null, P)),
+                  (e()(), l.ɵand(16777216, null, 0, 1, null, F)),
                   l.ɵdid(14, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵted(15, 0, [' ', ''])),
                   (e()(), l.ɵeld(16, 0, null, null, 0, 'hr', [['class', 'w-100 mt-1']], null, null, null, null, null)),
@@ -42135,7 +42150,7 @@
                 }
               );
             }
-            function V(e) {
+            function H(e) {
               return l.ɵvid(
                 0,
                 [
@@ -42160,7 +42175,7 @@
                 null
               );
             }
-            function H(e) {
+            function B(e) {
               return l.ɵvid(
                 0,
                 [
@@ -42204,7 +42219,7 @@
                 null
               );
             }
-            function B(e) {
+            function U(e) {
               return l.ɵvid(
                 0,
                 [
@@ -42267,12 +42282,12 @@
                 }
               );
             }
-            function U(e) {
+            function W(e) {
               return l.ɵvid(
                 0,
                 [
                   (e()(), l.ɵeld(0, 0, null, null, 2, 'div', [['class', 'mansory']], null, null, null, null, null)),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, B)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, U)),
                   l.ɵdid(
                     2,
                     802816,
@@ -42290,7 +42305,7 @@
                 null
               );
             }
-            function W(e) {
+            function G(e) {
               return l.ɵvid(
                 0,
                 [
@@ -42304,15 +42319,15 @@
                   (e()(), l.ɵted(6, null, ['', ''])),
                   (e()(), l.ɵted(7, null, [' ', ' '])),
                   (e()(), l.ɵeld(8, 0, null, null, 0, 'hr', [['class', 'my-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(9, 0, null, null, 65, 'div', [['class', 'container']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(10, 0, null, null, 64, 'div', [['class', 'row']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(9, 0, null, null, 76, 'div', [['class', 'container']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(10, 0, null, null, 75, 'div', [['class', 'row']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
                     11,
                     0,
                     null,
                     null,
-                    53,
+                    64,
                     'div',
                     [['class', 'col-lg-9 col-md-10 col-sm-12']],
                     null,
@@ -42321,14 +42336,14 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵeld(12, 0, null, null, 15, 'section', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(12, 0, null, null, 26, 'section', [], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
                     13,
                     0,
                     null,
                     null,
-                    14,
+                    25,
                     'app-card',
                     [],
                     null,
@@ -42338,15 +42353,109 @@
                     c.RenderType_CardComponent
                   )),
                   l.ɵdid(14, 114688, null, 0, h.CardComponent, [], null, null),
-                  (e()(), l.ɵeld(15, 0, null, 0, 12, 'div', [['class', 'row']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(16, 0, null, null, 5, 'div', [['class', 'col-12']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(17, 0, null, null, 4, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(15, 0, null, 0, 10, 'div', [['class', 'row']], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(18, 0, null, null, 1, 'label', [['for', 'descripcion']], null, null, null, null, null)),
+                  l.ɵeld(16, 0, null, null, 9, 'div', [['class', 'col-12 text-right']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(
+                    17,
+                    0,
+                    null,
+                    null,
+                    8,
+                    'div',
+                    [['class', 'd-inline-flex custom-control custom-checkbox']],
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                  )),
+                  (e()(),
+                  l.ɵeld(
+                    18,
+                    0,
+                    null,
+                    null,
+                    5,
+                    'input',
+                    [
+                      ['class', 'custom-control-input'],
+                      ['id', 'publicadoWeb'],
+                      ['name', 'publicadoWeb'],
+                      ['type', 'checkbox']
+                    ],
+                    [
+                      [2, 'ng-untouched', null],
+                      [2, 'ng-touched', null],
+                      [2, 'ng-pristine', null],
+                      [2, 'ng-dirty', null],
+                      [2, 'ng-valid', null],
+                      [2, 'ng-invalid', null],
+                      [2, 'ng-pending', null]
+                    ],
+                    [[null, 'ngModelChange'], [null, 'change'], [null, 'blur']],
+                    function(e, n, t) {
+                      var r = !0,
+                        i = e.component;
+                      return (
+                        'change' === n && (r = !1 !== l.ɵnov(e, 19).onChange(t.target.checked) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 19).onTouched() && r),
+                        'ngModelChange' === n && (r = !1 !== (i.habitacion.publicadoWeb = t) && r),
+                        'change' === n && (r = !1 !== i.guardarPublicadoWeb() && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(19, 16384, null, 0, p.CheckboxControlValueAccessor, [l.Renderer2, l.ElementRef], null, null),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    p.NG_VALUE_ACCESSOR,
+                    function(e) {
+                      return [e];
+                    },
+                    [p.CheckboxControlValueAccessor]
+                  ),
+                  l.ɵdid(
+                    21,
+                    671744,
+                    [['publicadoWeb', 4]],
+                    0,
+                    p.NgModel,
+                    [[8, null], [8, null], [8, null], [6, p.NG_VALUE_ACCESSOR]],
+                    { name: [0, 'name'], model: [1, 'model'] },
+                    { update: 'ngModelChange' }
+                  ),
+                  l.ɵprd(2048, null, p.NgControl, null, [p.NgModel]),
+                  l.ɵdid(23, 16384, null, 0, p.NgControlStatus, [[4, p.NgControl]], null, null),
+                  (e()(),
+                  l.ɵeld(
+                    24,
+                    0,
+                    null,
+                    null,
+                    1,
+                    'label',
+                    [['class', 'custom-control-label'], ['for', 'publicadoWeb']],
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                  )),
+                  (e()(), l.ɵted(-1, null, ['Publicado en pagina web'])),
+                  (e()(), l.ɵeld(26, 0, null, 0, 12, 'div', [['class', 'row']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(27, 0, null, null, 5, 'div', [['class', 'col-12']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(28, 0, null, null, 4, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(29, 0, null, null, 1, 'label', [['for', 'descripcion']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Describe tu habitaci\xf3n'])),
                   (e()(),
                   l.ɵeld(
-                    20,
+                    31,
                     0,
                     null,
                     null,
@@ -42359,28 +42468,28 @@
                       var l = !0;
                       return 'modificar' === n && (l = !1 !== e.component.guardarDescripcion(t) && l), l;
                     },
-                    p.View_PTextAreaComponent_0,
-                    p.RenderType_PTextAreaComponent
+                    m.View_PTextAreaComponent_0,
+                    m.RenderType_PTextAreaComponent
                   )),
                   l.ɵdid(
-                    21,
+                    32,
                     114688,
                     null,
                     0,
-                    m.PTextAreaComponent,
+                    f.PTextAreaComponent,
                     [],
                     { text: [0, 'text'] },
                     { modificar: 'modificar' }
                   ),
                   (e()(),
-                  l.ɵeld(22, 0, null, null, 5, 'div', [['class', 'col-md-6 col-sm-12']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(23, 0, null, null, 4, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  l.ɵeld(33, 0, null, null, 5, 'div', [['class', 'col-md-6 col-sm-12']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(34, 0, null, null, 4, 'div', [['class', 'form-group']], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(24, 0, null, null, 1, 'label', [['for', 'tipoHabitacion']], null, null, null, null, null)),
+                  l.ɵeld(35, 0, null, null, 1, 'label', [['for', 'tipoHabitacion']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Funciona como'])),
                   (e()(),
                   l.ɵeld(
-                    26,
+                    37,
                     0,
                     null,
                     null,
@@ -42393,33 +42502,33 @@
                       var l = !0;
                       return 'modificar' === n && (l = !1 !== e.component.guardarTipoHabitacion(t) && l), l;
                     },
-                    f.View_PSelect2Component_0,
-                    f.RenderType_PSelect2Component
+                    g.View_PSelect2Component_0,
+                    g.RenderType_PSelect2Component
                   )),
                   l.ɵdid(
-                    27,
+                    38,
                     4833280,
                     null,
                     0,
-                    g.PSelect2Component,
+                    _.PSelect2Component,
                     [],
                     { text: [0, 'text'], value: [1, 'value'], catalog: [2, 'catalog'], _inputName: [3, '_inputName'] },
                     { modificar: 'modificar' }
                   ),
-                  (e()(), l.ɵeld(28, 0, null, null, 8, 'section', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(39, 0, null, null, 8, 'section', [], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(29, 0, null, null, 5, 'div', [['class', 'row mt-4 mb-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(30, 0, null, null, 4, 'div', [['class', 'col-sm-12']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(31, 0, null, null, 1, 'h2', [], null, null, null, null, null)),
+                  l.ɵeld(40, 0, null, null, 5, 'div', [['class', 'row mt-4 mb-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(41, 0, null, null, 4, 'div', [['class', 'col-sm-12']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(42, 0, null, null, 1, 'h2', [], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Variantes de habitaci\xf3n'])),
-                  (e()(), l.ɵeld(33, 0, null, null, 1, 'p', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(44, 0, null, null, 1, 'p', [], null, null, null, null, null)),
                   (e()(),
                   l.ɵted(-1, null, [
                     ' Especifica las camas, el precio y la capacidad que se tendr\xe1 por cada variante que puede tener la habitaci\xf3n '
                   ])),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, F)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, V)),
                   l.ɵdid(
-                    36,
+                    47,
                     802816,
                     null,
                     0,
@@ -42428,17 +42537,17 @@
                     { ngForOf: [0, 'ngForOf'] },
                     null
                   ),
-                  (e()(), l.ɵeld(37, 0, null, null, 8, 'section', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(48, 0, null, null, 8, 'section', [], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(38, 0, null, null, 5, 'div', [['class', 'row mt-4 mb-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(39, 0, null, null, 4, 'div', [['class', 'col-sm-12']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(40, 0, null, null, 1, 'h2', [], null, null, null, null, null)),
+                  l.ɵeld(49, 0, null, null, 5, 'div', [['class', 'row mt-4 mb-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(50, 0, null, null, 4, 'div', [['class', 'col-sm-12']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(51, 0, null, null, 1, 'h2', [], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Especificaciones'])),
-                  (e()(), l.ɵeld(42, 0, null, null, 1, 'p', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(53, 0, null, null, 1, 'p', [], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Detalla el equipamiento con el que cuenta esta habitaci\xf3n'])),
                   (e()(),
                   l.ɵeld(
-                    44,
+                    55,
                     0,
                     null,
                     null,
@@ -42457,15 +42566,15 @@
                         l
                       );
                     },
-                    _.View_EspecificacionListComponent_0,
-                    _.RenderType_EspecificacionListComponent
+                    v.View_EspecificacionListComponent_0,
+                    v.RenderType_EspecificacionListComponent
                   )),
                   l.ɵdid(
-                    45,
+                    56,
                     114688,
                     null,
                     0,
-                    v.EspecificacionListComponent,
+                    y.EspecificacionListComponent,
                     [],
                     { _especificaciones: [0, '_especificaciones'] },
                     {
@@ -42474,21 +42583,21 @@
                       _deleteEspecificacion: '_deleteEspecificacion'
                     }
                   ),
-                  (e()(), l.ɵeld(46, 0, null, null, 18, 'section', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(57, 0, null, null, 18, 'section', [], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(47, 0, null, null, 9, 'div', [['class', 'row mt-4 mb-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(48, 0, null, null, 4, 'div', [['class', 'col-sm-11']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(49, 0, null, null, 1, 'h2', [], null, null, null, null, null)),
+                  l.ɵeld(58, 0, null, null, 9, 'div', [['class', 'row mt-4 mb-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(59, 0, null, null, 4, 'div', [['class', 'col-sm-11']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(60, 0, null, null, 1, 'h2', [], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Fotos'])),
-                  (e()(), l.ɵeld(51, 0, null, null, 1, 'p', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(62, 0, null, null, 1, 'p', [], null, null, null, null, null)),
                   (e()(),
                   l.ɵted(-1, null, [
                     ' Agrega fotos para esta habitaci\xf3n y presiona en el \xedcono de la estrella para poner esta foto como principal '
                   ])),
-                  (e()(), l.ɵeld(53, 0, null, null, 3, 'div', [['class', 'col-sm-1']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(64, 0, null, null, 3, 'div', [['class', 'col-sm-1']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    54,
+                    65,
                     0,
                     null,
                     null,
@@ -42506,7 +42615,7 @@
                   )),
                   (e()(),
                   l.ɵeld(
-                    55,
+                    66,
                     0,
                     null,
                     null,
@@ -42520,17 +42629,17 @@
                     null
                   )),
                   (e()(), l.ɵted(-1, null, [' Foto '])),
-                  (e()(), l.ɵeld(57, 0, null, null, 7, 'div', [['class', 'card']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(58, 0, null, null, 6, 'div', [['class', 'card-body']], null, null, null, null, null)),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, V)),
-                  l.ɵdid(60, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵeld(68, 0, null, null, 7, 'div', [['class', 'card']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(69, 0, null, null, 6, 'div', [['class', 'card-body']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, H)),
-                  l.ɵdid(62, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, U)),
-                  l.ɵdid(64, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  l.ɵdid(71, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, B)),
+                  l.ɵdid(73, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, W)),
+                  l.ɵdid(75, 16384, null, 0, o.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   l.ɵeld(
-                    65,
+                    76,
                     0,
                     null,
                     null,
@@ -42543,19 +42652,19 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵeld(66, 0, null, null, 5, 'div', [['class', 'card mt-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(67, 0, null, null, 4, 'div', [['class', 'card-body']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(68, 0, null, null, 1, 'h4', [['class', 'card-title']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(77, 0, null, null, 5, 'div', [['class', 'card mt-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(78, 0, null, null, 4, 'div', [['class', 'card-body']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(79, 0, null, null, 1, 'h4', [['class', 'card-title']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Ayuda'])),
-                  (e()(), l.ɵeld(70, 0, null, null, 1, 'p', [['class', 'card-text']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(81, 0, null, null, 1, 'p', [['class', 'card-text']], null, null, null, null, null)),
                   (e()(),
                   l.ɵted(-1, null, [
                     ' Asigna fotos a tus habitaciones y cuenta m\xe1s acerca de ellas, para que tus pasajeros no se pierdan ning\xfan detalle. '
                   ])),
-                  (e()(), l.ɵeld(72, 0, null, null, 2, 'div', [['class', 'mt-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(83, 0, null, null, 2, 'div', [['class', 'mt-2']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    73,
+                    84,
                     0,
                     null,
                     null,
@@ -42565,13 +42674,13 @@
                     null,
                     null,
                     null,
-                    y.View_CardNotificacionesComponent_0,
-                    y.RenderType_CardNotificacionesComponent
+                    b.View_CardNotificacionesComponent_0,
+                    b.RenderType_CardNotificacionesComponent
                   )),
-                  l.ɵdid(74, 114688, null, 0, b.CardNotificacionesComponent, [C.NotificacionService], null, null),
+                  l.ɵdid(85, 114688, null, 0, C.CardNotificacionesComponent, [w.NotificacionService], null, null),
                   (e()(),
                   l.ɵeld(
-                    75,
+                    86,
                     0,
                     null,
                     null,
@@ -42584,22 +42693,22 @@
                       var l = !0;
                       return '_addEspecificacion' === n && (l = !1 !== e.component.addEspecificacion(t) && l), l;
                     },
-                    w.View_EspecificacionSelectModalComponent_0,
-                    w.RenderType_EspecificacionSelectModalComponent
+                    M.View_EspecificacionSelectModalComponent_0,
+                    M.RenderType_EspecificacionSelectModalComponent
                   )),
                   l.ɵdid(
-                    76,
+                    87,
                     114688,
                     null,
                     0,
-                    M.EspecificacionSelectModalComponent,
+                    D.EspecificacionSelectModalComponent,
                     [],
                     { _especificaciones: [0, '_especificaciones'], _loading: [1, '_loading'] },
                     { _addEspecificacion: '_addEspecificacion' }
                   ),
                   (e()(),
                   l.ɵeld(
-                    77,
+                    88,
                     0,
                     null,
                     null,
@@ -42612,22 +42721,22 @@
                       var l = !0;
                       return '_addCama' === n && (l = !1 !== e.component.addCama(t) && l), l;
                     },
-                    D.View_CamaSelectModalComponent_0,
-                    D.RenderType_CamaSelectModalComponent
+                    A.View_CamaSelectModalComponent_0,
+                    A.RenderType_CamaSelectModalComponent
                   )),
                   l.ɵdid(
-                    78,
+                    89,
                     114688,
                     null,
                     0,
-                    A.CamaSelectModalComponent,
+                    S.CamaSelectModalComponent,
                     [],
                     { _camas: [0, '_camas'], _loading: [1, '_loading'], model: [2, 'model'] },
                     { _addCama: '_addCama' }
                   ),
                   (e()(),
                   l.ɵeld(
-                    79,
+                    90,
                     0,
                     null,
                     null,
@@ -42645,15 +42754,15 @@
                         l
                       );
                     },
-                    S.View_ModalConfirmacionComponent_0,
-                    S.RenderType_ModalConfirmacionComponent
+                    k.View_ModalConfirmacionComponent_0,
+                    k.RenderType_ModalConfirmacionComponent
                   )),
                   l.ɵdid(
-                    80,
+                    91,
                     114688,
                     null,
                     0,
-                    k.ModalConfirmacionComponent,
+                    L.ModalConfirmacionComponent,
                     [],
                     { mensaje: [0, 'mensaje'] },
                     { confirmar: 'confirmar', cancelar: 'cancelar' }
@@ -42662,52 +42771,67 @@
                 function(e, n) {
                   var t = n.component;
                   e(n, 14, 0),
-                    e(n, 21, 0, t.habitacion.descripcion || 'Ingresa una descripci\xf3n de la habitaci\xf3n'),
+                    e(n, 21, 0, 'publicadoWeb', t.habitacion.publicadoWeb),
+                    e(n, 32, 0, t.habitacion.descripcion || 'Ingresa una descripci\xf3n de la habitaci\xf3n'),
                     e(
                       n,
-                      27,
+                      38,
                       0,
                       t.habitacion.tipoHabitacion || 'Ingresa el tipo de habitaci\xf3n',
                       t.habitacion.idTipoHabitacion,
                       t.tiposHabitacionFormat,
                       'tipoHabitacion'
                     ),
-                    e(n, 36, 0, t.habitacion.variantes),
-                    e(n, 45, 0, t.habitacion.especificaciones),
-                    e(n, 60, 0, !t.loadingList && 0 == t.habitacionImages.length && !t.isChoosing),
-                    e(n, 62, 0, t.isChoosing),
-                    e(n, 64, 0, !t.isChoosing),
-                    e(n, 74, 0),
-                    e(n, 76, 0, t.especificaciones, t.loadingAddEspecificacion),
-                    e(n, 78, 0, t.camas, t.loadingAddCama, t.varianteSelected),
-                    e(n, 80, 0, t.mensajeConfirmacion);
+                    e(n, 47, 0, t.habitacion.variantes),
+                    e(n, 56, 0, t.habitacion.especificaciones),
+                    e(n, 71, 0, !t.loadingList && 0 == t.habitacionImages.length && !t.isChoosing),
+                    e(n, 73, 0, t.isChoosing),
+                    e(n, 75, 0, !t.isChoosing),
+                    e(n, 85, 0),
+                    e(n, 87, 0, t.especificaciones, t.loadingAddEspecificacion),
+                    e(n, 89, 0, t.camas, t.loadingAddCama, t.varianteSelected),
+                    e(n, 91, 0, t.mensajeConfirmacion);
                 },
                 function(e, n) {
                   var t = n.component;
-                  e(n, 6, 0, t.habitacion.noHabitacion), e(n, 7, 0, t.habitacion.habitacion), e(n, 54, 0, t.isChoosing);
+                  e(n, 6, 0, t.habitacion.noHabitacion),
+                    e(n, 7, 0, t.habitacion.habitacion),
+                    e(
+                      n,
+                      18,
+                      0,
+                      l.ɵnov(n, 23).ngClassUntouched,
+                      l.ɵnov(n, 23).ngClassTouched,
+                      l.ɵnov(n, 23).ngClassPristine,
+                      l.ɵnov(n, 23).ngClassDirty,
+                      l.ɵnov(n, 23).ngClassValid,
+                      l.ɵnov(n, 23).ngClassInvalid,
+                      l.ɵnov(n, 23).ngClassPending
+                    ),
+                    e(n, 65, 0, t.isChoosing);
                 }
               );
             }
-            function G(e) {
+            function q(e) {
               return l.ɵvid(
                 0,
                 [
-                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-habitacion-detalle', [], null, null, null, W, j)),
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-habitacion-detalle', [], null, null, null, G, N)),
                   l.ɵdid(
                     1,
                     114688,
                     null,
                     0,
-                    L.HabitacionDetalleComponent,
+                    T.HabitacionDetalleComponent,
                     [
-                      T.ActivatedRoute,
-                      T.Router,
-                      x.HabitacionService,
-                      E.GaleriaService,
-                      O.TipoHabitacionService,
-                      R.EspecificacionService,
-                      I.CamaService,
-                      Y.ToastService
+                      x.ActivatedRoute,
+                      x.Router,
+                      E.HabitacionService,
+                      O.GaleriaService,
+                      R.TipoHabitacionService,
+                      I.EspecificacionService,
+                      Y.CamaService,
+                      j.ToastService
                     ],
                     null,
                     null
@@ -42719,11 +42843,11 @@
                 null
               );
             }
-            (n.RenderType_HabitacionDetalleComponent = j),
-              (n.View_HabitacionDetalleComponent_0 = W),
-              (n.View_HabitacionDetalleComponent_Host_0 = G);
-            var q = l.ɵccf('app-habitacion-detalle', L.HabitacionDetalleComponent, G, {}, {}, []);
-            n.HabitacionDetalleComponentNgFactory = q;
+            (n.RenderType_HabitacionDetalleComponent = N),
+              (n.View_HabitacionDetalleComponent_0 = G),
+              (n.View_HabitacionDetalleComponent_Host_0 = q);
+            var z = l.ɵccf('app-habitacion-detalle', T.HabitacionDetalleComponent, q, {}, {}, []);
+            n.HabitacionDetalleComponentNgFactory = z;
           }.apply(n, l)) || (e.exports = r);
     },
     XxxT: function(e, n, t) {
@@ -63948,6 +64072,9 @@
                 }
                 guardarDescripcion(e) {
                   this.guardarHabitacion('descripcion', e);
+                }
+                guardarPublicadoWeb() {
+                  this.guardarHabitacion('publicadoWeb', this.habitacion.publicadoWeb ? 1 : 0);
                 }
                 guardarHabitacion(e, n) {
                   this.loading = !0;

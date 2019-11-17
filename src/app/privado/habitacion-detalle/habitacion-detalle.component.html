@@ -17,6 +17,22 @@
       <section>
         <app-card>
           <div class="row">
+            <div class="col-12 text-right">
+              <div class="d-inline-flex custom-control custom-checkbox">
+                <input
+                  id="publicadoWeb"
+                  type="checkbox"
+                  class="custom-control-input"
+                  [(ngModel)]="habitacion.publicadoWeb"
+                  name="publicadoWeb"
+                  #publicadoWeb="ngModel"
+                  (change)="guardarPublicadoWeb()"
+                />
+                <label class="custom-control-label" for="publicadoWeb">Publicado en pagina web</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-12">
               <div class="form-group">
                 <label for="descripcion">Describe tu habitación</label>
