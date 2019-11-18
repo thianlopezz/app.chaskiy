@@ -31,11 +31,13 @@ $theme-colors: (
       transition: all 0.8s;
     }
     .toolbar {
+      // border: 0.1rem solid #37474f;
       position: absolute;
-      top: 75%;
+      top: 0;
       left: 0;
       width: 100%;
-      padding: 0 3%;
+      height: 100%;
+      padding: 3% 3% 3% 3%;
     }
     &:hover {
       img {

@@ -335,9 +335,9 @@ export class HabitacionDetalleComponent implements OnInit {
     );
   }
 
-  addImage(idFoto) {
+  addImage(idFotos) {
     this.loading = true;
-    this.habitacionService.addImage({ idHabitacion: this.idHabitacion, idFoto }).subscribe(
+    this.habitacionService.addImages({ idHabitacion: this.idHabitacion, idFotos }).subscribe(
       response => {
         if (response.success) {
           this.toastService.showSuccess(response.mensaje);

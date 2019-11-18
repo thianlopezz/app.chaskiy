@@ -1,23 +1,33 @@
 <div class="row mb-1">
   <div class="col-sm-4"><p>Selecciona una imagen</p></div>
-  <div class="col-sm-8">
-    <button type="button" class="btn btn-link btn-primary pull-right" (click)="cancel()">
+  <div class="col-sm-8 text-right">
+    <button type="button" class="btn btn-primary mr-2" (click)="select()">
+      <i class="fa fa-check" aria-hidden="true"></i>
+      Seleccionar
+    </button>
+    <button type="button" class="btn btn-link btn-primary" (click)="cancel()">
       <i class="fa fa-times" aria-hidden="true"></i>
       Cancelar
     </button>
   </div>
 </div>
 <div class="row mb-1">
-  <div class="col-12"><p class="text-center">No hay imágenes que puedas seleccionar</p></div>
+  <div class="col-12" *ngIf="_images.length == 0">
+    <p class="text-center">No hay imágenes que puedas seleccionar</p>
+  </div>
 </div>
 <div class="mansory">
-  <div class="item" *ngFor="let image of _images">
+  <div class="item" *ngFor="let image of _images; let i = index">
     <img [src]="'/files/' + image.archivo" />
     <div class="toolbar">
-      <div>
-        <Button class="btn btn-outline-primary rounded-circle mx-1" (click)="select(image.idFoto)">
+      <div class="item">
+        <div class="d-inline-flex custom-control custom-checkbox">
+          <input [attr.id]="'selector' + i" type="checkbox" class="custom-control-input" [(ngModel)]="image.checked" />
+          <label class="custom-control-label" [attr.for]="'selector' + i"></label>
+        </div>
+        <!-- <Button class="btn btn-outline-primary rounded-circle mx-1" (click)="select(image.idFoto)">
           <i class="fas fa-check"></i>
-        </Button>
+        </Button> -->
       </div>
     </div>
   </div>

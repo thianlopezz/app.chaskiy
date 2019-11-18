@@ -1,0 +1,19 @@
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  transform: scale(1.2);
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+  transform: scale(1.2);
+}
+
+.custom-control-label::after {
+  transform: scale(1.2);
+}
+
+.custom-control-label::before {
+  transform: scale(1.2);
+}
+
+.toolbar div.item {
+  padding: 0.3rem;
+}

@@ -41,7 +41,7 @@ export class HabitacionService {
       .pipe(map((response: Response) => response.json()));
   }
 
-  addImage(params) {
+  addImages(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     params = { ...params, idHospedaje: chasker.idHospedaje, idUsuario: chasker.idUsuario };
     return this.http

@@ -19,7 +19,8 @@ export class ImageSelectorComponent implements OnInit {
     this._cancel.next();
   }
 
-  select(idFoto) {
-    this._select.next(idFoto);
+  select() {
+    let fotos = this._images.filter(image => image.checked).map(image => image.idFoto);
+    this._select.next(fotos);
   }
 }

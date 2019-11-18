@@ -7637,10 +7637,11 @@ a.text-dark:hover {
 }
 .mansory .item .toolbar {
   position: absolute;
-  top: 75%;
+  top: 0;
   left: 0;
   width: 100%;
-  padding: 0 3%;
+  height: 100%;
+  padding: 3%;
 }
 .mansory .item:hover img {
   opacity: 1;
