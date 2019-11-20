@@ -53974,10 +53974,12 @@
                 constructor() {
                   (this._closeModal = new t.EventEmitter()),
                     (this._submit = new t.EventEmitter()),
-                    (this.showClose = !1);
+                    (this.showClose = !1),
+                    (this.showSubmit = !1);
                 }
                 ngOnInit() {
-                  this.showClose = this._closeModal.observers.length > 0;
+                  (this.showClose = this._closeModal.observers.length > 0),
+                    (this.showSubmit = this._submit.observers.length > 0);
                 }
                 closeModal() {
                   this._closeModal.next();
@@ -54180,7 +54182,7 @@
                 ],
                 function(e, n) {
                   var t = n.component;
-                  e(n, 12, 0, t._loading), e(n, 14, 0, !t._loading), e(n, 16, 0, !t._loading);
+                  e(n, 12, 0, t._loading), e(n, 14, 0, !t._loading), e(n, 16, 0, !t._loading && t.showSubmit);
                 },
                 function(e, n) {
                   var t = n.component;

@@ -19,11 +19,13 @@ export class ModalComponent implements OnInit {
   @Output() _submit = new EventEmitter();
 
   showClose = false;
+  showSubmit = false;
 
   constructor() {}
 
   ngOnInit() {
     this.showClose = this._closeModal.observers.length > 0;
+    this.showSubmit = this._submit.observers.length > 0;
   }
 
   closeModal() {

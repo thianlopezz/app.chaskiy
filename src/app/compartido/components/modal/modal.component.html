@@ -24,7 +24,13 @@
         <button *ngIf="!_loading" type="button" class="btn btn-light" data-dismiss="modal">
           {{ _cancelarText || 'Cerrar' }}
         </button>
-        <button *ngIf="!_loading" type="submit" [attr.form]="_idForm" (click)="submit()" class="btn btn-primary">
+        <button
+          *ngIf="!_loading && showSubmit"
+          type="submit"
+          [attr.form]="_idForm"
+          (click)="submit()"
+          class="btn btn-primary"
+        >
           {{ _aceptarText || 'Guardar' }}
         </button>
       </div>
