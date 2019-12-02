@@ -31,7 +31,7 @@
           <p *ngIf="!loadingList && images.length == 0" class="text-center">No existen imagenes para mostrar</p>
           <div class="mansory">
             <div class="item" *ngFor="let image of images">
-              <img [src]="'/files/' + image.archivo" />
+              <img [src]="image.archivo" />
               <div class="toolbar">
                 <div>
                   <!-- <Button class="btn btn-outline-primary rounded-circle mx-1">

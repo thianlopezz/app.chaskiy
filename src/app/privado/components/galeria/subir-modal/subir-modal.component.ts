@@ -13,6 +13,8 @@ export class SubirModalComponent implements OnInit {
 
   @Output() _guardar = new EventEmitter<any>();
 
+  imagesPreview = [];
+
   constructor(private toast: ToastService) {}
 
   ngOnInit() {}
@@ -23,17 +25,33 @@ export class SubirModalComponent implements OnInit {
   }
 
   handleFileChange(e) {
-    this._model.file = e.target.files[0];
-    let fr = new FileReader();
-    fr.readAsDataURL(this._model.file);
-    fr.onload = e => {
-      this._model.imagePreview = fr.result;
-    };
+    let files: FileList = e.target.files;
+    this._model.files = files;
+    let imagesPreview = [];
+
+    let maxLength;
+    if (files.length > 10) {
+      this.toast.showWarning('Solo puedes seleccionar 10 imágenes como máximo.');
+      maxLength = 10;
+    } else {
+      maxLength = files.length;
+    }
+
+    for (let i = 0; i < maxLength; i++) {
+      let fileToPreview = files[i];
+      let fr = new FileReader();
+      fr.readAsDataURL(fileToPreview);
+      fr.onload = e => {
+        imagesPreview.push(fr.result);
+      };
+    }
+
+    this.imagesPreview = imagesPreview;
   }
 
-  guardar(f: NgForm) {
-    if (!this._model.file) {
-      this.toast.showWarning('Debes seleccionar una imagen.');
+  guardar(f?: NgForm) {
+    if (this._model.files.length == 0) {
+      this.toast.showWarning('Debes seleccionar almenos una imagen.');
       return;
     }
 

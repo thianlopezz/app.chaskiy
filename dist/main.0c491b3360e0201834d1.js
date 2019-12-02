@@ -3044,7 +3044,7 @@
                 }
                 guardarImagen(e) {
                   (this.loading = !0),
-                    this.galeriaService.uploadImage(e.file, e.descripcion).subscribe(
+                    this.galeriaService.uploadImages(e.files, '').subscribe(
                       e => {
                         e.success
                           ? (this.toastService.showSuccess(e.mensaje), (this.imageModel = {}), this.loadGallery())
@@ -5278,7 +5278,7 @@
                 }
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -5293,9 +5293,9 @@
             }
             (n.RenderType_HabitacionComponent = v),
               (n.View_HabitacionComponent_0 = L),
-              (n.View_HabitacionComponent_Host_0 = T);
-            var x = l.ɵccf('app-habitacion', f.HabitacionComponent, T, {}, {}, []);
-            n.HabitacionComponentNgFactory = x;
+              (n.View_HabitacionComponent_Host_0 = x);
+            var T = l.ɵccf('app-habitacion', f.HabitacionComponent, x, {}, {}, []);
+            n.HabitacionComponentNgFactory = T;
           }.apply(n, l)) || (e.exports = r);
     },
     '7BjC': function(e, n, t) {
@@ -6435,7 +6435,7 @@
           return Ml;
         }),
         t.d(n, '\u0275angular_packages_core_core_i', function() {
-          return xl;
+          return Tl;
         }),
         t.d(n, '\u0275angular_packages_core_core_c', function() {
           return fn;
@@ -6528,10 +6528,10 @@
           return Ft;
         }),
         t.d(n, 'enableProdMode', function() {
-          return Tt;
+          return xt;
         }),
         t.d(n, 'isDevMode', function() {
-          return xt;
+          return Tt;
         }),
         t.d(n, 'createPlatformFactory', function() {
           return Rt;
@@ -6555,7 +6555,7 @@
           return Pn;
         }),
         t.d(n, 'APP_INITIALIZER', function() {
-          return xn;
+          return Tn;
         }),
         t.d(n, 'ApplicationInitStatus', function() {
           return En;
@@ -6645,7 +6645,7 @@
           return M;
         }),
         t.d(n, 'Component', function() {
-          return T;
+          return x;
         }),
         t.d(n, 'Directive', function() {
           return L;
@@ -6663,7 +6663,7 @@
           return O;
         }),
         t.d(n, 'Pipe', function() {
-          return x;
+          return T;
         }),
         t.d(n, 'CUSTOM_ELEMENTS_SCHEMA', function() {
           return je;
@@ -6699,7 +6699,7 @@
           return Ye;
         }),
         t.d(n, 'inject', function() {
-          return Te;
+          return xe;
         }),
         t.d(n, 'INJECTOR', function() {
           return ae;
@@ -6864,7 +6864,7 @@
           return Vn;
         }),
         t.d(n, '\u0275inject', function() {
-          return Te;
+          return xe;
         }),
         t.d(n, '\u0275setCurrentInjector', function() {
           return Le;
@@ -6906,7 +6906,7 @@
           return m;
         }),
         t.d(n, '\u0275isObservable', function() {
-          return Tn;
+          return xn;
         }),
         t.d(n, '\u0275isPromise', function() {
           return Ln;
@@ -7020,10 +7020,10 @@
           return ad;
         }),
         t.d(n, '\u0275pb1', function() {
-          return Tc;
+          return xc;
         }),
         t.d(n, '\u0275pb2', function() {
-          return xc;
+          return Tc;
         }),
         t.d(n, '\u0275pb3', function() {
           return Ec;
@@ -7074,7 +7074,7 @@
           return Wc;
         }),
         t.d(n, '\u0275e', function() {
-          return Ta;
+          return xa;
         }),
         t.d(n, '\u0275p', function() {
           return Ea;
@@ -7083,7 +7083,7 @@
           return $a;
         }),
         t.d(n, '\u0275a', function() {
-          return xa;
+          return Ta;
         }),
         t.d(n, '\u0275s', function() {
           return Na;
@@ -7182,7 +7182,7 @@
           return pi;
         }),
         t.d(n, '\u0275mod', function() {
-          return Ti;
+          return xi;
         }),
         t.d(n, '\u0275mpd', function() {
           return Li;
@@ -7339,8 +7339,8 @@
         return null == e || e === A.Default;
       }
       const L = m('Directive', (e = {}) => e),
-        T = m('Component', (e = {}) => Object.assign({ changeDetection: A.Default }, e), L),
-        x = m('Pipe', e => Object.assign({ pure: !0 }, e)),
+        x = m('Component', (e = {}) => Object.assign({ changeDetection: A.Default }, e), L),
+        T = m('Pipe', e => Object.assign({ pure: !0 }, e)),
         E = _('Input', e => ({ bindingPropertyName: e })),
         O = _('Output', e => ({ bindingPropertyName: e })),
         R = _('HostBinding', e => ({ hostPropertyName: e })),
@@ -7555,7 +7555,7 @@
       }
       (ce.THROW_IF_NOT_FOUND = se),
         (ce.NULL = new de()),
-        (ce.ngInjectableDef = u({ providedIn: 'any', factory: () => Te(ae) }));
+        (ce.ngInjectableDef = u({ providedIn: 'any', factory: () => xe(ae) }));
       const he = function(e) {
           return e;
         },
@@ -7724,7 +7724,7 @@
         const n = ke;
         return (ke = e), n;
       }
-      function Te(e, n = 0) {
+      function xe(e, n = 0) {
         if (void 0 === ke) throw new Error('inject() must be called from an injection context');
         if (null === ke) {
           const n = e.ngInjectableDef;
@@ -7733,7 +7733,7 @@
         }
         return ke.get(e, 8 & n ? null : void 0, n);
       }
-      function xe(e) {
+      function Te(e) {
         const n = [];
         for (let t = 0; t < e.length; t++) {
           const l = e[t];
@@ -7751,8 +7751,8 @@
                 ? (t |= 2)
                 : (e = r instanceof ne ? r.token : r);
             }
-            n.push(Te(e, t));
-          } else n.push(Te(l));
+            n.push(xe(e, t));
+          } else n.push(xe(l));
         }
         return n;
       }
@@ -7765,7 +7765,7 @@
       function Ie(e, n) {
         if (!n) {
           const n = new $().parameters(e);
-          return () => new e(...xe(n));
+          return () => new e(...Te(n));
         }
         if (Oe in n) {
           const e = n;
@@ -7773,11 +7773,11 @@
         }
         if (n.useExisting) {
           const e = n;
-          return () => Te(e.useExisting);
+          return () => xe(e.useExisting);
         }
         if (n.useFactory) {
           const e = n;
-          return () => e.useFactory(...xe(e.deps || Re));
+          return () => e.useFactory(...Te(e.deps || Re));
         }
         if (n.useClass) {
           const t = n;
@@ -7786,7 +7786,7 @@
             const n = new $();
             l = n.parameters(e);
           }
-          return () => new t.useClass(...xe(l));
+          return () => new t.useClass(...Te(l));
         }
         {
           let t = n.deps;
@@ -7794,7 +7794,7 @@
             const n = new $();
             t = n.parameters(e);
           }
-          return () => new e(...xe(t));
+          return () => new e(...Te(t));
         }
       }
       const Ye = m('Injectable', void 0, void 0, void 0, (e, n) => {
@@ -8313,12 +8313,12 @@
               l = void 0;
             if (kn(e)) return Dn(e);
             if (((n = ee(e.provide)), _e in e)) t = e.useValue;
-            else if (e.useExisting) l = () => Te(e.useExisting);
-            else if (e.useFactory) l = () => e.useFactory(...xe(e.deps || []));
+            else if (e.useExisting) l = () => xe(e.useExisting);
+            else if (e.useFactory) l = () => e.useFactory(...Te(e.deps || []));
             else {
               const t = e.useClass || n;
               if (!e.deps) return Dn(t);
-              l = () => new t(...xe(e.deps));
+              l = () => new t(...Te(e.deps));
             }
             return An(l, t);
           })(e);
@@ -8326,7 +8326,7 @@
             let t = this.records.get(n);
             if (t) {
               if (void 0 === t.multi) throw new Error(`Mixed multi-provider for ${n}.`);
-            } else (n = e), ((t = An(void 0, _n, !0)).factory = () => xe(t.multi)), this.records.set(n, t);
+            } else (n = e), ((t = An(void 0, _n, !0)).factory = () => Te(t.multi)), this.records.set(n, t);
             (n = e), t.multi.push(e);
           }
           const l = this.records.get(n);
@@ -8372,10 +8372,10 @@
       function Ln(e) {
         return !!e && 'function' == typeof e.then;
       }
-      function Tn(e) {
+      function xn(e) {
         return !!e && 'function' == typeof e.subscribe;
       }
-      const xn = new d('Application Initializer');
+      const Tn = new d('Application Initializer');
       class En {
         constructor(e) {
           (this.appInits = e),
@@ -8837,11 +8837,11 @@
         St = !0,
         kt = !1;
       const Lt = new d('AllowMultipleToken');
-      function Tt() {
+      function xt() {
         if (kt) throw new Error('Cannot enable prod mode after platform setup.');
         St = !1;
       }
-      function xt() {
+      function Tt() {
         return (kt = !0), St;
       }
       class Et {
@@ -8889,7 +8889,7 @@
         }
         bootstrapModuleFactory(e, n) {
           const t = (function(e) {
-              return 'noop' === e ? new bt() : ('zone.js' === e ? void 0 : e) || new mt({ enableLongStackTrace: xt() });
+              return 'noop' === e ? new bt() : ('zone.js' === e ? void 0 : e) || new mt({ enableLongStackTrace: Tt() });
             })(n ? n.ngZone : void 0),
             l = [{ provide: mt, useValue: t }];
           return t.run(() => {
@@ -8981,7 +8981,7 @@
             (this._stable = !0),
             (this.componentTypes = []),
             (this.components = []),
-            (this._enforceNoNewChanges = xt()),
+            (this._enforceNoNewChanges = Tt()),
             this._zone.onMicrotaskEmpty.subscribe({
               next: () => {
                 this._zone.run(() => {
@@ -9040,7 +9040,7 @@
           return (
             i && r.injector.get(wt).registerApplication(r.location.nativeElement, i),
             this._loadComponent(r),
-            xt() &&
+            Tt() &&
               this._console.log(
                 'Angular is running in the development mode. Call enableProdMode() to enable the production mode.'
               ),
@@ -9416,8 +9416,8 @@
             l = 0,
             r = null;
           for (; n || t; ) {
-            const i = !t || (n && n.currentIndex < Tl(t, l, r)) ? n : t,
-              o = Tl(i, l, r),
+            const i = !t || (n && n.currentIndex < xl(t, l, r)) ? n : t,
+              o = xl(i, l, r),
               s = i.currentIndex;
             if (i === t) l--, (t = t._nextRemoved);
             else if (((n = n._next), null == i.previousIndex)) l++;
@@ -9692,13 +9692,13 @@
           this.map.clear();
         }
       }
-      function Tl(e, n, t) {
+      function xl(e, n, t) {
         const l = e.previousIndex;
         if (null === l) return l;
         let r = 0;
         return t && l < t.length && (r = t[l]), l + n + r;
       }
-      class xl {
+      class Tl {
         constructor() {}
         supports(e) {
           return e instanceof Map || wl(e);
@@ -9908,7 +9908,7 @@
           throw new Error(`Cannot find a differ supporting object '${e}'`);
         }
       }
-      const Yl = [new xl()],
+      const Yl = [new Tl()],
         jl = new Rl([new Ml()]),
         Nl = new Il(Yl),
         Pl = Rt(null, 'core', [
@@ -10010,7 +10010,7 @@
       function $l(e) {
         return (e = String(e)).match(Jl) || e.match(Ql)
           ? e
-          : (xt() && console.warn(`WARNING: sanitizing unsafe URL value ${e} (see http://g.co/ng/security#xss)`),
+          : (Tt() && console.warn(`WARNING: sanitizing unsafe URL value ${e} (see http://g.co/ng/security#xss)`),
             'unsafe:' + e);
       }
       function Kl(e) {
@@ -10150,7 +10150,7 @@
           const o = new ur(),
             s = o.sanitizeChildren(mr(t) || t);
           return (
-            xt() &&
+            Tt() &&
               o.sanitizedSomething &&
               console.warn('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).'),
             s
@@ -10190,7 +10190,7 @@
               return n && t;
             })(e))
           ? e
-          : (xt() && console.warn(`WARNING: sanitizing unsafe style value ${e} (see http://g.co/ng/security#xss).`),
+          : (Tt() && console.warn(`WARNING: sanitizing unsafe style value ${e} (see http://g.co/ng/security#xss).`),
             'unsafe');
       }
       const vr = (function() {
@@ -10249,7 +10249,7 @@
         updateRenderer: void 0,
         dirtyParentQueries: void 0
       };
-      function Tr(e, n, t, l) {
+      function xr(e, n, t, l) {
         let r = `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: '${n}'. Current value: '${t}'.`;
         return (
           l &&
@@ -10257,11 +10257,11 @@
               ' It seems like the view has been created after its parent and its children have been dirty checked. Has it been created in a change detection hook ?'),
           (function(e, n) {
             const t = new Error(e);
-            return xr(t, n), t;
+            return Tr(t, n), t;
           })(r, e)
         );
       }
-      function xr(e, n) {
+      function Tr(e, n) {
         (e[Be] = n), (e[We] = n.logError.bind(n));
       }
       function Er(e) {
@@ -10306,7 +10306,7 @@
         const r = e.oldValues[n.bindingIndex + t];
         if (1 & e.state || !vl(r, l)) {
           const i = n.bindings[t].name;
-          throw Tr(Lr.createDebugContext(e, n.nodeIndex), `${i}: ${r}`, `${i}: ${l}`, 0 != (1 & e.state));
+          throw xr(Lr.createDebugContext(e, n.nodeIndex), `${i}: ${r}`, `${i}: ${l}`, 0 != (1 & e.state));
         }
       }
       function Wr(e) {
@@ -10709,7 +10709,7 @@
       function Li(e, n, t, l) {
         return (t = ee(t)), { index: -1, deps: ni(l, q(n)), flags: e, token: n, value: t };
       }
-      function Ti(e) {
+      function xi(e) {
         const n = {},
           t = [];
         let l = !1;
@@ -10719,7 +10719,7 @@
         }
         return { factory: null, providersByKey: n, providers: e, modules: t, isRoot: l };
       }
-      function xi(e, n, t = ce.THROW_IF_NOT_FOUND) {
+      function Ti(e, n, t = ce.THROW_IF_NOT_FOUND) {
         const l = Le(e);
         try {
           if (8 & n.flags) return n.token;
@@ -10776,14 +10776,14 @@
                 case 0:
                   return new n();
                 case 1:
-                  return new n(xi(e, t[0]));
+                  return new n(Ti(e, t[0]));
                 case 2:
-                  return new n(xi(e, t[0]), xi(e, t[1]));
+                  return new n(Ti(e, t[0]), Ti(e, t[1]));
                 case 3:
-                  return new n(xi(e, t[0]), xi(e, t[1]), xi(e, t[2]));
+                  return new n(Ti(e, t[0]), Ti(e, t[1]), Ti(e, t[2]));
                 default:
                   const r = new Array(l);
-                  for (let n = 0; n < l; n++) r[n] = xi(e, t[n]);
+                  for (let n = 0; n < l; n++) r[n] = Ti(e, t[n]);
                   return new n(...r);
               }
             })(e, n.value, n.deps);
@@ -10795,20 +10795,20 @@
                 case 0:
                   return n();
                 case 1:
-                  return n(xi(e, t[0]));
+                  return n(Ti(e, t[0]));
                 case 2:
-                  return n(xi(e, t[0]), xi(e, t[1]));
+                  return n(Ti(e, t[0]), Ti(e, t[1]));
                 case 3:
-                  return n(xi(e, t[0]), xi(e, t[1]), xi(e, t[2]));
+                  return n(Ti(e, t[0]), Ti(e, t[1]), Ti(e, t[2]));
                 default:
                   const r = Array(l);
-                  for (let n = 0; n < l; n++) r[n] = xi(e, t[n]);
+                  for (let n = 0; n < l; n++) r[n] = Ti(e, t[n]);
                   return n(...r);
               }
             })(e, n.value, n.deps);
             break;
           case 2048:
-            t = xi(e, n.deps[0]);
+            t = Ti(e, n.deps[0]);
             break;
           case 256:
             t = n.value;
@@ -11210,7 +11210,7 @@
         }
         get(e, n = ce.THROW_IF_NOT_FOUND, t = 0) {
           let l = 0;
-          return 4 & t ? (l |= 1) : 2 & t && (l |= 4), xi(this, { token: e, tokenKey: Ir(e), flags: l }, n);
+          return 4 & t ? (l |= 1) : 2 & t && (l |= 4), Ti(this, { token: e, tokenKey: Ir(e), flags: l }, n);
         }
         get instance() {
           return this.get(this._moduleType);
@@ -11507,15 +11507,15 @@
             134217728 & n.flags && 536870912 & n.flags && Sr(e, t).setDirty(), (t += n.childCount);
           }
       }
-      function To(e, n) {
+      function xo(e, n) {
         const t = Sr(e, n.nodeIndex);
         if (!t.dirty) return;
         let l,
           r = void 0;
         if (67108864 & n.flags) {
           const t = n.parent.parent;
-          (r = xo(e, t.nodeIndex, t.nodeIndex + t.childCount, n.query, [])), (l = Dr(e, n.parent.nodeIndex).instance);
-        } else 134217728 & n.flags && ((r = xo(e, 0, e.def.nodes.length - 1, n.query, [])), (l = e.component));
+          (r = To(e, t.nodeIndex, t.nodeIndex + t.childCount, n.query, [])), (l = Dr(e, n.parent.nodeIndex).instance);
+        } else 134217728 & n.flags && ((r = To(e, 0, e.def.nodes.length - 1, n.query, [])), (l = e.component));
         t.reset(r);
         const i = n.query.bindings;
         let o = !1;
@@ -11533,7 +11533,7 @@
         }
         o && t.notifyOnChanges();
       }
-      function xo(e, n, t, l, r) {
+      function To(e, n, t, l, r) {
         for (let i = n; i <= t; i++) {
           const n = e.def.nodes[i],
             t = n.matchedQueries[l.id];
@@ -11544,21 +11544,21 @@
             const t = Mr(e, i);
             if (
               ((n.childMatchedQueries & l.filterId) === l.filterId &&
-                (xo(e, i + 1, i + n.childCount, l, r), (i += n.childCount)),
+                (To(e, i + 1, i + n.childCount, l, r), (i += n.childCount)),
               16777216 & n.flags)
             ) {
               const e = t.viewContainer._embeddedViews;
               for (let n = 0; n < e.length; n++) {
                 const i = e[n],
                   o = zr(i);
-                o && o === t && xo(i, 0, i.def.nodes.length - 1, l, r);
+                o && o === t && To(i, 0, i.def.nodes.length - 1, l, r);
               }
             }
             const o = t.template._projectedViews;
             if (o)
               for (let e = 0; e < o.length; e++) {
                 const n = o[e];
-                xo(n, 0, n.def.nodes.length - 1, l, r);
+                To(n, 0, n.def.nodes.length - 1, l, r);
               }
           }
           (n.childMatchedQueries & l.filterId) !== l.filterId && (i += n.childCount);
@@ -12210,7 +12210,7 @@
       }
       function ns(e, n) {
         if (Sr(e, n.nodeIndex).dirty)
-          throw Tr(
+          throw xr(
             Lr.createDebugContext(e, n.nodeIndex),
             `Query ${n.query.id} not dirty`,
             `Query ${n.query.id} dirty`,
@@ -12316,7 +12316,7 @@
           if (r.flags & n && r.flags & t)
             switch ((Lr.setCurrentNode(e, r.nodeIndex), l)) {
               case 0:
-                To(e, r);
+                xo(e, r);
                 break;
               case 1:
                 ns(e, r);
@@ -12328,7 +12328,7 @@
       function ds() {
         if (as) return;
         as = !0;
-        const e = xt()
+        const e = Tt()
           ? {
               setCurrentNode: Rs,
               createRootView: hs,
@@ -12388,7 +12388,7 @@
         const o = r.injector.get(Gt),
           s = ps(e, r, new Js(o), n, t),
           u = Ms(l);
-        return qs(Ts.create, Go, null, [s, u, i]);
+        return qs(xs.create, Go, null, [s, u, i]);
       }
       function ps(e, n, t, l, r) {
         const i = n.injector.get(yr),
@@ -12406,10 +12406,10 @@
       }
       function ms(e, n, t, l) {
         const r = Ms(t);
-        return qs(Ts.create, Wo, null, [e, n, r, l]);
+        return qs(xs.create, Wo, null, [e, n, r, l]);
       }
       function fs(e, n, t, l) {
-        return (t = ys.get(n.element.componentProvider.provider.token) || Ms(t)), qs(Ts.create, qo, null, [e, n, t, l]);
+        return (t = ys.get(n.element.componentProvider.provider.token) || Ms(t)), qs(xs.create, qo, null, [e, n, t, l]);
       }
       function gs(e, n, t, l) {
         return Xi(
@@ -12516,15 +12516,15 @@
         return es(e, p, t, l, r, i, o, s, u, a, d, c, h), 224 & p.flags ? Ar(e, n).value : void 0;
       }
       function Ss(e) {
-        return qs(Ts.detectChanges, Ko, null, [e]);
+        return qs(xs.detectChanges, Ko, null, [e]);
       }
       function ks(e) {
-        return qs(Ts.checkNoChanges, $o, null, [e]);
+        return qs(xs.checkNoChanges, $o, null, [e]);
       }
       function Ls(e) {
-        return qs(Ts.destroy, ts, null, [e]);
+        return qs(xs.destroy, ts, null, [e]);
       }
-      const Ts = (function() {
+      const xs = (function() {
         var e = { create: 0, detectChanges: 1, checkNoChanges: 2, destroy: 3, handleEvent: 4 };
         return (
           (e[e.create] = 'create'),
@@ -12535,15 +12535,15 @@
           e
         );
       })();
-      let xs, Es, Os;
+      let Ts, Es, Os;
       function Rs(e, n) {
         (Es = e), (Os = n);
       }
       function Is(e, n, t, l) {
-        return Rs(e, n), qs(Ts.handleEvent, e.def.handleEvent, null, [e, n, t, l]);
+        return Rs(e, n), qs(xs.handleEvent, e.def.handleEvent, null, [e, n, t, l]);
       }
       function Ys(e, n) {
-        if (128 & e.state) throw Er(Ts[xs]);
+        if (128 & e.state) throw Er(xs[Ts]);
         return (
           Rs(e, Bs(e, 0)),
           e.def.updateDirectives(function(e, t, l, ...r) {
@@ -12557,7 +12557,7 @@
         );
       }
       function js(e, n) {
-        if (128 & e.state) throw Er(Ts[xs]);
+        if (128 & e.state) throw Er(xs[Ts]);
         return (
           Rs(e, Us(e, 0)),
           e.def.updateRenderer(function(e, t, l, ...r) {
@@ -12689,17 +12689,17 @@
         for (let l in n.references) t[l] = Eo(e, n, n.references[l]);
       }
       function qs(e, n, t, l) {
-        const r = xs,
+        const r = Ts,
           i = Es,
           o = Os;
         try {
-          xs = e;
+          Ts = e;
           const s = n.apply(t, l);
-          return (Es = i), (Os = o), (xs = r), s;
+          return (Es = i), (Os = o), (Ts = r), s;
         } catch (e) {
           if (Ge(e) || !Es) throw e;
           throw (function(e, n) {
-            return e instanceof Error || (e = new Error(e.toString())), xr(e, n), e;
+            return e instanceof Error || (e = new Error(e.toString())), Tr(e, n), e;
           })(e, zs());
         }
       }
@@ -12998,8 +12998,8 @@
       function Lu(e, n, t) {
         const l = e.data.views;
         if (
-          (t > 0 && xu(l[t - 1], n),
-          t < l.length ? (xu(n, l[t]), l.splice(t, 0, n)) : l.push(n),
+          (t > 0 && Tu(l[t - 1], n),
+          t < l.length ? (Tu(n, l[t]), l.splice(t, 0, n)) : l.push(n),
           null !== e.data.renderParent)
         ) {
           let t = wu(n, e);
@@ -13011,11 +13011,11 @@
         }
         return n;
       }
-      function Tu(e, n) {
+      function xu(e, n) {
         const t = e.data.views,
           l = t[n];
         return (
-          n > 0 && xu(t[n - 1], l.next),
+          n > 0 && Tu(t[n - 1], l.next),
           t.splice(n, 1),
           (l.next = null),
           (function(e) {
@@ -13041,7 +13041,7 @@
           l
         );
       }
-      function xu(e, n) {
+      function Tu(e, n) {
         (e.next = n), (e.data.next = n ? n.data : null);
       }
       function Eu(e, n) {
@@ -13330,7 +13330,7 @@
       function ba(e, n, t, l, r) {
         const i = $u;
         ua
-          ? (ngDevMode && xd(e - 1),
+          ? (ngDevMode && Td(e - 1),
             (i.tNode = Zu[e] = Oa(n, t || null, r)),
             (function(e, n, t) {
               const l = t ? { '': -1 } : null,
@@ -13442,7 +13442,7 @@
         }
       }
       function ka(e, n) {
-        ngDevMode && xd(-1), (Qu = e);
+        ngDevMode && Td(-1), (Qu = e);
         const t = e.createRenderer(null, null),
           l = 'string' == typeof n ? (vu(t) ? t.selectRootElement(n) : t.querySelector(n)) : n;
         if (ngDevMode && !l)
@@ -13482,14 +13482,14 @@
           (u = s[e]) &&
           (function(e, n) {
             for (let t = 0; t < e.length; t += 2) {
-              ngDevMode && xd(e[t], la);
+              ngDevMode && Td(e[t], la);
               const l = la[e[t]][e[t + 1]].subscribe(n);
               ra.push(l.unsubscribe, l);
             }
           })(u, n);
       }
-      function Ta() {
-        Ku ? (Ku = !1) : (ngDevMode && Td(), ($u = $u.parent)), ngDevMode && mu($u, 3);
+      function xa() {
+        Ku ? (Ku = !1) : (ngDevMode && xd(), ($u = $u.parent)), ngDevMode && mu($u, 3);
         const e = $u.queries;
         e && e.addNode($u),
           (function(e, n) {
@@ -13504,7 +13504,7 @@
             }
           })($u.tNode.flags, ia);
       }
-      function xa(e, n, t, l) {
+      function Ta(e, n, t, l) {
         if (t !== od) {
           const r = ta[e];
           if (null == t) vu(Ju) ? Ju.removeAttribute(r.native, n) : r.native.removeAttribute(n);
@@ -13523,7 +13523,7 @@
         let s;
         if (o && (s = o[n]))
           !(function(e, n) {
-            for (let t = 0; t < e.length; t += 2) ngDevMode && xd(e[t], la), (la[e[t]][e[t + 1]] = n);
+            for (let t = 0; t < e.length; t += 2) ngDevMode && Td(e[t], la), (la[e[t]][e[t + 1]] = n);
           })(s, t),
             (function(e) {
               !e.data || 2 & e.data.flags || (e.data.flags |= 4);
@@ -13616,7 +13616,7 @@
         (Ku = !1), Iu(l.parent, t, ia);
       }
       function Fa(e, n) {
-        ngDevMode && xd(e);
+        ngDevMode && Td(e);
         let t = ta[e];
         ngDevMode && iu(t, 'existing node'),
           t.native
@@ -13724,7 +13724,7 @@
         s && (s.addNode(o), (i.queries = s.container()));
       }
       function Wa(e) {
-        ngDevMode && xd(e),
+        ngDevMode && Td(e),
           ($u = ta[e]),
           ngDevMode && mu($u, 0),
           (Ku = !0),
@@ -13733,11 +13733,11 @@
           sa || du(ia, ia.tView, na);
       }
       function Ga() {
-        Ku ? (Ku = !1) : (ngDevMode && mu($u, 2), ngDevMode && Td(), ($u = $u.parent)), ngDevMode && mu($u, 0);
+        Ku ? (Ku = !1) : (ngDevMode && mu($u, 2), ngDevMode && xd(), ($u = $u.parent)), ngDevMode && mu($u, 0);
         const e = $u;
         (e.native = void 0), ngDevMode && mu(e, 0);
         const n = e.data.nextIndex;
-        for (; n < e.data.views.length; ) Tu(e, n);
+        for (; n < e.data.views.length; ) xu(e, n);
       }
       function qa() {
         for (let e = ia.child; null !== e; e = e.next)
@@ -13759,7 +13759,7 @@
             const n = r[i].data.id;
             if (n === l) return r[i];
             if (!(n < l)) break;
-            Tu(e, i);
+            xu(e, i);
           }
           return null;
         })(n, 0, e);
@@ -13814,11 +13814,11 @@
         da(ia.parent), ngDevMode && nu(Ku, !1, 'isParent'), ngDevMode && mu($u, 2);
       }
       function Qa(e, n) {
-        ngDevMode && xd(n);
+        ngDevMode && Td(n);
         const t = ta[n];
         ngDevMode && mu(t, 3), ngDevMode && iu(t.data, "Component's host node should have an LView attached.");
         const l = t.data;
-        8 == (8 & l.flags) && 6 & l.flags && (ngDevMode && xd(e, la), rd(l, t, ia.tView.directives[e], kd(la[e])));
+        8 == (8 & l.flags) && 6 & l.flags && (ngDevMode && Td(e, la), rd(l, t, ia.tView.directives[e], kd(la[e])));
       }
       function $a(e, n, t) {
         const l = n ? n.length + 1 : 1,
@@ -13972,16 +13972,16 @@
         e >= Zu.length && (Zu[e] = null), (ta[e] = n);
       }
       function yd(e) {
-        return ngDevMode && xd(e), ta[e];
+        return ngDevMode && Td(e), ta[e];
       }
       function bd(e) {
         return (
-          ngDevMode && iu(la, 'Directives array should be defined if reading a dir.'), ngDevMode && xd(e, la), la[e]
+          ngDevMode && iu(la, 'Directives array should be defined if reading a dir.'), ngDevMode && Td(e, la), la[e]
         );
       }
       function Cd() {
         return (
-          ngDevMode && xd(ia.bindingIndex),
+          ngDevMode && Td(ia.bindingIndex),
           ngDevMode && tu(ta[ia.bindingIndex], od, 'Stored value should never be NO_CHANGE.'),
           ta[ia.bindingIndex++]
         );
@@ -14014,10 +14014,10 @@
       function Ld() {
         nu(Ku, !0, 'previousOrParentNode should be a parent');
       }
-      function Td() {
+      function xd() {
         iu($u.parent, 'previousOrParentNode should have a parent');
       }
-      function xd(e, n) {
+      function Td(e, n) {
         null == n && (n = ta), lu(e, n ? n.length : 0, 'index expected to be a valid data index');
       }
       function Ed(e, n) {
@@ -14239,7 +14239,7 @@
         if (null === l) {
           const e = Le(Xu().view.injector);
           try {
-            return Te(n, t);
+            return xe(n, t);
           } finally {
             Le(e);
           }
@@ -14392,7 +14392,7 @@
         }
         detach(e) {
           const n = this._adjustIndex(e, -1);
-          return Tu(this._lContainerNode, n), this._viewRefs.splice(n, 1)[0] || null;
+          return xu(this._lContainerNode, n), this._viewRefs.splice(n, 1)[0] || null;
         }
         _adjustIndex(e, n = 0) {
           return null == e
@@ -14572,11 +14572,11 @@
         const r = l.n();
         return vd(e, r), r;
       }
-      function Tc(e, n) {
+      function xc(e, n) {
         const t = yd(e);
         return Ic(e) ? yc(t.transform, n, t) : t.transform(n);
       }
-      function xc(e, n, t) {
+      function Tc(e, n, t) {
         const l = yd(e);
         return Ic(e) ? bc(l.transform, n, t, l) : l.transform(n, t);
       }
@@ -15973,7 +15973,7 @@
                 null
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -15992,7 +15992,7 @@
                 null
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
@@ -16662,7 +16662,7 @@
                     null
                   ),
                   (e()(), l.ɵeld(99, 0, null, null, 0, 'hr', [['class', 'my-2']], null, null, null, null, null)),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
                   l.ɵdid(101, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -16820,7 +16820,7 @@
                   )),
                   (e()(), l.ɵand(16777216, null, null, 1, null, v)),
                   l.ɵdid(14, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
                   l.ɵdid(16, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   l.ɵeld(
@@ -20714,7 +20714,7 @@
                 }
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -21038,11 +21038,11 @@
                 }
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
-                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-adicional', [], null, null, null, T, y)),
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-adicional', [], null, null, null, x, y)),
                   l.ɵdid(1, 114688, null, 0, g.AdicionalComponent, [_.AdicionalService, v.ToastService], null, null)
                 ],
                 function(e, n) {
@@ -21052,9 +21052,9 @@
               );
             }
             (n.RenderType_AdicionalComponent = y),
-              (n.View_AdicionalComponent_0 = T),
-              (n.View_AdicionalComponent_Host_0 = x);
-            var E = l.ɵccf('app-adicional', g.AdicionalComponent, x, {}, {}, []);
+              (n.View_AdicionalComponent_0 = x),
+              (n.View_AdicionalComponent_Host_0 = T);
+            var E = l.ɵccf('app-adicional', g.AdicionalComponent, T, {}, {}, []);
             n.AdicionalComponentNgFactory = E;
           }.apply(n, l)) || (e.exports = r);
     },
@@ -22105,7 +22105,7 @@
                   e(n, 8, 0, n.context.$implicit.checked);
                 },
                 function(e, n) {
-                  e(n, 1, 0, '/files/' + n.context.$implicit.archivo),
+                  e(n, 1, 0, n.context.$implicit.archivo),
                     e(
                       n,
                       5,
@@ -22141,40 +22141,6 @@
                     null,
                     2,
                     'button',
-                    [['class', 'btn btn-primary mr-2'], ['type', 'button']],
-                    null,
-                    [[null, 'click']],
-                    function(e, n, t) {
-                      var l = !0;
-                      return 'click' === n && (l = !1 !== e.component.select() && l), l;
-                    },
-                    null,
-                    null
-                  )),
-                  (e()(),
-                  l.ɵeld(
-                    6,
-                    0,
-                    null,
-                    null,
-                    0,
-                    'i',
-                    [['aria-hidden', 'true'], ['class', 'fa fa-check']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  )),
-                  (e()(), l.ɵted(-1, null, [' Seleccionar '])),
-                  (e()(),
-                  l.ɵeld(
-                    8,
-                    0,
-                    null,
-                    null,
-                    2,
-                    'button',
                     [['class', 'btn btn-link btn-primary'], ['type', 'button']],
                     null,
                     [[null, 'click']],
@@ -22187,7 +22153,7 @@
                   )),
                   (e()(),
                   l.ɵeld(
-                    9,
+                    6,
                     0,
                     null,
                     null,
@@ -22201,6 +22167,40 @@
                     null
                   )),
                   (e()(), l.ɵted(-1, null, [' Cancelar '])),
+                  (e()(),
+                  l.ɵeld(
+                    8,
+                    0,
+                    null,
+                    null,
+                    2,
+                    'button',
+                    [['class', 'btn btn-primary mr-2'], ['type', 'button']],
+                    null,
+                    [[null, 'click']],
+                    function(e, n, t) {
+                      var l = !0;
+                      return 'click' === n && (l = !1 !== e.component.select() && l), l;
+                    },
+                    null,
+                    null
+                  )),
+                  (e()(),
+                  l.ɵeld(
+                    9,
+                    0,
+                    null,
+                    null,
+                    0,
+                    'i',
+                    [['aria-hidden', 'true'], ['class', 'fa fa-check']],
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                  )),
+                  (e()(), l.ɵted(-1, null, [' Seleccionar '])),
                   (e()(), l.ɵeld(11, 0, null, null, 2, 'div', [['class', 'row mb-1']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, u)),
                   l.ɵdid(13, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
@@ -24427,24 +24427,37 @@
             Object.defineProperty(n, '__esModule', { value: !0 }),
               (n.SubirModalComponent = class {
                 constructor(e) {
-                  (this.toast = e), (this._model = {}), (this._guardar = new t.EventEmitter());
+                  (this.toast = e),
+                    (this._model = {}),
+                    (this._guardar = new t.EventEmitter()),
+                    (this.imagesPreview = []);
                 }
                 ngOnInit() {}
                 openFileInput() {
                   document.getElementById('file').click();
                 }
                 handleFileChange(e) {
-                  this._model.file = e.target.files[0];
-                  let n = new FileReader();
-                  n.readAsDataURL(this._model.file),
-                    (n.onload = e => {
-                      this._model.imagePreview = n.result;
-                    });
+                  let n = e.target.files;
+                  this._model.files = n;
+                  let t,
+                    l = [];
+                  n.length > 10
+                    ? (this.toast.showWarning('Solo puedes seleccionar 10 im\xe1genes como m\xe1ximo.'), (t = 10))
+                    : (t = n.length);
+                  for (let r = 0; r < t; r++) {
+                    let e = n[r],
+                      t = new FileReader();
+                    t.readAsDataURL(e),
+                      (t.onload = e => {
+                        l.push(t.result);
+                      });
+                  }
+                  this.imagesPreview = l;
                 }
                 guardar(e) {
-                  this._model.file
+                  0 != this._model.files.length
                     ? this._guardar.next(Object.assign({}, this._model))
-                    : this.toast.showWarning('Debes seleccionar una imagen.');
+                    : this.toast.showWarning('Debes seleccionar almenos una imagen.');
                 }
               });
           }.apply(n, l)) || (e.exports = r);
@@ -25702,7 +25715,7 @@
                 }
               );
             }
-            function T(e) {
+            function x(e) {
               return t.ɵvid(
                 0,
                 [
@@ -26039,7 +26052,7 @@
                 }
               );
             }
-            function x(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -26059,7 +26072,7 @@
                   t.ɵpod(4, { width: 0, border: 1 }),
                   (e()(), t.ɵand(16777216, null, null, 1, null, m)),
                   t.ɵdid(6, 16384, null, 0, l.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, x)),
                   t.ɵdid(8, 16384, null, 0, l.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -26075,7 +26088,7 @@
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 4, 'my-date-picker', [], null, null, null, x, a)),
+                  (e()(), t.ɵeld(0, 0, null, null, 4, 'my-date-picker', [], null, null, null, T, a)),
                   t.ɵprd(
                     5120,
                     null,
@@ -26102,7 +26115,7 @@
                 null
               );
             }
-            (n.RenderType_MyDatePicker = a), (n.View_MyDatePicker_0 = x), (n.View_MyDatePicker_Host_0 = E);
+            (n.RenderType_MyDatePicker = a), (n.View_MyDatePicker_0 = T), (n.View_MyDatePicker_Host_0 = E);
             var O = t.ɵccf(
               'my-date-picker',
               o.MyDatePicker,
@@ -27823,7 +27836,7 @@
                 }
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -27848,7 +27861,7 @@
                 null
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28280,7 +28293,7 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
                   l.ɵdid(3, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵand(16777216, null, null, 1, null, O)),
                   l.ɵdid(5, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
@@ -29260,7 +29273,7 @@
                     null
                   ),
                   (e()(), l.ɵeld(33, 0, null, null, 4, 'div', [['class', 'row']], null, null, null, null, null)),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
                   l.ɵdid(35, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵand(16777216, null, null, 1, null, R)),
                   l.ɵdid(
@@ -35135,7 +35148,7 @@
           return Ee;
         }),
         t.d(n, 'NgLocalization', function() {
-          return Te;
+          return xe;
         }),
         t.d(n, 'registerLocaleData', function() {
           return f;
@@ -35183,10 +35196,10 @@
           return L;
         }),
         t.d(n, 'getLocaleWeekEndRange', function() {
-          return x;
+          return T;
         }),
         t.d(n, 'getLocaleFirstDayOfWeek', function() {
-          return T;
+          return x;
         }),
         t.d(n, 'getLocaleDateFormat', function() {
           return E;
@@ -35276,7 +35289,7 @@
           return Ln;
         }),
         t.d(n, 'I18nPluralPipe', function() {
-          return xn;
+          return Tn;
         }),
         t.d(n, 'I18nSelectPipe', function() {
           return En;
@@ -35804,10 +35817,10 @@
       function L(e, n) {
         return B(W(e)[7], n);
       }
-      function T(e) {
+      function x(e) {
         return W(e)[8];
       }
-      function x(e) {
+      function T(e) {
         return W(e)[9];
       }
       function E(e, n) {
@@ -36512,15 +36525,15 @@
         return n;
       }
       const Le = new l.InjectionToken('UseV4Plurals');
-      class Te {}
-      function xe(e, n, t, l) {
+      class xe {}
+      function Te(e, n, t, l) {
         let r = `=${e}`;
         if (n.indexOf(r) > -1) return r;
         if (((r = t.getPluralCategory(e, l)), n.indexOf(r) > -1)) return r;
         if (n.indexOf('other') > -1) return 'other';
         throw new Error(`No plural message found for value "${e}"`);
       }
-      class Ee extends Te {
+      class Ee extends xe {
         constructor(e, n) {
           super(), (this.locale = e), (this.deprecatedPluralFn = n);
         }
@@ -37182,7 +37195,7 @@
         _updateView() {
           this._clearViews();
           const e = Object.keys(this._caseViews),
-            n = xe(this._switchValue, e, this._localization);
+            n = Te(this._switchValue, e, this._localization);
           this._activateView(this._caseViews[n]);
         }
         _clearViews() {
@@ -37583,15 +37596,15 @@
           }
         }
       }
-      const Tn = /#/g;
-      class xn {
+      const xn = /#/g;
+      class Tn {
         constructor(e) {
           this._localization = e;
         }
         transform(e, n, t) {
           if (null == e) return '';
-          if ('object' != typeof n || null === n) throw Ke(xn, n);
-          return n[xe(e, Object.keys(n), this._localization, t)].replace(Tn, e.toString());
+          if ('object' != typeof n || null === n) throw Ke(Tn, n);
+          return n[Te(e, Object.keys(n), this._localization, t)].replace(xn, e.toString());
         }
       }
       class En {
@@ -37676,7 +37689,7 @@
           return 'string' == typeof e || Array.isArray(e);
         }
       }
-      const Fn = [Mn, kn, Dn, On, Pn, Rn, In, Sn, Yn, Ln, xn, En];
+      const Fn = [Mn, kn, Dn, On, Pn, Rn, In, Sn, Yn, Ln, Tn, En];
       class Vn {}
       class Hn {}
       const Bn = new l.InjectionToken('DocumentToken'),
@@ -37997,8 +38010,8 @@
             S,
             k,
             L,
-            T,
             x,
+            T,
             E,
             O,
             R,
@@ -38051,11 +38064,11 @@
             Se,
             ke,
             Le,
-            Te
+            xe
           ) {
             'use strict';
             Object.defineProperty(n, '__esModule', { value: !0 });
-            var xe = t.ɵcmf(l.AppModule, [r.AppComponent], function(e) {
+            var Te = t.ɵcmf(l.AppModule, [r.AppComponent], function(e) {
               return t.ɵmod([
                 t.ɵmpd(512, t.ComponentFactoryResolver, t.ɵCodegenComponentFactoryResolver, [
                   [
@@ -38085,21 +38098,21 @@
                       S.CaptacionComponentNgFactory,
                       k.MarcacionComponentNgFactory,
                       L.GaleriaComponentNgFactory,
-                      T.AppComponentNgFactory
+                      x.AppComponentNgFactory
                     ]
                   ],
                   [3, t.ComponentFactoryResolver],
                   t.NgModuleRef
                 ]),
                 t.ɵmpd(5120, t.LOCALE_ID, t.ɵangular_packages_core_core_l, [[3, t.LOCALE_ID]]),
-                t.ɵmpd(4608, x.NgLocalization, x.NgLocaleLocalization, [
+                t.ɵmpd(4608, T.NgLocalization, T.NgLocaleLocalization, [
                   t.LOCALE_ID,
-                  [2, x.ɵangular_packages_common_common_a]
+                  [2, T.ɵangular_packages_common_common_a]
                 ]),
                 t.ɵmpd(5120, t.APP_ID, t.ɵangular_packages_core_core_f, []),
                 t.ɵmpd(5120, t.IterableDiffers, t.ɵangular_packages_core_core_j, []),
                 t.ɵmpd(5120, t.KeyValueDiffers, t.ɵangular_packages_core_core_k, []),
-                t.ɵmpd(4608, E.DomSanitizer, E.ɵangular_packages_platform_browser_platform_browser_e, [x.DOCUMENT]),
+                t.ɵmpd(4608, E.DomSanitizer, E.ɵangular_packages_platform_browser_platform_browser_e, [T.DOCUMENT]),
                 t.ɵmpd(6144, t.Sanitizer, null, [E.DomSanitizer]),
                 t.ɵmpd(4608, E.HAMMER_GESTURE_CONFIG, E.HammerGestureConfig, []),
                 t.ɵmpd(
@@ -38113,23 +38126,23 @@
                     ];
                   },
                   [
-                    x.DOCUMENT,
+                    T.DOCUMENT,
                     t.NgZone,
                     [2, t.PLATFORM_ID],
-                    x.DOCUMENT,
-                    x.DOCUMENT,
+                    T.DOCUMENT,
+                    T.DOCUMENT,
                     E.HAMMER_GESTURE_CONFIG,
                     t.ɵConsole
                   ]
                 ),
                 t.ɵmpd(4608, E.EventManager, E.EventManager, [E.EVENT_MANAGER_PLUGINS, t.NgZone]),
-                t.ɵmpd(135680, E.ɵDomSharedStylesHost, E.ɵDomSharedStylesHost, [x.DOCUMENT]),
+                t.ɵmpd(135680, E.ɵDomSharedStylesHost, E.ɵDomSharedStylesHost, [T.DOCUMENT]),
                 t.ɵmpd(4608, E.ɵDomRendererFactory2, E.ɵDomRendererFactory2, [E.EventManager, E.ɵDomSharedStylesHost]),
                 t.ɵmpd(6144, t.RendererFactory2, null, [E.ɵDomRendererFactory2]),
                 t.ɵmpd(6144, E.ɵSharedStylesHost, null, [E.ɵDomSharedStylesHost]),
                 t.ɵmpd(4608, t.Testability, t.Testability, [t.NgZone]),
-                t.ɵmpd(4608, E.Meta, E.Meta, [x.DOCUMENT]),
-                t.ɵmpd(4608, E.Title, E.Title, [x.DOCUMENT]),
+                t.ɵmpd(4608, E.Meta, E.Meta, [T.DOCUMENT]),
+                t.ɵmpd(4608, E.Title, E.Title, [T.DOCUMENT]),
                 t.ɵmpd(4608, O.ɵangular_packages_forms_forms_i, O.ɵangular_packages_forms_forms_i, []),
                 t.ɵmpd(4608, R.BrowserXhr, R.BrowserXhr, []),
                 t.ɵmpd(4608, R.ResponseOptions, R.BaseResponseOptions, []),
@@ -38180,7 +38193,7 @@
                   },
                   [Y.ROUTER_INITIALIZER]
                 ),
-                t.ɵmpd(1073742336, x.CommonModule, x.CommonModule, []),
+                t.ɵmpd(1073742336, T.CommonModule, T.CommonModule, []),
                 t.ɵmpd(512, t.ErrorHandler, te.AuthErrorHandler, [t.Injector]),
                 t.ɵmpd(
                   1024,
@@ -38217,12 +38230,12 @@
                 t.ɵmpd(512, Y.UrlSerializer, Y.DefaultUrlSerializer, []),
                 t.ɵmpd(512, Y.ChildrenOutletContexts, Y.ChildrenOutletContexts, []),
                 t.ɵmpd(256, Y.ROUTER_CONFIGURATION, {}, []),
-                t.ɵmpd(1024, x.LocationStrategy, Y.ɵangular_packages_router_router_c, [
-                  x.PlatformLocation,
-                  [2, x.APP_BASE_HREF],
+                t.ɵmpd(1024, T.LocationStrategy, Y.ɵangular_packages_router_router_c, [
+                  T.PlatformLocation,
+                  [2, T.APP_BASE_HREF],
                   Y.ROUTER_CONFIGURATION
                 ]),
-                t.ɵmpd(512, x.Location, x.Location, [x.LocationStrategy]),
+                t.ɵmpd(512, T.Location, T.Location, [T.LocationStrategy]),
                 t.ɵmpd(512, t.Compiler, t.Compiler, []),
                 t.ɵmpd(512, t.NgModuleFactoryLoader, t.SystemJsNgModuleLoader, [
                   t.Compiler,
@@ -38300,7 +38313,7 @@
                   t.ApplicationRef,
                   Y.UrlSerializer,
                   Y.ChildrenOutletContexts,
-                  x.Location,
+                  T.Location,
                   t.Injector,
                   t.NgModuleFactoryLoader,
                   t.Compiler,
@@ -38319,12 +38332,12 @@
                 t.ɵmpd(1073742336, R.HttpModule, R.HttpModule, []),
                 t.ɵmpd(1073742336, ke.CompartidoModule, ke.CompartidoModule, []),
                 t.ɵmpd(1073742336, Le.PrivadoModule, Le.PrivadoModule, []),
-                t.ɵmpd(1073742336, Te.PublicoModule, Te.PublicoModule, []),
+                t.ɵmpd(1073742336, xe.PublicoModule, xe.PublicoModule, []),
                 t.ɵmpd(1073742336, l.AppModule, l.AppModule, []),
                 t.ɵmpd(256, t.ɵAPP_ROOT, !0, [])
               ]);
             });
-            n.AppModuleNgFactory = xe;
+            n.AppModuleNgFactory = Te;
           }.apply(n, l)) || (e.exports = r);
     },
     SxV6: function(e, n, t) {
@@ -39847,7 +39860,7 @@
       'use strict';
       t.r(n),
         t.d(n, '\u0275angular_packages_http_http_e', function() {
-          return T;
+          return x;
         }),
         t.d(n, '\u0275angular_packages_http_http_f', function() {
           return M;
@@ -40293,7 +40306,7 @@
         const e = 'object' == typeof window ? window : {};
         return null === k && (k = e[S] = {}), k;
       }
-      class T {
+      class x {
         build(e) {
           const n = document.createElement('script');
           return (n.src = e), n;
@@ -40317,7 +40330,7 @@
           e.parentNode && e.parentNode.removeChild(e);
         }
       }
-      const x = 'JSONP injected script did not invoke callback.',
+      const T = 'JSONP injected script did not invoke callback.',
         E = 'JSONP requests must use GET request method.';
       class O {
         constructor(e, n, t) {
@@ -40338,7 +40351,7 @@
                 d = e => {
                   if (this.readyState === u.Cancelled) return;
                   if (((this.readyState = u.Done), n.cleanup(s), !this._finished)) {
-                    let e = new p({ body: x, type: a.Error, url: o });
+                    let e = new p({ body: T, type: a.Error, url: o });
                     return t && (e = t.merge(e)), void l.error(new D(e));
                   }
                   let r = new p({ body: this._responseData, url: o });
@@ -42106,8 +42119,8 @@
             S,
             k,
             L,
-            T,
             x,
+            T,
             E,
             O,
             R,
@@ -42404,7 +42417,7 @@
                 ],
                 null,
                 function(e, n) {
-                  e(n, 1, 0, '/files/' + n.context.$implicit.archivo),
+                  e(n, 1, 0, n.context.$implicit.archivo),
                     e(
                       n,
                       4,
@@ -42954,10 +42967,10 @@
                     114688,
                     null,
                     0,
-                    T.HabitacionDetalleComponent,
+                    x.HabitacionDetalleComponent,
                     [
-                      x.ActivatedRoute,
-                      x.Router,
+                      T.ActivatedRoute,
+                      T.Router,
                       E.HabitacionService,
                       O.GaleriaService,
                       R.TipoHabitacionService,
@@ -42978,7 +42991,7 @@
             (n.RenderType_HabitacionDetalleComponent = N),
               (n.View_HabitacionDetalleComponent_0 = G),
               (n.View_HabitacionDetalleComponent_Host_0 = q);
-            var z = l.ɵccf('app-habitacion-detalle', T.HabitacionDetalleComponent, q, {}, {}, []);
+            var z = l.ɵccf('app-habitacion-detalle', x.HabitacionDetalleComponent, q, {}, {}, []);
             n.HabitacionDetalleComponentNgFactory = z;
           }.apply(n, l)) || (e.exports = r);
     },
@@ -45711,7 +45724,7 @@
                 }
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -46048,11 +46061,11 @@
                 }
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
-                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-pasajero', [], null, null, null, T, v)),
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-pasajero', [], null, null, null, x, v)),
                   l.ɵdid(
                     1,
                     4308992,
@@ -46071,9 +46084,9 @@
               );
             }
             (n.RenderType_PasajeroComponent = v),
-              (n.View_PasajeroComponent_0 = T),
-              (n.View_PasajeroComponent_Host_0 = x);
-            var E = l.ɵccf('app-pasajero', m.PasajeroComponent, x, {}, {}, []);
+              (n.View_PasajeroComponent_0 = x),
+              (n.View_PasajeroComponent_Host_0 = T);
+            var E = l.ɵccf('app-pasajero', m.PasajeroComponent, T, {}, {}, []);
             n.PasajeroComponentNgFactory = E;
           }.apply(n, l)) || (e.exports = r);
     },
@@ -47715,7 +47728,7 @@
                 null
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -47762,7 +47775,7 @@
                 }
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
@@ -48051,7 +48064,7 @@
                     null
                   )),
                   (e()(), l.ɵted(-1, null, [' Guardar '])),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
                   l.ɵdid(52, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -48814,7 +48827,7 @@
                   l.ɵdid(9, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵand(16777216, null, null, 1, null, M)),
                   l.ɵdid(11, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
                   l.ɵdid(13, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵand(16777216, null, null, 1, null, U)),
                   l.ɵdid(15, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
@@ -49530,7 +49543,7 @@
           return Ie;
         }),
         t.d(n, 'platformBrowser', function() {
-          return xe;
+          return Te;
         }),
         t.d(n, 'Meta', function() {
           return C;
@@ -49578,7 +49591,7 @@
           return ze;
         }),
         t.d(n, '\u0275BROWSER_SANITIZATION_PROVIDERS', function() {
-          return Te;
+          return xe;
         }),
         t.d(n, '\u0275INTERNAL_BROWSER_PLATFORM_PROVIDERS', function() {
           return Le;
@@ -50300,13 +50313,13 @@
         ('undefined' != typeof COMPILED && COMPILED) || ((r['\u0275global'].ng = r['\u0275global'].ng || {})[e] = n);
       }
       const L = { ApplicationRef: r.ApplicationRef, NgZone: r.NgZone },
-        T = 'probe',
-        x = 'coreTokens';
+        x = 'probe',
+        T = 'coreTokens';
       function E(e) {
         return Object(r.getDebugNode)(e);
       }
       function O(e) {
-        return k(T, E), k(x, Object.assign({}, L, (e || []).reduce((e, n) => ((e[n.name] = n.token), e), {}))), () => E;
+        return k(x, E), k(T, Object.assign({}, L, (e || []).reduce((e, n) => ((e[n.name] = n.token), e), {}))), () => E;
       }
       const R = [{ provide: r.APP_INITIALIZER, useFactory: O, deps: [[r.NgProbeToken, new r.Optional()]], multi: !0 }],
         I = new r.InjectionToken('EventManagerPlugins');
@@ -50894,8 +50907,8 @@
           { provide: l.PlatformLocation, useClass: b, deps: [v] },
           { provide: v, useFactory: Re, deps: [] }
         ],
-        Te = [{ provide: r.Sanitizer, useExisting: be }, { provide: be, useClass: Ce, deps: [v] }],
-        xe = Object(r.createPlatformFactory)(r.platformCore, 'browser', Le);
+        xe = [{ provide: r.Sanitizer, useExisting: be }, { provide: be, useClass: Ce, deps: [v] }],
+        Te = Object(r.createPlatformFactory)(r.platformCore, 'browser', Le);
       function Ee() {
         f.makeCurrent(), A.init();
       }
@@ -53069,7 +53082,7 @@
                 }
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -53093,9 +53106,9 @@
             }
             (n.RenderType_RegistroComponent = c),
               (n.View_RegistroComponent_0 = L),
-              (n.View_RegistroComponent_Host_0 = T);
-            var x = l.ɵccf('app-registro', s.RegistroComponent, T, {}, {}, []);
-            n.RegistroComponentNgFactory = x;
+              (n.View_RegistroComponent_Host_0 = x);
+            var T = l.ɵccf('app-registro', s.RegistroComponent, x, {}, {}, []);
+            n.RegistroComponentNgFactory = T;
           }.apply(n, l)) || (e.exports = r);
     },
     fCwG: function(e, n, t) {
@@ -54351,6 +54364,19 @@
               return l.ɵvid(
                 0,
                 [
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'item']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(1, 0, null, null, 0, 'img', [], [[8, 'src', 4]], null, null, null, null))
+                ],
+                null,
+                function(e, n) {
+                  e(n, 1, 0, n.context.$implicit);
+                }
+              );
+            }
+            function p(e) {
+              return l.ɵvid(
+                0,
+                [
                   (e()(),
                   l.ɵeld(
                     0,
@@ -54373,7 +54399,7 @@
                 }
               );
             }
-            function p(e) {
+            function m(e) {
               return l.ɵvid(
                 0,
                 [
@@ -54420,7 +54446,7 @@
                 }
               );
             }
-            function m(e) {
+            function f(e) {
               return l.ɵvid(
                 0,
                 [
@@ -54467,7 +54493,7 @@
                 }
               );
             }
-            function f(e) {
+            function g(e) {
               return l.ɵvid(
                 0,
                 [
@@ -54477,12 +54503,15 @@
                     0,
                     null,
                     null,
-                    27,
+                    21,
                     'app-modal',
                     [],
                     null,
-                    null,
-                    null,
+                    [[null, '_submit']],
+                    function(e, n, t) {
+                      var l = !0;
+                      return '_submit' === n && (l = !1 !== e.component.guardar() && l), l;
+                    },
                     o.View_ModalComponent_0,
                     o.RenderType_ModalComponent
                   )),
@@ -54499,26 +54528,45 @@
                       _title: [2, '_title'],
                       _loading: [3, '_loading']
                     },
+                    { _submit: '_submit' }
+                  ),
+                  (e()(), l.ɵeld(2, 0, null, 0, 19, 'div', [['class', 'modal-body']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(3, 0, null, null, 2, 'div', [['class', 'mansory']], null, null, null, null, null)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, h)),
+                  l.ɵdid(
+                    5,
+                    802816,
+                    null,
+                    0,
+                    i.NgForOf,
+                    [l.ViewContainerRef, l.TemplateRef, l.IterableDiffers],
+                    { ngForOf: [0, 'ngForOf'] },
                     null
                   ),
-                  (e()(), l.ɵeld(2, 0, null, 0, 25, 'div', [['class', 'modal-body']], null, null, null, null, null)),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, h)),
-                  l.ɵdid(4, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(),
-                  l.ɵeld(5, 0, null, null, 5, 'p', [['class', 'text-center m-1']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, p)),
                   l.ɵdid(7, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(),
+                  l.ɵeld(8, 0, null, null, 5, 'p', [['class', 'text-center m-1']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, m)),
-                  l.ɵdid(9, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  l.ɵdid(10, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, f)),
+                  l.ɵdid(12, 16384, null, 0, i.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   l.ɵeld(
-                    10,
+                    13,
                     0,
                     null,
                     null,
                     0,
                     'input',
-                    [['accept', 'image/*'], ['hidden', 'true'], ['id', 'file'], ['name', 'file'], ['type', 'file']],
+                    [
+                      ['accept', 'image/*'],
+                      ['hidden', 'true'],
+                      ['id', 'file'],
+                      ['multiple', ''],
+                      ['name', 'file'],
+                      ['type', 'file']
+                    ],
                     null,
                     [[null, 'change']],
                     function(e, n, t) {
@@ -54528,14 +54576,14 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵeld(11, 0, null, null, 0, 'br', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(14, 0, null, null, 0, 'br', [], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    12,
+                    15,
                     0,
                     null,
                     null,
-                    15,
+                    6,
                     'form',
                     [['id', 'formFoto'], ['name', 'formFoto'], ['novalidate', '']],
                     [
@@ -54552,9 +54600,9 @@
                       var r = !0,
                         i = e.component;
                       return (
-                        'submit' === n && (r = !1 !== l.ɵnov(e, 16).onSubmit(t) && r),
-                        'reset' === n && (r = !1 !== l.ɵnov(e, 16).onReset() && r),
-                        'ngSubmit' === n && (r = !1 !== i.guardar(l.ɵnov(e, 16)) && r),
+                        'submit' === n && (r = !1 !== l.ɵnov(e, 19).onSubmit(t) && r),
+                        'reset' === n && (r = !1 !== l.ɵnov(e, 19).onReset() && r),
+                        'ngSubmit' === n && (r = !1 !== i.guardar(l.ɵnov(e, 19)) && r),
                         r
                       );
                     },
@@ -54562,7 +54610,7 @@
                     null
                   )),
                   l.ɵdid(
-                    13,
+                    16,
                     278528,
                     null,
                     0,
@@ -54571,129 +54619,42 @@
                     { ngClass: [0, 'ngClass'] },
                     null
                   ),
-                  l.ɵpod(14, { 'was-validated': 0 }),
-                  l.ɵdid(15, 16384, null, 0, u.ɵangular_packages_forms_forms_bg, [], null, null),
-                  l.ɵdid(16, 4210688, [['f', 4]], 0, u.NgForm, [[8, null], [8, null]], null, { ngSubmit: 'ngSubmit' }),
+                  l.ɵpod(17, { 'was-validated': 0 }),
+                  l.ɵdid(18, 16384, null, 0, u.ɵangular_packages_forms_forms_bg, [], null, null),
+                  l.ɵdid(19, 4210688, [['f', 4]], 0, u.NgForm, [[8, null], [8, null]], null, { ngSubmit: 'ngSubmit' }),
                   l.ɵprd(2048, null, u.ControlContainer, null, [u.NgForm]),
-                  l.ɵdid(18, 16384, null, 0, u.NgControlStatusGroup, [[4, u.ControlContainer]], null, null),
-                  (e()(), l.ɵeld(19, 0, null, null, 8, 'div', [['class', 'form-group']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(20, 0, null, null, 1, 'label', [['for', 'descripcion']], null, null, null, null, null)),
-                  (e()(), l.ɵted(-1, null, ['Agrega una descripci\xf3n'])),
-                  (e()(),
-                  l.ɵeld(
-                    22,
-                    0,
-                    null,
-                    null,
-                    5,
-                    'input',
-                    [['class', 'form-control'], ['id', 'descripcion'], ['name', 'name'], ['placeholder', '(Opcional)']],
-                    [
-                      [2, 'ng-untouched', null],
-                      [2, 'ng-touched', null],
-                      [2, 'ng-pristine', null],
-                      [2, 'ng-dirty', null],
-                      [2, 'ng-valid', null],
-                      [2, 'ng-invalid', null],
-                      [2, 'ng-pending', null]
-                    ],
-                    [
-                      [null, 'ngModelChange'],
-                      [null, 'input'],
-                      [null, 'blur'],
-                      [null, 'compositionstart'],
-                      [null, 'compositionend']
-                    ],
-                    function(e, n, t) {
-                      var r = !0,
-                        i = e.component;
-                      return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 23)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 23).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 23)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 23)._compositionEnd(t.target.value) && r),
-                        'ngModelChange' === n && (r = !1 !== (i._model.descripcion = t) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(
-                    23,
-                    16384,
-                    null,
-                    0,
-                    u.DefaultValueAccessor,
-                    [l.Renderer2, l.ElementRef, [2, u.COMPOSITION_BUFFER_MODE]],
-                    null,
-                    null
-                  ),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    u.NG_VALUE_ACCESSOR,
-                    function(e) {
-                      return [e];
-                    },
-                    [u.DefaultValueAccessor]
-                  ),
-                  l.ɵdid(
-                    25,
-                    671744,
-                    [['descripcion', 4]],
-                    0,
-                    u.NgModel,
-                    [[2, u.ControlContainer], [8, null], [8, null], [6, u.NG_VALUE_ACCESSOR]],
-                    { name: [0, 'name'], model: [1, 'model'] },
-                    { update: 'ngModelChange' }
-                  ),
-                  l.ɵprd(2048, null, u.NgControl, null, [u.NgModel]),
-                  l.ɵdid(27, 16384, null, 0, u.NgControlStatus, [[4, u.NgControl]], null, null)
+                  l.ɵdid(21, 16384, null, 0, u.NgControlStatusGroup, [[4, u.ControlContainer]], null, null)
                 ],
                 function(e, n) {
                   var t = n.component;
                   e(n, 1, 0, 'subirModal', 'formFoto', 'Subir imagen', t._loading),
-                    e(n, 4, 0, t._model.imagePreview),
-                    e(n, 7, 0, !t._model.file),
-                    e(n, 9, 0, t._model.file),
-                    e(n, 13, 0, e(n, 14, 0, l.ɵnov(n, 16).submitted)),
-                    e(n, 25, 0, 'name', t._model.descripcion);
+                    e(n, 5, 0, t.imagesPreview),
+                    e(n, 7, 0, t._model.imagePreview),
+                    e(n, 10, 0, !t._model.file),
+                    e(n, 12, 0, t._model.file),
+                    e(n, 16, 0, e(n, 17, 0, l.ɵnov(n, 19).submitted));
                 },
                 function(e, n) {
                   e(
                     n,
-                    12,
+                    15,
                     0,
-                    l.ɵnov(n, 18).ngClassUntouched,
-                    l.ɵnov(n, 18).ngClassTouched,
-                    l.ɵnov(n, 18).ngClassPristine,
-                    l.ɵnov(n, 18).ngClassDirty,
-                    l.ɵnov(n, 18).ngClassValid,
-                    l.ɵnov(n, 18).ngClassInvalid,
-                    l.ɵnov(n, 18).ngClassPending
-                  ),
-                    e(
-                      n,
-                      22,
-                      0,
-                      l.ɵnov(n, 27).ngClassUntouched,
-                      l.ɵnov(n, 27).ngClassTouched,
-                      l.ɵnov(n, 27).ngClassPristine,
-                      l.ɵnov(n, 27).ngClassDirty,
-                      l.ɵnov(n, 27).ngClassValid,
-                      l.ɵnov(n, 27).ngClassInvalid,
-                      l.ɵnov(n, 27).ngClassPending
-                    );
+                    l.ɵnov(n, 21).ngClassUntouched,
+                    l.ɵnov(n, 21).ngClassTouched,
+                    l.ɵnov(n, 21).ngClassPristine,
+                    l.ɵnov(n, 21).ngClassDirty,
+                    l.ɵnov(n, 21).ngClassValid,
+                    l.ɵnov(n, 21).ngClassInvalid,
+                    l.ɵnov(n, 21).ngClassPending
+                  );
                 }
               );
             }
-            function g(e) {
+            function _(e) {
               return l.ɵvid(
                 0,
                 [
-                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-subir-modal', [], null, null, null, f, c)),
+                  (e()(), l.ɵeld(0, 0, null, null, 1, 'app-subir-modal', [], null, null, null, g, c)),
                   l.ɵdid(1, 114688, null, 0, a.SubirModalComponent, [d.ToastService], null, null)
                 ],
                 function(e, n) {
@@ -54703,17 +54664,17 @@
               );
             }
             (n.RenderType_SubirModalComponent = c),
-              (n.View_SubirModalComponent_0 = f),
-              (n.View_SubirModalComponent_Host_0 = g);
-            var _ = l.ɵccf(
+              (n.View_SubirModalComponent_0 = g),
+              (n.View_SubirModalComponent_Host_0 = _);
+            var v = l.ɵccf(
               'app-subir-modal',
               a.SubirModalComponent,
-              g,
+              _,
               { _loading: '_loading', _model: '_model' },
               { _guardar: '_guardar' },
               []
             );
-            n.SubirModalComponentNgFactory = _;
+            n.SubirModalComponentNgFactory = v;
           }.apply(n, l)) || (e.exports = r);
     },
     hQ5R: function(e, n, t) {
@@ -55163,10 +55124,10 @@
           return je;
         }),
         t.d(n, 'RouterLink', function() {
-          return Tn;
+          return xn;
         }),
         t.d(n, 'RouterLinkWithHref', function() {
-          return xn;
+          return Tn;
         }),
         t.d(n, 'RouterLinkActive', function() {
           return On;
@@ -55187,10 +55148,10 @@
           return Y;
         }),
         t.d(n, 'GuardsCheckEnd', function() {
-          return x;
+          return T;
         }),
         t.d(n, 'GuardsCheckStart', function() {
-          return T;
+          return x;
         }),
         t.d(n, 'NavigationCancel', function() {
           return S;
@@ -55376,7 +55337,7 @@
           }', state: ${this.state})`;
         }
       }
-      class T extends M {
+      class x extends M {
         constructor(e, n, t, l) {
           super(e, n), (this.urlAfterRedirects = t), (this.state = l);
         }
@@ -55386,7 +55347,7 @@
           }', state: ${this.state})`;
         }
       }
-      class x extends M {
+      class T extends M {
         constructor(e, n, t, l, r) {
           super(e, n), (this.urlAfterRedirects = t), (this.state = l), (this.shouldActivate = r);
         }
@@ -55999,7 +55960,7 @@
               );
         }
         expandRegularSegmentAgainstRouteUsingRedirect(e, n, t, l, r, i) {
-          const { matched: o, consumedSegments: s, lastChild: u, positionalParamSegments: a } = Te(n, l, r);
+          const { matched: o, consumedSegments: s, lastChild: u, positionalParamSegments: a } = xe(n, l, r);
           if (!o) return Ae(n);
           const d = this.applyRedirectCommands(s, l.redirectTo, a);
           return l.redirectTo.startsWith('/')
@@ -56013,7 +55974,7 @@
             return t.loadChildren
               ? this.configLoader.load(e.injector, t).pipe(Object(c.a)(e => ((t._loadedConfig = e), new re(l, {}))))
               : Object(i.a)(new re(l, {}));
-          const { matched: r, consumedSegments: o, lastChild: s } = Te(n, t, l);
+          const { matched: r, consumedSegments: o, lastChild: s } = xe(n, t, l);
           if (!r) return Ae(n);
           const u = l.slice(s);
           return this.getChildConfig(e, t).pipe(
@@ -56026,7 +55987,7 @@
                       return l.some(t => Ee(e, n, t) && Oe(t) !== V);
                     })(e, t)
                     ? {
-                        segmentGroup: xe(
+                        segmentGroup: Te(
                           new re(
                             n,
                             (function(e, n) {
@@ -56044,7 +56005,7 @@
                         return l.some(t => Ee(e, n, t));
                       })(e, t)
                     ? {
-                        segmentGroup: xe(
+                        segmentGroup: Te(
                           new re(
                             e.segments,
                             (function(e, n, t, l) {
@@ -56161,7 +56122,7 @@
           return e;
         }
       }
-      function Te(e, n, t) {
+      function xe(e, n, t) {
         if ('' === n.path)
           return 'full' === n.pathMatch && (e.hasChildren() || t.length > 0)
             ? { matched: !1, consumedSegments: [], lastChild: 0, positionalParamSegments: {} }
@@ -56176,7 +56137,7 @@
             }
           : { matched: !1, consumedSegments: [], lastChild: 0, positionalParamSegments: {} };
       }
-      function xe(e) {
+      function Te(e) {
         if (1 === e.numberOfChildren && e.children[V]) {
           const n = e.children[V];
           return new re(e.segments.concat(n.segments), n.children);
@@ -57323,13 +57284,13 @@
                       if ('boolean' == typeof n || this.navigationId !== r) return Object(i.a)(!1);
                       const { appliedUrl: t, snapshot: l } = n;
                       return (
-                        this.triggerEvent(new T(r, this.serializeUrl(e), this.serializeUrl(t), l)),
+                        this.triggerEvent(new x(r, this.serializeUrl(e), this.serializeUrl(t), l)),
                         h
                           .checkGuards()
                           .pipe(
                             Object(c.a)(
                               n => (
-                                this.triggerEvent(new x(r, this.serializeUrl(e), this.serializeUrl(t), l, n)),
+                                this.triggerEvent(new T(r, this.serializeUrl(e), this.serializeUrl(t), l, n)),
                                 { appliedUrl: t, snapshot: l, shouldActivate: n }
                               )
                             )
@@ -57588,7 +57549,7 @@
       function Ln(e) {
         qe(e.value), e.children.forEach(Ln);
       }
-      class Tn {
+      class xn {
         constructor(e, n, t, l, r) {
           (this.router = e),
             (this.route = n),
@@ -57620,7 +57581,7 @@
           });
         }
       }
-      class xn {
+      class Tn {
         constructor(e, n, t) {
           (this.router = e),
             (this.route = n),
@@ -58841,8 +58802,8 @@
               );
             }
             (n.RenderType_ReservaComponent = S), (n.View_ReservaComponent_0 = k), (n.View_ReservaComponent_Host_0 = L);
-            var T = l.ɵccf('app-reserva', y.ReservaComponent, L, {}, {}, []);
-            n.ReservaComponentNgFactory = T;
+            var x = l.ɵccf('app-reserva', y.ReservaComponent, L, {}, {}, []);
+            n.ReservaComponentNgFactory = x;
           }.apply(n, l)) || (e.exports = r);
     },
     jCJw: function(e, n, t) {
@@ -60129,7 +60090,7 @@
       }
       class k {
         constructor(e, n) {
-          (this.bufferSize = e), (this.startBufferEvery = n), (this.subscriberClass = n && e !== n ? T : L);
+          (this.bufferSize = e), (this.startBufferEvery = n), (this.subscriberClass = n && e !== n ? x : L);
         }
         call(e, n) {
           return n.subscribe(new this.subscriberClass(e, this.bufferSize, this.startBufferEvery));
@@ -60148,7 +60109,7 @@
           e.length > 0 && this.destination.next(e), super._complete();
         }
       }
-      class T extends A.a {
+      class x extends A.a {
         constructor(e, n, t) {
           super(e), (this.bufferSize = n), (this.startBufferEvery = t), (this.buffers = []), (this.count = 0);
         }
@@ -60169,7 +60130,7 @@
           super._complete();
         }
       }
-      function x(e) {
+      function T(e) {
         let n = arguments.length,
           t = f;
         Object(y.a)(arguments[arguments.length - 1]) && ((t = arguments[arguments.length - 1]), n--);
@@ -60784,15 +60745,15 @@
       }
       function Le() {
         return function(e) {
-          return e.lift(new Te());
+          return e.lift(new xe());
         };
       }
-      class Te {
+      class xe {
         call(e, n) {
-          return n.subscribe(new xe(e));
+          return n.subscribe(new Te(e));
         }
       }
-      class xe extends A.a {
+      class Te extends A.a {
         constructor(e) {
           super(e);
         }
@@ -61252,15 +61213,15 @@
       }
       function Ln() {
         return function(e) {
-          return e.lift(new Tn());
+          return e.lift(new xn());
         };
       }
-      class Tn {
+      class xn {
         call(e, n) {
-          return n.subscribe(new xn(e));
+          return n.subscribe(new Tn(e));
         }
       }
-      class xn extends A.a {
+      class Tn extends A.a {
         constructor(e) {
           super(e);
         }
@@ -61777,19 +61738,19 @@
       }
       var kt = t('x+ZX');
       function Lt(e) {
-        return n => n.lift(new Tt(e));
+        return n => n.lift(new xt(e));
       }
-      class Tt {
+      class xt {
         constructor(e) {
           this.notifier = e;
         }
         call(e, n) {
-          const t = new xt(e),
+          const t = new Tt(e),
             l = n.subscribe(t);
           return l.add(Object(o.a)(t, this.notifier)), l;
         }
       }
-      class xt extends i.a {
+      class Tt extends i.a {
         constructor() {
           super(...arguments), (this.hasValue = !1);
         }
@@ -62262,10 +62223,10 @@
           (this.durationSelector = e), (this.leading = n), (this.trailing = t);
         }
         call(e, n) {
-          return n.subscribe(new Tl(e, this.durationSelector, this.leading, this.trailing));
+          return n.subscribe(new xl(e, this.durationSelector, this.leading, this.trailing));
         }
       }
-      class Tl extends i.a {
+      class xl extends i.a {
         constructor(e, n, t, l) {
           super(e),
             (this.destination = e),
@@ -62305,7 +62266,7 @@
           this.throttlingDone();
         }
       }
-      function xl(e, n = f, t = Sl) {
+      function Tl(e, n = f, t = Sl) {
         return l => l.lift(new El(e, n, t.leading, t.trailing));
       }
       class El {
@@ -62983,7 +62944,7 @@
           return S;
         }),
         t.d(n, 'bufferTime', function() {
-          return x;
+          return T;
         }),
         t.d(n, 'bufferToggle', function() {
           return N;
@@ -63238,7 +63199,7 @@
           return kl;
         }),
         t.d(n, 'throttleTime', function() {
-          return xl;
+          return Tl;
         }),
         t.d(n, 'throwIfEmpty', function() {
           return Ve.a;
@@ -64949,7 +64910,7 @@
                 ],
                 null,
                 function(e, n) {
-                  e(n, 1, 0, '/files/' + n.context.$implicit.archivo);
+                  e(n, 1, 0, n.context.$implicit.archivo);
                 }
               );
             }
@@ -66665,11 +66626,12 @@
                 const e = JSON.parse(localStorage.getItem('chasker'));
                 return this.http.get('/api/galeria/' + e.idHospedaje, this.jwt()).pipe(l.map(e => e.json()));
               }
-              uploadImage(e, n) {
+              uploadImages(e, n) {
                 const t = JSON.parse(localStorage.getItem('chasker')),
                   r = new FormData();
+                let i = e.length > 10 ? 10 : e.length;
+                for (let l = 0; l < i; l++) r.append('files', e[l]);
                 return (
-                  r.append('file', e),
                   r.append('idHospedaje', t.idHospedaje),
                   n && r.append('descripcion', n),
                   this.http.post('/api/galeria/upload', r, this.jwt()).pipe(l.map(e => e.json()))
@@ -67362,7 +67324,7 @@
           return Oe;
         }),
         t.d(n, '\u0275angular_packages_forms_forms_g', function() {
-          return xe;
+          return Te;
         }),
         t.d(n, '\u0275angular_packages_forms_forms_bg', function() {
           return un;
@@ -67778,10 +67740,10 @@
           (this._composing = !1), this._compositionMode && this.onChange(e);
         }
       }
-      function T(e) {
+      function x(e) {
         return e.validate ? n => e.validate(n) : e;
       }
-      function x(e) {
+      function T(e) {
         return e.validate ? n => e.validate(n) : e;
       }
       const E = { provide: M, useExisting: Object(l.forwardRef)(() => O), multi: !0 };
@@ -68218,10 +68180,10 @@
         new Error(`${n} ${t}`));
       }
       function te(e) {
-        return null != e ? y.compose(e.map(T)) : null;
+        return null != e ? y.compose(e.map(x)) : null;
       }
       function le(e) {
-        return null != e ? y.composeAsync(e.map(x)) : null;
+        return null != e ? y.composeAsync(e.map(T)) : null;
       }
       function re(e, n) {
         if (!e.hasOwnProperty('model')) return !1;
@@ -68909,7 +68871,7 @@
           return e.pop(), e.length ? this.form.get(e) : this.form;
         }
       }
-      class Te {
+      class xe {
         static modelParentException() {
           throw new Error(
             `\n      ngModel cannot be used to register form controls with a parent formGroup directive.  Try using\n      formGroup's partner directive "formControlName" instead.  Example:\n\n      ${
@@ -68943,13 +68905,13 @@
           );
         }
       }
-      const xe = { provide: m, useExisting: Object(l.forwardRef)(() => Ee) };
+      const Te = { provide: m, useExisting: Object(l.forwardRef)(() => Ee) };
       class Ee extends de {
         constructor(e, n, t) {
           super(), (this._parent = e), (this._validators = n), (this._asyncValidators = t);
         }
         _checkParentType() {
-          this._parent instanceof Ee || this._parent instanceof Le || Te.modelGroupParentException();
+          this._parent instanceof Ee || this._parent instanceof Le || xe.modelGroupParentException();
         }
       }
       const Oe = { provide: I, useExisting: Object(l.forwardRef)(() => Ie) },
@@ -69008,12 +68970,12 @@
         }
         _checkParentType() {
           !(this._parent instanceof Ee) && this._parent instanceof de
-            ? Te.formGroupNameException()
-            : this._parent instanceof Ee || this._parent instanceof Le || Te.modelParentException();
+            ? xe.formGroupNameException()
+            : this._parent instanceof Ee || this._parent instanceof Le || xe.modelParentException();
         }
         _checkName() {
           this.options && this.options.name && (this.name = this.options.name),
-            this._isStandalone() || this.name || Te.missingNameException();
+            this._isStandalone() || this.name || xe.missingNameException();
         }
         _updateValue(e) {
           Re.then(() => {
@@ -71186,7 +71148,7 @@
                 null
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -71211,7 +71173,7 @@
                 null
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
@@ -71685,9 +71647,9 @@
                   l.ɵeld(61, 0, null, null, 6, 'div', [['class', 'modal-footer']], null, null, null, null, null)),
                   (e()(), l.ɵand(16777216, null, null, 1, null, L)),
                   l.ɵdid(63, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
-                  l.ɵdid(65, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵand(16777216, null, null, 1, null, x)),
+                  l.ɵdid(65, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
                   l.ɵdid(67, 16384, null, 0, s.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -72453,7 +72415,7 @@
             return c(n, 'toString') && (e.toString = n.toString), c(n, 'valueOf') && (e.valueOf = n.valueOf), e;
           }
           function p(e, n, t, l) {
-            return xn(e, n, t, l, !0).utc();
+            return Tn(e, n, t, l, !0).utc();
           }
           function m(e) {
             return (
@@ -72583,10 +72545,10 @@
           }
           var k,
             L = {};
-          function T(e, n) {
+          function x(e, n) {
             null != r.deprecationHandler && r.deprecationHandler(e, n), L[e] || (A(n), (L[e] = !0));
           }
-          function x(e) {
+          function T(e) {
             return e instanceof Function || '[object Function]' === Object.prototype.toString.call(e);
           }
           function E(e, n) {
@@ -72680,7 +72642,7 @@
                     return function(n) {
                       var r,
                         i = '';
-                      for (r = 0; r < t; r++) i += x(l[r]) ? l[r].call(n, e) : l[r];
+                      for (r = 0; r < t; r++) i += T(l[r]) ? l[r].call(n, e) : l[r];
                       return i;
                     };
                   })(n)),
@@ -72713,7 +72675,7 @@
             ae = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
             de = {};
           function ce(e, n, t) {
-            de[e] = x(n)
+            de[e] = T(n)
               ? n
               : function(e, l) {
                   return e && t ? t : n;
@@ -72802,8 +72764,8 @@
             (r.parseTwoDigitYear = function(e) {
               return M(e) + (M(e) > 68 ? 1900 : 2e3);
             });
-          var Te,
-            xe = Ee('FullYear', !0);
+          var xe,
+            Te = Ee('FullYear', !0);
           function Ee(e, n) {
             return function(t) {
               return null != t ? (Re(this, e, t), r.updateOffset(this, n), this) : Oe(this, e);
@@ -72824,7 +72786,7 @@
             var t = ((n % 12) + 12) % 12;
             return (e += (n - t) / 12), 1 === t ? (Le(e) ? 29 : 28) : 31 - ((t % 7) % 2);
           }
-          (Te = Array.prototype.indexOf
+          (xe = Array.prototype.indexOf
             ? Array.prototype.indexOf
             : function(e) {
                 var n;
@@ -73169,7 +73131,7 @@
               var t,
                 l = sn;
               if (((n.abbr = e), null != un[e]))
-                T(
+                x(
                   'defineLocaleOverride',
                   'use moment.updateLocale(localeName, config) to change an existing locale. moment.defineLocale(localeName, config) should only be used for creating a new locale See http://momentjs.com/guides/#/warnings/define-locale/ for more info.'
                 ),
@@ -73477,7 +73439,7 @@
               } else kn(e);
             else Dn(e);
           }
-          function Tn(e) {
+          function xn(e) {
             var n = e._i,
               t = e._f;
             return (
@@ -73551,7 +73513,7 @@
                       e))
             );
           }
-          function xn(e, n, t, l, r) {
+          function Tn(e, n, t, l, r) {
             var s = {};
             return (
               (!0 !== t && !1 !== t) || ((l = t), (t = void 0)),
@@ -73571,13 +73533,13 @@
               (s._f = n),
               (s._strict = l),
               (function(e) {
-                var n = new b(fn(Tn(s)));
+                var n = new b(fn(xn(s)));
                 return n._nextDay && (n.add(1, 'd'), (n._nextDay = void 0)), n;
               })()
             );
           }
           function En(e, n, t, l) {
-            return xn(e, n, t, l, !1);
+            return Tn(e, n, t, l, !1);
           }
           (r.createFromInputFallback = S(
             'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged and will be removed in an upcoming major release. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.',
@@ -73620,7 +73582,7 @@
               a = n.second || 0,
               d = n.millisecond || 0;
             (this._isValid = (function(e) {
-              for (var n in e) if (-1 === Te.call(Yn, n) || (null != e[n] && isNaN(e[n]))) return !1;
+              for (var n in e) if (-1 === xe.call(Yn, n) || (null != e[n] && isNaN(e[n]))) return !1;
               for (var t = !1, l = 0; l < Yn.length; ++l)
                 if (e[Yn[l]]) {
                   if (t) return !1;
@@ -73756,7 +73718,7 @@
               return (
                 null === l ||
                   isNaN(+l) ||
-                  (T(
+                  (x(
                     n,
                     'moment().' +
                       n +
@@ -73951,7 +73913,7 @@
               var t = e || En(),
                 l = Bn(t, this).startOf('day'),
                 i = r.calendarFormat(this, l) || 'sameElse',
-                o = n && (x(n[i]) ? n[i].call(this, t) : n[i]);
+                o = n && (T(n[i]) ? n[i].call(this, t) : n[i]);
               return this.format(o || this.localeData().calendar(i, this, En(t)));
             }),
             (ht.clone = function() {
@@ -74025,7 +73987,7 @@
               return this.to(En(), e);
             }),
             (ht.get = function(e) {
-              return x(this[(e = Y(e))]) ? this[e]() : this;
+              return T(this[(e = Y(e))]) ? this[e]() : this;
             }),
             (ht.invalidAt = function() {
               return m(this).overflow;
@@ -74111,7 +74073,7 @@
                   l++
                 )
                   this[t[l].unit](e[t[l].unit]);
-              else if (x(this[(e = Y(e))])) return this[e](n);
+              else if (T(this[(e = Y(e))])) return this[e](n);
               return this;
             }),
             (ht.startOf = function(e) {
@@ -74166,7 +74128,7 @@
                 t = n ? this.clone().utc() : this;
               return t.year() < 0 || t.year() > 9999
                 ? q(t, n ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ')
-                : x(Date.prototype.toISOString)
+                : T(Date.prototype.toISOString)
                 ? n
                   ? this.toDate().toISOString()
                   : new Date(this.valueOf() + 60 * this.utcOffset() * 1e3).toISOString().replace('Z', q(t, 'Z'))
@@ -74204,7 +74166,7 @@
                 strict: this._strict
               };
             }),
-            (ht.year = xe),
+            (ht.year = Te),
             (ht.isLeapYear = function() {
               return Le(this.year());
             }),
@@ -74351,7 +74313,7 @@
             }),
             (ht.dates = S('dates accessor is deprecated. Use date instead.', ot)),
             (ht.months = S('months accessor is deprecated. Use month instead', Fe)),
-            (ht.years = S('years accessor is deprecated. Use year instead', xe)),
+            (ht.years = S('years accessor is deprecated. Use year instead', Te)),
             (ht.zone = S(
               'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
               function(e, n) {
@@ -74363,7 +74325,7 @@
               function() {
                 if (!s(this._isDSTShifted)) return this._isDSTShifted;
                 var e = {};
-                if ((v(e, this), (e = Tn(e))._a)) {
+                if ((v(e, this), (e = xn(e))._a)) {
                   var n = e._isUTC ? p(e._a) : En(e._a);
                   this._isDSTShifted = this.isValid() && D(e._a, n.toArray()) > 0;
                 } else this._isDSTShifted = !1;
@@ -74397,7 +74359,7 @@
           }
           (mt.calendar = function(e, n, t) {
             var l = this._calendar[e] || this._calendar.sameElse;
-            return x(l) ? l.call(n, t) : l;
+            return T(l) ? l.call(n, t) : l;
           }),
             (mt.longDateFormat = function(e) {
               var n = this._longDateFormat[e],
@@ -74419,15 +74381,15 @@
             (mt.postformat = pt),
             (mt.relativeTime = function(e, n, t, l) {
               var r = this._relativeTime[t];
-              return x(r) ? r(e, n, t, l) : r.replace(/%d/i, e);
+              return T(r) ? r(e, n, t, l) : r.replace(/%d/i, e);
             }),
             (mt.pastFuture = function(e, n) {
               var t = this._relativeTime[e > 0 ? 'future' : 'past'];
-              return x(t) ? t(n) : t.replace(/%s/i, n);
+              return T(t) ? t(n) : t.replace(/%s/i, n);
             }),
             (mt.set = function(e) {
               var n, t;
-              for (t in e) x((n = e[t])) ? (this[t] = n) : (this['_' + t] = n);
+              for (t in e) T((n = e[t])) ? (this[t] = n) : (this['_' + t] = n);
               (this._config = e),
                 (this._dayOfMonthOrdinalParseLenient = new RegExp(
                   (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) + '|' + /\d{1,2}/.source
@@ -74470,21 +74432,21 @@
                         (this._longMonthsParse[l] = this.months(i, '').toLocaleLowerCase());
                   return t
                     ? 'MMM' === n
-                      ? -1 !== (r = Te.call(this._shortMonthsParse, o))
+                      ? -1 !== (r = xe.call(this._shortMonthsParse, o))
                         ? r
                         : null
-                      : -1 !== (r = Te.call(this._longMonthsParse, o))
+                      : -1 !== (r = xe.call(this._longMonthsParse, o))
                       ? r
                       : null
                     : 'MMM' === n
-                    ? -1 !== (r = Te.call(this._shortMonthsParse, o))
+                    ? -1 !== (r = xe.call(this._shortMonthsParse, o))
                       ? r
-                      : -1 !== (r = Te.call(this._longMonthsParse, o))
+                      : -1 !== (r = xe.call(this._longMonthsParse, o))
                       ? r
                       : null
-                    : -1 !== (r = Te.call(this._longMonthsParse, o))
+                    : -1 !== (r = xe.call(this._longMonthsParse, o))
                     ? r
-                    : -1 !== (r = Te.call(this._shortMonthsParse, o))
+                    : -1 !== (r = xe.call(this._shortMonthsParse, o))
                     ? r
                     : null;
                 }.call(this, e, n, t);
@@ -74571,37 +74533,37 @@
                         (this._weekdaysParse[l] = this.weekdays(i, '').toLocaleLowerCase());
                   return t
                     ? 'dddd' === n
-                      ? -1 !== (r = Te.call(this._weekdaysParse, o))
+                      ? -1 !== (r = xe.call(this._weekdaysParse, o))
                         ? r
                         : null
                       : 'ddd' === n
-                      ? -1 !== (r = Te.call(this._shortWeekdaysParse, o))
+                      ? -1 !== (r = xe.call(this._shortWeekdaysParse, o))
                         ? r
                         : null
-                      : -1 !== (r = Te.call(this._minWeekdaysParse, o))
+                      : -1 !== (r = xe.call(this._minWeekdaysParse, o))
                       ? r
                       : null
                     : 'dddd' === n
-                    ? -1 !== (r = Te.call(this._weekdaysParse, o))
+                    ? -1 !== (r = xe.call(this._weekdaysParse, o))
                       ? r
-                      : -1 !== (r = Te.call(this._shortWeekdaysParse, o))
+                      : -1 !== (r = xe.call(this._shortWeekdaysParse, o))
                       ? r
-                      : -1 !== (r = Te.call(this._minWeekdaysParse, o))
+                      : -1 !== (r = xe.call(this._minWeekdaysParse, o))
                       ? r
                       : null
                     : 'ddd' === n
-                    ? -1 !== (r = Te.call(this._shortWeekdaysParse, o))
+                    ? -1 !== (r = xe.call(this._shortWeekdaysParse, o))
                       ? r
-                      : -1 !== (r = Te.call(this._weekdaysParse, o))
+                      : -1 !== (r = xe.call(this._weekdaysParse, o))
                       ? r
-                      : -1 !== (r = Te.call(this._minWeekdaysParse, o))
+                      : -1 !== (r = xe.call(this._minWeekdaysParse, o))
                       ? r
                       : null
-                    : -1 !== (r = Te.call(this._minWeekdaysParse, o))
+                    : -1 !== (r = xe.call(this._minWeekdaysParse, o))
                     ? r
-                    : -1 !== (r = Te.call(this._weekdaysParse, o))
+                    : -1 !== (r = xe.call(this._weekdaysParse, o))
                     ? r
-                    : -1 !== (r = Te.call(this._shortWeekdaysParse, o))
+                    : -1 !== (r = xe.call(this._shortWeekdaysParse, o))
                     ? r
                     : null;
                 }.call(this, e, n, t);
@@ -74707,8 +74669,8 @@
             St = Mt('m'),
             kt = Mt('h'),
             Lt = Mt('d'),
-            Tt = Mt('w'),
-            xt = Mt('M'),
+            xt = Mt('w'),
+            Tt = Mt('M'),
             Et = Mt('y');
           function Ot(e) {
             return function() {
@@ -74815,8 +74777,8 @@
             (Gt.asMinutes = St),
             (Gt.asHours = kt),
             (Gt.asDays = Lt),
-            (Gt.asWeeks = Tt),
-            (Gt.asMonths = xt),
+            (Gt.asWeeks = xt),
+            (Gt.asMonths = Tt),
             (Gt.asYears = Et),
             (Gt.valueOf = function() {
               return this.isValid()
@@ -78002,7 +77964,7 @@
                 null
               );
             }
-            function T(e) {
+            function x(e) {
               return l.ɵvid(
                 0,
                 [
@@ -78030,7 +77992,7 @@
                 null
               );
             }
-            function x(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
@@ -78119,7 +78081,7 @@
                     null
                   )),
                   (e()(), l.ɵted(-1, null, [' Cancelar '])),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
                   l.ɵdid(10, 16384, null, 0, r.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -78809,7 +78771,7 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, x)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
                   l.ɵdid(111, 16384, null, 0, r.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), l.ɵand(16777216, null, null, 1, null, N)),
                   l.ɵdid(113, 16384, null, 0, r.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)

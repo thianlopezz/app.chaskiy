@@ -15,12 +15,16 @@ export class GaleriaService {
       .pipe(map((response: Response) => response.json()));
   }
 
-  public uploadImage(image: File, descripcion) {
+  public uploadImages(images: FileList, descripcion) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     const formData = new FormData();
 
-    formData.append('file', image);
+    let maxLength = images.length > 10 ? 10 : images.length;
+    for (let i = 0; i < maxLength; i++) {
+      formData.append('files', images[i]);
+    }
+
     formData.append('idHospedaje', chasker.idHospedaje);
 
     if (descripcion) {

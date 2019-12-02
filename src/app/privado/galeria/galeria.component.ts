@@ -69,7 +69,7 @@ export class GaleriaComponent implements OnInit {
 
   guardarImagen(image) {
     this.loading = true;
-    this.galeriaService.uploadImage(image.file, image.descripcion).subscribe(
+    this.galeriaService.uploadImages(image.files, '').subscribe(
       response => {
         if (response.success) {
           this.toastService.showSuccess(response.mensaje);

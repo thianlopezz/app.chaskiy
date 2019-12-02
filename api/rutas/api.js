@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 const secret = 'encourage!';
 
 import { UploadToGallery } from '../helpers/multerConfig';
+import storageRoutes from '../rutas/storage';
 
 import Autenticacion from '../controllers/Autenticacion';
 import Habitacion from '../controllers/Habitacion';
@@ -331,16 +332,19 @@ router.get('/galeria/:idHospedaje', (req, res) => {
   Foto.get(req.params.idHospedaje, res);
 });
 
-router.post('/galeria/upload', UploadToGallery.single('file'), (req, res) => {
-  let params = { descripcion: req.body.descripcion, idHospedaje: req.body.idHospedaje };
-  if (req.file) {
-    params.archivo = req.file.filename;
-  }
-  Foto.mantenimiento({ ...params, accion: 'I' }, res);
-});
+// router.post('/galeria/upload', UploadToGallery.single('file'), (req, res) => {
+//   let params = { descripcion: req.body.descripcion, idHospedaje: req.body.idHospedaje };
+//   if (req.file) {
+//     params.archivo = req.file.filename;
+//   }
+//   Foto.mantenimiento({ ...params, accion: 'I' }, res);
+// });
 
 router.post('/galeria/delete', (req, res) => {
   Foto.mantenimiento({ ...req.body, accion: 'D' }, res);
 });
+
+// RUTAS DE SUBIDA DE ARCHIVOS A S3
+storageRoutes(router);
 
 module.exports = router;

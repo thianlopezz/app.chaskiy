@@ -1,13 +1,13 @@
 <div class="row mb-1">
   <div class="col-sm-4"><p>Selecciona una imagen</p></div>
   <div class="col-sm-8 text-right">
-    <button type="button" class="btn btn-primary mr-2" (click)="select()">
-      <i class="fa fa-check" aria-hidden="true"></i>
-      Seleccionar
-    </button>
     <button type="button" class="btn btn-link btn-primary" (click)="cancel()">
       <i class="fa fa-times" aria-hidden="true"></i>
       Cancelar
+    </button>
+    <button type="button" class="btn btn-primary mr-2" (click)="select()">
+      <i class="fa fa-check" aria-hidden="true"></i>
+      Seleccionar
     </button>
   </div>
 </div>
@@ -18,7 +18,7 @@
 </div>
 <div class="mansory">
   <div class="item" *ngFor="let image of _images; let i = index">
-    <img [src]="'/files/' + image.archivo" />
+    <img [src]="image.archivo" />
     <div class="toolbar">
       <div class="item">
         <div class="d-inline-flex custom-control custom-checkbox">
