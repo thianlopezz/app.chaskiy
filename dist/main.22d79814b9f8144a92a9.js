@@ -26703,17 +26703,18 @@
                     jQuery('#reservaModal').modal('show');
                 }
                 onSetModiReserva(e) {
-                  (this.model = e),
+                  e && (this.model = e),
                     (this.accion = 'U'),
                     0 === this.contEdita &&
                       ((this.reservasBDOld = Object.assign([], this.reservasBD)),
                       (this.habitacionesOld = Object.assign([], this.model.habitaciones))),
-                    this.contEdita++;
-                  let n = 0;
-                  for (; this.model.habitaciones.length !== n; )
-                    for (let e = 0; e < this.reservasBD.length; e++)
-                      this.reservasBD[e].idReserva === this.model.idReserva && (this.reservasBD.splice(e, 1), n++);
-                  (this.reservasCliente = this.model.habitaciones), jQuery('#reservaModal').modal('hide');
+                    this.contEdita++,
+                    this.model.habitaciones.forEach(e => {
+                      let n = this.reservasBD.findIndex(e => e.idReserva == this.model.idReserva);
+                      this.reservasBD.splice(n, 1);
+                    }),
+                    (this.reservasCliente = this.model.habitaciones),
+                    jQuery('#reservaModal').modal('hide');
                 }
                 onModiReserva(e) {
                   (this.reservasCliente = e),
@@ -26836,7 +26837,9 @@
                   const n = l({ y: this.current.anio, M: this.current.noMonth, d: 1 }),
                     t = n.clone().endOf('month');
                   this.reservaService.getByDate('C', n.toDate(), t.toDate()).subscribe(e => {
-                    e.success ? (this.reservasBD = e.data) : console.log('Error>> getByDate>> ' + e.mensaje);
+                    e.success
+                      ? ((this.reservasBD = e.data), 'U' == this.accion && this.onSetModiReserva())
+                      : console.log('Error>> getByDate>> ' + e.mensaje);
                   });
                 }
                 loadAllFormaPagos() {
