@@ -98,6 +98,15 @@
           </div>
           <hr class="w-100 mt-1" />
           <div class="col-sm-12">
+            <div class="form-group">
+              <label for="descripcion">Describe esta variante de habitación</label>
+              <app-p-text-area
+                [text]="variante.descripcion || 'Ingresa una descripción de la habitación'"
+                (modificar)="guardarDescripcionTipoHabitacion($event, variante)"
+              ></app-p-text-area>
+            </div>
+          </div>
+          <div class="col-sm-12">
             <h4>Camas</h4>
             <app-cama-list
               class="w-100"

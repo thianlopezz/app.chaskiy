@@ -536,6 +536,34 @@ var Habitacion =
         }
       },
       {
+        key: 'saveDescripcionTipoHabitacion',
+        value: function saveDescripcionTipoHabitacion(params, res) {
+          var dataAccess = new _DataAccess['default']();
+          dataAccess
+            .execJsonToSp('hab_saveDescripcionTipoHabitacion', _objectSpread({}, params))
+            .then(function(result) {
+              if (result[0][0].err == undefined) {
+                res.send({
+                  success: true,
+                  mensaje: result[0][0].mensaje
+                });
+              } else {
+                res.send({
+                  success: false,
+                  mensaje: result[0][0].mensaje
+                });
+              }
+            })
+            ['catch'](function(error) {
+              console.log('Error>> Habitacion.saveDescripcionTipoHabitacion>>' + error);
+              res.send({
+                success: false,
+                mensaje: error
+              });
+            });
+        }
+      },
+      {
         key: 'getFeaturedFoto',
         value: function getFeaturedFoto() {
           var fotos = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];

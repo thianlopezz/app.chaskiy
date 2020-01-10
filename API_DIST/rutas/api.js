@@ -221,6 +221,9 @@ router.post('/habitaciones/tarifa', function(req, res) {
 router.post('/habitaciones/capacidad', function(req, res) {
   _Habitacion['default'].saveCapacidad(req.body, res);
 });
+router.post('/habitaciones/descripcion/tipohabitacion', function(req, res) {
+  _Habitacion['default'].saveDescripcionTipoHabitacion(req.body, res);
+});
 router.get('/habitaciones/foto/:idHospedaje/:idHabitacion', function(req, res) {
   _Habitacion['default'].getImages(req.params.idHabitacion, req.params.idHospedaje, res);
 });

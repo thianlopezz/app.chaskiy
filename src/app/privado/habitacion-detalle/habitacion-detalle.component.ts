@@ -277,6 +277,33 @@ export class HabitacionDetalleComponent implements OnInit {
     );
   }
 
+  guardarDescripcionTipoHabitacion(value, variante) {
+    this.loading = true;
+
+    let model = {
+      idHabitacion: this.habitacion.idHabitacion,
+      idTipoHabitacion: variante.idTipoHabitacion,
+      descripcion: value
+    };
+
+    this.habitacionService.saveDescripcionTipoHabitacion(model).subscribe(
+      data => {
+        if (data.success) {
+          this.toastService.showSuccess(data.mensaje);
+          this.loadHabitacion();
+        } else {
+          this.toastService.showError(data.mensaje);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.toastService.showSuccess('Ocurrió un error al guardar el registro.');
+        console.log(error);
+        this.loading = false;
+      }
+    );
+  }
+
   guardarTipoHabitacion(value) {
     this.loading = true;
     this.habitacionService

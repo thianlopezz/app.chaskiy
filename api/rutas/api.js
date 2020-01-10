@@ -185,6 +185,10 @@ router.post('/habitaciones/capacidad', (req, res) => {
   Habitacion.saveCapacidad(req.body, res);
 });
 
+router.post('/habitaciones/descripcion/tipohabitacion', (req, res) => {
+  Habitacion.saveDescripcionTipoHabitacion(req.body, res);
+});
+
 router.get('/habitaciones/foto/:idHospedaje/:idHabitacion', (req, res) => {
   Habitacion.getImages(req.params.idHabitacion, req.params.idHospedaje, res);
 });

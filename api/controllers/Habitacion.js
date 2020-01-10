@@ -291,6 +291,24 @@ class Habitacion {
       });
   }
 
+  saveDescripcionTipoHabitacion(params, res) {
+    const dataAccess = new DataAccess();
+
+    dataAccess
+      .execJsonToSp('hab_saveDescripcionTipoHabitacion', { ...params })
+      .then(result => {
+        if (result[0][0].err == undefined) {
+          res.send({ success: true, mensaje: result[0][0].mensaje });
+        } else {
+          res.send({ success: false, mensaje: result[0][0].mensaje });
+        }
+      })
+      .catch(error => {
+        console.log('Error>> Habitacion.saveDescripcionTipoHabitacion>>' + error);
+        res.send({ success: false, mensaje: error });
+      });
+  }
+
   getFeaturedFoto(fotos = []) {
     let foto = fotos.find(foto => foto.featured == 1);
 

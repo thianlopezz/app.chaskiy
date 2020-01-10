@@ -117,6 +117,16 @@ export class HabitacionService {
       .pipe(map((response: Response) => response.json()));
   }
 
+  saveDescripcionTipoHabitacion(params: any) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+
+    params.idHospedaje = chasker.idHospedaje;
+    params.idUsuario = chasker.idUsuario;
+    return this.http
+      .post('/api/habitaciones/descripcion/tipohabitacion', params, this.jwt())
+      .pipe(map((response: Response) => response.json()));
+  }
+
   private jwt() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
