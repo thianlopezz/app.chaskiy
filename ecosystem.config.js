@@ -15,7 +15,7 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3000,
         MYSQL_CONNECTION_LIMIT: 5,
-        MYSQL_HOST: '172.17.0.2',
+        MYSQL_HOST: '172.17.0.3',
         MYSQL_PORT: 3306,
         MYSQL_USER: 'root',
         MYSQL_PASSWORD: '1Lan!ster100prePagaSusDeud4s',
