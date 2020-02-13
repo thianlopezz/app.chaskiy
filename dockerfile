@@ -7,8 +7,6 @@ COPY package*.json ./
 RUN npm install
 #Instalo de manera global pm2
 RUN npm install pm2 -g
-#compilo backend
-RUN npm run build-server
 #Copio todos los archivos de mi repositorio hacia WORKDIR
 COPY . .
 #Esta configuración hace que el puerto en donde voy a alojar mi aplicación pueda ser accedido
