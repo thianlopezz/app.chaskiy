@@ -1,128 +1,152 @@
-.table td, .table th {
-    padding: .4rem;
+.table td,
+.table th {
+  padding: 0.4rem;
 }
 
-thead{
-
-	font-size: .8rem;
+thead {
+  font-size: 0.8rem;
 }
 
-tbody{
-
-	font-size: .75rem;
+tbody {
+  font-size: 0.75rem;
 }
 
 tbody td.dia {
-	height: 30px;
-	width: 30px;
-	border: unset;
-	padding: 0 0 0 0;
-	vertical-align: middle;
+  height: 30px;
+  width: 30px;
+  border: unset;
+  padding: 0 0 0 0;
+  vertical-align: middle;
 }
 
 div.dia {
-	height: 95%;
-	width: 95%;
-	border-radius: .5rem;	
-	display: table;
+  height: 95%;
+  width: 95%;
+  border-radius: 0.5rem;
+  display: table;
 }
 
 div.dia a {
-	display: table-cell;
-	vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 /* E S T A D O S  R E S E R V A */
-._selected{
+._selected {
+  height: 100%;
+  background: #a4f6d6;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
 
-	height: 100%;
-	background: rgba(92, 184, 92, 0.57);
-	transition: opacity 0.3s;
-	cursor: pointer;
+._selected.cuadrito_ini {
+  background: linear-gradient(to left, #a4f6d6 90%, #489c7c 10%);
+}
+
+._selected.cuadrito_fin {
+  background: linear-gradient(to right, #a4f6d6 90%, #489c7c 10%);
 }
 
 ._selected:hover {
-
   opacity: 0.5;
 }
 
-._reserved{
-	
-	background-color: #5bc0de;
-	transition: opacity 0.3s;
-	cursor: pointer;
+._reserved {
+  background: #5bc0de;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+._reserved.cuadrito_ini {
+  background: linear-gradient(to left, #5bc0de 90%, #4f6f79 10%);
+}
+
+._reserved.cuadrito_fin {
+  background: linear-gradient(to right, #5bc0de 90%, #4f6f79 10%);
 }
 
 ._reserved:hover {
-
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
-._occupied{
-	
-	background-color: #f77581;;;
-	transition: opacity 0.3s;
-	cursor: pointer;
+._occupied {
+  background-color: #f77581;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+._occupied.cuadrito_ini {
+  background: linear-gradient(to left, #f77581 90%, #aa7b80 10%);
+}
+
+._occupied.cuadrito_fin {
+  background: linear-gradient(to right, #f77581 90%, #aa7b80 10%);
 }
 
 ._occupied:hover {
-
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
-._proform{
-	
-	background-color: #f8f9fa;;
-	transition: opacity 0.3s;
-	cursor: pointer;
+._proform {
+  background-color: #f8f9fa;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+._proform.cuadrito_ini {
+  background: linear-gradient(to left, #f8f9fa 90%, #c7c7c7 10%);
+}
+
+._proform.cuadrito_fin {
+  background: linear-gradient(to right, #f8f9fa 90%, #c7c7c7 10%);
 }
 
 ._proform:hover {
-
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
 ._checked-out {
-	
-	background-color: #ffc107;
-	transition: opacity 0.3s;
-	cursor: pointer;
+  background-color: #ffc107;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+._checked-out.cuadrito_ini {
+  background: linear-gradient(to left, #ffc107 90%, #ffdd76 10%);
+}
+
+._checked-out.cuadrito_fin {
+  background: linear-gradient(to right, #ffc107 90%, #ffdd76 10%);
 }
 
 ._checked-out:hover {
-
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
-._blocked{
-
-	background: #ddd;
+._blocked {
+  background: #ddd;
 }
 
-._nah{
-	
-	opacity: 1;
-	background: #f1f1f1;
-	transition: opacity 0.3s;
-	cursor: pointer;
+._nah {
+  opacity: 1;
+  background: #f1f1f1;
+  transition: opacity 0.3s;
+  cursor: pointer;
 }
 
 ._nah:hover {
-
-	opacity: .2;
-	box-shadow: none;
+  opacity: 0.2;
+  box-shadow: none;
 }
 
-._nah0{
-	
+._nah0 {
   color: black;
-	background: white;
-	transition: background 0.3s;
-	cursor: pointer;
+  background: white;
+  transition: background 0.3s;
+  cursor: pointer;
 }
 
 ._nah0:hover {
-
-	background: rgba(221, 221, 221, 0.32);
-	box-shadow: none;
+  background: rgba(221, 221, 221, 0.32);
+  box-shadow: none;
 }

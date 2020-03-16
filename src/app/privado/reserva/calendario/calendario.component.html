@@ -92,22 +92,27 @@
             class="dia"
             (click)="clickCuadrito(habitacion, dia.day + 1)"
           >
-            <div *ngIf="cuadritos && cuadritos.length > 0" class="dia text-center" [ngClass]="cuadritos[i][j]">
+            <div
+              *ngIf="cuadritos && cuadritos.length > 0"
+              class="dia text-center"
+              [ngClass]="cuadritos[i][j].className"
+            >
               <a
-                *ngIf="getLim('I', habitacion, dia.day + 1)"
+                *ngIf="cuadritos[i][j].isIni"
                 href="javascript:;"
                 data-toggle="tooltip"
-                [attr.title]="getToolTip('I', habitacion, dia.day + 1)"
+                [attr.title]="cuadritos[i][j].pasajero"
               >
-                <i class="fa fa-circle" aria-hidden="true"></i>
+                <!-- <i class="fa fa-circle" aria-hidden="true"></i> -->
+                <strong> {{ cuadritos[i][j].nombreUsuario && cuadritos[i][j].nombreUsuario[0] }}</strong>
               </a>
               <a
-                *ngIf="getLim('O', habitacion, dia.day + 1)"
+                *ngIf="cuadritos[i][j].isFin"
                 href="javascript:;"
                 data-toggle="tooltip"
-                [attr.title]="getToolTip('O', habitacion, dia.day + 1)"
+                [attr.title]="cuadritos[i][j].pasajero"
               >
-                <i class="far fa-circle"></i>
+                <strong> {{ cuadritos[i][j].nombreUsuario && cuadritos[i][j].nombreUsuario[0] }}</strong>
               </a>
             </div>
           </td>

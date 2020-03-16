@@ -161,7 +161,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
   // PARA ENVIAR EL ESTILO BLOQUEADO MARCADO RESERVADO CHECKEDIN CHECKEDOUT
   estaSeleccionada() {
-    this.cuadritos = new Array(this.habitaciones.length);
+    this.cuadritos = [new Array(this.habitaciones.length)];
 
     for (let i = 0; i < this.habitaciones.length; i++) {
       this.cuadritos[i] = new Array(this.current.days.length);
@@ -191,29 +191,81 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
         if (this.estaReservada(this.habitaciones[i], this.current.days[j].day + 1)) {
           if (this.reservasBD[indexReservasBD].estado === 'Re') {
-            this.cuadritos[i][j] = '_reserved';
+            this.cuadritos[i][j] = { ...this.reservasBD[indexReservasBD], className: '_reserved' };
           } else if (this.reservasBD[indexReservasBD].estado === 'Ci') {
-            this.cuadritos[i][j] = '_occupied';
+            this.cuadritos[i][j] = {
+              ...this.reservasBD[indexReservasBD],
+              className: '_occupied'
+            };
           } else if (this.reservasBD[indexReservasBD].estado === 'Co') {
-            this.cuadritos[i][j] = '_checked-out';
+            this.cuadritos[i][j] = {
+              ...this.reservasBD[indexReservasBD],
+              className: '_checked-out'
+            };
           } else if (this.reservasBD[indexReservasBD].estado === 'Pr') {
-            this.cuadritos[i][j] = '_proform';
+            this.cuadritos[i][j] = {
+              ...this.reservasBD[indexReservasBD],
+              className: '_proform'
+            };
+          }
+
+          // compruebo si es inicio
+          if (moment(this.reservasBD[indexReservasBD].feDesde, 'DD[/]MM[/]YYYY').isSame(fechaCuadrito, 'date')) {
+            this.cuadritos[i][j].className = this.cuadritos[i][j].className + ' cuadrito_ini';
+            this.cuadritos[i][j].isIni = true;
+          }
+
+          // compruebo si es final
+          if (moment(this.reservasBD[indexReservasBD].feHasta, 'DD[/]MM[/]YYYY').isSame(fechaCuadrito, 'date')) {
+            this.cuadritos[i][j].className = this.cuadritos[i][j].className + ' cuadrito_fin';
+            this.cuadritos[i][j].isFin = true;
           }
         } else if (indexReservaCliente !== -1) {
           if (
             fechaCuadrito >= moment(this.reservasCliente[indexReservaCliente].feDesde) &&
             fechaCuadrito <= moment(this.reservasCliente[indexReservaCliente].feHasta)
           ) {
-            this.cuadritos[i][j] = '_selected';
+            this.cuadritos[i][j] = {
+              ...this.reservasBD[indexReservasBD],
+              className: '_selected'
+            };
+
+            // compruebo si es inicio
+            if (
+              moment(this.reservasCliente[indexReservaCliente].feDesde, 'DD[/]MM[/]YYYY').isSame(fechaCuadrito, 'date')
+            ) {
+              this.cuadritos[i][j].className = this.cuadritos[i][j].className + ' cuadrito_ini';
+              this.cuadritos[i][j].isIni = true;
+            }
+
+            // compruebo si es final
+            if (
+              moment(this.reservasCliente[indexReservaCliente].feHasta, 'DD[/]MM[/]YYYY').isSame(fechaCuadrito, 'date')
+            ) {
+              this.cuadritos[i][j].className = this.cuadritos[i][j].className + ' cuadrito_fin';
+              this.cuadritos[i][j].isFin = true;
+            }
           } else if (fechaCuadrito < moment().subtract(1, 'days')) {
-            this.cuadritos[i][j] = '_blocked';
+            this.cuadritos[i][j] = {
+              ...this.reservasBD[indexReservasBD],
+              className: '_blocked'
+            };
           } else {
-            this.cuadritos[i][j] = '_nah';
+            this.cuadritos[i][j] = {
+              ...this.reservasBD[indexReservasBD],
+              className: '_nah'
+            };
           }
         } else if (fechaCuadrito < moment().subtract(1, 'days')) {
-          this.cuadritos[i][j] = '_blocked';
+          this.cuadritos[i][j] = {
+            ...this.reservasBD[indexReservasBD],
+            className: '_blocked'
+          };
         } else {
-          this.cuadritos[i][j] = '_nah';
+          this.cuadritos[i][j] = {
+            ...this.reservasBD[indexReservasBD],
+            className: '_nah'
+          };
         }
       }
     }

@@ -17009,7 +17009,7 @@
                   }
                 }
                 estaSeleccionada() {
-                  this.cuadritos = new Array(this.habitaciones.length);
+                  this.cuadritos = [new Array(this.habitaciones.length)];
                   for (let e = 0; e < this.habitaciones.length; e++)
                     this.cuadritos[e] = new Array(this.current.days.length);
                   for (let e = 0; e < this.habitaciones.length; e++)
@@ -17025,21 +17025,34 @@
                             l <= i(n.feHasta, 'DD[/]MM[/]YYYY')
                         );
                       this.estaReservada(this.habitaciones[e], this.current.days[n].day + 1)
-                        ? 'Re' === this.reservasBD[r].estado
-                          ? (this.cuadritos[e][n] = '_reserved')
-                          : 'Ci' === this.reservasBD[r].estado
-                          ? (this.cuadritos[e][n] = '_occupied')
-                          : 'Co' === this.reservasBD[r].estado
-                          ? (this.cuadritos[e][n] = '_checked-out')
-                          : 'Pr' === this.reservasBD[r].estado && (this.cuadritos[e][n] = '_proform')
+                        ? ('Re' === this.reservasBD[r].estado
+                            ? (this.cuadritos[e][n] = Object.assign({}, this.reservasBD[r], { className: '_reserved' }))
+                            : 'Ci' === this.reservasBD[r].estado
+                            ? (this.cuadritos[e][n] = Object.assign({}, this.reservasBD[r], { className: '_occupied' }))
+                            : 'Co' === this.reservasBD[r].estado
+                            ? (this.cuadritos[e][n] = Object.assign({}, this.reservasBD[r], {
+                                className: '_checked-out'
+                              }))
+                            : 'Pr' === this.reservasBD[r].estado &&
+                              (this.cuadritos[e][n] = Object.assign({}, this.reservasBD[r], { className: '_proform' })),
+                          i(this.reservasBD[r].feDesde, 'DD[/]MM[/]YYYY').isSame(l, 'date') &&
+                            ((this.cuadritos[e][n].className = this.cuadritos[e][n].className + ' cuadrito_ini'),
+                            (this.cuadritos[e][n].isIni = !0)),
+                          i(this.reservasBD[r].feHasta, 'DD[/]MM[/]YYYY').isSame(l, 'date') &&
+                            ((this.cuadritos[e][n].className = this.cuadritos[e][n].className + ' cuadrito_fin'),
+                            (this.cuadritos[e][n].isFin = !0)))
+                        : -1 !== t && l >= i(this.reservasCliente[t].feDesde) && l <= i(this.reservasCliente[t].feHasta)
+                        ? ((this.cuadritos[e][n] = Object.assign({}, this.reservasBD[r], { className: '_selected' })),
+                          i(this.reservasCliente[t].feDesde, 'DD[/]MM[/]YYYY').isSame(l, 'date') &&
+                            ((this.cuadritos[e][n].className = this.cuadritos[e][n].className + ' cuadrito_ini'),
+                            (this.cuadritos[e][n].isIni = !0)),
+                          i(this.reservasCliente[t].feHasta, 'DD[/]MM[/]YYYY').isSame(l, 'date') &&
+                            ((this.cuadritos[e][n].className = this.cuadritos[e][n].className + ' cuadrito_fin'),
+                            (this.cuadritos[e][n].isFin = !0)))
                         : (this.cuadritos[e][n] =
-                            -1 !== t &&
-                            l >= i(this.reservasCliente[t].feDesde) &&
-                            l <= i(this.reservasCliente[t].feHasta)
-                              ? '_selected'
-                              : l < i().subtract(1, 'days')
-                              ? '_blocked'
-                              : '_nah');
+                            l < i().subtract(1, 'days')
+                              ? Object.assign({}, this.reservasBD[r], { className: '_blocked' })
+                              : Object.assign({}, this.reservasBD[r], { className: '_nah' }));
                     }
                 }
                 getToolTip(e, n, t) {
@@ -32185,7 +32198,7 @@
                     0,
                     null,
                     null,
-                    1,
+                    2,
                     'a',
                     [['data-toggle', 'tooltip'], ['href', 'javascript:;']],
                     [[1, 'title', 0]],
@@ -32194,34 +32207,21 @@
                     null,
                     null
                   )),
-                  (e()(),
-                  l.ɵeld(
-                    1,
-                    0,
-                    null,
-                    null,
-                    0,
-                    'i',
-                    [['aria-hidden', 'true'], ['class', 'fa fa-circle']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ))
+                  (e()(), l.ɵeld(1, 0, null, null, 1, 'strong', [], null, null, null, null, null)),
+                  (e()(), l.ɵted(2, null, [' ', '']))
                 ],
                 null,
                 function(e, n) {
-                  e(
-                    n,
-                    0,
-                    0,
-                    n.component.getToolTip(
-                      'I',
-                      n.parent.parent.parent.context.$implicit,
-                      n.parent.parent.context.$implicit.day + 1
-                    )
-                  );
+                  var t = n.component;
+                  e(n, 0, 0, t.cuadritos[n.parent.parent.parent.context.index][n.parent.parent.context.index].pasajero),
+                    e(
+                      n,
+                      2,
+                      0,
+                      t.cuadritos[n.parent.parent.parent.context.index][n.parent.parent.context.index].nombreUsuario &&
+                        t.cuadritos[n.parent.parent.parent.context.index][n.parent.parent.context.index]
+                          .nombreUsuario[0]
+                    );
                 }
               );
             }
@@ -32235,7 +32235,7 @@
                     0,
                     null,
                     null,
-                    1,
+                    2,
                     'a',
                     [['data-toggle', 'tooltip'], ['href', 'javascript:;']],
                     [[1, 'title', 0]],
@@ -32244,20 +32244,21 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵeld(1, 0, null, null, 0, 'i', [['class', 'far fa-circle']], null, null, null, null, null))
+                  (e()(), l.ɵeld(1, 0, null, null, 1, 'strong', [], null, null, null, null, null)),
+                  (e()(), l.ɵted(2, null, [' ', '']))
                 ],
                 null,
                 function(e, n) {
-                  e(
-                    n,
-                    0,
-                    0,
-                    n.component.getToolTip(
-                      'O',
-                      n.parent.parent.parent.context.$implicit,
-                      n.parent.parent.context.$implicit.day + 1
-                    )
-                  );
+                  var t = n.component;
+                  e(n, 0, 0, t.cuadritos[n.parent.parent.parent.context.index][n.parent.parent.context.index].pasajero),
+                    e(
+                      n,
+                      2,
+                      0,
+                      t.cuadritos[n.parent.parent.parent.context.index][n.parent.parent.context.index].nombreUsuario &&
+                        t.cuadritos[n.parent.parent.parent.context.index][n.parent.parent.context.index]
+                          .nombreUsuario[0]
+                    );
                 }
               );
             }
@@ -32284,9 +32285,15 @@
                 ],
                 function(e, n) {
                   var t = n.component;
-                  e(n, 1, 0, 'dia text-center', t.cuadritos[n.parent.parent.context.index][n.parent.context.index]),
-                    e(n, 3, 0, t.getLim('I', n.parent.parent.context.$implicit, n.parent.context.$implicit.day + 1)),
-                    e(n, 5, 0, t.getLim('O', n.parent.parent.context.$implicit, n.parent.context.$implicit.day + 1));
+                  e(
+                    n,
+                    1,
+                    0,
+                    'dia text-center',
+                    t.cuadritos[n.parent.parent.context.index][n.parent.context.index].className
+                  ),
+                    e(n, 3, 0, t.cuadritos[n.parent.parent.context.index][n.parent.context.index].isIni),
+                    e(n, 5, 0, t.cuadritos[n.parent.parent.context.index][n.parent.context.index].isFin);
                 },
                 null
               );
@@ -65232,7 +65239,7 @@
           'use strict';
           Object.defineProperty(n, '__esModule', { value: !0 }),
             (n.styles = [
-              '.table[_ngcontent-%COMP%]   td[_ngcontent-%COMP%], .table[_ngcontent-%COMP%]   th[_ngcontent-%COMP%]{padding:.4rem}thead[_ngcontent-%COMP%]{font-size:.8rem}tbody[_ngcontent-%COMP%]{font-size:.75rem}tbody[_ngcontent-%COMP%]   td.dia[_ngcontent-%COMP%]{height:30px;width:30px;border:unset;padding:0;vertical-align:middle}div.dia[_ngcontent-%COMP%]{height:95%;width:95%;border-radius:.5rem;display:table}div.dia[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{display:table-cell;vertical-align:middle}._selected[_ngcontent-%COMP%]{height:100%;background:rgba(92,184,92,.57);transition:opacity .3s;cursor:pointer}._selected[_ngcontent-%COMP%]:hover{opacity:.5}._reserved[_ngcontent-%COMP%]{background-color:#5bc0de;transition:opacity .3s;cursor:pointer}._reserved[_ngcontent-%COMP%]:hover{opacity:.5}._occupied[_ngcontent-%COMP%]{background-color:#f77581;transition:opacity .3s;cursor:pointer}._occupied[_ngcontent-%COMP%]:hover{opacity:.5}._proform[_ngcontent-%COMP%]{background-color:#f8f9fa;transition:opacity .3s;cursor:pointer}._proform[_ngcontent-%COMP%]:hover{opacity:.5}._checked-out[_ngcontent-%COMP%]{background-color:#ffc107;transition:opacity .3s;cursor:pointer}._checked-out[_ngcontent-%COMP%]:hover{opacity:.5}._blocked[_ngcontent-%COMP%]{background:#ddd}._nah[_ngcontent-%COMP%]{opacity:1;background:#f1f1f1;transition:opacity .3s;cursor:pointer}._nah[_ngcontent-%COMP%]:hover{opacity:.2;box-shadow:none}._nah0[_ngcontent-%COMP%]{color:#000;background:#fff;transition:background .3s;cursor:pointer}._nah0[_ngcontent-%COMP%]:hover{background:rgba(221,221,221,.32);box-shadow:none}'
+              '.table[_ngcontent-%COMP%]   td[_ngcontent-%COMP%], .table[_ngcontent-%COMP%]   th[_ngcontent-%COMP%]{padding:.4rem}thead[_ngcontent-%COMP%]{font-size:.8rem}tbody[_ngcontent-%COMP%]{font-size:.75rem}tbody[_ngcontent-%COMP%]   td.dia[_ngcontent-%COMP%]{height:30px;width:30px;border:unset;padding:0;vertical-align:middle}div.dia[_ngcontent-%COMP%]{height:95%;width:95%;border-radius:.5rem;display:table}div.dia[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{display:table-cell;vertical-align:middle}._selected[_ngcontent-%COMP%]{height:100%;background:#a4f6d6;transition:opacity .3s;cursor:pointer}._selected.cuadrito_ini[_ngcontent-%COMP%]{background:linear-gradient(to left,#a4f6d6 90%,#489c7c 10%)}._selected.cuadrito_fin[_ngcontent-%COMP%]{background:linear-gradient(to right,#a4f6d6 90%,#489c7c 10%)}._selected[_ngcontent-%COMP%]:hover{opacity:.5}._reserved[_ngcontent-%COMP%]{background:#5bc0de;transition:opacity .3s;cursor:pointer}._reserved.cuadrito_ini[_ngcontent-%COMP%]{background:linear-gradient(to left,#5bc0de 90%,#4f6f79 10%)}._reserved.cuadrito_fin[_ngcontent-%COMP%]{background:linear-gradient(to right,#5bc0de 90%,#4f6f79 10%)}._reserved[_ngcontent-%COMP%]:hover{opacity:.5}._occupied[_ngcontent-%COMP%]{background-color:#f77581;transition:opacity .3s;cursor:pointer}._occupied.cuadrito_ini[_ngcontent-%COMP%]{background:linear-gradient(to left,#f77581 90%,#aa7b80 10%)}._occupied.cuadrito_fin[_ngcontent-%COMP%]{background:linear-gradient(to right,#f77581 90%,#aa7b80 10%)}._occupied[_ngcontent-%COMP%]:hover{opacity:.5}._proform[_ngcontent-%COMP%]{background-color:#f8f9fa;transition:opacity .3s;cursor:pointer}._proform.cuadrito_ini[_ngcontent-%COMP%]{background:linear-gradient(to left,#f8f9fa 90%,#c7c7c7 10%)}._proform.cuadrito_fin[_ngcontent-%COMP%]{background:linear-gradient(to right,#f8f9fa 90%,#c7c7c7 10%)}._proform[_ngcontent-%COMP%]:hover{opacity:.5}._checked-out[_ngcontent-%COMP%]{background-color:#ffc107;transition:opacity .3s;cursor:pointer}._checked-out.cuadrito_ini[_ngcontent-%COMP%]{background:linear-gradient(to left,#ffc107 90%,#ffdd76 10%)}._checked-out.cuadrito_fin[_ngcontent-%COMP%]{background:linear-gradient(to right,#ffc107 90%,#ffdd76 10%)}._checked-out[_ngcontent-%COMP%]:hover{opacity:.5}._blocked[_ngcontent-%COMP%]{background:#ddd}._nah[_ngcontent-%COMP%]{opacity:1;background:#f1f1f1;transition:opacity .3s;cursor:pointer}._nah[_ngcontent-%COMP%]:hover{opacity:.2;box-shadow:none}._nah0[_ngcontent-%COMP%]{color:#000;background:#fff;transition:background .3s;cursor:pointer}._nah0[_ngcontent-%COMP%]:hover{background:rgba(221,221,221,.32);box-shadow:none}'
             ]);
         }.apply(n, [t, n])) || (e.exports = l);
     },
