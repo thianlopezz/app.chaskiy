@@ -28679,124 +28679,6 @@
                 0,
                 [
                   (e()(),
-                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
-                  (e()(), l.ɵted(-1, null, [' El n\xfamero de adultos es requerido ']))
-                ],
-                null,
-                null
-              );
-            }
-            function U(e) {
-              return l.ɵvid(
-                0,
-                [
-                  (e()(),
-                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
-                  (e()(), l.ɵted(-1, null, [' El n\xfamero de ni\xf1os es requerido ']))
-                ],
-                null,
-                null
-              );
-            }
-            function W(e) {
-              return l.ɵvid(
-                0,
-                [
-                  (e()(), l.ɵeld(0, 0, null, null, 3, 'option', [], null, null, null, null, null)),
-                  l.ɵdid(
-                    1,
-                    147456,
-                    null,
-                    0,
-                    d.NgSelectOption,
-                    [l.ElementRef, l.Renderer2, [2, d.SelectControlValueAccessor]],
-                    { value: [0, 'value'] },
-                    null
-                  ),
-                  l.ɵdid(
-                    2,
-                    147456,
-                    null,
-                    0,
-                    d.ɵangular_packages_forms_forms_r,
-                    [l.ElementRef, l.Renderer2, [8, null]],
-                    { value: [0, 'value'] },
-                    null
-                  ),
-                  (e()(), l.ɵted(3, null, ['', '']))
-                ],
-                function(e, n) {
-                  e(n, 1, 0, n.context.$implicit.idAerolinea), e(n, 2, 0, n.context.$implicit.idAerolinea);
-                },
-                function(e, n) {
-                  e(n, 3, 0, n.context.$implicit.aerolinea);
-                }
-              );
-            }
-            function G(e) {
-              return l.ɵvid(
-                0,
-                [
-                  (e()(),
-                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
-                  (e()(), l.ɵted(-1, null, [' La aerol\xednea es requerida ']))
-                ],
-                null,
-                null
-              );
-            }
-            function q(e) {
-              return l.ɵvid(
-                0,
-                [
-                  (e()(), l.ɵeld(0, 0, null, null, 3, 'option', [], null, null, null, null, null)),
-                  l.ɵdid(
-                    1,
-                    147456,
-                    null,
-                    0,
-                    d.NgSelectOption,
-                    [l.ElementRef, l.Renderer2, [2, d.SelectControlValueAccessor]],
-                    { value: [0, 'value'] },
-                    null
-                  ),
-                  l.ɵdid(
-                    2,
-                    147456,
-                    null,
-                    0,
-                    d.ɵangular_packages_forms_forms_r,
-                    [l.ElementRef, l.Renderer2, [8, null]],
-                    { value: [0, 'value'] },
-                    null
-                  ),
-                  (e()(), l.ɵted(3, null, ['', '']))
-                ],
-                function(e, n) {
-                  e(n, 1, 0, n.context.$implicit.idFuente), e(n, 2, 0, n.context.$implicit.idFuente);
-                },
-                function(e, n) {
-                  e(n, 3, 0, n.context.$implicit.fuente);
-                }
-              );
-            }
-            function z(e) {
-              return l.ɵvid(
-                0,
-                [
-                  (e()(),
-                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
-                  (e()(), l.ɵted(-1, null, [' La fuente de captaci\xf3n es requerida ']))
-                ],
-                null,
-                null
-              );
-            }
-            function J(e) {
-              return l.ɵvid(
-                0,
-                [
-                  (e()(),
                   l.ɵeld(
                     0,
                     0,
@@ -28816,7 +28698,7 @@
                 null
               );
             }
-            function Q(e) {
+            function U(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28828,7 +28710,7 @@
                 null
               );
             }
-            function $(e) {
+            function W(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28840,7 +28722,7 @@
                 null
               );
             }
-            function K(e) {
+            function G(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28852,7 +28734,7 @@
                 null
               );
             }
-            function Z(e) {
+            function q(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28894,7 +28776,7 @@
                 null
               );
             }
-            function X(e) {
+            function z(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28916,9 +28798,9 @@
                         'click' === n &&
                           (r =
                             !1 !==
-                              (l.ɵnov(e.parent, 159).valid &&
-                                l.ɵnov(e.parent, 180).valid &&
-                                l.ɵnov(e.parent, 209).valid &&
+                              (l.ɵnov(e.parent, 90).valid &&
+                                l.ɵnov(e.parent, 111).valid &&
+                                l.ɵnov(e.parent, 138).valid &&
                                 i.guardarPasajero()) && r),
                         r
                       );
@@ -28946,7 +28828,7 @@
                 null
               );
             }
-            function ee(e) {
+            function J(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28988,7 +28870,7 @@
                 null
               );
             }
-            function ne(e) {
+            function Q(e) {
               return l.ɵvid(
                 0,
                 [
@@ -29000,7 +28882,7 @@
                 null
               );
             }
-            function te(e) {
+            function $(e) {
               return l.ɵvid(
                 0,
                 [
@@ -29012,7 +28894,7 @@
                 null
               );
             }
-            function le(e) {
+            function K(e) {
               return l.ɵvid(
                 0,
                 [
@@ -29047,13 +28929,131 @@
                 }
               );
             }
+            function Z(e) {
+              return l.ɵvid(
+                0,
+                [
+                  (e()(),
+                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, [' El n\xfamero de adultos es requerido ']))
+                ],
+                null,
+                null
+              );
+            }
+            function X(e) {
+              return l.ɵvid(
+                0,
+                [
+                  (e()(),
+                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, [' El n\xfamero de ni\xf1os es requerido ']))
+                ],
+                null,
+                null
+              );
+            }
+            function ee(e) {
+              return l.ɵvid(
+                0,
+                [
+                  (e()(), l.ɵeld(0, 0, null, null, 3, 'option', [], null, null, null, null, null)),
+                  l.ɵdid(
+                    1,
+                    147456,
+                    null,
+                    0,
+                    d.NgSelectOption,
+                    [l.ElementRef, l.Renderer2, [2, d.SelectControlValueAccessor]],
+                    { value: [0, 'value'] },
+                    null
+                  ),
+                  l.ɵdid(
+                    2,
+                    147456,
+                    null,
+                    0,
+                    d.ɵangular_packages_forms_forms_r,
+                    [l.ElementRef, l.Renderer2, [8, null]],
+                    { value: [0, 'value'] },
+                    null
+                  ),
+                  (e()(), l.ɵted(3, null, ['', '']))
+                ],
+                function(e, n) {
+                  e(n, 1, 0, n.context.$implicit.idAerolinea), e(n, 2, 0, n.context.$implicit.idAerolinea);
+                },
+                function(e, n) {
+                  e(n, 3, 0, n.context.$implicit.aerolinea);
+                }
+              );
+            }
+            function ne(e) {
+              return l.ɵvid(
+                0,
+                [
+                  (e()(),
+                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, [' La aerol\xednea es requerida ']))
+                ],
+                null,
+                null
+              );
+            }
+            function te(e) {
+              return l.ɵvid(
+                0,
+                [
+                  (e()(), l.ɵeld(0, 0, null, null, 3, 'option', [], null, null, null, null, null)),
+                  l.ɵdid(
+                    1,
+                    147456,
+                    null,
+                    0,
+                    d.NgSelectOption,
+                    [l.ElementRef, l.Renderer2, [2, d.SelectControlValueAccessor]],
+                    { value: [0, 'value'] },
+                    null
+                  ),
+                  l.ɵdid(
+                    2,
+                    147456,
+                    null,
+                    0,
+                    d.ɵangular_packages_forms_forms_r,
+                    [l.ElementRef, l.Renderer2, [8, null]],
+                    { value: [0, 'value'] },
+                    null
+                  ),
+                  (e()(), l.ɵted(3, null, ['', '']))
+                ],
+                function(e, n) {
+                  e(n, 1, 0, n.context.$implicit.idFuente), e(n, 2, 0, n.context.$implicit.idFuente);
+                },
+                function(e, n) {
+                  e(n, 3, 0, n.context.$implicit.fuente);
+                }
+              );
+            }
+            function le(e) {
+              return l.ɵvid(
+                0,
+                [
+                  (e()(),
+                  l.ɵeld(0, 0, null, null, 1, 'div', [['class', 'invalid-feedback']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, [' La fuente de captaci\xf3n es requerida ']))
+                ],
+                null,
+                null
+              );
+            }
             function re(e) {
               return l.ɵvid(
                 0,
                 [
                   (e()(),
-                  l.ɵeld(0, 0, null, null, 226, 'div', [['class', 'modal-body']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(1, 0, null, null, 225, 'div', [['class', 'row']], null, null, null, null, null)),
+                  l.ɵeld(0, 0, null, null, 230, 'div', [['class', 'modal-body']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(1, 0, null, null, 229, 'div', [['class', 'row']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
                     2,
@@ -29088,14 +29088,14 @@
                     null
                   )),
                   (e()(),
-                  l.ɵeld(4, 0, null, null, 219, 'div', [['class', 'col-10 px-0']], null, null, null, null, null)),
+                  l.ɵeld(4, 0, null, null, 223, 'div', [['class', 'col-10 px-0']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
                     5,
                     0,
                     null,
                     null,
-                    218,
+                    222,
                     'form',
                     [['id', 'formReserva'], ['name', 'form'], ['novalidate', '']],
                     [
@@ -29425,538 +29425,23 @@
                   (e()(), l.ɵeld(70, 0, null, null, 2, 'h4', [], null, null, null, null, null)),
                   (e()(), l.ɵted(71, null, [' Total ', ' '])),
                   l.ɵppd(72, 2),
-                  (e()(), l.ɵeld(73, 0, null, null, 150, 'div', [], [[8, 'hidden', 0]], null, null, null, null)),
+                  (e()(), l.ɵeld(73, 0, null, null, 154, 'div', [], [[8, 'hidden', 0]], null, null, null, null)),
                   (e()(),
-                  l.ɵeld(74, 0, null, null, 137, 'div', [['class', 'habitaciones']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(75, 0, null, null, 136, 'div', [['class', 'row']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(76, 0, null, null, 71, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
+                  l.ɵeld(74, 0, null, null, 141, 'div', [['class', 'habitaciones']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(75, 0, null, null, 140, 'div', [['class', 'row']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(76, 0, null, null, 64, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(77, 0, null, null, 1, 'h5', [], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['Informaci\xf3n del pasajero'])),
+                  (e()(), l.ɵeld(79, 0, null, null, 0, 'hr', [['class', 'my-2']], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(77, 0, null, null, 26, 'div', [['class', 'form-group row']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    78,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'label',
-                    [['class', 'col-sm-4 col-form-label']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  )),
-                  (e()(), l.ɵted(-1, null, ['No. personas'])),
-                  (e()(),
-                  l.ɵeld(80, 0, null, null, 11, 'div', [['class', 'col-sm-4 pr-1']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    81,
-                    0,
-                    null,
-                    null,
-                    8,
-                    'input',
-                    [
-                      ['class', 'form-control'],
-                      ['name', 'adultos'],
-                      ['placeholder', 'Adultos'],
-                      ['required', ''],
-                      ['type', 'number']
-                    ],
-                    [
-                      [1, 'required', 0],
-                      [2, 'ng-untouched', null],
-                      [2, 'ng-touched', null],
-                      [2, 'ng-pristine', null],
-                      [2, 'ng-dirty', null],
-                      [2, 'ng-valid', null],
-                      [2, 'ng-invalid', null],
-                      [2, 'ng-pending', null]
-                    ],
-                    [
-                      [null, 'ngModelChange'],
-                      [null, 'input'],
-                      [null, 'blur'],
-                      [null, 'compositionstart'],
-                      [null, 'compositionend'],
-                      [null, 'change']
-                    ],
-                    function(e, n, t) {
-                      var r = !0,
-                        i = e.component;
-                      return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 82)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 82).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 82)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 82)._compositionEnd(t.target.value) && r),
-                        'change' === n && (r = !1 !== l.ɵnov(e, 83).onChange(t.target.value) && r),
-                        'input' === n && (r = !1 !== l.ɵnov(e, 83).onChange(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 83).onTouched() && r),
-                        'ngModelChange' === n && (r = !1 !== (i.model.adultos = t) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(
-                    82,
-                    16384,
-                    null,
-                    0,
-                    d.DefaultValueAccessor,
-                    [l.Renderer2, l.ElementRef, [2, d.COMPOSITION_BUFFER_MODE]],
-                    null,
-                    null
-                  ),
-                  l.ɵdid(
-                    83,
-                    16384,
-                    null,
-                    0,
-                    d.ɵangular_packages_forms_forms_bd,
-                    [l.Renderer2, l.ElementRef],
-                    null,
-                    null
-                  ),
-                  l.ɵdid(84, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALIDATORS,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.RequiredValidator]
-                  ),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALUE_ACCESSOR,
-                    function(e, n) {
-                      return [e, n];
-                    },
-                    [d.DefaultValueAccessor, d.ɵangular_packages_forms_forms_bd]
-                  ),
-                  l.ɵdid(
-                    87,
-                    671744,
-                    [['adultos', 4]],
-                    0,
-                    d.NgModel,
-                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
-                    { name: [0, 'name'], model: [1, 'model'] },
-                    { update: 'ngModelChange' }
-                  ),
-                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(89, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, B)),
-                  l.ɵdid(91, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(),
-                  l.ɵeld(92, 0, null, null, 11, 'div', [['class', 'col-sm-4 pl-1']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    93,
-                    0,
-                    null,
-                    null,
-                    8,
-                    'input',
-                    [
-                      ['class', 'form-control'],
-                      ['name', 'ninos'],
-                      ['placeholder', 'Ni\xf1os'],
-                      ['required', ''],
-                      ['type', 'number']
-                    ],
-                    [
-                      [1, 'required', 0],
-                      [2, 'ng-untouched', null],
-                      [2, 'ng-touched', null],
-                      [2, 'ng-pristine', null],
-                      [2, 'ng-dirty', null],
-                      [2, 'ng-valid', null],
-                      [2, 'ng-invalid', null],
-                      [2, 'ng-pending', null]
-                    ],
-                    [
-                      [null, 'ngModelChange'],
-                      [null, 'input'],
-                      [null, 'blur'],
-                      [null, 'compositionstart'],
-                      [null, 'compositionend'],
-                      [null, 'change']
-                    ],
-                    function(e, n, t) {
-                      var r = !0,
-                        i = e.component;
-                      return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 94)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 94).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 94)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 94)._compositionEnd(t.target.value) && r),
-                        'change' === n && (r = !1 !== l.ɵnov(e, 95).onChange(t.target.value) && r),
-                        'input' === n && (r = !1 !== l.ɵnov(e, 95).onChange(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 95).onTouched() && r),
-                        'ngModelChange' === n && (r = !1 !== (i.model.ninos = t) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(
-                    94,
-                    16384,
-                    null,
-                    0,
-                    d.DefaultValueAccessor,
-                    [l.Renderer2, l.ElementRef, [2, d.COMPOSITION_BUFFER_MODE]],
-                    null,
-                    null
-                  ),
-                  l.ɵdid(
-                    95,
-                    16384,
-                    null,
-                    0,
-                    d.ɵangular_packages_forms_forms_bd,
-                    [l.Renderer2, l.ElementRef],
-                    null,
-                    null
-                  ),
-                  l.ɵdid(96, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALIDATORS,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.RequiredValidator]
-                  ),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALUE_ACCESSOR,
-                    function(e, n) {
-                      return [e, n];
-                    },
-                    [d.DefaultValueAccessor, d.ɵangular_packages_forms_forms_bd]
-                  ),
-                  l.ɵdid(
-                    99,
-                    671744,
-                    [['ninos', 4]],
-                    0,
-                    d.NgModel,
-                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
-                    { name: [0, 'name'], model: [1, 'model'] },
-                    { update: 'ngModelChange' }
-                  ),
-                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(101, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, U)),
-                  l.ɵdid(103, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(),
-                  l.ɵeld(104, 0, null, null, 15, 'div', [['class', 'form-group row']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    105,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'label',
-                    [['class', 'col-sm-4 col-form-label'], ['for', 'aerolinea']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  )),
-                  (e()(), l.ɵted(-1, null, ['Aerol\xednea'])),
-                  (e()(), l.ɵeld(107, 0, null, null, 12, 'div', [['class', 'col-sm-8']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    108,
-                    0,
-                    null,
-                    null,
-                    9,
-                    'select',
-                    [['class', 'form-control'], ['name', 'aerolinea'], ['required', '']],
-                    [
-                      [1, 'required', 0],
-                      [2, 'ng-untouched', null],
-                      [2, 'ng-touched', null],
-                      [2, 'ng-pristine', null],
-                      [2, 'ng-dirty', null],
-                      [2, 'ng-valid', null],
-                      [2, 'ng-invalid', null],
-                      [2, 'ng-pending', null]
-                    ],
-                    [[null, 'ngModelChange'], [null, 'change'], [null, 'blur']],
-                    function(e, n, t) {
-                      var r = !0,
-                        i = e.component;
-                      return (
-                        'change' === n && (r = !1 !== l.ɵnov(e, 109).onChange(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 109).onTouched() && r),
-                        'ngModelChange' === n && (r = !1 !== (i.model.idAerolinea = t) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(109, 16384, null, 0, d.SelectControlValueAccessor, [l.Renderer2, l.ElementRef], null, null),
-                  l.ɵdid(110, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALIDATORS,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.RequiredValidator]
-                  ),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALUE_ACCESSOR,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.SelectControlValueAccessor]
-                  ),
-                  l.ɵdid(
-                    113,
-                    671744,
-                    [['aerolinea', 4]],
-                    0,
-                    d.NgModel,
-                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
-                    { name: [0, 'name'], model: [1, 'model'] },
-                    { update: 'ngModelChange' }
-                  ),
-                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(115, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, W)),
-                  l.ɵdid(
-                    117,
-                    802816,
-                    null,
-                    0,
-                    c.NgForOf,
-                    [l.ViewContainerRef, l.TemplateRef, l.IterableDiffers],
-                    { ngForOf: [0, 'ngForOf'] },
-                    null
-                  ),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, G)),
-                  l.ɵdid(119, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(),
-                  l.ɵeld(120, 0, null, null, 15, 'div', [['class', 'form-group row']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    121,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'label',
-                    [['class', 'col-sm-4 col-form-label'], ['for', 'fuente']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  )),
-                  (e()(), l.ɵted(-1, null, ['Captado de'])),
-                  (e()(), l.ɵeld(123, 0, null, null, 12, 'div', [['class', 'col-sm-8']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    124,
-                    0,
-                    null,
-                    null,
-                    9,
-                    'select',
-                    [['class', 'form-control'], ['name', 'fuente'], ['required', '']],
-                    [
-                      [1, 'required', 0],
-                      [2, 'ng-untouched', null],
-                      [2, 'ng-touched', null],
-                      [2, 'ng-pristine', null],
-                      [2, 'ng-dirty', null],
-                      [2, 'ng-valid', null],
-                      [2, 'ng-invalid', null],
-                      [2, 'ng-pending', null]
-                    ],
-                    [[null, 'ngModelChange'], [null, 'change'], [null, 'blur']],
-                    function(e, n, t) {
-                      var r = !0,
-                        i = e.component;
-                      return (
-                        'change' === n && (r = !1 !== l.ɵnov(e, 125).onChange(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 125).onTouched() && r),
-                        'ngModelChange' === n && (r = !1 !== (i.model.idFuente = t) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(125, 16384, null, 0, d.SelectControlValueAccessor, [l.Renderer2, l.ElementRef], null, null),
-                  l.ɵdid(126, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALIDATORS,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.RequiredValidator]
-                  ),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALUE_ACCESSOR,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.SelectControlValueAccessor]
-                  ),
-                  l.ɵdid(
-                    129,
-                    671744,
-                    [['fuente', 4]],
-                    0,
-                    d.NgModel,
-                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
-                    { name: [0, 'name'], model: [1, 'model'] },
-                    { update: 'ngModelChange' }
-                  ),
-                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(131, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, q)),
-                  l.ɵdid(
-                    133,
-                    802816,
-                    null,
-                    0,
-                    c.NgForOf,
-                    [l.ViewContainerRef, l.TemplateRef, l.IterableDiffers],
-                    { ngForOf: [0, 'ngForOf'] },
-                    null
-                  ),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, z)),
-                  l.ɵdid(135, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(),
-                  l.ɵeld(136, 0, null, null, 11, 'div', [['class', 'form-group']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(137, 0, null, null, 1, 'label', [['for', 'notas']], null, null, null, null, null)),
-                  (e()(), l.ɵted(-1, null, ['Notas'])),
-                  (e()(),
-                  l.ɵeld(
-                    139,
-                    0,
-                    null,
-                    null,
-                    8,
-                    'textarea',
-                    [
-                      ['class', 'form-control'],
-                      ['id', 'notas'],
-                      ['maxlength', '600'],
-                      ['name', 'notas'],
-                      ['rows', '5']
-                    ],
-                    [
-                      [1, 'maxlength', 0],
-                      [2, 'ng-untouched', null],
-                      [2, 'ng-touched', null],
-                      [2, 'ng-pristine', null],
-                      [2, 'ng-dirty', null],
-                      [2, 'ng-valid', null],
-                      [2, 'ng-invalid', null],
-                      [2, 'ng-pending', null]
-                    ],
-                    [
-                      [null, 'ngModelChange'],
-                      [null, 'input'],
-                      [null, 'blur'],
-                      [null, 'compositionstart'],
-                      [null, 'compositionend']
-                    ],
-                    function(e, n, t) {
-                      var r = !0,
-                        i = e.component;
-                      return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 140)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 140).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 140)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 140)._compositionEnd(t.target.value) && r),
-                        'ngModelChange' === n && (r = !1 !== (i.model.notas = t) && r),
-                        r
-                      );
-                    },
-                    null,
-                    null
-                  )),
-                  l.ɵdid(
-                    140,
-                    16384,
-                    null,
-                    0,
-                    d.DefaultValueAccessor,
-                    [l.Renderer2, l.ElementRef, [2, d.COMPOSITION_BUFFER_MODE]],
-                    null,
-                    null
-                  ),
-                  l.ɵdid(141, 540672, null, 0, d.MaxLengthValidator, [], { maxlength: [0, 'maxlength'] }, null),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALIDATORS,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.MaxLengthValidator]
-                  ),
-                  l.ɵprd(
-                    1024,
-                    null,
-                    d.NG_VALUE_ACCESSOR,
-                    function(e) {
-                      return [e];
-                    },
-                    [d.DefaultValueAccessor]
-                  ),
-                  l.ɵdid(
-                    144,
-                    671744,
-                    [['notas', 4]],
-                    0,
-                    d.NgModel,
-                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
-                    { name: [0, 'name'], model: [1, 'model'] },
-                    { update: 'ngModelChange' }
-                  ),
-                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(146, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵted(147, null, ['', ''])),
-                  (e()(), l.ɵeld(148, 0, null, null, 63, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(149, 0, null, null, 20, 'div', [['class', 'form-group']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(150, 0, null, null, 1, 'label', [['for', 'correo']], null, null, null, null, null)),
+                  l.ɵeld(80, 0, null, null, 20, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(81, 0, null, null, 1, 'label', [['for', 'correo']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Correo electr\xf3nico'])),
                   (e()(),
-                  l.ɵeld(152, 0, null, null, 11, 'div', [['class', 'input-group']], null, null, null, null, null)),
+                  l.ɵeld(83, 0, null, null, 11, 'div', [['class', 'input-group']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    153,
+                    84,
                     0,
                     null,
                     null,
@@ -29985,12 +29470,12 @@
                       var r = !0,
                         i = e.component;
                       return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 154)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 154).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 154)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 154)._compositionEnd(t.target.value) && r),
+                        'input' === n && (r = !1 !== l.ɵnov(e, 85)._handleInput(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 85).onTouched() && r),
+                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 85)._compositionStart() && r),
+                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 85)._compositionEnd(t.target.value) && r),
                         'ngModelChange' === n && (r = !1 !== (i.model.pasajero.correo = t) && r),
-                        'blur' === n && (r = !1 !== (l.ɵnov(e, 159).valid && 'U' !== i.accion && i.getPasajero()) && r),
+                        'blur' === n && (r = !1 !== (l.ɵnov(e, 90).valid && 'U' !== i.accion && i.getPasajero()) && r),
                         r
                       );
                     },
@@ -29998,7 +29483,7 @@
                     null
                   )),
                   l.ɵdid(
-                    154,
+                    85,
                     16384,
                     null,
                     0,
@@ -30007,8 +29492,8 @@
                     null,
                     null
                   ),
-                  l.ɵdid(155, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
-                  l.ɵdid(156, 16384, null, 0, d.EmailValidator, [], { email: [0, 'email'] }, null),
+                  l.ɵdid(86, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
+                  l.ɵdid(87, 16384, null, 0, d.EmailValidator, [], { email: [0, 'email'] }, null),
                   l.ɵprd(
                     1024,
                     null,
@@ -30028,7 +29513,7 @@
                     [d.DefaultValueAccessor]
                   ),
                   l.ɵdid(
-                    159,
+                    90,
                     671744,
                     [['correo', 4]],
                     0,
@@ -30038,24 +29523,24 @@
                     { update: 'ngModelChange' }
                   ),
                   l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(161, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, J)),
-                  l.ɵdid(163, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, Q)),
-                  l.ɵdid(165, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, $)),
-                  l.ɵdid(167, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, K)),
-                  l.ɵdid(169, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  l.ɵdid(92, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, B)),
+                  l.ɵdid(94, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, U)),
+                  l.ɵdid(96, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, W)),
+                  l.ɵdid(98, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, G)),
+                  l.ɵdid(100, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
-                  l.ɵeld(170, 0, null, null, 22, 'div', [['class', 'form-group']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(171, 0, null, null, 1, 'label', [['for', 'nombre']], null, null, null, null, null)),
+                  l.ɵeld(101, 0, null, null, 22, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(102, 0, null, null, 1, 'label', [['for', 'nombre']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Nombre'])),
                   (e()(),
-                  l.ɵeld(173, 0, null, null, 15, 'div', [['class', 'input-group']], null, null, null, null, null)),
+                  l.ɵeld(104, 0, null, null, 15, 'div', [['class', 'input-group']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    174,
+                    105,
                     0,
                     null,
                     null,
@@ -30091,10 +29576,10 @@
                       var r = !0,
                         i = e.component;
                       return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 175)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 175).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 175)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 175)._compositionEnd(t.target.value) && r),
+                        'input' === n && (r = !1 !== l.ɵnov(e, 106)._handleInput(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 106).onTouched() && r),
+                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 106)._compositionStart() && r),
+                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 106)._compositionEnd(t.target.value) && r),
                         'ngModelChange' === n && (r = !1 !== (i.model.pasajero.pasajero = t) && r),
                         r
                       );
@@ -30103,7 +29588,7 @@
                     null
                   )),
                   l.ɵdid(
-                    175,
+                    106,
                     16384,
                     null,
                     0,
@@ -30112,8 +29597,8 @@
                     null,
                     null
                   ),
-                  l.ɵdid(176, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
-                  l.ɵdid(177, 540672, null, 0, d.MaxLengthValidator, [], { maxlength: [0, 'maxlength'] }, null),
+                  l.ɵdid(107, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
+                  l.ɵdid(108, 540672, null, 0, d.MaxLengthValidator, [], { maxlength: [0, 'maxlength'] }, null),
                   l.ɵprd(
                     1024,
                     null,
@@ -30133,7 +29618,7 @@
                     [d.DefaultValueAccessor]
                   ),
                   l.ɵdid(
-                    180,
+                    111,
                     671744,
                     [['pasajero', 4]],
                     0,
@@ -30143,54 +29628,39 @@
                     { update: 'ngModelChange' }
                   ),
                   l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(182, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, Z)),
-                  l.ɵdid(184, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, X)),
-                  l.ɵdid(186, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, ee)),
-                  l.ɵdid(188, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, ne)),
-                  l.ɵdid(190, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, te)),
-                  l.ɵdid(192, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  l.ɵdid(113, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, q)),
+                  l.ɵdid(115, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, z)),
+                  l.ɵdid(117, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, J)),
+                  l.ɵdid(119, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, Q)),
+                  l.ɵdid(121, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, $)),
+                  l.ɵdid(123, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
-                  l.ɵeld(193, 0, null, null, 6, 'div', [['class', 'form-group row']], null, null, null, null, null)),
-                  (e()(),
-                  l.ɵeld(
-                    194,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'label',
-                    [['class', 'col-sm-4 col-form-label'], ['for', 'pais']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  )),
+                  l.ɵeld(124, 0, null, null, 5, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(125, 0, null, null, 1, 'label', [['for', 'pais']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Pa\xeds'])),
-                  (e()(), l.ɵeld(196, 0, null, null, 3, 'div', [['class', 'col-sm-8']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    197,
+                    127,
                     0,
                     null,
                     null,
                     2,
                     'select',
-                    [['id', 'pais'], ['name', 'pais'], ['style', 'width: 100%']],
+                    [['class', 'form-control'], ['id', 'pais'], ['name', 'pais'], ['style', 'width: 100%']],
                     [[8, 'disabled', 0]],
                     null,
                     null,
                     null,
                     null
                   )),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, le)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, K)),
                   l.ɵdid(
-                    199,
+                    129,
                     802816,
                     null,
                     0,
@@ -30200,27 +29670,13 @@
                     null
                   ),
                   (e()(),
-                  l.ɵeld(200, 0, null, null, 11, 'div', [['class', 'form-group row']], null, null, null, null, null)),
+                  l.ɵeld(130, 0, null, null, 10, 'div', [['class', 'form-group']], null, null, null, null, null)),
                   (e()(),
-                  l.ɵeld(
-                    201,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'label',
-                    [['class', 'col-sm-4 col-form-label'], ['for', 'noContacto']],
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  )),
+                  l.ɵeld(131, 0, null, null, 1, 'label', [['for', 'noContacto']], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['No. contacto'])),
-                  (e()(), l.ɵeld(203, 0, null, null, 8, 'div', [['class', 'col-sm-8']], null, null, null, null, null)),
                   (e()(),
                   l.ɵeld(
-                    204,
+                    133,
                     0,
                     null,
                     null,
@@ -30249,10 +29705,10 @@
                       var r = !0,
                         i = e.component;
                       return (
-                        'input' === n && (r = !1 !== l.ɵnov(e, 205)._handleInput(t.target.value) && r),
-                        'blur' === n && (r = !1 !== l.ɵnov(e, 205).onTouched() && r),
-                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 205)._compositionStart() && r),
-                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 205)._compositionEnd(t.target.value) && r),
+                        'input' === n && (r = !1 !== l.ɵnov(e, 134)._handleInput(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 134).onTouched() && r),
+                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 134)._compositionStart() && r),
+                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 134)._compositionEnd(t.target.value) && r),
                         'ngModelChange' === n && (r = !1 !== (i.model.pasajero.noContacto = t) && r),
                         r
                       );
@@ -30261,7 +29717,7 @@
                     null
                   )),
                   l.ɵdid(
-                    205,
+                    134,
                     16384,
                     null,
                     0,
@@ -30270,7 +29726,7 @@
                     null,
                     null
                   ),
-                  l.ɵdid(206, 540672, null, 0, d.MaxLengthValidator, [], { maxlength: [0, 'maxlength'] }, null),
+                  l.ɵdid(135, 540672, null, 0, d.MaxLengthValidator, [], { maxlength: [0, 'maxlength'] }, null),
                   l.ɵprd(
                     1024,
                     null,
@@ -30290,7 +29746,7 @@
                     [d.DefaultValueAccessor]
                   ),
                   l.ɵdid(
-                    209,
+                    138,
                     671744,
                     [['noContacto', 4]],
                     0,
@@ -30300,14 +29756,509 @@
                     { update: 'ngModelChange' }
                   ),
                   l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
-                  l.ɵdid(211, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
-                  (e()(), l.ɵeld(212, 0, null, null, 11, 'div', [['class', 'row']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(213, 0, null, null, 0, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(214, 0, null, null, 9, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(215, 0, null, null, 0, 'hr', [['class', 'my-1']], null, null, null, null, null)),
+                  l.ɵdid(140, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵeld(141, 0, null, null, 61, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(142, 0, null, null, 1, 'h5', [], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['Informaci\xf3n de la reserva'])),
+                  (e()(), l.ɵeld(144, 0, null, null, 0, 'hr', [['class', 'my-2']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(145, 0, null, null, 27, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(146, 0, null, null, 1, 'label', [['for', 'noPersonas']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['No. personas'])),
                   (e()(),
                   l.ɵeld(
-                    216,
+                    148,
+                    0,
+                    null,
+                    null,
+                    24,
+                    'div',
+                    [['class', 'row'], ['name', 'noPersonas']],
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                  )),
+                  (e()(),
+                  l.ɵeld(149, 0, null, null, 11, 'div', [['class', 'col-sm-6 pr-1']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(
+                    150,
+                    0,
+                    null,
+                    null,
+                    8,
+                    'input',
+                    [
+                      ['class', 'form-control'],
+                      ['name', 'adultos'],
+                      ['placeholder', 'Adultos'],
+                      ['required', ''],
+                      ['type', 'number']
+                    ],
+                    [
+                      [1, 'required', 0],
+                      [2, 'ng-untouched', null],
+                      [2, 'ng-touched', null],
+                      [2, 'ng-pristine', null],
+                      [2, 'ng-dirty', null],
+                      [2, 'ng-valid', null],
+                      [2, 'ng-invalid', null],
+                      [2, 'ng-pending', null]
+                    ],
+                    [
+                      [null, 'ngModelChange'],
+                      [null, 'input'],
+                      [null, 'blur'],
+                      [null, 'compositionstart'],
+                      [null, 'compositionend'],
+                      [null, 'change']
+                    ],
+                    function(e, n, t) {
+                      var r = !0,
+                        i = e.component;
+                      return (
+                        'input' === n && (r = !1 !== l.ɵnov(e, 151)._handleInput(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 151).onTouched() && r),
+                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 151)._compositionStart() && r),
+                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 151)._compositionEnd(t.target.value) && r),
+                        'change' === n && (r = !1 !== l.ɵnov(e, 152).onChange(t.target.value) && r),
+                        'input' === n && (r = !1 !== l.ɵnov(e, 152).onChange(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 152).onTouched() && r),
+                        'ngModelChange' === n && (r = !1 !== (i.model.adultos = t) && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(
+                    151,
+                    16384,
+                    null,
+                    0,
+                    d.DefaultValueAccessor,
+                    [l.Renderer2, l.ElementRef, [2, d.COMPOSITION_BUFFER_MODE]],
+                    null,
+                    null
+                  ),
+                  l.ɵdid(
+                    152,
+                    16384,
+                    null,
+                    0,
+                    d.ɵangular_packages_forms_forms_bd,
+                    [l.Renderer2, l.ElementRef],
+                    null,
+                    null
+                  ),
+                  l.ɵdid(153, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALIDATORS,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.RequiredValidator]
+                  ),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALUE_ACCESSOR,
+                    function(e, n) {
+                      return [e, n];
+                    },
+                    [d.DefaultValueAccessor, d.ɵangular_packages_forms_forms_bd]
+                  ),
+                  l.ɵdid(
+                    156,
+                    671744,
+                    [['adultos', 4]],
+                    0,
+                    d.NgModel,
+                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
+                    { name: [0, 'name'], model: [1, 'model'] },
+                    { update: 'ngModelChange' }
+                  ),
+                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
+                  l.ɵdid(158, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, Z)),
+                  l.ɵdid(160, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(),
+                  l.ɵeld(161, 0, null, null, 11, 'div', [['class', 'col-sm-6 pl-1']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(
+                    162,
+                    0,
+                    null,
+                    null,
+                    8,
+                    'input',
+                    [
+                      ['class', 'form-control'],
+                      ['name', 'ninos'],
+                      ['placeholder', 'Ni\xf1os'],
+                      ['required', ''],
+                      ['type', 'number']
+                    ],
+                    [
+                      [1, 'required', 0],
+                      [2, 'ng-untouched', null],
+                      [2, 'ng-touched', null],
+                      [2, 'ng-pristine', null],
+                      [2, 'ng-dirty', null],
+                      [2, 'ng-valid', null],
+                      [2, 'ng-invalid', null],
+                      [2, 'ng-pending', null]
+                    ],
+                    [
+                      [null, 'ngModelChange'],
+                      [null, 'input'],
+                      [null, 'blur'],
+                      [null, 'compositionstart'],
+                      [null, 'compositionend'],
+                      [null, 'change']
+                    ],
+                    function(e, n, t) {
+                      var r = !0,
+                        i = e.component;
+                      return (
+                        'input' === n && (r = !1 !== l.ɵnov(e, 163)._handleInput(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 163).onTouched() && r),
+                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 163)._compositionStart() && r),
+                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 163)._compositionEnd(t.target.value) && r),
+                        'change' === n && (r = !1 !== l.ɵnov(e, 164).onChange(t.target.value) && r),
+                        'input' === n && (r = !1 !== l.ɵnov(e, 164).onChange(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 164).onTouched() && r),
+                        'ngModelChange' === n && (r = !1 !== (i.model.ninos = t) && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(
+                    163,
+                    16384,
+                    null,
+                    0,
+                    d.DefaultValueAccessor,
+                    [l.Renderer2, l.ElementRef, [2, d.COMPOSITION_BUFFER_MODE]],
+                    null,
+                    null
+                  ),
+                  l.ɵdid(
+                    164,
+                    16384,
+                    null,
+                    0,
+                    d.ɵangular_packages_forms_forms_bd,
+                    [l.Renderer2, l.ElementRef],
+                    null,
+                    null
+                  ),
+                  l.ɵdid(165, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALIDATORS,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.RequiredValidator]
+                  ),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALUE_ACCESSOR,
+                    function(e, n) {
+                      return [e, n];
+                    },
+                    [d.DefaultValueAccessor, d.ɵangular_packages_forms_forms_bd]
+                  ),
+                  l.ɵdid(
+                    168,
+                    671744,
+                    [['ninos', 4]],
+                    0,
+                    d.NgModel,
+                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
+                    { name: [0, 'name'], model: [1, 'model'] },
+                    { update: 'ngModelChange' }
+                  ),
+                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
+                  l.ɵdid(170, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, X)),
+                  l.ɵdid(172, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(),
+                  l.ɵeld(173, 0, null, null, 14, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(174, 0, null, null, 1, 'label', [['for', 'aerolinea']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['Aerol\xednea'])),
+                  (e()(),
+                  l.ɵeld(
+                    176,
+                    0,
+                    null,
+                    null,
+                    9,
+                    'select',
+                    [['class', 'form-control'], ['name', 'aerolinea'], ['required', '']],
+                    [
+                      [1, 'required', 0],
+                      [2, 'ng-untouched', null],
+                      [2, 'ng-touched', null],
+                      [2, 'ng-pristine', null],
+                      [2, 'ng-dirty', null],
+                      [2, 'ng-valid', null],
+                      [2, 'ng-invalid', null],
+                      [2, 'ng-pending', null]
+                    ],
+                    [[null, 'ngModelChange'], [null, 'change'], [null, 'blur']],
+                    function(e, n, t) {
+                      var r = !0,
+                        i = e.component;
+                      return (
+                        'change' === n && (r = !1 !== l.ɵnov(e, 177).onChange(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 177).onTouched() && r),
+                        'ngModelChange' === n && (r = !1 !== (i.model.idAerolinea = t) && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(177, 16384, null, 0, d.SelectControlValueAccessor, [l.Renderer2, l.ElementRef], null, null),
+                  l.ɵdid(178, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALIDATORS,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.RequiredValidator]
+                  ),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALUE_ACCESSOR,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.SelectControlValueAccessor]
+                  ),
+                  l.ɵdid(
+                    181,
+                    671744,
+                    [['aerolinea', 4]],
+                    0,
+                    d.NgModel,
+                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
+                    { name: [0, 'name'], model: [1, 'model'] },
+                    { update: 'ngModelChange' }
+                  ),
+                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
+                  l.ɵdid(183, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, ee)),
+                  l.ɵdid(
+                    185,
+                    802816,
+                    null,
+                    0,
+                    c.NgForOf,
+                    [l.ViewContainerRef, l.TemplateRef, l.IterableDiffers],
+                    { ngForOf: [0, 'ngForOf'] },
+                    null
+                  ),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, ne)),
+                  l.ɵdid(187, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(),
+                  l.ɵeld(188, 0, null, null, 14, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(189, 0, null, null, 1, 'label', [['for', 'fuente']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['Captado de'])),
+                  (e()(),
+                  l.ɵeld(
+                    191,
+                    0,
+                    null,
+                    null,
+                    9,
+                    'select',
+                    [['class', 'form-control'], ['name', 'fuente'], ['required', '']],
+                    [
+                      [1, 'required', 0],
+                      [2, 'ng-untouched', null],
+                      [2, 'ng-touched', null],
+                      [2, 'ng-pristine', null],
+                      [2, 'ng-dirty', null],
+                      [2, 'ng-valid', null],
+                      [2, 'ng-invalid', null],
+                      [2, 'ng-pending', null]
+                    ],
+                    [[null, 'ngModelChange'], [null, 'change'], [null, 'blur']],
+                    function(e, n, t) {
+                      var r = !0,
+                        i = e.component;
+                      return (
+                        'change' === n && (r = !1 !== l.ɵnov(e, 192).onChange(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 192).onTouched() && r),
+                        'ngModelChange' === n && (r = !1 !== (i.model.idFuente = t) && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(192, 16384, null, 0, d.SelectControlValueAccessor, [l.Renderer2, l.ElementRef], null, null),
+                  l.ɵdid(193, 16384, null, 0, d.RequiredValidator, [], { required: [0, 'required'] }, null),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALIDATORS,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.RequiredValidator]
+                  ),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALUE_ACCESSOR,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.SelectControlValueAccessor]
+                  ),
+                  l.ɵdid(
+                    196,
+                    671744,
+                    [['fuente', 4]],
+                    0,
+                    d.NgModel,
+                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
+                    { name: [0, 'name'], model: [1, 'model'] },
+                    { update: 'ngModelChange' }
+                  ),
+                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
+                  l.ɵdid(198, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, te)),
+                  l.ɵdid(
+                    200,
+                    802816,
+                    null,
+                    0,
+                    c.NgForOf,
+                    [l.ViewContainerRef, l.TemplateRef, l.IterableDiffers],
+                    { ngForOf: [0, 'ngForOf'] },
+                    null
+                  ),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, le)),
+                  l.ɵdid(202, 16384, null, 0, c.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(),
+                  l.ɵeld(203, 0, null, null, 12, 'div', [['class', 'col-md-12']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(204, 0, null, null, 11, 'div', [['class', 'form-group']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(205, 0, null, null, 1, 'label', [['for', 'notas']], null, null, null, null, null)),
+                  (e()(), l.ɵted(-1, null, ['Notas'])),
+                  (e()(),
+                  l.ɵeld(
+                    207,
+                    0,
+                    null,
+                    null,
+                    8,
+                    'textarea',
+                    [
+                      ['class', 'form-control'],
+                      ['id', 'notas'],
+                      ['maxlength', '600'],
+                      ['name', 'notas'],
+                      ['rows', '3']
+                    ],
+                    [
+                      [1, 'maxlength', 0],
+                      [2, 'ng-untouched', null],
+                      [2, 'ng-touched', null],
+                      [2, 'ng-pristine', null],
+                      [2, 'ng-dirty', null],
+                      [2, 'ng-valid', null],
+                      [2, 'ng-invalid', null],
+                      [2, 'ng-pending', null]
+                    ],
+                    [
+                      [null, 'ngModelChange'],
+                      [null, 'input'],
+                      [null, 'blur'],
+                      [null, 'compositionstart'],
+                      [null, 'compositionend']
+                    ],
+                    function(e, n, t) {
+                      var r = !0,
+                        i = e.component;
+                      return (
+                        'input' === n && (r = !1 !== l.ɵnov(e, 208)._handleInput(t.target.value) && r),
+                        'blur' === n && (r = !1 !== l.ɵnov(e, 208).onTouched() && r),
+                        'compositionstart' === n && (r = !1 !== l.ɵnov(e, 208)._compositionStart() && r),
+                        'compositionend' === n && (r = !1 !== l.ɵnov(e, 208)._compositionEnd(t.target.value) && r),
+                        'ngModelChange' === n && (r = !1 !== (i.model.notas = t) && r),
+                        r
+                      );
+                    },
+                    null,
+                    null
+                  )),
+                  l.ɵdid(
+                    208,
+                    16384,
+                    null,
+                    0,
+                    d.DefaultValueAccessor,
+                    [l.Renderer2, l.ElementRef, [2, d.COMPOSITION_BUFFER_MODE]],
+                    null,
+                    null
+                  ),
+                  l.ɵdid(209, 540672, null, 0, d.MaxLengthValidator, [], { maxlength: [0, 'maxlength'] }, null),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALIDATORS,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.MaxLengthValidator]
+                  ),
+                  l.ɵprd(
+                    1024,
+                    null,
+                    d.NG_VALUE_ACCESSOR,
+                    function(e) {
+                      return [e];
+                    },
+                    [d.DefaultValueAccessor]
+                  ),
+                  l.ɵdid(
+                    212,
+                    671744,
+                    [['notas', 4]],
+                    0,
+                    d.NgModel,
+                    [[2, d.ControlContainer], [6, d.NG_VALIDATORS], [8, null], [6, d.NG_VALUE_ACCESSOR]],
+                    { name: [0, 'name'], model: [1, 'model'] },
+                    { update: 'ngModelChange' }
+                  ),
+                  l.ɵprd(2048, null, d.NgControl, null, [d.NgModel]),
+                  l.ɵdid(214, 16384, null, 0, d.NgControlStatus, [[4, d.NgControl]], null, null),
+                  (e()(), l.ɵted(215, null, ['', ''])),
+                  (e()(), l.ɵeld(216, 0, null, null, 11, 'div', [['class', 'row']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(217, 0, null, null, 0, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(218, 0, null, null, 9, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(219, 0, null, null, 0, 'hr', [['class', 'my-1']], null, null, null, null, null)),
+                  (e()(),
+                  l.ɵeld(
+                    220,
                     0,
                     null,
                     null,
@@ -30320,16 +30271,16 @@
                     null,
                     null
                   )),
-                  (e()(), l.ɵeld(217, 0, null, null, 3, 'div', [['class', 'p-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(218, 0, null, null, 2, 'h4', [], null, null, null, null, null)),
-                  (e()(), l.ɵted(219, null, ['', ''])),
-                  l.ɵppd(220, 2),
-                  (e()(), l.ɵeld(221, 0, null, null, 2, 'div', [['class', 'p-2']], null, null, null, null, null)),
-                  (e()(), l.ɵeld(222, 0, null, null, 1, 'h4', [], null, null, null, null, null)),
+                  (e()(), l.ɵeld(221, 0, null, null, 3, 'div', [['class', 'p-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(222, 0, null, null, 2, 'h4', [], null, null, null, null, null)),
+                  (e()(), l.ɵted(223, null, ['', ''])),
+                  l.ɵppd(224, 2),
+                  (e()(), l.ɵeld(225, 0, null, null, 2, 'div', [['class', 'p-2']], null, null, null, null, null)),
+                  (e()(), l.ɵeld(226, 0, null, null, 1, 'h4', [], null, null, null, null, null)),
                   (e()(), l.ɵted(-1, null, ['Total'])),
                   (e()(),
                   l.ɵeld(
-                    224,
+                    228,
                     0,
                     null,
                     null,
@@ -30343,7 +30294,7 @@
                         i = e.component;
                       return (
                         'click' === n &&
-                          (r = !1 !== l.ɵnov(e, 225).onClick(t.button, t.ctrlKey, t.metaKey, t.shiftKey) && r),
+                          (r = !1 !== l.ɵnov(e, 229).onClick(t.button, t.ctrlKey, t.metaKey, t.shiftKey) && r),
                         'click' === n && (r = !1 !== i.siguiente() && r),
                         r
                       );
@@ -30352,7 +30303,7 @@
                     null
                   )),
                   l.ɵdid(
-                    225,
+                    229,
                     671744,
                     null,
                     0,
@@ -30363,7 +30314,7 @@
                   ),
                   (e()(),
                   l.ɵeld(
-                    226,
+                    230,
                     0,
                     null,
                     null,
@@ -30389,40 +30340,40 @@
                     e(n, 50, 0, t.modificarSubTotal),
                     e(n, 52, 0, t.modificarSubTotal),
                     e(n, 59, 0, 'vEsIva', t.esIva),
-                    e(n, 84, 0, ''),
-                    e(n, 87, 0, 'adultos', t.model.adultos),
-                    e(n, 91, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 87).valid),
-                    e(n, 96, 0, ''),
-                    e(n, 99, 0, 'ninos', t.model.ninos),
-                    e(n, 103, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 99).valid),
-                    e(n, 110, 0, ''),
-                    e(n, 113, 0, 'aerolinea', t.model.idAerolinea),
-                    e(n, 117, 0, t.aerolineas),
-                    e(n, 119, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 113).valid),
-                    e(n, 126, 0, ''),
-                    e(n, 129, 0, 'fuente', t.model.idFuente),
-                    e(n, 133, 0, t.fuentes),
-                    e(n, 135, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 129).valid),
-                    e(n, 141, 0, '600'),
-                    e(n, 144, 0, 'notas', t.model.notas),
-                    e(n, 155, 0, ''),
-                    e(n, 156, 0, !0),
-                    e(n, 159, 0, 'correo', t.model.pasajero.correo),
-                    e(n, 163, 0, t.loadingPasajero),
-                    e(n, 165, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 159).valid),
-                    e(n, 167, 0, l.ɵnov(n, 159).touched && !l.ɵnov(n, 159).valid && !l.ɵnov(n, 9).submitted),
-                    e(n, 169, 0, 0 == t.pasajeroRegistrado && l.ɵnov(n, 159).touched && l.ɵnov(n, 159).valid),
-                    e(n, 176, 0, ''),
-                    e(n, 177, 0, '100'),
-                    e(n, 180, 0, 'pasajero', t.model.pasajero.pasajero),
-                    e(n, 184, 0, t.pasajeroRegistrado && !t.modificarPasajero),
-                    e(n, 186, 0, t.modificarPasajero),
-                    e(n, 188, 0, t.modificarPasajero),
-                    e(n, 190, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 180).valid),
-                    e(n, 192, 0, !l.ɵnov(n, 9).submitted && !l.ɵnov(n, 180).valid && l.ɵnov(n, 180).touched),
-                    e(n, 199, 0, t.paisesFormat),
-                    e(n, 206, 0, '15'),
-                    e(n, 209, 0, 'noContacto', t.model.pasajero.noContacto);
+                    e(n, 86, 0, ''),
+                    e(n, 87, 0, !0),
+                    e(n, 90, 0, 'correo', t.model.pasajero.correo),
+                    e(n, 94, 0, t.loadingPasajero),
+                    e(n, 96, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 90).valid),
+                    e(n, 98, 0, l.ɵnov(n, 90).touched && !l.ɵnov(n, 90).valid && !l.ɵnov(n, 9).submitted),
+                    e(n, 100, 0, 0 == t.pasajeroRegistrado && l.ɵnov(n, 90).touched && l.ɵnov(n, 90).valid),
+                    e(n, 107, 0, ''),
+                    e(n, 108, 0, '100'),
+                    e(n, 111, 0, 'pasajero', t.model.pasajero.pasajero),
+                    e(n, 115, 0, t.pasajeroRegistrado && !t.modificarPasajero),
+                    e(n, 117, 0, t.modificarPasajero),
+                    e(n, 119, 0, t.modificarPasajero),
+                    e(n, 121, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 111).valid),
+                    e(n, 123, 0, !l.ɵnov(n, 9).submitted && !l.ɵnov(n, 111).valid && l.ɵnov(n, 111).touched),
+                    e(n, 129, 0, t.paisesFormat),
+                    e(n, 135, 0, '15'),
+                    e(n, 138, 0, 'noContacto', t.model.pasajero.noContacto),
+                    e(n, 153, 0, ''),
+                    e(n, 156, 0, 'adultos', t.model.adultos),
+                    e(n, 160, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 156).valid),
+                    e(n, 165, 0, ''),
+                    e(n, 168, 0, 'ninos', t.model.ninos),
+                    e(n, 172, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 168).valid),
+                    e(n, 178, 0, ''),
+                    e(n, 181, 0, 'aerolinea', t.model.idAerolinea),
+                    e(n, 185, 0, t.aerolineas),
+                    e(n, 187, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 181).valid),
+                    e(n, 193, 0, ''),
+                    e(n, 196, 0, 'fuente', t.model.idFuente),
+                    e(n, 200, 0, t.fuentes),
+                    e(n, 202, 0, l.ɵnov(n, 9).submitted && !l.ɵnov(n, 196).valid),
+                    e(n, 209, 0, '600'),
+                    e(n, 212, 0, 'notas', t.model.notas);
                 },
                 function(e, n) {
                   var t = n.component;
@@ -30462,121 +30413,121 @@
                     e(n, 73, 0, 2 !== t.paso),
                     e(
                       n,
-                      81,
-                      0,
-                      l.ɵnov(n, 84).required ? '' : null,
-                      l.ɵnov(n, 89).ngClassUntouched,
-                      l.ɵnov(n, 89).ngClassTouched,
-                      l.ɵnov(n, 89).ngClassPristine,
-                      l.ɵnov(n, 89).ngClassDirty,
-                      l.ɵnov(n, 89).ngClassValid,
-                      l.ɵnov(n, 89).ngClassInvalid,
-                      l.ɵnov(n, 89).ngClassPending
-                    ),
-                    e(
-                      n,
-                      93,
-                      0,
-                      l.ɵnov(n, 96).required ? '' : null,
-                      l.ɵnov(n, 101).ngClassUntouched,
-                      l.ɵnov(n, 101).ngClassTouched,
-                      l.ɵnov(n, 101).ngClassPristine,
-                      l.ɵnov(n, 101).ngClassDirty,
-                      l.ɵnov(n, 101).ngClassValid,
-                      l.ɵnov(n, 101).ngClassInvalid,
-                      l.ɵnov(n, 101).ngClassPending
-                    ),
-                    e(
-                      n,
-                      108,
-                      0,
-                      l.ɵnov(n, 110).required ? '' : null,
-                      l.ɵnov(n, 115).ngClassUntouched,
-                      l.ɵnov(n, 115).ngClassTouched,
-                      l.ɵnov(n, 115).ngClassPristine,
-                      l.ɵnov(n, 115).ngClassDirty,
-                      l.ɵnov(n, 115).ngClassValid,
-                      l.ɵnov(n, 115).ngClassInvalid,
-                      l.ɵnov(n, 115).ngClassPending
-                    ),
-                    e(
-                      n,
-                      124,
-                      0,
-                      l.ɵnov(n, 126).required ? '' : null,
-                      l.ɵnov(n, 131).ngClassUntouched,
-                      l.ɵnov(n, 131).ngClassTouched,
-                      l.ɵnov(n, 131).ngClassPristine,
-                      l.ɵnov(n, 131).ngClassDirty,
-                      l.ɵnov(n, 131).ngClassValid,
-                      l.ɵnov(n, 131).ngClassInvalid,
-                      l.ɵnov(n, 131).ngClassPending
-                    ),
-                    e(
-                      n,
-                      139,
-                      0,
-                      l.ɵnov(n, 141).maxlength ? l.ɵnov(n, 141).maxlength : null,
-                      l.ɵnov(n, 146).ngClassUntouched,
-                      l.ɵnov(n, 146).ngClassTouched,
-                      l.ɵnov(n, 146).ngClassPristine,
-                      l.ɵnov(n, 146).ngClassDirty,
-                      l.ɵnov(n, 146).ngClassValid,
-                      l.ɵnov(n, 146).ngClassInvalid,
-                      l.ɵnov(n, 146).ngClassPending
-                    ),
-                    e(n, 147, 0, t.model.notas),
-                    e(
-                      n,
-                      153,
+                      84,
                       0,
                       'U' == t.accion || t.modificarPasajero,
-                      l.ɵnov(n, 155).required ? '' : null,
-                      l.ɵnov(n, 161).ngClassUntouched,
-                      l.ɵnov(n, 161).ngClassTouched,
-                      l.ɵnov(n, 161).ngClassPristine,
-                      l.ɵnov(n, 161).ngClassDirty,
-                      l.ɵnov(n, 161).ngClassValid,
-                      l.ɵnov(n, 161).ngClassInvalid,
-                      l.ɵnov(n, 161).ngClassPending
+                      l.ɵnov(n, 86).required ? '' : null,
+                      l.ɵnov(n, 92).ngClassUntouched,
+                      l.ɵnov(n, 92).ngClassTouched,
+                      l.ɵnov(n, 92).ngClassPristine,
+                      l.ɵnov(n, 92).ngClassDirty,
+                      l.ɵnov(n, 92).ngClassValid,
+                      l.ɵnov(n, 92).ngClassInvalid,
+                      l.ɵnov(n, 92).ngClassPending
                     ),
                     e(
                       n,
-                      174,
+                      105,
                       0,
                       t.pasajeroRegistrado && !t.modificarPasajero,
-                      l.ɵnov(n, 176).required ? '' : null,
-                      l.ɵnov(n, 177).maxlength ? l.ɵnov(n, 177).maxlength : null,
-                      l.ɵnov(n, 182).ngClassUntouched,
-                      l.ɵnov(n, 182).ngClassTouched,
-                      l.ɵnov(n, 182).ngClassPristine,
-                      l.ɵnov(n, 182).ngClassDirty,
-                      l.ɵnov(n, 182).ngClassValid,
-                      l.ɵnov(n, 182).ngClassInvalid,
-                      l.ɵnov(n, 182).ngClassPending
+                      l.ɵnov(n, 107).required ? '' : null,
+                      l.ɵnov(n, 108).maxlength ? l.ɵnov(n, 108).maxlength : null,
+                      l.ɵnov(n, 113).ngClassUntouched,
+                      l.ɵnov(n, 113).ngClassTouched,
+                      l.ɵnov(n, 113).ngClassPristine,
+                      l.ɵnov(n, 113).ngClassDirty,
+                      l.ɵnov(n, 113).ngClassValid,
+                      l.ɵnov(n, 113).ngClassInvalid,
+                      l.ɵnov(n, 113).ngClassPending
                     ),
-                    e(n, 197, 0, t.pasajeroRegistrado && !t.modificarPasajero),
+                    e(n, 127, 0, t.pasajeroRegistrado && !t.modificarPasajero),
                     e(
                       n,
-                      204,
+                      133,
                       0,
                       t.pasajeroRegistrado && !t.modificarPasajero,
-                      l.ɵnov(n, 206).maxlength ? l.ɵnov(n, 206).maxlength : null,
-                      l.ɵnov(n, 211).ngClassUntouched,
-                      l.ɵnov(n, 211).ngClassTouched,
-                      l.ɵnov(n, 211).ngClassPristine,
-                      l.ɵnov(n, 211).ngClassDirty,
-                      l.ɵnov(n, 211).ngClassValid,
-                      l.ɵnov(n, 211).ngClassInvalid,
-                      l.ɵnov(n, 211).ngClassPending
+                      l.ɵnov(n, 135).maxlength ? l.ɵnov(n, 135).maxlength : null,
+                      l.ɵnov(n, 140).ngClassUntouched,
+                      l.ɵnov(n, 140).ngClassTouched,
+                      l.ɵnov(n, 140).ngClassPristine,
+                      l.ɵnov(n, 140).ngClassDirty,
+                      l.ɵnov(n, 140).ngClassValid,
+                      l.ɵnov(n, 140).ngClassInvalid,
+                      l.ɵnov(n, 140).ngClassPending
                     ),
                     e(
                       n,
-                      219,
+                      150,
                       0,
-                      l.ɵunv(n, 219, 0, e(n, 220, 0, l.ɵnov(n.parent, 1), t.subTotal * t.IVA + (t.subTotal - 0), 'USD'))
+                      l.ɵnov(n, 153).required ? '' : null,
+                      l.ɵnov(n, 158).ngClassUntouched,
+                      l.ɵnov(n, 158).ngClassTouched,
+                      l.ɵnov(n, 158).ngClassPristine,
+                      l.ɵnov(n, 158).ngClassDirty,
+                      l.ɵnov(n, 158).ngClassValid,
+                      l.ɵnov(n, 158).ngClassInvalid,
+                      l.ɵnov(n, 158).ngClassPending
                     ),
-                    e(n, 224, 0, l.ɵnov(n, 225).target, l.ɵnov(n, 225).href);
+                    e(
+                      n,
+                      162,
+                      0,
+                      l.ɵnov(n, 165).required ? '' : null,
+                      l.ɵnov(n, 170).ngClassUntouched,
+                      l.ɵnov(n, 170).ngClassTouched,
+                      l.ɵnov(n, 170).ngClassPristine,
+                      l.ɵnov(n, 170).ngClassDirty,
+                      l.ɵnov(n, 170).ngClassValid,
+                      l.ɵnov(n, 170).ngClassInvalid,
+                      l.ɵnov(n, 170).ngClassPending
+                    ),
+                    e(
+                      n,
+                      176,
+                      0,
+                      l.ɵnov(n, 178).required ? '' : null,
+                      l.ɵnov(n, 183).ngClassUntouched,
+                      l.ɵnov(n, 183).ngClassTouched,
+                      l.ɵnov(n, 183).ngClassPristine,
+                      l.ɵnov(n, 183).ngClassDirty,
+                      l.ɵnov(n, 183).ngClassValid,
+                      l.ɵnov(n, 183).ngClassInvalid,
+                      l.ɵnov(n, 183).ngClassPending
+                    ),
+                    e(
+                      n,
+                      191,
+                      0,
+                      l.ɵnov(n, 193).required ? '' : null,
+                      l.ɵnov(n, 198).ngClassUntouched,
+                      l.ɵnov(n, 198).ngClassTouched,
+                      l.ɵnov(n, 198).ngClassPristine,
+                      l.ɵnov(n, 198).ngClassDirty,
+                      l.ɵnov(n, 198).ngClassValid,
+                      l.ɵnov(n, 198).ngClassInvalid,
+                      l.ɵnov(n, 198).ngClassPending
+                    ),
+                    e(
+                      n,
+                      207,
+                      0,
+                      l.ɵnov(n, 209).maxlength ? l.ɵnov(n, 209).maxlength : null,
+                      l.ɵnov(n, 214).ngClassUntouched,
+                      l.ɵnov(n, 214).ngClassTouched,
+                      l.ɵnov(n, 214).ngClassPristine,
+                      l.ɵnov(n, 214).ngClassDirty,
+                      l.ɵnov(n, 214).ngClassValid,
+                      l.ɵnov(n, 214).ngClassInvalid,
+                      l.ɵnov(n, 214).ngClassPending
+                    ),
+                    e(n, 215, 0, t.model.notas),
+                    e(
+                      n,
+                      223,
+                      0,
+                      l.ɵunv(n, 223, 0, e(n, 224, 0, l.ɵnov(n.parent, 1), t.subTotal * t.IVA + (t.subTotal - 0), 'USD'))
+                    ),
+                    e(n, 228, 0, l.ɵnov(n, 229).target, l.ɵnov(n, 229).href);
                 }
               );
             }
