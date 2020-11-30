@@ -97,8 +97,8 @@ class Registro {
       });
   }
 
-  registro(registro, res) {
-    var token = md5(registro.correo + '' + moment().format('DDMMYYYYhhmmss'));
+  registro(_registro, res) {
+    var token = md5(_registro.correo + '' + moment().format('DDMMYYYYhhmmss'));
 
     var params =
       '<params idPais= "' +
