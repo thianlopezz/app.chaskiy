@@ -201,8 +201,8 @@ var Registro =
       },
       {
         key: 'registro',
-        value: function registro(_registro2, res) {
-          var token = (0, _md['default'])(_registro2.correo + '' + (0, _moment['default'])().format('DDMMYYYYhhmmss'));
+        value: function registro(_registro, res) {
+          var token = (0, _md['default'])(_registro.correo + '' + (0, _moment['default'])().format('DDMMYYYYhhmmss'));
           var params =
             '<params idPais= "' +
             _registro.valuePa +
