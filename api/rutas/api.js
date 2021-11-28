@@ -27,6 +27,7 @@ import Tarifa from '../controllers/Tarifa';
 import Marcacion from '../controllers/Marcacion';
 import Foto from '../controllers/Foto';
 import Cama from '../controllers/Cama';
+import Agencia from '../controllers/Agencia';
 
 /* GET api listing. */
 router.get('/', (req, res) => {
@@ -329,6 +330,15 @@ router.get('/marcacion/all/:idHospedaje', (req, res) => {
 
 router.post('/marcacion/', (req, res) => {
   Marcacion.marcar(req.body, res);
+});
+
+// A G E N C I A
+router.get('/agencia/:idHosepdaje/', (req, res) => {
+  Agencia.get(req.params.idHosepdaje, res);
+});
+
+router.post('/agencia/', (req, res) => {
+  Agencia.mantenimiento(req.body, res);
 });
 
 // G A L E R Y

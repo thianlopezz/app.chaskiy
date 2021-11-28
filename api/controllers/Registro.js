@@ -125,7 +125,7 @@ class Registro {
       .execArrayToSp('reg_registro', [params])
       .then(result => {
         if (result[0][0].err == undefined) {
-          var claves = 'nombre_usuario:' + _registro.nombre + ';tokenRegistro:' + tokenRegistro;
+          var claves = 'nombre_usuario:' + _registro.nombre + ';tokenRegistro:' + token;
 
           enviaCorreo(
             result[0][0].idHospedaje,

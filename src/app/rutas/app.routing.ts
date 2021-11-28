@@ -26,6 +26,7 @@ import { AnalyticsComponent } from '../privado/analytics/analytics.component';
 import { MarcacionComponent } from '../privado/marcacion/marcacion.component';
 import { GaleriaComponent } from '../privado/galeria/galeria.component';
 import { HabitacionDetalleComponent } from '../privado/habitacion-detalle/habitacion-detalle.component';
+import { AgenciaComponent } from '../privado/agencia/agencia.component';
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent },
@@ -118,6 +119,11 @@ const appRoutes: Routes = [
   {
     path: 'galeria',
     component: GaleriaComponent,
+    canActivate: [RouteActivatorService]
+  },
+  {
+    path: 'agencias',
+    component: AgenciaComponent,
     canActivate: [RouteActivatorService]
   },
 

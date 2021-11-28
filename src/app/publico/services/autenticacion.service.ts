@@ -87,6 +87,7 @@ export class AutenticacionService {
       { route: 'galeria', text: 'Galería' },
       { route: 'configuracion', text: 'Configuración' },
       { route: 'marcar', text: 'Marcar' },
+      { route: 'agencias', text: 'Agencia' },
       { route: 'contrasena', text: 'Cambiar contrasena', hidden: true }
     ];
   }

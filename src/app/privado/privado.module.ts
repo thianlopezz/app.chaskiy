@@ -64,6 +64,7 @@ import { CamaListComponent } from './components/cama/cama-list/cama-list.compone
 import { CamaCardComponent } from './components/cama/cama-card/cama-card.component';
 import { CamaSelectModalComponent } from './components/cama/cama-select-modal/cama-select-modal.component';
 import { CamaComponent } from './cama/cama.component';
+import { AgenciaComponent } from './agencia/agencia.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule, CompartidoModule, MyDatePickerModule],
@@ -103,7 +104,8 @@ import { CamaComponent } from './cama/cama.component';
     CamaListComponent,
     CamaCardComponent,
     CamaSelectModalComponent,
-    CamaComponent
+    CamaComponent,
+    AgenciaComponent
   ],
   providers: [
     AdicionalService,

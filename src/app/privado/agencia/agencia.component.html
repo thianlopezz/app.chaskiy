@@ -1,0 +1,223 @@
+<br />
+<br />
+<div class="container">
+  <h2>
+    Agencias
+    <small>({{ agencias.length }})</small>
+  </h2>
+  <hr class="my-2" />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="row mb-1">
+        <div class="col-sm-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="text" name="filtro" class="form-control" placeholder="Buscar" [(ngModel)]="filtro" />
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <button
+            type="button"
+            class="btn btn-primary agencia pull-right"
+            (click)="setNuevo()"
+            data-toggle="modal"
+            data-target="#agenciaModal"
+          >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Nuevo
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="25%">Razón social</th>
+                <th width="25%">Nombre comercial</th>
+                <th width="15%">RUC</th>
+                <th width="15%">Correo</th>
+                <th width="10%">Teléfono</th>
+                <th width="10%">Editar/Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let agencia of (agencias | filtrar: 'razonSocial,nombreComercial,ruc,correo,telefono':filtro)"
+              >
+                <td width="25%">{{ agencia.razonSocial }}</td>
+                <td width="25%">{{ agencia.nombreComercial }}</td>
+                <td width="15%">{{ agencia.ruc }}</td>
+                <td width="15%">{{ agencia.correo }}</td>
+                <td width="10%">{{ agencia.telefono }}</td>
+                <td width="10%" class="text-center">
+                  <div class="btn-group grid-btn" role="group">
+                    <button
+                      type="button"
+                      (click)="setModi(agencia)"
+                      class="btn btn-link text-primary"
+                      data-toggle="modal"
+                      data-target="#agenciaModal"
+                    >
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="setDelete(agencia)"
+                      class="btn btn-link text-danger"
+                      data-toggle="modal"
+                      data-target="#confirmaModal"
+                    >
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="loadingAdicional">
+                <td colspan="6">
+                  <app-spinner></app-spinner>
+                </td>
+              </tr>
+              <tr *ngIf="!loadingAdicional && agencias.length === 0">
+                <td class="text-center" colspan="6">
+                  <p class="text-muted">No existen agencias</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            Registra, edita o elimina los servicios adicionales que manejas en tu hospedaje. Los adicionales se pueden
+            registrar al momento de hacer una reserva y/o mientras no se haya hecho el proceso de check-out.
+          </p>
+          <!-- <ul>
+						<li *ngFor="let op of tipos">{{op.tipotarifa}}</li>
+					</ul> -->
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <app-card-notificaciones></app-card-notificaciones>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL ADICIONAL -->
+<div *ngIf="model" class="modal fade" id="agenciaModal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title">Agencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          id="formAgencia"
+          name="form"
+          class="col-md-12"
+          (ngSubmit)="f.form.valid && guardar(f)"
+          #f="ngForm"
+          [ngClass]="{ 'was-validated': f.submitted }"
+          novalidate
+        >
+          <div class="form-row">
+            <div class="form-group col-sm-12">
+              <label for="razonSocial">Razón social</label>
+              <input
+                type="text"
+                class="form-control"
+                name="razonSocial"
+                [(ngModel)]="model.razonSocial"
+                #razonSocial="ngModel"
+                maxlength="200"
+                required
+              />
+              <div *ngIf="f.submitted && !razonSocial.valid" class="invalid-feedback">
+                La razón social es requerida
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <label for="nombreComercial">Nombre comercial</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombreComercial"
+                [(ngModel)]="model.nombreComercial"
+                #nombreComercial="ngModel"
+                maxlength="200"
+                required
+              />
+              <div *ngIf="f.submitted && !nombreComercial.valid" class="invalid-feedback">
+                El nombre comercial es requerido
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <label for="ruc">RUC</label>
+              <input
+                type="text"
+                class="form-control"
+                name="ruc"
+                [(ngModel)]="model.ruc"
+                #ruc="ngModel"
+                maxlength="13"
+                required
+              />
+              <div *ngIf="f.submitted && !ruc.valid" class="invalid-feedback">
+                El RUC es requerido
+              </div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+              <label for="correo">Correo</label>
+              <input
+                type="text"
+                class="form-control"
+                name="correo"
+                [(ngModel)]="model.correo"
+                #correo="ngModel"
+                required
+              />
+              <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">El correo es requerido</div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+              <label for="telefono">Teléfono</label>
+              <input
+                type="text"
+                class="form-control"
+                name="telefono"
+                [(ngModel)]="model.telefono"
+                #telefono="ngModel"
+                required
+              />
+              <div *ngIf="f.submitted && !telefono.valid" class="invalid-feedback">El teléfono es requerido</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <img *ngIf="loading" src="/assets/images/loading.svg" />
+        <button *ngIf="!loading" type="submit" class="btn btn-primary" form="formAgencia">Guardar</button>
+        <button *ngIf="!loading" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-confirmacion
+  [mensaje]="mensajeConfirmacion"
+  (confirmar)="delete()"
+  (cancelar)="onCancelar()"
+></app-modal-confirmacion>
