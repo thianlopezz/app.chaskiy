@@ -33437,7 +33437,7 @@
                     e(n, 50, 0, l.modificarSubTotal),
                     e(n, 52, 0, l.modificarSubTotal),
                     e(n, 59, 0, 'vEsIva', l.esIva),
-                    e(n, 78, 0, l.model.idReserva),
+                    e(n, 78, 0, !l.model.idReserva),
                     e(n, 81, 0, 'pasajero' == l.model.tipoCliente),
                     e(n, 83, 0, 'agencia' == l.model.tipoCliente),
                     e(n, 96, 0, ''),
