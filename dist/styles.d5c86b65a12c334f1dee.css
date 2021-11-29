@@ -1644,9 +1644,6 @@ select.form-control-sm:not([size]):not([multiple]) {
 select.form-control-lg:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px);
 }
-.form-group {
-  margin-bottom: 1rem;
-}
 .form-text {
   display: block;
   margin-top: 0.25rem;
@@ -7654,6 +7651,9 @@ a.text-dark:hover {
 }
 .pointed {
   cursor: pointer !important;
+}
+.form-group {
+  margin-bottom: 0.5rem;
 } /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

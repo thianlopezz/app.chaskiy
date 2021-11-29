@@ -79,12 +79,12 @@
                   </div>
                 </td>
               </tr>
-              <tr *ngIf="loadingAdicional">
+              <tr *ngIf="loadingAgencia">
                 <td colspan="6">
                   <app-spinner></app-spinner>
                 </td>
               </tr>
-              <tr *ngIf="!loadingAdicional && agencias.length === 0">
+              <tr *ngIf="!loadingAgencia && agencias.length === 0">
                 <td class="text-center" colspan="6">
                   <p class="text-muted">No existen agencias</p>
                 </td>

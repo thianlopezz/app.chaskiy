@@ -2,9 +2,6 @@ import DataAcess from './DataAccess';
 import moment from 'moment';
 
 import CorreoGenerico from './CorreoGenerico';
-import Axios from 'axios';
-const URL_CORREO_GENERICO = process.env.CORREO_GENERICO || 'http://localhost:3000';
-const TOKEN_CORREO = process.env.TOKEN_CORREO || '123';
 
 class Reserva {
   get(accion, params, res) {
@@ -31,9 +28,10 @@ class Reserva {
       .execJsonToSp('res_reserva', { accion: 'C1', idReserva })
       .then(result => {
         result[0][0].pasajero = result[1][0];
-        result[0][0].adicionales = result[2];
-        result[0][0].habitaciones = result[3];
-        result[0][0].iva = result[4][0];
+        result[0][0].agencia = result[2][0];
+        result[0][0].adicionales = result[3];
+        result[0][0].habitaciones = result[4];
+        result[0][0].iva = result[5][0];
 
         res.send({ success: true, data: result[0] });
       })
@@ -49,6 +47,12 @@ class Reserva {
     if (reserva.notas) {
       reserva.notas = reserva.notas.replace(/\n/g, '');
       reserva.notas = reserva.notas.replace(/\t/g, '');
+    }
+
+    if (reserva.idAgencia && !reserva.idPasajero) {
+      delete reserva.idPasajero;
+    } else if (reserva.idPasajero && !reserva.idAgencia) {
+      delete reserva.idAgencia;
     }
 
     reserva.habitaciones = this.setHabitacionesDate(reserva.habitaciones);

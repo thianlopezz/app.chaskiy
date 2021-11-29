@@ -13,6 +13,7 @@ import { FuenteService } from '../services/fuente.service';
 import { AdicionalService } from '../adicional/adicional.service';
 import { PaisService } from '../services/pais.service';
 import { PagoService } from '../pagos/pago.service';
+import { AgenciaService } from '../agencia/agencia.service';
 
 declare var jQuery: any;
 
@@ -23,7 +24,9 @@ declare var jQuery: any;
 })
 export class ReservaComponent implements OnInit, AfterViewChecked {
   accion = 'I';
-  model: any = {};
+  model: any = {
+    tipoCliente: 'pasajero'
+  };
 
   // MODELO DE PAGO PARA CANCELAR REGISTRO
   modelPago;
@@ -63,6 +66,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   paises = [];
   aerolineas = [];
   fuentes = [];
+  agencias = [];
 
   // BANDERA PARA CONFIRMACION
   accionConfirmacion;
@@ -78,7 +82,8 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     private paisService: PaisService,
     private aerolineaService: AerolineaService,
     private fuenteService: FuenteService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private agenciaService: AgenciaService
   ) {}
 
   ngOnInit() {
@@ -101,6 +106,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     this.loadAllTarifas();
     this.loadAllPaises();
     this.loadAllAdicionales();
+    this.loadAgencias();
   }
 
   ngAfterViewChecked() {
@@ -224,7 +230,8 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
     // ASIGNO EL NUEVO MODELO PARA QUE LOS COMPONENTES
     // REGISTREN EL CAMBIO DE ESTADO
-    this.model = Object.assign({ habitaciones: this.reservasCliente }, this.model);
+    // POR DEFECTO TIPO DE CLIENTE PASAJERO
+    this.model = Object.assign({ habitaciones: this.reservasCliente, tipoCliente: 'pasajero' }, this.model);
     jQuery('#reservaModal').modal('show');
   }
 
@@ -265,7 +272,13 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
     this.reservasCliente = reservadosCliente;
     this.model.habitaciones = reservadosCliente;
-    this.model = Object.assign({}, this.model);
+
+    let tipoCliente = 'pasajero';
+    if (this.model.agencia && this.model.agencia.idAgencia) {
+      tipoCliente = 'agencia';
+    }
+
+    this.model = Object.assign({ tipoCliente }, this.model);
     jQuery('#reservaModal').modal('show');
   }
 
@@ -516,6 +529,16 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
         this.paises = response.data;
       } else {
         console.log('Error>> loadAllFormaPagos>> ' + response.mensaje);
+      }
+    });
+  }
+
+  private loadAgencias() {
+    this.agenciaService.get().subscribe((response: any) => {
+      if (response.success) {
+        this.agencias = response.data;
+      } else {
+        console.log('Error>> loadAgencias>> ' + response.mensaje);
       }
     });
   }

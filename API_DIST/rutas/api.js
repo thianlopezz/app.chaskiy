@@ -48,6 +48,8 @@ var _Foto = _interopRequireDefault(require('../controllers/Foto'));
 
 var _Cama = _interopRequireDefault(require('../controllers/Cama'));
 
+var _Agencia = _interopRequireDefault(require('../controllers/Agencia'));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -332,6 +334,13 @@ router.get('/marcacion/all/:idHospedaje', function(req, res) {
 });
 router.post('/marcacion/', function(req, res) {
   _Marcacion['default'].marcar(req.body, res);
+}); // A G E N C I A
+
+router.get('/agencia/:idHosepdaje/', function(req, res) {
+  _Agencia['default'].get(req.params.idHosepdaje, res);
+});
+router.post('/agencia/', function(req, res) {
+  _Agencia['default'].mantenimiento(req.body, res);
 }); // G A L E R Y
 
 router.get('/galeria/:idHospedaje', function(req, res) {

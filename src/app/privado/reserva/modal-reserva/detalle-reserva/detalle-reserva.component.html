@@ -107,6 +107,66 @@
         <div [hidden]="paso !== 2">
           <div class="habitaciones">
             <div class="row">
+              <!-- PASAJERO -->
+              <div *ngIf="model.pasajero && model.pasajero.idPasajero" class="pasajero" class="col-md-6">
+                <div class="form-group">
+                  <label for="correo">Correo electrónico</label>
+                  <p name="correo" class="text-muted">
+                    <a
+                      [href]="'mailto:' + model.pasajero.correo + '?Subject=Reserva%20' + model.idReserva"
+                      target="_top"
+                      >{{ model.pasajero.correo }} <i class="fas fa-external-link-alt"></i
+                    ></a>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="pasajero">Nombre</label>
+                  <p name="pasajero" class="text-muted">
+                    {{ model.pasajero.pasajero }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="pais">Pais</label>
+                  <p name="pais" class="text-muted">
+                    {{ model.pasajero.pais }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="noContacto">Número de contacto</label>
+                  <p name="noContacto" class="text-muted">
+                    {{ model.pasajero.noContacto }}
+                  </p>
+                </div>
+              </div>
+              <!-- AGENCIA -->
+              <div *ngIf="model.agencia && model.agencia.idAgencia" class="agencia" class="col-md-6">
+                <div class="form-group">
+                  <label for="correo">Correo electrónico</label>
+                  <p name="correo" class="text-muted">
+                    <a [href]="'mailto:' + model.agencia.correo + '?Subject=Reserva%20' + model.idReserva" target="_top"
+                      >{{ model.agencia.correo }} <i class="fas fa-external-link-alt"></i
+                    ></a>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="razonSocial">Razón social</label>
+                  <p name="razonSocial" class="text-muted">
+                    {{ model.agencia.razonSocial }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="nombreComercial">Nombre comercial</label>
+                  <p name="nombreComercial" class="text-muted">
+                    {{ model.agencia.nombreComercial }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="noContacto">Número de contacto</label>
+                  <p name="noContacto" class="text-muted">
+                    {{ model.agencia.telefono }}
+                  </p>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="adultos">No. personas</label>
@@ -148,36 +208,6 @@
                     [text]="model.notas"
                     (modificar)="modificarNotas($event)"
                   ></app-p-text-area>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="correo">Correo electrónico</label>
-                  <p name="correo" class="text-muted">
-                    <a
-                      [href]="'mailto:' + model.pasajero.correo + '?Subject=Reserva%20' + model.idReserva"
-                      target="_top"
-                      >{{ model.pasajero.correo }}</a
-                    >
-                  </p>
-                </div>
-                <div class="form-group">
-                  <label for="pasajero">Nombre</label>
-                  <p name="pasajero" class="text-muted">
-                    {{ model.pasajero.pasajero }}
-                  </p>
-                </div>
-                <div class="form-group">
-                  <label for="pais">Pais</label>
-                  <p name="pais" class="text-muted">
-                    {{ model.pasajero.pais }}
-                  </p>
-                </div>
-                <div class="form-group">
-                  <label for="noContacto">Número de contacto</label>
-                  <p name="noContacto" class="text-muted">
-                    {{ model.pasajero.noContacto }}
-                  </p>
                 </div>
               </div>
             </div>

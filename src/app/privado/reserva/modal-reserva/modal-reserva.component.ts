@@ -32,6 +32,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   @Input() tarifas = [];
   @Input() tarifasFormat = [];
   @Input() adicionales = [];
+  @Input() agencias = [];
 
   @Output() guardarSuccess = new EventEmitter<any>();
   @Output() modificar = new EventEmitter<any>();
@@ -101,6 +102,8 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     feHasta: new Date()
   };
 
+  agenciaSelected: any;
+
   constructor(
     private reservaService: ReservaService,
     private pasajeroService: PasajeroService,
@@ -110,6 +113,11 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
+    // SI ES AGENCIA LLENO agenciaSelected
+    if (this.model && this.model.idAgencia) {
+      this.agenciaSelected = this.model.agencia;
+    }
+
     // VERIFICO SI EL MODEL DE LA RESERVA QUE LLEGA AL COMPONENTE ES DE TIPO 'TOTAL'
     if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifaDetalle === '-') {
       this.esSubTotal = true;
@@ -191,8 +199,10 @@ export class ModalReservaComponent implements OnInit, OnChanges {
       jQuery('#pais').select2();
 
       // CARGO EL VALOR DE LOS DATOS EN LOS SELECT 2
-      jQuery('#pais').val(this.model.pasajero.idPais);
-      jQuery('#pais').trigger('change');
+      if (this.model.pasajero && this.model.pasajero.idPais) {
+        jQuery('#pais').val(this.model.pasajero.idPais);
+        jQuery('#pais').trigger('change');
+      }
 
       jQuery('#adicional').val(this.setAdicionalesFormatoSelect2(this.model.adicionales));
       jQuery('#adicional').trigger('change');
@@ -215,8 +225,16 @@ export class ModalReservaComponent implements OnInit, OnChanges {
         const sele = jQuery('.form-control.tarifa')[index];
         const name = sele.name;
         const idHabitacion = name.split('-')[1];
-        const idTarifa = self.model.habitaciones.find(x => x.idHabitacion === Number(idHabitacion)).idTarifa;
-        jQuery('#' + name).val('' + idTarifa);
+
+        let habitacionIndex = self.model.habitaciones.findIndex(habitacion => habitacion.idHabitacion == idHabitacion);
+        const idTarifa = self.model.habitaciones[habitacionIndex].idTarifa;
+
+        if (!idTarifa) {
+          self.model.habitaciones[habitacionIndex].idTarifa = self.tarifas[0].idTarifa;
+          self.model.habitaciones[habitacionIndex].tarifa = self.tarifas[0].valor;
+        }
+
+        jQuery('#' + name).val('' + (idTarifa || self.tarifas[0].idTarifa));
         jQuery('#' + name).trigger('change');
       });
     }
@@ -240,7 +258,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     this.model.accion = this.accion;
 
     // CAPTURO EL ID DEL PASAJERO
-    this.model.pasajero.idPais = jQuery('#pais').val();
+    if (this.model.tipoCliente == 'pasajero') this.model.pasajero.idPais = jQuery('#pais').val();
 
     // SI EL ESTADO DEL MODELO ES INDEFINIDO
     // DEFINIMOS COMO RESERVA
@@ -629,5 +647,9 @@ export class ModalReservaComponent implements OnInit, OnChanges {
         text: this.paises[i].pais
       });
     }
+  }
+
+  onChangeAgencia(e) {
+    this.agenciaSelected = this.agencias.find(agencia => agencia.idAgencia == e.target.value);
   }
 }

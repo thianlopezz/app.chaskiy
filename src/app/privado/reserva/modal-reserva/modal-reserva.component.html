@@ -298,103 +298,185 @@
               <div [hidden]="paso !== 2">
                 <div class="habitaciones">
                   <div class="row">
-                    <div class="col-md-6">
-                      <h5>Información del pasajero</h5>
-                      <hr class="my-2" />
-                      <div class="form-group">
-                        <label for="correo">Correo electrónico</label>
-                        <div class="input-group">
+                    <div class="col-md-6 px-1">
+                      <div *ngIf="this.model.id" class="alert alert-secondary" role="alert">
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">Tipo de cliente</label>
+                          <!-- <h6>Tipo de cliente</h6> -->
+                        </div>
+                        <div class="form-check form-check-inline">
                           <input
-                            type="email"
-                            class="form-control col-md-10"
-                            name="correo"
-                            [(ngModel)]="model.pasajero.correo"
-                            #correo="ngModel"
-                            (blur)="correo.valid && accion !== 'U' && getPasajero()"
-                            [readonly]="accion == 'U' || modificarPasajero"
-                            [email]="true"
-                            required
+                            class="form-check-input"
+                            type="radio"
+                            name="tipoCliente"
+                            id="tipoCliente1"
+                            [(ngModel)]="model.tipoCliente"
+                            #tipoCliente="ngModel"
+                            value="pasajero"
                           />
-                          <img *ngIf="loadingPasajero" src="/assets/images/loading.svg" />
+                          <label class="form-check-label" for="tipoCliente1">Pasajero</label>
                         </div>
-                        <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">
-                          Ingrese un electrónico válido
-                        </div>
-                        <div *ngIf="correo.touched && !correo.valid && !f.submitted">
-                          <p class="text-danger">Ingrese un electrónico válido</p>
-                        </div>
-                        <div *ngIf="pasajeroRegistrado == false && correo.touched && correo.valid">
-                          <p class="text-warning">Pasajero no registrado</p>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <div class="input-group">
+                        <div class="form-check form-check-inline">
                           <input
-                            type="text"
-                            class="form-control"
-                            name="pasajero"
-                            [(ngModel)]="model.pasajero.pasajero"
-                            #pasajero="ngModel"
-                            [readonly]="pasajeroRegistrado && !modificarPasajero"
-                            maxlength="100"
-                            required
+                            class="form-check-input"
+                            type="radio"
+                            name="tipoCliente"
+                            id="tipoCliente2"
+                            [(ngModel)]="model.tipoCliente"
+                            #tipoCliente="ngModel"
+                            value="agencia"
                           />
-                          <button
-                            *ngIf="pasajeroRegistrado && !modificarPasajero"
-                            class="btn btn-link text-primary"
-                            type="button"
-                            (click)="intentModificarPasajero()"
-                          >
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                          </button>
-                          <button
-                            *ngIf="modificarPasajero"
-                            class="btn btn-link text-primary"
-                            type="button"
-                            (click)="correo.valid && pasajero.valid && noContacto.valid && guardarPasajero()"
-                          >
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                          </button>
-                          <button
-                            *ngIf="modificarPasajero"
-                            class="btn btn-link text-danger px-0"
-                            type="button"
-                            (click)="cancelIntentModificarPasajero()"
-                          >
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                        <div *ngIf="f.submitted && !pasajero.valid" class="invalid-feedback">
-                          El nombre es requerido
-                        </div>
-                        <div *ngIf="!f.submitted && !pasajero.valid && pasajero.touched">
-                          <p class="text-danger">El nombre es requerido</p>
+                          <label class="form-check-label" for="tipoCliente2">Agencia</label>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="pais">País</label>
-                        <select
-                          id="pais"
-                          name="pais"
-                          style="width: 100%"
-                          class="form-control"
-                          [disabled]="pasajeroRegistrado && !modificarPasajero"
-                        >
-                          <option *ngFor="let pais of paisesFormat" [value]="pais.id">{{ pais.text }}</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="noContacto">No. contacto</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="noContacto"
-                          [(ngModel)]="model.pasajero.noContacto"
-                          #noContacto="ngModel"
-                          [readonly]="pasajeroRegistrado && !modificarPasajero"
-                          maxlength="15"
-                        />
+                      <div class="alert alert-primary px-2" role="alert">
+                        <!-- PASAJERO -->
+                        <div *ngIf="model.tipoCliente == 'pasajero'" class="pasajero">
+                          <!-- <h5>Información del pasajero</h5>
+                          <hr class="my-2" /> -->
+                          <div class="form-group">
+                            <label for="correo">Correo electrónico</label>
+                            <div class="input-group">
+                              <input
+                                type="email"
+                                class="form-control col-md-10"
+                                name="correo"
+                                [(ngModel)]="model.pasajero.correo"
+                                #correo="ngModel"
+                                (blur)="correo.valid && accion !== 'U' && getPasajero()"
+                                [readonly]="accion == 'U' || modificarPasajero"
+                                [email]="true"
+                                required
+                              />
+                              <img *ngIf="loadingPasajero" src="/assets/images/loading.svg" />
+                            </div>
+                            <div *ngIf="f.submitted && !correo.valid" class="invalid-feedback">
+                              Ingrese un electrónico válido
+                            </div>
+                            <div *ngIf="correo.touched && !correo.valid && !f.submitted">
+                              <p class="text-danger">Ingrese un electrónico válido</p>
+                            </div>
+                            <div *ngIf="pasajeroRegistrado == false && correo.touched && correo.valid">
+                              <p class="text-warning">Pasajero no registrado</p>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="pasajero"
+                                [(ngModel)]="model.pasajero.pasajero"
+                                #pasajero="ngModel"
+                                [readonly]="pasajeroRegistrado && !modificarPasajero"
+                                maxlength="100"
+                                required
+                              />
+                              <button
+                                *ngIf="pasajeroRegistrado && !modificarPasajero"
+                                class="btn btn-link text-primary"
+                                type="button"
+                                (click)="intentModificarPasajero()"
+                              >
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                              </button>
+                              <button
+                                *ngIf="modificarPasajero"
+                                class="btn btn-link text-primary"
+                                type="button"
+                                (click)="correo.valid && pasajero.valid && noContacto.valid && guardarPasajero()"
+                              >
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                              </button>
+                              <button
+                                *ngIf="modificarPasajero"
+                                class="btn btn-link text-danger px-0"
+                                type="button"
+                                (click)="cancelIntentModificarPasajero()"
+                              >
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                            <div *ngIf="f.submitted && !pasajero.valid" class="invalid-feedback">
+                              El nombre es requerido
+                            </div>
+                            <div *ngIf="!f.submitted && !pasajero.valid && pasajero.touched">
+                              <p class="text-danger">El nombre es requerido</p>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="pais">País</label>
+                            <select
+                              id="pais"
+                              name="pais"
+                              style="width: 100%"
+                              class="form-control"
+                              [disabled]="pasajeroRegistrado && !modificarPasajero"
+                            >
+                              <option *ngFor="let pais of paisesFormat" [value]="pais.id">{{ pais.text }}</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="noContacto">No. contacto</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="noContacto"
+                              [(ngModel)]="model.pasajero.noContacto"
+                              #noContacto="ngModel"
+                              [readonly]="pasajeroRegistrado && !modificarPasajero"
+                              maxlength="15"
+                            />
+                          </div>
+                        </div>
+                        <!-- AGENCIA -->
+                        <div *ngIf="model.tipoCliente == 'agencia'" class="agencia">
+                          <div class="form-group">
+                            <label for="aerolinea">Agencia</label>
+                            <select
+                              class="form-control"
+                              name="idAgencia"
+                              [(ngModel)]="model.idAgencia"
+                              #idAgencia="ngModel"
+                              required
+                              (change)="onChangeAgencia($event)"
+                            >
+                              <option *ngFor="let op of agencias" [value]="op.idAgencia">{{
+                                op.nombreComercial
+                              }}</option>
+                            </select>
+                            <div *ngIf="f.submitted && !idAgencia.valid" class="invalid-feedback">
+                              La agencia es requerida
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="razonSocial">Razón social </label>
+                            <p name="razonSocial" class="text-muted">
+                              {{ agenciaSelected ? agenciaSelected.razonSocial : '-' }}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label for="razonSocial">RUC </label>
+                            <p name="razonSocial" class="text-muted">
+                              {{ agenciaSelected ? agenciaSelected.ruc : '-' }}
+                            </p>
+                          </div>
+                          <div class="row px-0 mx-0">
+                            <div class="form-group col-sm-6 px-0 mx-0">
+                              <label for="correo">Correo</label>
+                              <p name="correo" class="text-muted">
+                                {{ agenciaSelected ? agenciaSelected.correo : '-' }}
+                              </p>
+                            </div>
+                            <div class="form-group col-sm-6 px-0 mx-0">
+                              <label for="telefono">Teléfono</label>
+                              <p name="telefono" class="text-muted">
+                                {{ agenciaSelected ? agenciaSelected.telefono : '-' }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -435,7 +517,6 @@
                       </div>
                       <div class="form-group">
                         <label for="aerolinea">Aerolínea</label>
-
                         <select
                           class="form-control"
                           name="aerolinea"
@@ -465,7 +546,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 px-1">
                       <div class="form-group">
                         <label for="notas">Notas</label>
                         <textarea

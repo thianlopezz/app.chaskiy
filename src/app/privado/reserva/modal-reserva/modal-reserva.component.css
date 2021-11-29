@@ -1,11 +1,19 @@
 .container-form {
-    display: flex;
+  display: flex;
 }
 
 .alert-dismissible {
-    padding-right: 1rem;
+  padding-right: 1rem;
 }
 
-.dropdown button{
-    font-size: 1.5rem;
+.dropdown button {
+  font-size: 1.5rem;
+}
+
+.tipo-cliente {
+  border-radius: 0.5rem;
+  border-style: solid;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border-width: 0.15rem;
 }
