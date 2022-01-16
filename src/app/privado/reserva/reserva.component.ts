@@ -107,6 +107,10 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     this.loadAllPaises();
     this.loadAllAdicionales();
     this.loadAgencias();
+
+    this.reservaService.hasRefetchDetalleReserva.subscribe((idReserva: string) => {
+      this.getDetalleFromApi(null, idReserva);
+    });
   }
 
   ngAfterViewChecked() {
@@ -407,7 +411,15 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     jQuery('#reservaModal').modal('show');
 
     // ENVIO EL ID DE LA RESERVA QUE ENCONTRAMOS
-    this.reservaService.getById(this.reservasBD[indexReservaBD].idReserva).subscribe(reservas => {
+    this.getDetalleFromApi(indexReservaBD);
+  }
+
+  getDetalleFromApi(indexReservaBD, idReserva?) {
+    if (indexReservaBD) {
+      idReserva = this.reservasBD[indexReservaBD].idReserva;
+    }
+
+    this.reservaService.getById(idReserva).subscribe(reservas => {
       this.loadingDetalle = false;
 
       if (reservas.success) {
@@ -541,5 +553,10 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
         console.log('Error>> loadAgencias>> ' + response.mensaje);
       }
     });
+  }
+
+  private onCloseNotasModal() {
+    jQuery('#notasModal').modal('hide');
+    jQuery('#reservaModal').modal('show');
   }
 }

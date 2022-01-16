@@ -284,6 +284,10 @@ router.post('/reservas/estado', (req, res) => {
   Reserva.cambiaEstado(req.body, res);
 });
 
+router.post('/reservas/notas', (req, res) => {
+  Reserva.addNotas(req.body, res);
+});
+
 // C A M P O S  I N D I V I D U A L E S
 router.post('/reservas/individuales', (req, res) => {
   Reserva.camposIndividuales(req.body, res);

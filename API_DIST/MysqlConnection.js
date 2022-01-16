@@ -57,10 +57,10 @@ var MysqlConnection =
         value: function init() {
           this.pool = _mysql['default'].createPool({
             connectionLimit: 15,
-            host: process.env.MYSQL_HOST || '18.221.53.207',
+            host: process.env.MYSQL_HOST || 'dcristhi.c7tfidz7gce3.us-east-2.rds.amazonaws.com',
             port: process.env.MYSQL_PORT || 3306,
-            user: process.env.MYSQL_USER || 'root',
-            password: process.env.MYSQL_PASSWORD || 'katafl4mN.1',
+            user: process.env.MYSQL_USER || 'admin',
+            password: process.env.MYSQL_PASSWORD || 'JD8g53rt4KmFDaEzTPgb',
             database: process.env.MYSQL_CHASKIY || 'chaskiy'
           });
         }

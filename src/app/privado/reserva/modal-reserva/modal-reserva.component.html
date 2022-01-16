@@ -547,7 +547,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 px-1">
-                      <div class="form-group">
+                      <!-- <div class="form-group">
                         <label for="notas">Notas</label>
                         <textarea
                           class="form-control"
@@ -557,9 +557,10 @@
                           [(ngModel)]="model.notas"
                           #notas="ngModel"
                           maxlength="600"
-                          >{{ model.notas }}</textarea
+                          >{{ model.notas && model.notas[0] && model.notas[0].notas }}</textarea
                         >
-                      </div>
+                      </div> -->
+                      <app-notas></app-notas>
                     </div>
                   </div>
                 </div>

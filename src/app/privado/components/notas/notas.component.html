@@ -1,0 +1,35 @@
+<label for="notas"
+  >Notas <span class="badge badge-info">{{ (notas && notas.length) || '0' }}</span></label
+>
+<div class="alert alert-info" role="alert">
+  <app-p-text-area
+    *ngIf="mode == 'M'"
+    [_esModificar]="true"
+    [text]="notaSelected.notas"
+    (modificar)="modificarNotas($event)"
+    (cancel)="mode = undefined"
+  ></app-p-text-area>
+  <ng-container *ngIf="mode !== 'M'">
+    <app-p-text-area
+      [text]="notas[0].notas"
+      (modificar)="modificarNotas($event, notas[0].id)"
+      (cancel)="mode = undefined"
+    ></app-p-text-area>
+    <p *ngIf="!notas || notas.length == 0">No existen notas</p>
+    <hr />
+    <div class="row">
+      <div class="col-sm-12 col-md-6 text-center">
+        <a *ngIf="!notas || notas.length >= 0" href="javascript:;" (click)="onShowAll()">
+          Ver todas
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+      <div class="col-sm-12 col-md-6 text-center">
+        <a *ngIf="!notas || notas.length >= 0" href="javascript:;" (click)="onAdd()">
+          Agregar
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</div>

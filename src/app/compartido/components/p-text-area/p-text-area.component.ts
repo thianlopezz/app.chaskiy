@@ -8,15 +8,19 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PTextAreaComponent implements OnInit {
   @Input() text: any = '';
   @Input() _inputName = '';
+  @Input() _esModificar;
 
   @Output() modificar = new EventEmitter<any>();
+  @Output() cancel = new EventEmitter<any>();
 
   esModificar;
   oldValue;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this._esModificar) this.esModificar = this._esModificar;
+  }
 
   desbloquea() {
     this.esModificar = true;
@@ -26,6 +30,7 @@ export class PTextAreaComponent implements OnInit {
   cancelar() {
     this.text = this.oldValue;
     this.esModificar = false;
+    this.cancel.next();
   }
 
   _modificar() {

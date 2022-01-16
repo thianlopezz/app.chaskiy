@@ -11,6 +11,8 @@ var _moment = _interopRequireDefault(require('moment'));
 
 var _CorreoGenerico = _interopRequireDefault(require('./CorreoGenerico'));
 
+var _async = require('rxjs/internal/scheduler/async');
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -238,6 +240,71 @@ var Reserva =
         });
         return habitaciones;
       });
+
+      _defineProperty(
+        this,
+        'addNotas',
+        /*#__PURE__*/
+        (function() {
+          var _ref2 = _asyncToGenerator(
+            /*#__PURE__*/
+            regeneratorRuntime.mark(function _callee2(data, res) {
+              var dataAcess, result;
+              return regeneratorRuntime.wrap(
+                function _callee2$(_context2) {
+                  while (1) {
+                    switch ((_context2.prev = _context2.next)) {
+                      case 0:
+                        dataAcess = new _DataAccess['default']();
+                        _context2.prev = 1;
+                        _context2.next = 4;
+                        return dataAcess.execJsonToSp('res_addnote', data);
+
+                      case 4:
+                        result = _context2.sent;
+
+                        if (result[0][0].err === undefined) {
+                          res.send({
+                            success: true,
+                            mensaje: result[0][0].mensaje
+                          });
+                        } else {
+                          res.send({
+                            success: false,
+                            mensaje: result[0][0].mensaje
+                          });
+                        }
+
+                        _context2.next = 12;
+                        break;
+
+                      case 8:
+                        _context2.prev = 8;
+                        _context2.t0 = _context2['catch'](1);
+                        console.log('Error>> Reserva.addNotas>> ' + _context2.t0);
+                        res.send({
+                          success: false,
+                          mensaje: '' + _context2.t0
+                        });
+
+                      case 12:
+                      case 'end':
+                        return _context2.stop();
+                    }
+                  }
+                },
+                _callee2,
+                null,
+                [[1, 8]]
+              );
+            })
+          );
+
+          return function(_x3, _x4) {
+            return _ref2.apply(this, arguments);
+          };
+        })()
+      );
     }
 
     _createClass(Reserva, [
@@ -287,6 +354,7 @@ var Reserva =
               result[0][0].adicionales = result[3];
               result[0][0].habitaciones = result[4];
               result[0][0].iva = result[5][0];
+              result[0][0].notas = result[6];
               res.send({
                 success: true,
                 data: result[0]
@@ -322,42 +390,125 @@ var Reserva =
           reserva.habitaciones = this.setHabitacionesDate(reserva.habitaciones);
           dataAcess
             .execJsonToSp('res_reserva', reserva)
-            .then(function(result) {
-              if (result[0][0].err === undefined) {
-                if (reserva.enviarCorreo) {
-                  console.trace('Se va a enviar el correo.');
+            .then(
+              /*#__PURE__*/
+              (function() {
+                var _ref3 = _asyncToGenerator(
+                  /*#__PURE__*/
+                  regeneratorRuntime.mark(function _callee3(result) {
+                    var dataToSend;
+                    return regeneratorRuntime.wrap(
+                      function _callee3$(_context3) {
+                        while (1) {
+                          switch ((_context3.prev = _context3.next)) {
+                            case 0:
+                              if (!(result[0][0].err === undefined)) {
+                                _context3.next = 32;
+                                break;
+                              }
 
-                  _this
-                    .enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
-                    .then(function() {
-                      return res.send({
-                        success: true,
-                        mensaje: 'Mantenimiento exitoso',
-                        idReserva: result[0][0].idReserva
-                      });
-                    })
-                    ['catch'](function() {
-                      return res.send({
-                        success: true,
-                        mensaje: 'Mantenimiento exitoso',
-                        idReserva: result[0][0].idReserva
-                      });
-                    });
-                } else {
-                  console.trace('No se debe enviar el correo.');
-                  res.send({
-                    success: true,
-                    mensaje: 'Mantenimiento exitoso',
-                    idReserva: result[0][0].idReserva
-                  });
-                }
-              } else {
-                res.send({
-                  success: false,
-                  mensaje: result[0][0].mensaje
-                });
-              }
-            })
+                              if (!reserva.enviarCorreo) {
+                                _context3.next = 28;
+                                break;
+                              }
+
+                              console.info('Se va a enviar el correo.');
+                              _context3.prev = 3;
+                              dataToSend = result[0][0];
+
+                              if (!(reserva.estado == 'Pr' && reserva.idAgencia)) {
+                                _context3.next = 16;
+                                break;
+                              }
+
+                              if (result[1] && result[1])
+                                dataToSend = _objectSpread({}, dataToSend, {
+                                  habitaciones: result[1]
+                                });
+                              if (result[1] && result[2][0])
+                                dataToSend = _objectSpread({}, dataToSend, {}, result[2][0]);
+                              if (result[2] && result[3][0])
+                                dataToSend = _objectSpread({}, dataToSend, {}, result[3][0]);
+                              if (result[3] && result[4][0])
+                                dataToSend = _objectSpread({}, dataToSend, {}, result[4][0]);
+                              dataToSend = _objectSpread({}, dataToSend, {
+                                fecha: (0, _moment['default'])().format('DD/MM/YYYY')
+                              });
+                              console.info('Enviando profroma a agencia.');
+                              _context3.next = 14;
+                              return _CorreoGenerico['default'].enviarProformaAgencia(
+                                dataToSend.destinatario,
+                                dataToSend
+                              );
+
+                            case 14:
+                              _context3.next = 19;
+                              break;
+
+                            case 16:
+                              console.info('Enviando correo.');
+                              _context3.next = 19;
+                              return _this.enviaCorreo(dataToSend, reserva.accion, reserva.estado, reserva.desdePagina);
+
+                            case 19:
+                              res.send({
+                                success: true,
+                                mensaje: 'Mantenimiento exitoso',
+                                idReserva: result[0][0].idReserva
+                              });
+                              _context3.next = 26;
+                              break;
+
+                            case 22:
+                              _context3.prev = 22;
+                              _context3.t0 = _context3['catch'](3);
+                              console.log('Error>> Reserva.mantenimiento>> ' + _context3.t0.message);
+                              res.send({
+                                success: true,
+                                mensaje: 'Mantenimiento exitoso',
+                                idReserva: result[0][0].idReserva
+                              });
+
+                            case 26:
+                              _context3.next = 30;
+                              break;
+
+                            case 28:
+                              console.trace('No se debe enviar el correo.');
+                              res.send({
+                                success: true,
+                                mensaje: 'Mantenimiento exitoso',
+                                idReserva: result[0][0].idReserva
+                              });
+
+                            case 30:
+                              _context3.next = 33;
+                              break;
+
+                            case 32:
+                              res.send({
+                                success: false,
+                                mensaje: result[0][0].mensaje
+                              });
+
+                            case 33:
+                            case 'end':
+                              return _context3.stop();
+                          }
+                        }
+                      },
+                      _callee3,
+                      null,
+                      [[3, 22]]
+                    );
+                  })
+                );
+
+                return function(_x5) {
+                  return _ref3.apply(this, arguments);
+                };
+              })()
+            )
             ['catch'](function(error) {
               console.log('Error>> Reserva.mantenimiento>>' + error);
               res.send({

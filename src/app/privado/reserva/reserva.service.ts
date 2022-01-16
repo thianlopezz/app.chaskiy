@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReservaService {
+  @Output() hasRefetchDetalleReserva = new EventEmitter<any>();
+
   constructor(private http: Http) {}
 
   getById(id: number) {
-    return this.http
-      .get('/api/reservas/' + id, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/reservas/' + id, this.jwt()).pipe(map((response: Response) => response.json()));
   }
 
   getByDate(consulta: string, feDesde: Date, feHasta: Date) {
@@ -17,11 +17,7 @@ export class ReservaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     return this.http
-      .post(
-        '/api/reservas/all/' + consulta,
-        { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
-        this.jwt()
-      )
+      .post('/api/reservas/all/' + consulta, { feDesde, feHasta, idHospedaje: chasker.idHospedaje }, this.jwt())
       .pipe(map((response: Response) => response.json()));
   }
 
@@ -34,22 +30,11 @@ export class ReservaService {
     if (reserve.estado === 'Co') {
       const today = new Date();
       reserve.feHasta = new Date(
-        new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate(),
-          0,
-          0,
-          0,
-          0
-        ).getTime() -
-          1000 * 60 * 60 * 24
+        new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - 1000 * 60 * 60 * 24
       );
     }
 
-    return this.http
-      .post('/api/reservas', reserve, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/reservas', reserve, this.jwt()).pipe(map((response: Response) => response.json()));
   }
 
   cambiaEstado(reserva) {
@@ -69,9 +54,7 @@ export class ReservaService {
   }
 
   confirmaReserva(id: number) {
-    return this.http
-      .get('/api/reservas/confirma/' + id, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/reservas/confirma/' + id, this.jwt()).pipe(map((response: Response) => response.json()));
   }
 
   getEstado(reserva: any) {
@@ -95,15 +78,7 @@ export class ReservaService {
     const mesDesde = feDesde.getMonth();
     const anioDesde = feDesde.getFullYear();
 
-    feHasta = new Date(
-      feHasta.getFullYear(),
-      feHasta.getMonth(),
-      feHasta.getDate(),
-      0,
-      0,
-      0,
-      0
-    );
+    feHasta = new Date(feHasta.getFullYear(), feHasta.getMonth(), feHasta.getDate(), 0, 0, 0, 0);
     feDesde = new Date(anioDesde, mesDesde, diaDesde, 0, 0, 0, 0);
 
     let cont = 0;
@@ -130,6 +105,19 @@ export class ReservaService {
     return this.http
       .post('/api/reservas/individuales/', reserva, this.jwt())
       .pipe(map((response: Response) => response.json()));
+  }
+
+  // notas
+  addUpdateNotas(notas) {
+    const chasker = JSON.parse(localStorage.getItem('chasker'));
+
+    notas.idUsuario = chasker.idUsuario;
+
+    return this.http.post('/api/reservas/notas/', notas, this.jwt()).pipe(map((response: Response) => response.json()));
+  }
+
+  onHasRefetchDetalleReserva(idReserva) {
+    this.hasRefetchDetalleReserva.emit(idReserva);
   }
 
   private jwt() {

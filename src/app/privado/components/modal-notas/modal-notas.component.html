@@ -1,0 +1,24 @@
+<!-- [_loading]="_loading" -->
+<app-modal
+  [_idModal]="'notasModal'"
+  [_title]="'Notas'"
+  [_type]="'modal-lg'"
+  [_backdrop]="false"
+  (_closeModal)="closeModal()"
+>
+  <div class="modal-body">
+    <div class="list-group">
+      <a
+        *ngFor="let nota of notas"
+        href="#"
+        class="list-group-item list-group-item-action flex-column align-items-start"
+      >
+        <p class="mb-1">{{ nota.notas }}</p>
+        <div class="d-flex w-100 justify-content-between">
+          <h6 class="mb-1">{{ nota.usCreacionDesc }}</h6>
+          <small class="text-muted">{{ nota.feCreacion | date: 'dd/MM/yyyy HH:mm' }}</small>
+        </div>
+      </a>
+    </div>
+  </div>
+</app-modal>

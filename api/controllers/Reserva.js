@@ -2,6 +2,7 @@ import DataAcess from './DataAccess';
 import moment from 'moment';
 
 import CorreoGenerico from './CorreoGenerico';
+import { async } from 'rxjs/internal/scheduler/async';
 
 class Reserva {
   get(accion, params, res) {
@@ -32,6 +33,7 @@ class Reserva {
         result[0][0].adicionales = result[3];
         result[0][0].habitaciones = result[4];
         result[0][0].iva = result[5][0];
+        result[0][0].notas = result[6];
 
         res.send({ success: true, data: result[0] });
       })
@@ -248,6 +250,22 @@ class Reserva {
       habitacion.feHasta = moment(habitacion.feHasta).format('YYYY-MM-DD');
     });
     return habitaciones;
+  };
+
+  addNotas = async function(data, res) {
+    const dataAcess = new DataAcess();
+
+    try {
+      let result = await dataAcess.execJsonToSp('res_addnote', data);
+      if (result[0][0].err === undefined) {
+        res.send({ success: true, mensaje: result[0][0].mensaje });
+      } else {
+        res.send({ success: false, mensaje: result[0][0].mensaje });
+      }
+    } catch (e) {
+      console.log('Error>> Reserva.addNotas>> ' + e);
+      res.send({ success: false, mensaje: '' + e });
+    }
   };
 }
 

@@ -297,6 +297,9 @@ router.post('/reservas/', function(req, res) {
 });
 router.post('/reservas/estado', function(req, res) {
   _Reserva['default'].cambiaEstado(req.body, res);
+});
+router.post('/reservas/notas', function(req, res) {
+  _Reserva['default'].addNotas(req.body, res);
 }); // C A M P O S  I N D I V I D U A L E S
 
 router.post('/reservas/individuales', function(req, res) {

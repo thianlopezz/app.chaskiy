@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ReservaService } from '../../reserva.service';
 import { ToastService } from '../../../../compartido/services/toast.service';
 import * as moment from 'moment';
@@ -39,10 +32,7 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
   mensajeConfirmacion;
 
-  constructor(
-    private reservaService: ReservaService,
-    private toastService: ToastService
-  ) {}
+  constructor(private reservaService: ReservaService, private toastService: ToastService) {}
 
   ngOnInit() {
     this.paso = 1;
@@ -50,21 +40,13 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.paso = 1;
-    if (
-      this.model &&
-      this.model.habitaciones &&
-      this.model.habitaciones[0].tarifaDetalle === '-'
-    ) {
+    if (this.model && this.model.habitaciones && this.model.habitaciones[0].tarifaDetalle === '-') {
       this.esTotal = true;
       this.total = this.model.total;
     }
 
     // MAPEAR {value:, text} catalogos
-    if (
-      this.aerolineas &&
-      !this.aerolineas[0].text &&
-      !this.aerolineas[0].value
-    ) {
+    if (this.aerolineas && !this.aerolineas[0].text && !this.aerolineas[0].value) {
       this.aerolineas = this.aerolineas.map(aerolinea => {
         return { value: aerolinea.idAerolinea, text: aerolinea.aerolinea };
       });
@@ -168,10 +150,7 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
     let sum = 0;
     for (let i = 0; i < habitaciones.length; i++) {
-      sum =
-        sum +
-        this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) *
-          habitaciones[i].tarifa;
+      sum = sum + this.nightDiff(habitaciones[i].feDesde, habitaciones[i].feHasta) * habitaciones[i].tarifa;
     }
 
     for (let i = 0; i < adicionales.length; i++) {
@@ -238,5 +217,10 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
         console.log(error);
       }
     );
+  }
+
+  showNotasModal() {
+    jQuery('#reservaModal').modal('hide');
+    jQuery('#notasModal').modal('show');
   }
 }

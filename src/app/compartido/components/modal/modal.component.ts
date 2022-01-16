@@ -11,6 +11,7 @@ export class ModalComponent implements OnInit {
   @Input() _title;
   @Input() _type;
   @Input() _loading;
+  @Input() _backdrop: boolean;
 
   @Input() _cancelarText;
   @Input() _aceptarText;
