@@ -59,25 +59,42 @@ class Reserva {
 
     dataAcess
       .execJsonToSp('res_reserva', reserva)
-      .then(result => {
+      .then(async result => {
         if (result[0][0].err === undefined) {
           if (reserva.enviarCorreo) {
-            console.trace('Se va a enviar el correo.');
-            this.enviaCorreo(result[0][0], reserva.accion, reserva.estado, reserva.desdePagina)
-              .then(() =>
-                res.send({
-                  success: true,
-                  mensaje: 'Mantenimiento exitoso',
-                  idReserva: result[0][0].idReserva
-                })
-              )
-              .catch(() =>
-                res.send({
-                  success: true,
-                  mensaje: 'Mantenimiento exitoso',
-                  idReserva: result[0][0].idReserva
-                })
-              );
+            console.info('Se va a enviar el correo.');
+
+            try {
+              let dataToSend = result[0][0];
+
+              if (reserva.estado == 'Pr' && reserva.idAgencia) {
+                if (result[1] && result[1]) dataToSend = { ...dataToSend, habitaciones: result[1] };
+                if (result[1] && result[2][0]) dataToSend = { ...dataToSend, ...result[2][0] };
+                if (result[2] && result[3][0]) dataToSend = { ...dataToSend, ...result[3][0] };
+                if (result[3] && result[4][0]) dataToSend = { ...dataToSend, ...result[4][0] };
+
+                dataToSend = { ...dataToSend, fecha: moment().format('DD/MM/YYYY') };
+
+                console.info('Enviando profroma a agencia.');
+                await CorreoGenerico.enviarProformaAgencia(dataToSend.destinatario, dataToSend);
+              } else {
+                console.info('Enviando correo.');
+                await this.enviaCorreo(dataToSend, reserva.accion, reserva.estado, reserva.desdePagina);
+              }
+
+              res.send({
+                success: true,
+                mensaje: 'Mantenimiento exitoso',
+                idReserva: result[0][0].idReserva
+              });
+            } catch (e) {
+              console.log('Error>> Reserva.mantenimiento>> ' + e.message);
+              res.send({
+                success: true,
+                mensaje: 'Mantenimiento exitoso',
+                idReserva: result[0][0].idReserva
+              });
+            }
           } else {
             console.trace('No se debe enviar el correo.');
             res.send({
