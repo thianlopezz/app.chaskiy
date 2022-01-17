@@ -555,7 +555,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  private onCloseNotasModal() {
+  onCloseNotasModal() {
     jQuery('#notasModal').modal('hide');
     jQuery('#reservaModal').modal('show');
   }
