@@ -11,6 +11,7 @@
   ></app-p-text-area>
   <ng-container *ngIf="mode !== 'M'">
     <app-p-text-area
+      *ngIf="notas && notas.length"
       [text]="notas[0].notas"
       (modificar)="modificarNotas($event, notas[0].id)"
       (cancel)="mode = undefined"

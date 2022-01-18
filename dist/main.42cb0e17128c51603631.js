@@ -5392,7 +5392,7 @@
                 }
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -5407,9 +5407,9 @@
             }
             (n.RenderType_HabitacionComponent = v),
               (n.View_HabitacionComponent_0 = x),
-              (n.View_HabitacionComponent_Host_0 = L);
-            var T = t.ɵccf('app-habitacion', f.HabitacionComponent, L, {}, {}, []);
-            n.HabitacionComponentNgFactory = T;
+              (n.View_HabitacionComponent_Host_0 = T);
+            var L = t.ɵccf('app-habitacion', f.HabitacionComponent, T, {}, {}, []);
+            n.HabitacionComponentNgFactory = L;
           }.apply(n, t)) || (e.exports = r);
     },
     '7BjC': function(e, n, l) {
@@ -6589,7 +6589,7 @@
           return Mt;
         }),
         l.d(n, '\u0275angular_packages_core_core_i', function() {
-          return Tt;
+          return Lt;
         }),
         l.d(n, '\u0275angular_packages_core_core_c', function() {
           return fn;
@@ -6682,10 +6682,10 @@
           return Fl;
         }),
         l.d(n, 'enableProdMode', function() {
-          return Ll;
+          return Tl;
         }),
         l.d(n, 'isDevMode', function() {
-          return Tl;
+          return Ll;
         }),
         l.d(n, 'createPlatformFactory', function() {
           return Rl;
@@ -6709,7 +6709,7 @@
           return Pn;
         }),
         l.d(n, 'APP_INITIALIZER', function() {
-          return Tn;
+          return Ln;
         }),
         l.d(n, 'ApplicationInitStatus', function() {
           return En;
@@ -6799,7 +6799,7 @@
           return M;
         }),
         l.d(n, 'Component', function() {
-          return L;
+          return T;
         }),
         l.d(n, 'Directive', function() {
           return x;
@@ -6817,7 +6817,7 @@
           return O;
         }),
         l.d(n, 'Pipe', function() {
-          return T;
+          return L;
         }),
         l.d(n, 'CUSTOM_ELEMENTS_SCHEMA', function() {
           return je;
@@ -6853,7 +6853,7 @@
           return Ne;
         }),
         l.d(n, 'inject', function() {
-          return Le;
+          return Te;
         }),
         l.d(n, 'INJECTOR', function() {
           return ae;
@@ -7018,7 +7018,7 @@
           return Vn;
         }),
         l.d(n, '\u0275inject', function() {
-          return Le;
+          return Te;
         }),
         l.d(n, '\u0275setCurrentInjector', function() {
           return xe;
@@ -7060,7 +7060,7 @@
           return m;
         }),
         l.d(n, '\u0275isObservable', function() {
-          return Ln;
+          return Tn;
         }),
         l.d(n, '\u0275isPromise', function() {
           return xn;
@@ -7174,10 +7174,10 @@
           return ad;
         }),
         l.d(n, '\u0275pb1', function() {
-          return Lc;
+          return Tc;
         }),
         l.d(n, '\u0275pb2', function() {
-          return Tc;
+          return Lc;
         }),
         l.d(n, '\u0275pb3', function() {
           return Ec;
@@ -7228,7 +7228,7 @@
           return Wc;
         }),
         l.d(n, '\u0275e', function() {
-          return La;
+          return Ta;
         }),
         l.d(n, '\u0275p', function() {
           return Ea;
@@ -7237,7 +7237,7 @@
           return $a;
         }),
         l.d(n, '\u0275a', function() {
-          return Ta;
+          return La;
         }),
         l.d(n, '\u0275s', function() {
           return Ya;
@@ -7336,7 +7336,7 @@
           return pi;
         }),
         l.d(n, '\u0275mod', function() {
-          return Li;
+          return Ti;
         }),
         l.d(n, '\u0275mpd', function() {
           return xi;
@@ -7493,8 +7493,8 @@
         return null == e || e === D.Default;
       }
       const x = m('Directive', (e = {}) => e),
-        L = m('Component', (e = {}) => Object.assign({ changeDetection: D.Default }, e), x),
-        T = m('Pipe', e => Object.assign({ pure: !0 }, e)),
+        T = m('Component', (e = {}) => Object.assign({ changeDetection: D.Default }, e), x),
+        L = m('Pipe', e => Object.assign({ pure: !0 }, e)),
         E = _('Input', e => ({ bindingPropertyName: e })),
         O = _('Output', e => ({ bindingPropertyName: e })),
         R = _('HostBinding', e => ({ hostPropertyName: e })),
@@ -7709,7 +7709,7 @@
       }
       (ce.THROW_IF_NOT_FOUND = se),
         (ce.NULL = new de()),
-        (ce.ngInjectableDef = u({ providedIn: 'any', factory: () => Le(ae) }));
+        (ce.ngInjectableDef = u({ providedIn: 'any', factory: () => Te(ae) }));
       const he = function(e) {
           return e;
         },
@@ -7878,7 +7878,7 @@
         const n = ke;
         return (ke = e), n;
       }
-      function Le(e, n = 0) {
+      function Te(e, n = 0) {
         if (void 0 === ke) throw new Error('inject() must be called from an injection context');
         if (null === ke) {
           const n = e.ngInjectableDef;
@@ -7887,7 +7887,7 @@
         }
         return ke.get(e, 8 & n ? null : void 0, n);
       }
-      function Te(e) {
+      function Le(e) {
         const n = [];
         for (let l = 0; l < e.length; l++) {
           const t = e[l];
@@ -7905,8 +7905,8 @@
                 ? (l |= 2)
                 : (e = r instanceof ne ? r.token : r);
             }
-            n.push(Le(e, l));
-          } else n.push(Le(t));
+            n.push(Te(e, l));
+          } else n.push(Te(t));
         }
         return n;
       }
@@ -7919,7 +7919,7 @@
       function Ie(e, n) {
         if (!n) {
           const n = new $().parameters(e);
-          return () => new e(...Te(n));
+          return () => new e(...Le(n));
         }
         if (Oe in n) {
           const e = n;
@@ -7927,11 +7927,11 @@
         }
         if (n.useExisting) {
           const e = n;
-          return () => Le(e.useExisting);
+          return () => Te(e.useExisting);
         }
         if (n.useFactory) {
           const e = n;
-          return () => e.useFactory(...Te(e.deps || Re));
+          return () => e.useFactory(...Le(e.deps || Re));
         }
         if (n.useClass) {
           const l = n;
@@ -7940,7 +7940,7 @@
             const n = new $();
             t = n.parameters(e);
           }
-          return () => new l.useClass(...Te(t));
+          return () => new l.useClass(...Le(t));
         }
         {
           let l = n.deps;
@@ -7948,7 +7948,7 @@
             const n = new $();
             l = n.parameters(e);
           }
-          return () => new e(...Te(l));
+          return () => new e(...Le(l));
         }
       }
       const Ne = m('Injectable', void 0, void 0, void 0, (e, n) => {
@@ -8467,12 +8467,12 @@
               t = void 0;
             if (kn(e)) return An(e);
             if (((n = ee(e.provide)), _e in e)) l = e.useValue;
-            else if (e.useExisting) t = () => Le(e.useExisting);
-            else if (e.useFactory) t = () => e.useFactory(...Te(e.deps || []));
+            else if (e.useExisting) t = () => Te(e.useExisting);
+            else if (e.useFactory) t = () => e.useFactory(...Le(e.deps || []));
             else {
               const l = e.useClass || n;
               if (!e.deps) return An(l);
-              t = () => new l(...Te(e.deps));
+              t = () => new l(...Le(e.deps));
             }
             return Dn(t, l);
           })(e);
@@ -8480,7 +8480,7 @@
             let l = this.records.get(n);
             if (l) {
               if (void 0 === l.multi) throw new Error(`Mixed multi-provider for ${n}.`);
-            } else (n = e), ((l = Dn(void 0, _n, !0)).factory = () => Te(l.multi)), this.records.set(n, l);
+            } else (n = e), ((l = Dn(void 0, _n, !0)).factory = () => Le(l.multi)), this.records.set(n, l);
             (n = e), l.multi.push(e);
           }
           const t = this.records.get(n);
@@ -8526,10 +8526,10 @@
       function xn(e) {
         return !!e && 'function' == typeof e.then;
       }
-      function Ln(e) {
+      function Tn(e) {
         return !!e && 'function' == typeof e.subscribe;
       }
-      const Tn = new d('Application Initializer');
+      const Ln = new d('Application Initializer');
       class En {
         constructor(e) {
           (this.appInits = e),
@@ -8991,11 +8991,11 @@
         Sl = !0,
         kl = !1;
       const xl = new d('AllowMultipleToken');
-      function Ll() {
+      function Tl() {
         if (kl) throw new Error('Cannot enable prod mode after platform setup.');
         Sl = !1;
       }
-      function Tl() {
+      function Ll() {
         return (kl = !0), Sl;
       }
       class El {
@@ -9043,7 +9043,7 @@
         }
         bootstrapModuleFactory(e, n) {
           const l = (function(e) {
-              return 'noop' === e ? new bl() : ('zone.js' === e ? void 0 : e) || new ml({ enableLongStackTrace: Tl() });
+              return 'noop' === e ? new bl() : ('zone.js' === e ? void 0 : e) || new ml({ enableLongStackTrace: Ll() });
             })(n ? n.ngZone : void 0),
             t = [{ provide: ml, useValue: l }];
           return l.run(() => {
@@ -9135,7 +9135,7 @@
             (this._stable = !0),
             (this.componentTypes = []),
             (this.components = []),
-            (this._enforceNoNewChanges = Tl()),
+            (this._enforceNoNewChanges = Ll()),
             this._zone.onMicrotaskEmpty.subscribe({
               next: () => {
                 this._zone.run(() => {
@@ -9194,7 +9194,7 @@
           return (
             i && r.injector.get(wl).registerApplication(r.location.nativeElement, i),
             this._loadComponent(r),
-            Tl() &&
+            Ll() &&
               this._console.log(
                 'Angular is running in the development mode. Call enableProdMode() to enable the production mode.'
               ),
@@ -9570,8 +9570,8 @@
             t = 0,
             r = null;
           for (; n || l; ) {
-            const i = !l || (n && n.currentIndex < Lt(l, t, r)) ? n : l,
-              o = Lt(i, t, r),
+            const i = !l || (n && n.currentIndex < Tt(l, t, r)) ? n : l,
+              o = Tt(i, t, r),
               s = i.currentIndex;
             if (i === l) t--, (l = l._nextRemoved);
             else if (((n = n._next), null == i.previousIndex)) t++;
@@ -9846,13 +9846,13 @@
           this.map.clear();
         }
       }
-      function Lt(e, n, l) {
+      function Tt(e, n, l) {
         const t = e.previousIndex;
         if (null === t) return t;
         let r = 0;
         return l && t < l.length && (r = l[t]), t + n + r;
       }
-      class Tt {
+      class Lt {
         constructor() {}
         supports(e) {
           return e instanceof Map || wt(e);
@@ -10062,7 +10062,7 @@
           throw new Error(`Cannot find a differ supporting object '${e}'`);
         }
       }
-      const Nt = [new Tt()],
+      const Nt = [new Lt()],
         jt = new Rt([new Mt()]),
         Yt = new It(Nt),
         Pt = Rl(null, 'core', [
@@ -10164,7 +10164,7 @@
       function $t(e) {
         return (e = String(e)).match(Jt) || e.match(Qt)
           ? e
-          : (Tl() && console.warn(`WARNING: sanitizing unsafe URL value ${e} (see http://g.co/ng/security#xss)`),
+          : (Ll() && console.warn(`WARNING: sanitizing unsafe URL value ${e} (see http://g.co/ng/security#xss)`),
             'unsafe:' + e);
       }
       function Kt(e) {
@@ -10304,7 +10304,7 @@
           const o = new ur(),
             s = o.sanitizeChildren(mr(l) || l);
           return (
-            Tl() &&
+            Ll() &&
               o.sanitizedSomething &&
               console.warn('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).'),
             s
@@ -10344,7 +10344,7 @@
               return n && l;
             })(e))
           ? e
-          : (Tl() && console.warn(`WARNING: sanitizing unsafe style value ${e} (see http://g.co/ng/security#xss).`),
+          : (Ll() && console.warn(`WARNING: sanitizing unsafe style value ${e} (see http://g.co/ng/security#xss).`),
             'unsafe');
       }
       const vr = (function() {
@@ -10403,7 +10403,7 @@
         updateRenderer: void 0,
         dirtyParentQueries: void 0
       };
-      function Lr(e, n, l, t) {
+      function Tr(e, n, l, t) {
         let r = `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: '${n}'. Current value: '${l}'.`;
         return (
           t &&
@@ -10411,11 +10411,11 @@
               ' It seems like the view has been created after its parent and its children have been dirty checked. Has it been created in a change detection hook ?'),
           (function(e, n) {
             const l = new Error(e);
-            return Tr(l, n), l;
+            return Lr(l, n), l;
           })(r, e)
         );
       }
-      function Tr(e, n) {
+      function Lr(e, n) {
         (e[Be] = n), (e[We] = n.logError.bind(n));
       }
       function Er(e) {
@@ -10460,7 +10460,7 @@
         const r = e.oldValues[n.bindingIndex + l];
         if (1 & e.state || !vt(r, t)) {
           const i = n.bindings[l].name;
-          throw Lr(xr.createDebugContext(e, n.nodeIndex), `${i}: ${r}`, `${i}: ${t}`, 0 != (1 & e.state));
+          throw Tr(xr.createDebugContext(e, n.nodeIndex), `${i}: ${r}`, `${i}: ${t}`, 0 != (1 & e.state));
         }
       }
       function Wr(e) {
@@ -10863,7 +10863,7 @@
       function xi(e, n, l, t) {
         return (l = ee(l)), { index: -1, deps: ni(t, q(n)), flags: e, token: n, value: l };
       }
-      function Li(e) {
+      function Ti(e) {
         const n = {},
           l = [];
         let t = !1;
@@ -10873,7 +10873,7 @@
         }
         return { factory: null, providersByKey: n, providers: e, modules: l, isRoot: t };
       }
-      function Ti(e, n, l = ce.THROW_IF_NOT_FOUND) {
+      function Li(e, n, l = ce.THROW_IF_NOT_FOUND) {
         const t = xe(e);
         try {
           if (8 & n.flags) return n.token;
@@ -10930,14 +10930,14 @@
                 case 0:
                   return new n();
                 case 1:
-                  return new n(Ti(e, l[0]));
+                  return new n(Li(e, l[0]));
                 case 2:
-                  return new n(Ti(e, l[0]), Ti(e, l[1]));
+                  return new n(Li(e, l[0]), Li(e, l[1]));
                 case 3:
-                  return new n(Ti(e, l[0]), Ti(e, l[1]), Ti(e, l[2]));
+                  return new n(Li(e, l[0]), Li(e, l[1]), Li(e, l[2]));
                 default:
                   const r = new Array(t);
-                  for (let n = 0; n < t; n++) r[n] = Ti(e, l[n]);
+                  for (let n = 0; n < t; n++) r[n] = Li(e, l[n]);
                   return new n(...r);
               }
             })(e, n.value, n.deps);
@@ -10949,20 +10949,20 @@
                 case 0:
                   return n();
                 case 1:
-                  return n(Ti(e, l[0]));
+                  return n(Li(e, l[0]));
                 case 2:
-                  return n(Ti(e, l[0]), Ti(e, l[1]));
+                  return n(Li(e, l[0]), Li(e, l[1]));
                 case 3:
-                  return n(Ti(e, l[0]), Ti(e, l[1]), Ti(e, l[2]));
+                  return n(Li(e, l[0]), Li(e, l[1]), Li(e, l[2]));
                 default:
                   const r = Array(t);
-                  for (let n = 0; n < t; n++) r[n] = Ti(e, l[n]);
+                  for (let n = 0; n < t; n++) r[n] = Li(e, l[n]);
                   return n(...r);
               }
             })(e, n.value, n.deps);
             break;
           case 2048:
-            l = Ti(e, n.deps[0]);
+            l = Li(e, n.deps[0]);
             break;
           case 256:
             l = n.value;
@@ -11364,7 +11364,7 @@
         }
         get(e, n = ce.THROW_IF_NOT_FOUND, l = 0) {
           let t = 0;
-          return 4 & l ? (t |= 1) : 2 & l && (t |= 4), Ti(this, { token: e, tokenKey: Ir(e), flags: t }, n);
+          return 4 & l ? (t |= 1) : 2 & l && (t |= 4), Li(this, { token: e, tokenKey: Ir(e), flags: t }, n);
         }
         get instance() {
           return this.get(this._moduleType);
@@ -11661,15 +11661,15 @@
             134217728 & n.flags && 536870912 & n.flags && Sr(e, l).setDirty(), (l += n.childCount);
           }
       }
-      function Lo(e, n) {
+      function To(e, n) {
         const l = Sr(e, n.nodeIndex);
         if (!l.dirty) return;
         let t,
           r = void 0;
         if (67108864 & n.flags) {
           const l = n.parent.parent;
-          (r = To(e, l.nodeIndex, l.nodeIndex + l.childCount, n.query, [])), (t = Ar(e, n.parent.nodeIndex).instance);
-        } else 134217728 & n.flags && ((r = To(e, 0, e.def.nodes.length - 1, n.query, [])), (t = e.component));
+          (r = Lo(e, l.nodeIndex, l.nodeIndex + l.childCount, n.query, [])), (t = Ar(e, n.parent.nodeIndex).instance);
+        } else 134217728 & n.flags && ((r = Lo(e, 0, e.def.nodes.length - 1, n.query, [])), (t = e.component));
         l.reset(r);
         const i = n.query.bindings;
         let o = !1;
@@ -11687,7 +11687,7 @@
         }
         o && l.notifyOnChanges();
       }
-      function To(e, n, l, t, r) {
+      function Lo(e, n, l, t, r) {
         for (let i = n; i <= l; i++) {
           const n = e.def.nodes[i],
             l = n.matchedQueries[t.id];
@@ -11698,21 +11698,21 @@
             const l = Mr(e, i);
             if (
               ((n.childMatchedQueries & t.filterId) === t.filterId &&
-                (To(e, i + 1, i + n.childCount, t, r), (i += n.childCount)),
+                (Lo(e, i + 1, i + n.childCount, t, r), (i += n.childCount)),
               16777216 & n.flags)
             ) {
               const e = l.viewContainer._embeddedViews;
               for (let n = 0; n < e.length; n++) {
                 const i = e[n],
                   o = zr(i);
-                o && o === l && To(i, 0, i.def.nodes.length - 1, t, r);
+                o && o === l && Lo(i, 0, i.def.nodes.length - 1, t, r);
               }
             }
             const o = l.template._projectedViews;
             if (o)
               for (let e = 0; e < o.length; e++) {
                 const n = o[e];
-                To(n, 0, n.def.nodes.length - 1, t, r);
+                Lo(n, 0, n.def.nodes.length - 1, t, r);
               }
           }
           (n.childMatchedQueries & t.filterId) !== t.filterId && (i += n.childCount);
@@ -12364,7 +12364,7 @@
       }
       function ns(e, n) {
         if (Sr(e, n.nodeIndex).dirty)
-          throw Lr(
+          throw Tr(
             xr.createDebugContext(e, n.nodeIndex),
             `Query ${n.query.id} not dirty`,
             `Query ${n.query.id} dirty`,
@@ -12470,7 +12470,7 @@
           if (r.flags & n && r.flags & l)
             switch ((xr.setCurrentNode(e, r.nodeIndex), t)) {
               case 0:
-                Lo(e, r);
+                To(e, r);
                 break;
               case 1:
                 ns(e, r);
@@ -12482,7 +12482,7 @@
       function ds() {
         if (as) return;
         as = !0;
-        const e = Tl()
+        const e = Ll()
           ? {
               setCurrentNode: Rs,
               createRootView: hs,
@@ -12542,7 +12542,7 @@
         const o = r.injector.get(Gl),
           s = ps(e, r, new Js(o), n, l),
           u = Ms(t);
-        return qs(Ls.create, Go, null, [s, u, i]);
+        return qs(Ts.create, Go, null, [s, u, i]);
       }
       function ps(e, n, l, t, r) {
         const i = n.injector.get(yr),
@@ -12560,10 +12560,10 @@
       }
       function ms(e, n, l, t) {
         const r = Ms(l);
-        return qs(Ls.create, Wo, null, [e, n, r, t]);
+        return qs(Ts.create, Wo, null, [e, n, r, t]);
       }
       function fs(e, n, l, t) {
-        return (l = ys.get(n.element.componentProvider.provider.token) || Ms(l)), qs(Ls.create, qo, null, [e, n, l, t]);
+        return (l = ys.get(n.element.componentProvider.provider.token) || Ms(l)), qs(Ts.create, qo, null, [e, n, l, t]);
       }
       function gs(e, n, l, t) {
         return Xi(
@@ -12670,15 +12670,15 @@
         return es(e, p, l, t, r, i, o, s, u, a, d, c, h), 224 & p.flags ? Dr(e, n).value : void 0;
       }
       function Ss(e) {
-        return qs(Ls.detectChanges, Ko, null, [e]);
+        return qs(Ts.detectChanges, Ko, null, [e]);
       }
       function ks(e) {
-        return qs(Ls.checkNoChanges, $o, null, [e]);
+        return qs(Ts.checkNoChanges, $o, null, [e]);
       }
       function xs(e) {
-        return qs(Ls.destroy, ls, null, [e]);
+        return qs(Ts.destroy, ls, null, [e]);
       }
-      const Ls = (function() {
+      const Ts = (function() {
         var e = { create: 0, detectChanges: 1, checkNoChanges: 2, destroy: 3, handleEvent: 4 };
         return (
           (e[e.create] = 'create'),
@@ -12689,15 +12689,15 @@
           e
         );
       })();
-      let Ts, Es, Os;
+      let Ls, Es, Os;
       function Rs(e, n) {
         (Es = e), (Os = n);
       }
       function Is(e, n, l, t) {
-        return Rs(e, n), qs(Ls.handleEvent, e.def.handleEvent, null, [e, n, l, t]);
+        return Rs(e, n), qs(Ts.handleEvent, e.def.handleEvent, null, [e, n, l, t]);
       }
       function Ns(e, n) {
-        if (128 & e.state) throw Er(Ls[Ts]);
+        if (128 & e.state) throw Er(Ts[Ls]);
         return (
           Rs(e, Bs(e, 0)),
           e.def.updateDirectives(function(e, l, t, ...r) {
@@ -12711,7 +12711,7 @@
         );
       }
       function js(e, n) {
-        if (128 & e.state) throw Er(Ls[Ts]);
+        if (128 & e.state) throw Er(Ts[Ls]);
         return (
           Rs(e, Us(e, 0)),
           e.def.updateRenderer(function(e, l, t, ...r) {
@@ -12843,17 +12843,17 @@
         for (let t in n.references) l[t] = Eo(e, n, n.references[t]);
       }
       function qs(e, n, l, t) {
-        const r = Ts,
+        const r = Ls,
           i = Es,
           o = Os;
         try {
-          Ts = e;
+          Ls = e;
           const s = n.apply(l, t);
-          return (Es = i), (Os = o), (Ts = r), s;
+          return (Es = i), (Os = o), (Ls = r), s;
         } catch (e) {
           if (Ge(e) || !Es) throw e;
           throw (function(e, n) {
-            return e instanceof Error || (e = new Error(e.toString())), Tr(e, n), e;
+            return e instanceof Error || (e = new Error(e.toString())), Lr(e, n), e;
           })(e, zs());
         }
       }
@@ -13152,8 +13152,8 @@
       function xu(e, n, l) {
         const t = e.data.views;
         if (
-          (l > 0 && Tu(t[l - 1], n),
-          l < t.length ? (Tu(n, t[l]), t.splice(l, 0, n)) : t.push(n),
+          (l > 0 && Lu(t[l - 1], n),
+          l < t.length ? (Lu(n, t[l]), t.splice(l, 0, n)) : t.push(n),
           null !== e.data.renderParent)
         ) {
           let l = wu(n, e);
@@ -13165,11 +13165,11 @@
         }
         return n;
       }
-      function Lu(e, n) {
+      function Tu(e, n) {
         const l = e.data.views,
           t = l[n];
         return (
-          n > 0 && Tu(l[n - 1], t.next),
+          n > 0 && Lu(l[n - 1], t.next),
           l.splice(n, 1),
           (t.next = null),
           (function(e) {
@@ -13195,7 +13195,7 @@
           t
         );
       }
-      function Tu(e, n) {
+      function Lu(e, n) {
         (e.next = n), (e.data.next = n ? n.data : null);
       }
       function Eu(e, n) {
@@ -13484,7 +13484,7 @@
       function ba(e, n, l, t, r) {
         const i = $u;
         ua
-          ? (ngDevMode && Td(e - 1),
+          ? (ngDevMode && Ld(e - 1),
             (i.tNode = Zu[e] = Oa(n, l || null, r)),
             (function(e, n, l) {
               const t = l ? { '': -1 } : null,
@@ -13596,7 +13596,7 @@
         }
       }
       function ka(e, n) {
-        ngDevMode && Td(-1), (Qu = e);
+        ngDevMode && Ld(-1), (Qu = e);
         const l = e.createRenderer(null, null),
           t = 'string' == typeof n ? (vu(l) ? l.selectRootElement(n) : l.querySelector(n)) : n;
         if (ngDevMode && !t)
@@ -13636,14 +13636,14 @@
           (u = s[e]) &&
           (function(e, n) {
             for (let l = 0; l < e.length; l += 2) {
-              ngDevMode && Td(e[l], ta);
+              ngDevMode && Ld(e[l], ta);
               const t = ta[e[l]][e[l + 1]].subscribe(n);
               ra.push(t.unsubscribe, t);
             }
           })(u, n);
       }
-      function La() {
-        Ku ? (Ku = !1) : (ngDevMode && Ld(), ($u = $u.parent)), ngDevMode && mu($u, 3);
+      function Ta() {
+        Ku ? (Ku = !1) : (ngDevMode && Td(), ($u = $u.parent)), ngDevMode && mu($u, 3);
         const e = $u.queries;
         e && e.addNode($u),
           (function(e, n) {
@@ -13658,7 +13658,7 @@
             }
           })($u.tNode.flags, ia);
       }
-      function Ta(e, n, l, t) {
+      function La(e, n, l, t) {
         if (l !== od) {
           const r = la[e];
           if (null == l) vu(Ju) ? Ju.removeAttribute(r.native, n) : r.native.removeAttribute(n);
@@ -13677,7 +13677,7 @@
         let s;
         if (o && (s = o[n]))
           !(function(e, n) {
-            for (let l = 0; l < e.length; l += 2) ngDevMode && Td(e[l], ta), (ta[e[l]][e[l + 1]] = n);
+            for (let l = 0; l < e.length; l += 2) ngDevMode && Ld(e[l], ta), (ta[e[l]][e[l + 1]] = n);
           })(s, l),
             (function(e) {
               !e.data || 2 & e.data.flags || (e.data.flags |= 4);
@@ -13770,7 +13770,7 @@
         (Ku = !1), Iu(t.parent, l, ia);
       }
       function Fa(e, n) {
-        ngDevMode && Td(e);
+        ngDevMode && Ld(e);
         let l = la[e];
         ngDevMode && iu(l, 'existing node'),
           l.native
@@ -13878,7 +13878,7 @@
         s && (s.addNode(o), (i.queries = s.container()));
       }
       function Wa(e) {
-        ngDevMode && Td(e),
+        ngDevMode && Ld(e),
           ($u = la[e]),
           ngDevMode && mu($u, 0),
           (Ku = !0),
@@ -13887,11 +13887,11 @@
           sa || du(ia, ia.tView, na);
       }
       function Ga() {
-        Ku ? (Ku = !1) : (ngDevMode && mu($u, 2), ngDevMode && Ld(), ($u = $u.parent)), ngDevMode && mu($u, 0);
+        Ku ? (Ku = !1) : (ngDevMode && mu($u, 2), ngDevMode && Td(), ($u = $u.parent)), ngDevMode && mu($u, 0);
         const e = $u;
         (e.native = void 0), ngDevMode && mu(e, 0);
         const n = e.data.nextIndex;
-        for (; n < e.data.views.length; ) Lu(e, n);
+        for (; n < e.data.views.length; ) Tu(e, n);
       }
       function qa() {
         for (let e = ia.child; null !== e; e = e.next)
@@ -13913,7 +13913,7 @@
             const n = r[i].data.id;
             if (n === t) return r[i];
             if (!(n < t)) break;
-            Lu(e, i);
+            Tu(e, i);
           }
           return null;
         })(n, 0, e);
@@ -13968,11 +13968,11 @@
         da(ia.parent), ngDevMode && nu(Ku, !1, 'isParent'), ngDevMode && mu($u, 2);
       }
       function Qa(e, n) {
-        ngDevMode && Td(n);
+        ngDevMode && Ld(n);
         const l = la[n];
         ngDevMode && mu(l, 3), ngDevMode && iu(l.data, "Component's host node should have an LView attached.");
         const t = l.data;
-        8 == (8 & t.flags) && 6 & t.flags && (ngDevMode && Td(e, ta), rd(t, l, ia.tView.directives[e], kd(ta[e])));
+        8 == (8 & t.flags) && 6 & t.flags && (ngDevMode && Ld(e, ta), rd(t, l, ia.tView.directives[e], kd(ta[e])));
       }
       function $a(e, n, l) {
         const t = n ? n.length + 1 : 1,
@@ -14126,16 +14126,16 @@
         e >= Zu.length && (Zu[e] = null), (la[e] = n);
       }
       function yd(e) {
-        return ngDevMode && Td(e), la[e];
+        return ngDevMode && Ld(e), la[e];
       }
       function bd(e) {
         return (
-          ngDevMode && iu(ta, 'Directives array should be defined if reading a dir.'), ngDevMode && Td(e, ta), ta[e]
+          ngDevMode && iu(ta, 'Directives array should be defined if reading a dir.'), ngDevMode && Ld(e, ta), ta[e]
         );
       }
       function Cd() {
         return (
-          ngDevMode && Td(ia.bindingIndex),
+          ngDevMode && Ld(ia.bindingIndex),
           ngDevMode && lu(la[ia.bindingIndex], od, 'Stored value should never be NO_CHANGE.'),
           la[ia.bindingIndex++]
         );
@@ -14168,10 +14168,10 @@
       function xd() {
         nu(Ku, !0, 'previousOrParentNode should be a parent');
       }
-      function Ld() {
+      function Td() {
         iu($u.parent, 'previousOrParentNode should have a parent');
       }
-      function Td(e, n) {
+      function Ld(e, n) {
         null == n && (n = la), tu(e, n ? n.length : 0, 'index expected to be a valid data index');
       }
       function Ed(e, n) {
@@ -14393,7 +14393,7 @@
         if (null === t) {
           const e = xe(Xu().view.injector);
           try {
-            return Le(n, l);
+            return Te(n, l);
           } finally {
             xe(e);
           }
@@ -14546,7 +14546,7 @@
         }
         detach(e) {
           const n = this._adjustIndex(e, -1);
-          return Lu(this._lContainerNode, n), this._viewRefs.splice(n, 1)[0] || null;
+          return Tu(this._lContainerNode, n), this._viewRefs.splice(n, 1)[0] || null;
         }
         _adjustIndex(e, n = 0) {
           return null == e
@@ -14726,11 +14726,11 @@
         const r = t.n();
         return vd(e, r), r;
       }
-      function Lc(e, n) {
+      function Tc(e, n) {
         const l = yd(e);
         return Ic(e) ? yc(l.transform, n, l) : l.transform(n);
       }
-      function Tc(e, n, l) {
+      function Lc(e, n, l) {
         const t = yd(e);
         return Ic(e) ? bc(t.transform, n, l, t) : t.transform(n, l);
       }
@@ -16127,7 +16127,7 @@
                 null
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -16146,7 +16146,7 @@
                 null
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
@@ -16816,7 +16816,7 @@
                     null
                   ),
                   (e()(), t.ɵeld(99, 0, null, null, 0, 'hr', [['class', 'my-2']], null, null, null, null, null)),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
                   t.ɵdid(101, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -16974,7 +16974,7 @@
                   )),
                   (e()(), t.ɵand(16777216, null, null, 1, null, v)),
                   t.ɵdid(14, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
                   t.ɵdid(16, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   t.ɵeld(
@@ -19725,7 +19725,7 @@
                 null
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -20493,7 +20493,7 @@
                 }
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
@@ -20759,7 +20759,7 @@
                     a.RenderType_CardNotificacionesComponent
                   )),
                   t.ɵdid(62, 114688, null, 0, d.CardNotificacionesComponent, [c.NotificacionService], null, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
                   t.ɵdid(64, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   t.ɵeld(
@@ -20844,7 +20844,7 @@
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-agencia', [], null, null, null, T, _)),
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-agencia', [], null, null, null, L, _)),
                   t.ɵdid(1, 114688, null, 0, m.AgenciaComponent, [f.AgenciaService, g.ToastService], null, null)
                 ],
                 function(e, n) {
@@ -20853,7 +20853,7 @@
                 null
               );
             }
-            (n.RenderType_AgenciaComponent = _), (n.View_AgenciaComponent_0 = T), (n.View_AgenciaComponent_Host_0 = E);
+            (n.RenderType_AgenciaComponent = _), (n.View_AgenciaComponent_0 = L), (n.View_AgenciaComponent_Host_0 = E);
             var O = t.ɵccf('app-agencia', m.AgenciaComponent, E, {}, {}, []);
             n.AgenciaComponentNgFactory = O;
           }.apply(n, t)) || (e.exports = r);
@@ -22378,7 +22378,7 @@
                 }
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -22702,11 +22702,11 @@
                 }
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-adicional', [], null, null, null, L, y)),
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-adicional', [], null, null, null, T, y)),
                   t.ɵdid(1, 114688, null, 0, g.AdicionalComponent, [_.AdicionalService, v.ToastService], null, null)
                 ],
                 function(e, n) {
@@ -22716,9 +22716,9 @@
               );
             }
             (n.RenderType_AdicionalComponent = y),
-              (n.View_AdicionalComponent_0 = L),
-              (n.View_AdicionalComponent_Host_0 = T);
-            var E = t.ɵccf('app-adicional', g.AdicionalComponent, T, {}, {}, []);
+              (n.View_AdicionalComponent_0 = T),
+              (n.View_AdicionalComponent_Host_0 = L);
+            var E = t.ɵccf('app-adicional', g.AdicionalComponent, L, {}, {}, []);
             n.AdicionalComponentNgFactory = E;
           }.apply(n, t)) || (e.exports = r);
     },
@@ -24540,7 +24540,7 @@
       'use strict';
       l.r(n),
         l.d(n, '\u0275angular_packages_common_http_http_a', function() {
-          return L;
+          return T;
         }),
         l.d(n, '\u0275angular_packages_common_http_http_b', function() {
           return I;
@@ -25124,12 +25124,12 @@
         }
       }
       const x = new t.InjectionToken('HTTP_INTERCEPTORS');
-      class L {
+      class T {
         intercept(e, n) {
           return n.handle(e);
         }
       }
-      let T = 0;
+      let L = 0;
       const E = 'JSONP injected script did not invoke callback.',
         O = 'JSONP requests must use JSONP request method.',
         R = 'JSONP requests must use Json response type.';
@@ -25139,7 +25139,7 @@
           (this.callbackMap = e), (this.document = n);
         }
         nextCallback() {
-          return `ng_jsonp_callback_${T++}`;
+          return `ng_jsonp_callback_${L++}`;
         }
         handle(e) {
           if ('JSONP' !== e.method) throw new Error(O);
@@ -25347,7 +25347,7 @@
       }
       class J {
         static disable() {
-          return { ngModule: J, providers: [{ provide: G, useClass: L }] };
+          return { ngModule: J, providers: [{ provide: G, useClass: T }] };
         }
         static withOptions(e = {}) {
           return {
@@ -28213,7 +28213,7 @@
                 }
               );
             }
-            function L(e) {
+            function T(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28550,7 +28550,7 @@
                 }
               );
             }
-            function T(e) {
+            function L(e) {
               return l.ɵvid(
                 0,
                 [
@@ -28570,7 +28570,7 @@
                   l.ɵpod(4, { width: 0, border: 1 }),
                   (e()(), l.ɵand(16777216, null, null, 1, null, m)),
                   l.ɵdid(6, 16384, null, 0, t.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), l.ɵand(16777216, null, null, 1, null, L)),
+                  (e()(), l.ɵand(16777216, null, null, 1, null, T)),
                   l.ɵdid(8, 16384, null, 0, t.NgIf, [l.ViewContainerRef, l.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -28586,7 +28586,7 @@
               return l.ɵvid(
                 0,
                 [
-                  (e()(), l.ɵeld(0, 0, null, null, 4, 'my-date-picker', [], null, null, null, T, a)),
+                  (e()(), l.ɵeld(0, 0, null, null, 4, 'my-date-picker', [], null, null, null, L, a)),
                   l.ɵprd(
                     5120,
                     null,
@@ -28613,7 +28613,7 @@
                 null
               );
             }
-            (n.RenderType_MyDatePicker = a), (n.View_MyDatePicker_0 = T), (n.View_MyDatePicker_Host_0 = E);
+            (n.RenderType_MyDatePicker = a), (n.View_MyDatePicker_0 = L), (n.View_MyDatePicker_Host_0 = E);
             var O = l.ɵccf(
               'my-date-picker',
               o.MyDatePicker,
@@ -30334,7 +30334,7 @@
                 }
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -30481,7 +30481,7 @@
                 }
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
@@ -32876,7 +32876,7 @@
                   )),
                   (e()(), t.ɵeld(22, 0, null, null, 0, 'br', [], null, null, null, null, null)),
                   (e()(), t.ɵeld(23, 0, null, null, 2, 'div', [['class', 'scroll-15']], null, null, null, null, null)),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
                   t.ɵdid(
                     25,
                     802816,
@@ -32925,7 +32925,7 @@
                     null,
                     null
                   )),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
                   t.ɵdid(
                     32,
                     802816,
@@ -38301,7 +38301,7 @@
           return Ee;
         }),
         l.d(n, 'NgLocalization', function() {
-          return Le;
+          return Te;
         }),
         l.d(n, 'registerLocaleData', function() {
           return f;
@@ -38349,10 +38349,10 @@
           return x;
         }),
         l.d(n, 'getLocaleWeekEndRange', function() {
-          return T;
+          return L;
         }),
         l.d(n, 'getLocaleFirstDayOfWeek', function() {
-          return L;
+          return T;
         }),
         l.d(n, 'getLocaleDateFormat', function() {
           return E;
@@ -38442,7 +38442,7 @@
           return xn;
         }),
         l.d(n, 'I18nPluralPipe', function() {
-          return Tn;
+          return Ln;
         }),
         l.d(n, 'I18nSelectPipe', function() {
           return En;
@@ -38970,10 +38970,10 @@
       function x(e, n) {
         return B(W(e)[7], n);
       }
-      function L(e) {
+      function T(e) {
         return W(e)[8];
       }
-      function T(e) {
+      function L(e) {
         return W(e)[9];
       }
       function E(e, n) {
@@ -39678,15 +39678,15 @@
         return n;
       }
       const xe = new t.InjectionToken('UseV4Plurals');
-      class Le {}
-      function Te(e, n, l, t) {
+      class Te {}
+      function Le(e, n, l, t) {
         let r = `=${e}`;
         if (n.indexOf(r) > -1) return r;
         if (((r = l.getPluralCategory(e, t)), n.indexOf(r) > -1)) return r;
         if (n.indexOf('other') > -1) return 'other';
         throw new Error(`No plural message found for value "${e}"`);
       }
-      class Ee extends Le {
+      class Ee extends Te {
         constructor(e, n) {
           super(), (this.locale = e), (this.deprecatedPluralFn = n);
         }
@@ -40348,7 +40348,7 @@
         _updateView() {
           this._clearViews();
           const e = Object.keys(this._caseViews),
-            n = Te(this._switchValue, e, this._localization);
+            n = Le(this._switchValue, e, this._localization);
           this._activateView(this._caseViews[n]);
         }
         _clearViews() {
@@ -40749,15 +40749,15 @@
           }
         }
       }
-      const Ln = /#/g;
-      class Tn {
+      const Tn = /#/g;
+      class Ln {
         constructor(e) {
           this._localization = e;
         }
         transform(e, n, l) {
           if (null == e) return '';
-          if ('object' != typeof n || null === n) throw Ke(Tn, n);
-          return n[Te(e, Object.keys(n), this._localization, l)].replace(Ln, e.toString());
+          if ('object' != typeof n || null === n) throw Ke(Ln, n);
+          return n[Le(e, Object.keys(n), this._localization, l)].replace(Tn, e.toString());
         }
       }
       class En {
@@ -40842,7 +40842,7 @@
           return 'string' == typeof e || Array.isArray(e);
         }
       }
-      const Fn = [Mn, kn, An, On, Pn, Rn, In, Sn, Nn, xn, Tn, En];
+      const Fn = [Mn, kn, An, On, Pn, Rn, In, Sn, Nn, xn, Ln, En];
       class Vn {}
       class Hn {}
       const Bn = new t.InjectionToken('DocumentToken'),
@@ -41166,8 +41166,8 @@
             S,
             k,
             x,
-            L,
             T,
+            L,
             E,
             O,
             R,
@@ -41220,8 +41220,8 @@
             Se,
             ke,
             xe,
-            Le,
             Te,
+            Le,
             Ee,
             Oe
           ) {
@@ -41257,8 +41257,8 @@
                       S.CaptacionComponentNgFactory,
                       k.MarcacionComponentNgFactory,
                       x.GaleriaComponentNgFactory,
-                      L.AgenciaComponentNgFactory,
-                      T.AppComponentNgFactory
+                      T.AgenciaComponentNgFactory,
+                      L.AppComponentNgFactory
                     ]
                   ],
                   [3, l.ComponentFactoryResolver],
@@ -41520,11 +41520,11 @@
                 ]),
                 l.ɵmpd(1073742336, R.ɵangular_packages_forms_forms_bb, R.ɵangular_packages_forms_forms_bb, []),
                 l.ɵmpd(1073742336, R.FormsModule, R.FormsModule, []),
-                l.ɵmpd(1073742336, Le.MyDatePickerModule, Le.MyDatePickerModule, []),
+                l.ɵmpd(1073742336, Te.MyDatePickerModule, Te.MyDatePickerModule, []),
                 l.ɵmpd(1073742336, I.HttpModule, I.HttpModule, []),
                 l.ɵmpd(1073742336, N.HttpClientXsrfModule, N.HttpClientXsrfModule, []),
                 l.ɵmpd(1073742336, N.HttpClientModule, N.HttpClientModule, []),
-                l.ɵmpd(1073742336, Te.CompartidoModule, Te.CompartidoModule, []),
+                l.ɵmpd(1073742336, Le.CompartidoModule, Le.CompartidoModule, []),
                 l.ɵmpd(1073742336, Ee.PrivadoModule, Ee.PrivadoModule, []),
                 l.ɵmpd(1073742336, Oe.PublicoModule, Oe.PublicoModule, []),
                 l.ɵmpd(1073742336, t.AppModule, t.AppModule, []),
@@ -43066,7 +43066,7 @@
       'use strict';
       l.r(n),
         l.d(n, '\u0275angular_packages_http_http_e', function() {
-          return L;
+          return T;
         }),
         l.d(n, '\u0275angular_packages_http_http_f', function() {
           return M;
@@ -43512,7 +43512,7 @@
         const e = 'object' == typeof window ? window : {};
         return null === k && (k = e[S] = {}), k;
       }
-      class L {
+      class T {
         build(e) {
           const n = document.createElement('script');
           return (n.src = e), n;
@@ -43536,7 +43536,7 @@
           e.parentNode && e.parentNode.removeChild(e);
         }
       }
-      const T = 'JSONP injected script did not invoke callback.',
+      const L = 'JSONP injected script did not invoke callback.',
         E = 'JSONP requests must use GET request method.';
       class O {
         constructor(e, n, l) {
@@ -43557,7 +43557,7 @@
                 d = e => {
                   if (this.readyState === u.Cancelled) return;
                   if (((this.readyState = u.Done), n.cleanup(s), !this._finished)) {
-                    let e = new p({ body: T, type: a.Error, url: o });
+                    let e = new p({ body: L, type: a.Error, url: o });
                     return l && (e = l.merge(e)), void t.error(new A(e));
                   }
                   let r = new p({ body: this._responseData, url: o });
@@ -44671,6 +44671,50 @@
               return t.ɵvid(
                 0,
                 [
+                  (e()(),
+                  t.ɵeld(
+                    0,
+                    0,
+                    null,
+                    null,
+                    1,
+                    'app-p-text-area',
+                    [],
+                    null,
+                    [[null, 'modificar'], [null, 'cancel']],
+                    function(e, n, l) {
+                      var t = !0,
+                        r = e.component;
+                      return (
+                        'modificar' === n && (t = !1 !== r.modificarNotas(l, r.notas[0].id) && t),
+                        'cancel' === n && (t = !1 !== (r.mode = void 0) && t),
+                        t
+                      );
+                    },
+                    r.View_PTextAreaComponent_0,
+                    r.RenderType_PTextAreaComponent
+                  )),
+                  t.ɵdid(
+                    1,
+                    114688,
+                    null,
+                    0,
+                    i.PTextAreaComponent,
+                    [],
+                    { text: [0, 'text'] },
+                    { modificar: 'modificar', cancel: 'cancel' }
+                  )
+                ],
+                function(e, n) {
+                  e(n, 1, 0, n.component.notas[0].notas);
+                },
+                null
+              );
+            }
+            function p(e) {
+              return t.ɵvid(
+                0,
+                [
                   (e()(), t.ɵeld(0, 0, null, null, 1, 'p', [], null, null, null, null, null)),
                   (e()(), t.ɵted(-1, null, ['No existen notas']))
                 ],
@@ -44678,7 +44722,7 @@
                 null
               );
             }
-            function p(e) {
+            function m(e) {
               return t.ɵvid(
                 0,
                 [
@@ -44721,7 +44765,7 @@
                 null
               );
             }
-            function m(e) {
+            function f(e) {
               return t.ɵvid(
                 0,
                 [
@@ -44750,45 +44794,14 @@
                 null
               );
             }
-            function f(e) {
+            function g(e) {
               return t.ɵvid(
                 0,
                 [
                   (e()(), t.ɵeld(0, 0, null, null, 12, null, null, null, null, null, null, null)),
-                  (e()(),
-                  t.ɵeld(
-                    1,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'app-p-text-area',
-                    [],
-                    null,
-                    [[null, 'modificar'], [null, 'cancel']],
-                    function(e, n, l) {
-                      var t = !0,
-                        r = e.component;
-                      return (
-                        'modificar' === n && (t = !1 !== r.modificarNotas(l, r.notas[0].id) && t),
-                        'cancel' === n && (t = !1 !== (r.mode = void 0) && t),
-                        t
-                      );
-                    },
-                    r.View_PTextAreaComponent_0,
-                    r.RenderType_PTextAreaComponent
-                  )),
-                  t.ɵdid(
-                    2,
-                    114688,
-                    null,
-                    0,
-                    i.PTextAreaComponent,
-                    [],
-                    { text: [0, 'text'] },
-                    { modificar: 'modificar', cancel: 'cancel' }
-                  ),
                   (e()(), t.ɵand(16777216, null, null, 1, null, h)),
+                  t.ɵdid(2, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, p)),
                   t.ɵdid(4, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵeld(5, 0, null, null, 0, 'hr', [], null, null, null, null, null)),
                   (e()(), t.ɵeld(6, 0, null, null, 6, 'div', [['class', 'row']], null, null, null, null, null)),
@@ -44807,7 +44820,7 @@
                     null,
                     null
                   )),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, p)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, m)),
                   t.ɵdid(9, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   t.ɵeld(
@@ -44824,12 +44837,12 @@
                     null,
                     null
                   )),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, m)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, f)),
                   t.ɵdid(12, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
                   var l = n.component;
-                  e(n, 2, 0, l.notas[0].notas),
+                  e(n, 2, 0, l.notas && l.notas.length),
                     e(n, 4, 0, !l.notas || 0 == l.notas.length),
                     e(n, 9, 0, !l.notas || l.notas.length >= 0),
                     e(n, 12, 0, !l.notas || l.notas.length >= 0);
@@ -44837,7 +44850,7 @@
                 null
               );
             }
-            function g(e) {
+            function _(e) {
               return t.ɵvid(
                 0,
                 [
@@ -44863,7 +44876,7 @@
                   )),
                   (e()(), t.ɵand(16777216, null, null, 1, null, c)),
                   t.ɵdid(6, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, f)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, g)),
                   t.ɵdid(8, 16384, null, 0, o.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -44876,11 +44889,11 @@
                 }
               );
             }
-            function _(e) {
+            function v(e) {
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-notas', [], null, null, null, g, d)),
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-notas', [], null, null, null, _, d)),
                   t.ɵdid(1, 114688, null, 0, s.NotasComponent, [u.ReservaService, a.ToastService], null, null)
                 ],
                 function(e, n) {
@@ -44889,16 +44902,16 @@
                 null
               );
             }
-            (n.RenderType_NotasComponent = d), (n.View_NotasComponent_0 = g), (n.View_NotasComponent_Host_0 = _);
-            var v = t.ɵccf(
+            (n.RenderType_NotasComponent = d), (n.View_NotasComponent_0 = _), (n.View_NotasComponent_Host_0 = v);
+            var y = t.ɵccf(
               'app-notas',
               s.NotasComponent,
-              _,
+              v,
               { idReserva: 'idReserva', notas: 'notas' },
               { showAll: 'showAll' },
               []
             );
-            n.NotasComponentNgFactory = v;
+            n.NotasComponentNgFactory = y;
           }.apply(n, t)) || (e.exports = r);
     },
     X2wO: function(e, n, l) {
@@ -45664,8 +45677,8 @@
             S,
             k,
             x,
-            L,
             T,
+            L,
             E,
             O,
             R,
@@ -46550,10 +46563,10 @@
                     114688,
                     null,
                     0,
-                    L.HabitacionDetalleComponent,
+                    T.HabitacionDetalleComponent,
                     [
-                      T.ActivatedRoute,
-                      T.Router,
+                      L.ActivatedRoute,
+                      L.Router,
                       E.HabitacionService,
                       O.GaleriaService,
                       R.TipoHabitacionService,
@@ -46574,7 +46587,7 @@
             (n.RenderType_HabitacionDetalleComponent = Y),
               (n.View_HabitacionDetalleComponent_0 = G),
               (n.View_HabitacionDetalleComponent_Host_0 = q);
-            var z = t.ɵccf('app-habitacion-detalle', L.HabitacionDetalleComponent, q, {}, {}, []);
+            var z = t.ɵccf('app-habitacion-detalle', T.HabitacionDetalleComponent, q, {}, {}, []);
             n.HabitacionDetalleComponentNgFactory = z;
           }.apply(n, t)) || (e.exports = r);
     },
@@ -49307,7 +49320,7 @@
                 }
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -49644,11 +49657,11 @@
                 }
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-pasajero', [], null, null, null, L, v)),
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-pasajero', [], null, null, null, T, v)),
                   t.ɵdid(
                     1,
                     4308992,
@@ -49667,9 +49680,9 @@
               );
             }
             (n.RenderType_PasajeroComponent = v),
-              (n.View_PasajeroComponent_0 = L),
-              (n.View_PasajeroComponent_Host_0 = T);
-            var E = t.ɵccf('app-pasajero', m.PasajeroComponent, T, {}, {}, []);
+              (n.View_PasajeroComponent_0 = T),
+              (n.View_PasajeroComponent_Host_0 = L);
+            var E = t.ɵccf('app-pasajero', m.PasajeroComponent, L, {}, {}, []);
             n.PasajeroComponentNgFactory = E;
           }.apply(n, t)) || (e.exports = r);
     },
@@ -51311,7 +51324,7 @@
                 null
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -51358,7 +51371,7 @@
                 }
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
@@ -51647,7 +51660,7 @@
                     null
                   )),
                   (e()(), t.ɵted(-1, null, [' Guardar '])),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
                   t.ɵdid(52, 16384, null, 0, i.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -52410,7 +52423,7 @@
                   t.ɵdid(9, 16384, null, 0, i.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, M)),
                   t.ɵdid(11, 16384, null, 0, i.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
                   t.ɵdid(13, 16384, null, 0, i.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, U)),
                   t.ɵdid(15, 16384, null, 0, i.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
@@ -53137,7 +53150,7 @@
           return Ie;
         }),
         l.d(n, 'platformBrowser', function() {
-          return Te;
+          return Le;
         }),
         l.d(n, 'Meta', function() {
           return C;
@@ -53185,7 +53198,7 @@
           return ze;
         }),
         l.d(n, '\u0275BROWSER_SANITIZATION_PROVIDERS', function() {
-          return Le;
+          return Te;
         }),
         l.d(n, '\u0275INTERNAL_BROWSER_PLATFORM_PROVIDERS', function() {
           return xe;
@@ -53907,13 +53920,13 @@
         ('undefined' != typeof COMPILED && COMPILED) || ((r['\u0275global'].ng = r['\u0275global'].ng || {})[e] = n);
       }
       const x = { ApplicationRef: r.ApplicationRef, NgZone: r.NgZone },
-        L = 'probe',
-        T = 'coreTokens';
+        T = 'probe',
+        L = 'coreTokens';
       function E(e) {
         return Object(r.getDebugNode)(e);
       }
       function O(e) {
-        return k(L, E), k(T, Object.assign({}, x, (e || []).reduce((e, n) => ((e[n.name] = n.token), e), {}))), () => E;
+        return k(T, E), k(L, Object.assign({}, x, (e || []).reduce((e, n) => ((e[n.name] = n.token), e), {}))), () => E;
       }
       const R = [{ provide: r.APP_INITIALIZER, useFactory: O, deps: [[r.NgProbeToken, new r.Optional()]], multi: !0 }],
         I = new r.InjectionToken('EventManagerPlugins');
@@ -54501,8 +54514,8 @@
           { provide: t.PlatformLocation, useClass: b, deps: [v] },
           { provide: v, useFactory: Re, deps: [] }
         ],
-        Le = [{ provide: r.Sanitizer, useExisting: be }, { provide: be, useClass: Ce, deps: [v] }],
-        Te = Object(r.createPlatformFactory)(r.platformCore, 'browser', xe);
+        Te = [{ provide: r.Sanitizer, useExisting: be }, { provide: be, useClass: Ce, deps: [v] }],
+        Le = Object(r.createPlatformFactory)(r.platformCore, 'browser', xe);
       function Ee() {
         f.makeCurrent(), D.init();
       }
@@ -56676,7 +56689,7 @@
                 }
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -56700,9 +56713,9 @@
             }
             (n.RenderType_RegistroComponent = c),
               (n.View_RegistroComponent_0 = x),
-              (n.View_RegistroComponent_Host_0 = L);
-            var T = t.ɵccf('app-registro', s.RegistroComponent, L, {}, {}, []);
-            n.RegistroComponentNgFactory = T;
+              (n.View_RegistroComponent_Host_0 = T);
+            var L = t.ɵccf('app-registro', s.RegistroComponent, T, {}, {}, []);
+            n.RegistroComponentNgFactory = L;
           }.apply(n, t)) || (e.exports = r);
     },
     fCwG: function(e, n, l) {
@@ -58727,10 +58740,10 @@
           return je;
         }),
         l.d(n, 'RouterLink', function() {
-          return Ln;
+          return Tn;
         }),
         l.d(n, 'RouterLinkWithHref', function() {
-          return Tn;
+          return Ln;
         }),
         l.d(n, 'RouterLinkActive', function() {
           return On;
@@ -58751,10 +58764,10 @@
           return N;
         }),
         l.d(n, 'GuardsCheckEnd', function() {
-          return T;
+          return L;
         }),
         l.d(n, 'GuardsCheckStart', function() {
-          return L;
+          return T;
         }),
         l.d(n, 'NavigationCancel', function() {
           return S;
@@ -58940,7 +58953,7 @@
           }', state: ${this.state})`;
         }
       }
-      class L extends M {
+      class T extends M {
         constructor(e, n, l, t) {
           super(e, n), (this.urlAfterRedirects = l), (this.state = t);
         }
@@ -58950,7 +58963,7 @@
           }', state: ${this.state})`;
         }
       }
-      class T extends M {
+      class L extends M {
         constructor(e, n, l, t, r) {
           super(e, n), (this.urlAfterRedirects = l), (this.state = t), (this.shouldActivate = r);
         }
@@ -59563,7 +59576,7 @@
               );
         }
         expandRegularSegmentAgainstRouteUsingRedirect(e, n, l, t, r, i) {
-          const { matched: o, consumedSegments: s, lastChild: u, positionalParamSegments: a } = Le(n, t, r);
+          const { matched: o, consumedSegments: s, lastChild: u, positionalParamSegments: a } = Te(n, t, r);
           if (!o) return De(n);
           const d = this.applyRedirectCommands(s, t.redirectTo, a);
           return t.redirectTo.startsWith('/')
@@ -59577,7 +59590,7 @@
             return l.loadChildren
               ? this.configLoader.load(e.injector, l).pipe(Object(c.a)(e => ((l._loadedConfig = e), new re(t, {}))))
               : Object(i.a)(new re(t, {}));
-          const { matched: r, consumedSegments: o, lastChild: s } = Le(n, l, t);
+          const { matched: r, consumedSegments: o, lastChild: s } = Te(n, l, t);
           if (!r) return De(n);
           const u = t.slice(s);
           return this.getChildConfig(e, l).pipe(
@@ -59590,7 +59603,7 @@
                       return t.some(l => Ee(e, n, l) && Oe(l) !== V);
                     })(e, l)
                     ? {
-                        segmentGroup: Te(
+                        segmentGroup: Le(
                           new re(
                             n,
                             (function(e, n) {
@@ -59608,7 +59621,7 @@
                         return t.some(l => Ee(e, n, l));
                       })(e, l)
                     ? {
-                        segmentGroup: Te(
+                        segmentGroup: Le(
                           new re(
                             e.segments,
                             (function(e, n, l, t) {
@@ -59725,7 +59738,7 @@
           return e;
         }
       }
-      function Le(e, n, l) {
+      function Te(e, n, l) {
         if ('' === n.path)
           return 'full' === n.pathMatch && (e.hasChildren() || l.length > 0)
             ? { matched: !1, consumedSegments: [], lastChild: 0, positionalParamSegments: {} }
@@ -59740,7 +59753,7 @@
             }
           : { matched: !1, consumedSegments: [], lastChild: 0, positionalParamSegments: {} };
       }
-      function Te(e) {
+      function Le(e) {
         if (1 === e.numberOfChildren && e.children[V]) {
           const n = e.children[V];
           return new re(e.segments.concat(n.segments), n.children);
@@ -60887,13 +60900,13 @@
                       if ('boolean' == typeof n || this.navigationId !== r) return Object(i.a)(!1);
                       const { appliedUrl: l, snapshot: t } = n;
                       return (
-                        this.triggerEvent(new L(r, this.serializeUrl(e), this.serializeUrl(l), t)),
+                        this.triggerEvent(new T(r, this.serializeUrl(e), this.serializeUrl(l), t)),
                         h
                           .checkGuards()
                           .pipe(
                             Object(c.a)(
                               n => (
-                                this.triggerEvent(new T(r, this.serializeUrl(e), this.serializeUrl(l), t, n)),
+                                this.triggerEvent(new L(r, this.serializeUrl(e), this.serializeUrl(l), t, n)),
                                 { appliedUrl: l, snapshot: t, shouldActivate: n }
                               )
                             )
@@ -61152,7 +61165,7 @@
       function xn(e) {
         qe(e.value), e.children.forEach(xn);
       }
-      class Ln {
+      class Tn {
         constructor(e, n, l, t, r) {
           (this.router = e),
             (this.route = n),
@@ -61184,7 +61197,7 @@
           });
         }
       }
-      class Tn {
+      class Ln {
         constructor(e, n, l) {
           (this.router = e),
             (this.route = n),
@@ -62101,6 +62114,8 @@
         n,
         l('fDZt'),
         l('8Y7J'),
+        l('Mvm7'),
+        l('AqDA'),
         l('PClh'),
         l('A4u+'),
         l('24Ev'),
@@ -62116,8 +62131,7 @@
         l('rc+k'),
         l('CJaR'),
         l('R/K9'),
-        l('Mvm7'),
-        l('AqDA'),
+        l('SVse'),
         l('MCmq'),
         l('IQQe'),
         l('w81W'),
@@ -62128,11 +62142,50 @@
         l('th+u')
       ]),
         void 0 ===
-          (r = function(e, n, l, t, r, i, o, s, u, a, d, c, h, p, m, f, g, _, v, y, b, C, w, M, A, D, S, k, x) {
+          (r = function(e, n, l, t, r, i, o, s, u, a, d, c, h, p, m, f, g, _, v, y, b, C, w, M, A, D, S, k, x, T) {
             'use strict';
             Object.defineProperty(n, '__esModule', { value: !0 });
             var L = t.ɵcrt({ encapsulation: 0, styles: [l.styles], data: {} });
-            function T(e) {
+            function E(e) {
+              return t.ɵvid(
+                0,
+                [
+                  (e()(),
+                  t.ɵeld(
+                    0,
+                    0,
+                    null,
+                    null,
+                    1,
+                    'app-modal-notas',
+                    [],
+                    null,
+                    [[null, '_closeModal']],
+                    function(e, n, l) {
+                      var t = !0;
+                      return '_closeModal' === n && (t = !1 !== e.component.onCloseNotasModal() && t), t;
+                    },
+                    r.View_ModalNotasComponent_0,
+                    r.RenderType_ModalNotasComponent
+                  )),
+                  t.ɵdid(
+                    1,
+                    114688,
+                    null,
+                    0,
+                    i.ModalNotasComponent,
+                    [],
+                    { notas: [0, 'notas'] },
+                    { _closeModal: '_closeModal' }
+                  )
+                ],
+                function(e, n) {
+                  e(n, 1, 0, n.component.model.notas);
+                },
+                null
+              );
+            }
+            function O(e) {
               return t.ɵvid(
                 0,
                 [
@@ -62173,16 +62226,16 @@
                         t
                       );
                     },
-                    r.View_CalendarioComponent_0,
-                    r.RenderType_CalendarioComponent
+                    o.View_CalendarioComponent_0,
+                    o.RenderType_CalendarioComponent
                   )),
                   t.ɵdid(
                     4,
                     638976,
                     null,
                     0,
-                    i.CalendarioComponent,
-                    [o.HabitacionService],
+                    s.CalendarioComponent,
+                    [u.HabitacionService],
                     { accion: [0, 'accion'], reservasBD: [1, 'reservasBD'], reservasCliente: [2, 'reservasCliente'] },
                     {
                       reservar: 'reservar',
@@ -62225,16 +62278,16 @@
                         t
                       );
                     },
-                    s.View_ModalReservaComponent_0,
-                    s.RenderType_ModalReservaComponent
+                    a.View_ModalReservaComponent_0,
+                    a.RenderType_ModalReservaComponent
                   )),
                   t.ɵdid(
                     6,
                     638976,
                     null,
                     0,
-                    u.ModalReservaComponent,
-                    [a.ReservaService, d.PasajeroService, c.ToastService],
+                    d.ModalReservaComponent,
+                    [c.ReservaService, h.PasajeroService, p.ToastService],
                     {
                       model: [0, 'model'],
                       accion: [1, 'accion'],
@@ -62276,16 +62329,16 @@
                         t
                       );
                     },
-                    h.View_ModalPagoComponent_0,
-                    h.RenderType_ModalPagoComponent
+                    m.View_ModalPagoComponent_0,
+                    m.RenderType_ModalPagoComponent
                   )),
                   t.ɵdid(
                     8,
                     638976,
                     null,
                     0,
-                    p.ModalPagoComponent,
-                    [m.PagoService, c.ToastService],
+                    f.ModalPagoComponent,
+                    [g.PagoService, p.ToastService],
                     { idReserva: [0, 'idReserva'], formaPagos: [1, 'formaPagos'], total: [2, 'total'] },
                     { success: 'success', cancelarPago: 'cancelarPago' }
                   ),
@@ -62309,15 +62362,15 @@
                         t
                       );
                     },
-                    f.View_ModalConfirmacionComponent_0,
-                    f.RenderType_ModalConfirmacionComponent
+                    _.View_ModalConfirmacionComponent_0,
+                    _.RenderType_ModalConfirmacionComponent
                   )),
                   t.ɵdid(
                     10,
                     114688,
                     null,
                     0,
-                    g.ModalConfirmacionComponent,
+                    v.ModalConfirmacionComponent,
                     [],
                     { mensaje: [0, 'mensaje'] },
                     { confirmar: 'confirmar', cancelar: 'cancelar' }
@@ -62342,47 +62395,21 @@
                         t
                       );
                     },
-                    _.View_ModalEstadosComponent_0,
-                    _.RenderType_ModalEstadosComponent
+                    y.View_ModalEstadosComponent_0,
+                    y.RenderType_ModalEstadosComponent
                   )),
                   t.ɵdid(
                     12,
                     114688,
                     null,
                     0,
-                    v.ModalEstadosComponent,
-                    [a.ReservaService, c.ToastService],
+                    b.ModalEstadosComponent,
+                    [c.ReservaService, p.ToastService],
                     { model: [0, 'model'] },
                     { success: 'success', cancelaEstados: 'cancelaEstados' }
                   ),
-                  (e()(),
-                  t.ɵeld(
-                    13,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'app-modal-notas',
-                    [],
-                    null,
-                    [[null, '_closeModal']],
-                    function(e, n, l) {
-                      var t = !0;
-                      return '_closeModal' === n && (t = !1 !== e.component.onCloseNotasModal() && t), t;
-                    },
-                    y.View_ModalNotasComponent_0,
-                    y.RenderType_ModalNotasComponent
-                  )),
-                  t.ɵdid(
-                    14,
-                    114688,
-                    null,
-                    0,
-                    b.ModalNotasComponent,
-                    [],
-                    { notas: [0, 'notas'] },
-                    { _closeModal: '_closeModal' }
-                  )
+                  (e()(), t.ɵand(16777216, null, null, 1, null, E)),
+                  t.ɵdid(14, 16384, null, 0, C.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
                   var l = n.component;
@@ -62405,34 +62432,34 @@
                     e(n, 8, 0, l.idReserva, l.formaPagos, l.model.total || 0),
                     e(n, 10, 0, l.mensajeConfirmacion),
                     e(n, 12, 0, l.model),
-                    e(n, 14, 0, l.model.notas);
+                    e(n, 14, 0, l.model && l.model.notas);
                 },
                 null
               );
             }
-            function E(e) {
+            function R(e) {
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-reserva', [], null, null, null, T, L)),
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-reserva', [], null, null, null, O, L)),
                   t.ɵdid(
                     1,
                     8503296,
                     null,
                     0,
-                    C.ReservaComponent,
+                    w.ReservaComponent,
                     [
                       t.ChangeDetectorRef,
-                      a.ReservaService,
-                      m.PagoService,
-                      w.FormaPagoService,
-                      M.TarifaService,
-                      A.AdicionalService,
-                      D.PaisService,
-                      S.AerolineaService,
-                      k.FuenteService,
-                      c.ToastService,
-                      x.AgenciaService
+                      c.ReservaService,
+                      g.PagoService,
+                      M.FormaPagoService,
+                      A.TarifaService,
+                      D.AdicionalService,
+                      S.PaisService,
+                      k.AerolineaService,
+                      x.FuenteService,
+                      p.ToastService,
+                      T.AgenciaService
                     ],
                     null,
                     null
@@ -62444,9 +62471,9 @@
                 null
               );
             }
-            (n.RenderType_ReservaComponent = L), (n.View_ReservaComponent_0 = T), (n.View_ReservaComponent_Host_0 = E);
-            var O = t.ɵccf('app-reserva', C.ReservaComponent, E, {}, {}, []);
-            n.ReservaComponentNgFactory = O;
+            (n.RenderType_ReservaComponent = L), (n.View_ReservaComponent_0 = O), (n.View_ReservaComponent_Host_0 = R);
+            var I = t.ɵccf('app-reserva', w.ReservaComponent, R, {}, {}, []);
+            n.ReservaComponentNgFactory = I;
           }.apply(n, t)) || (e.exports = r);
     },
     jCJw: function(e, n, l) {
@@ -63733,7 +63760,7 @@
       }
       class k {
         constructor(e, n) {
-          (this.bufferSize = e), (this.startBufferEvery = n), (this.subscriberClass = n && e !== n ? L : x);
+          (this.bufferSize = e), (this.startBufferEvery = n), (this.subscriberClass = n && e !== n ? T : x);
         }
         call(e, n) {
           return n.subscribe(new this.subscriberClass(e, this.bufferSize, this.startBufferEvery));
@@ -63752,7 +63779,7 @@
           e.length > 0 && this.destination.next(e), super._complete();
         }
       }
-      class L extends D.a {
+      class T extends D.a {
         constructor(e, n, l) {
           super(e), (this.bufferSize = n), (this.startBufferEvery = l), (this.buffers = []), (this.count = 0);
         }
@@ -63773,7 +63800,7 @@
           super._complete();
         }
       }
-      function T(e) {
+      function L(e) {
         let n = arguments.length,
           l = f;
         Object(y.a)(arguments[arguments.length - 1]) && ((l = arguments[arguments.length - 1]), n--);
@@ -64388,15 +64415,15 @@
       }
       function xe() {
         return function(e) {
-          return e.lift(new Le());
+          return e.lift(new Te());
         };
       }
-      class Le {
+      class Te {
         call(e, n) {
-          return n.subscribe(new Te(e));
+          return n.subscribe(new Le(e));
         }
       }
-      class Te extends D.a {
+      class Le extends D.a {
         constructor(e) {
           super(e);
         }
@@ -64856,15 +64883,15 @@
       }
       function xn() {
         return function(e) {
-          return e.lift(new Ln());
+          return e.lift(new Tn());
         };
       }
-      class Ln {
+      class Tn {
         call(e, n) {
-          return n.subscribe(new Tn(e));
+          return n.subscribe(new Ln(e));
         }
       }
-      class Tn extends D.a {
+      class Ln extends D.a {
         constructor(e) {
           super(e);
         }
@@ -65381,19 +65408,19 @@
       }
       var kl = l('x+ZX');
       function xl(e) {
-        return n => n.lift(new Ll(e));
+        return n => n.lift(new Tl(e));
       }
-      class Ll {
+      class Tl {
         constructor(e) {
           this.notifier = e;
         }
         call(e, n) {
-          const l = new Tl(e),
+          const l = new Ll(e),
             t = n.subscribe(l);
           return t.add(Object(o.a)(l, this.notifier)), t;
         }
       }
-      class Tl extends i.a {
+      class Ll extends i.a {
         constructor() {
           super(...arguments), (this.hasValue = !1);
         }
@@ -65866,10 +65893,10 @@
           (this.durationSelector = e), (this.leading = n), (this.trailing = l);
         }
         call(e, n) {
-          return n.subscribe(new Lt(e, this.durationSelector, this.leading, this.trailing));
+          return n.subscribe(new Tt(e, this.durationSelector, this.leading, this.trailing));
         }
       }
-      class Lt extends i.a {
+      class Tt extends i.a {
         constructor(e, n, l, t) {
           super(e),
             (this.destination = e),
@@ -65909,7 +65936,7 @@
           this.throttlingDone();
         }
       }
-      function Tt(e, n = f, l = St) {
+      function Lt(e, n = f, l = St) {
         return t => t.lift(new Et(e, n, l.leading, l.trailing));
       }
       class Et {
@@ -66587,7 +66614,7 @@
           return S;
         }),
         l.d(n, 'bufferTime', function() {
-          return T;
+          return L;
         }),
         l.d(n, 'bufferToggle', function() {
           return Y;
@@ -66842,7 +66869,7 @@
           return kt;
         }),
         l.d(n, 'throttleTime', function() {
-          return Tt;
+          return Lt;
         }),
         l.d(n, 'throwIfEmpty', function() {
           return Ve.a;
@@ -70990,7 +71017,7 @@
           return Oe;
         }),
         l.d(n, '\u0275angular_packages_forms_forms_g', function() {
-          return Te;
+          return Le;
         }),
         l.d(n, '\u0275angular_packages_forms_forms_bg', function() {
           return un;
@@ -71406,10 +71433,10 @@
           (this._composing = !1), this._compositionMode && this.onChange(e);
         }
       }
-      function L(e) {
+      function T(e) {
         return e.validate ? n => e.validate(n) : e;
       }
-      function T(e) {
+      function L(e) {
         return e.validate ? n => e.validate(n) : e;
       }
       const E = { provide: M, useExisting: Object(t.forwardRef)(() => O), multi: !0 };
@@ -71846,10 +71873,10 @@
         new Error(`${n} ${l}`));
       }
       function le(e) {
-        return null != e ? y.compose(e.map(L)) : null;
+        return null != e ? y.compose(e.map(T)) : null;
       }
       function te(e) {
-        return null != e ? y.composeAsync(e.map(T)) : null;
+        return null != e ? y.composeAsync(e.map(L)) : null;
       }
       function re(e, n) {
         if (!e.hasOwnProperty('model')) return !1;
@@ -72537,7 +72564,7 @@
           return e.pop(), e.length ? this.form.get(e) : this.form;
         }
       }
-      class Le {
+      class Te {
         static modelParentException() {
           throw new Error(
             `\n      ngModel cannot be used to register form controls with a parent formGroup directive.  Try using\n      formGroup's partner directive "formControlName" instead.  Example:\n\n      ${
@@ -72571,13 +72598,13 @@
           );
         }
       }
-      const Te = { provide: m, useExisting: Object(t.forwardRef)(() => Ee) };
+      const Le = { provide: m, useExisting: Object(t.forwardRef)(() => Ee) };
       class Ee extends de {
         constructor(e, n, l) {
           super(), (this._parent = e), (this._validators = n), (this._asyncValidators = l);
         }
         _checkParentType() {
-          this._parent instanceof Ee || this._parent instanceof xe || Le.modelGroupParentException();
+          this._parent instanceof Ee || this._parent instanceof xe || Te.modelGroupParentException();
         }
       }
       const Oe = { provide: I, useExisting: Object(t.forwardRef)(() => Ie) },
@@ -72636,12 +72663,12 @@
         }
         _checkParentType() {
           !(this._parent instanceof Ee) && this._parent instanceof de
-            ? Le.formGroupNameException()
-            : this._parent instanceof Ee || this._parent instanceof xe || Le.modelParentException();
+            ? Te.formGroupNameException()
+            : this._parent instanceof Ee || this._parent instanceof xe || Te.modelParentException();
         }
         _checkName() {
           this.options && this.options.name && (this.name = this.options.name),
-            this._isStandalone() || this.name || Le.missingNameException();
+            this._isStandalone() || this.name || Te.missingNameException();
         }
         _updateValue(e) {
           Re.then(() => {
@@ -74860,7 +74887,7 @@
                 null
               );
             }
-            function L(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -74885,7 +74912,7 @@
                 null
               );
             }
-            function T(e) {
+            function L(e) {
               return t.ɵvid(
                 0,
                 [
@@ -75359,9 +75386,9 @@
                   t.ɵeld(61, 0, null, null, 6, 'div', [['class', 'modal-footer']], null, null, null, null, null)),
                   (e()(), t.ɵand(16777216, null, null, 1, null, x)),
                   t.ɵdid(63, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
-                  t.ɵdid(65, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, T)),
+                  t.ɵdid(65, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, L)),
                   t.ɵdid(67, 16384, null, 0, s.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -76127,7 +76154,7 @@
             return c(n, 'toString') && (e.toString = n.toString), c(n, 'valueOf') && (e.valueOf = n.valueOf), e;
           }
           function p(e, n, l, t) {
-            return Tn(e, n, l, t, !0).utc();
+            return Ln(e, n, l, t, !0).utc();
           }
           function m(e) {
             return (
@@ -76257,10 +76284,10 @@
           }
           var k,
             x = {};
-          function L(e, n) {
+          function T(e, n) {
             null != r.deprecationHandler && r.deprecationHandler(e, n), x[e] || (D(n), (x[e] = !0));
           }
-          function T(e) {
+          function L(e) {
             return e instanceof Function || '[object Function]' === Object.prototype.toString.call(e);
           }
           function E(e, n) {
@@ -76354,7 +76381,7 @@
                     return function(n) {
                       var r,
                         i = '';
-                      for (r = 0; r < l; r++) i += T(t[r]) ? t[r].call(n, e) : t[r];
+                      for (r = 0; r < l; r++) i += L(t[r]) ? t[r].call(n, e) : t[r];
                       return i;
                     };
                   })(n)),
@@ -76387,7 +76414,7 @@
             ae = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
             de = {};
           function ce(e, n, l) {
-            de[e] = T(n)
+            de[e] = L(n)
               ? n
               : function(e, t) {
                   return e && l ? l : n;
@@ -76476,8 +76503,8 @@
             (r.parseTwoDigitYear = function(e) {
               return M(e) + (M(e) > 68 ? 1900 : 2e3);
             });
-          var Le,
-            Te = Ee('FullYear', !0);
+          var Te,
+            Le = Ee('FullYear', !0);
           function Ee(e, n) {
             return function(l) {
               return null != l ? (Re(this, e, l), r.updateOffset(this, n), this) : Oe(this, e);
@@ -76498,7 +76525,7 @@
             var l = ((n % 12) + 12) % 12;
             return (e += (n - l) / 12), 1 === l ? (xe(e) ? 29 : 28) : 31 - ((l % 7) % 2);
           }
-          (Le = Array.prototype.indexOf
+          (Te = Array.prototype.indexOf
             ? Array.prototype.indexOf
             : function(e) {
                 var n;
@@ -76843,7 +76870,7 @@
               var l,
                 t = sn;
               if (((n.abbr = e), null != un[e]))
-                L(
+                T(
                   'defineLocaleOverride',
                   'use moment.updateLocale(localeName, config) to change an existing locale. moment.defineLocale(localeName, config) should only be used for creating a new locale See http://momentjs.com/guides/#/warnings/define-locale/ for more info.'
                 ),
@@ -77151,7 +77178,7 @@
               } else kn(e);
             else An(e);
           }
-          function Ln(e) {
+          function Tn(e) {
             var n = e._i,
               l = e._f;
             return (
@@ -77225,7 +77252,7 @@
                       e))
             );
           }
-          function Tn(e, n, l, t, r) {
+          function Ln(e, n, l, t, r) {
             var s = {};
             return (
               (!0 !== l && !1 !== l) || ((t = l), (l = void 0)),
@@ -77245,13 +77272,13 @@
               (s._f = n),
               (s._strict = t),
               (function(e) {
-                var n = new b(fn(Ln(s)));
+                var n = new b(fn(Tn(s)));
                 return n._nextDay && (n.add(1, 'd'), (n._nextDay = void 0)), n;
               })()
             );
           }
           function En(e, n, l, t) {
-            return Tn(e, n, l, t, !1);
+            return Ln(e, n, l, t, !1);
           }
           (r.createFromInputFallback = S(
             'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged and will be removed in an upcoming major release. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.',
@@ -77294,7 +77321,7 @@
               a = n.second || 0,
               d = n.millisecond || 0;
             (this._isValid = (function(e) {
-              for (var n in e) if (-1 === Le.call(Nn, n) || (null != e[n] && isNaN(e[n]))) return !1;
+              for (var n in e) if (-1 === Te.call(Nn, n) || (null != e[n] && isNaN(e[n]))) return !1;
               for (var l = !1, t = 0; t < Nn.length; ++t)
                 if (e[Nn[t]]) {
                   if (l) return !1;
@@ -77430,7 +77457,7 @@
               return (
                 null === t ||
                   isNaN(+t) ||
-                  (L(
+                  (T(
                     n,
                     'moment().' +
                       n +
@@ -77625,7 +77652,7 @@
               var l = e || En(),
                 t = Bn(l, this).startOf('day'),
                 i = r.calendarFormat(this, t) || 'sameElse',
-                o = n && (T(n[i]) ? n[i].call(this, l) : n[i]);
+                o = n && (L(n[i]) ? n[i].call(this, l) : n[i]);
               return this.format(o || this.localeData().calendar(i, this, En(l)));
             }),
             (hl.clone = function() {
@@ -77699,7 +77726,7 @@
               return this.to(En(), e);
             }),
             (hl.get = function(e) {
-              return T(this[(e = N(e))]) ? this[e]() : this;
+              return L(this[(e = N(e))]) ? this[e]() : this;
             }),
             (hl.invalidAt = function() {
               return m(this).overflow;
@@ -77785,7 +77812,7 @@
                   t++
                 )
                   this[l[t].unit](e[l[t].unit]);
-              else if (T(this[(e = N(e))])) return this[e](n);
+              else if (L(this[(e = N(e))])) return this[e](n);
               return this;
             }),
             (hl.startOf = function(e) {
@@ -77840,7 +77867,7 @@
                 l = n ? this.clone().utc() : this;
               return l.year() < 0 || l.year() > 9999
                 ? q(l, n ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ')
-                : T(Date.prototype.toISOString)
+                : L(Date.prototype.toISOString)
                 ? n
                   ? this.toDate().toISOString()
                   : new Date(this.valueOf() + 60 * this.utcOffset() * 1e3).toISOString().replace('Z', q(l, 'Z'))
@@ -77878,7 +77905,7 @@
                 strict: this._strict
               };
             }),
-            (hl.year = Te),
+            (hl.year = Le),
             (hl.isLeapYear = function() {
               return xe(this.year());
             }),
@@ -78025,7 +78052,7 @@
             }),
             (hl.dates = S('dates accessor is deprecated. Use date instead.', ol)),
             (hl.months = S('months accessor is deprecated. Use month instead', Fe)),
-            (hl.years = S('years accessor is deprecated. Use year instead', Te)),
+            (hl.years = S('years accessor is deprecated. Use year instead', Le)),
             (hl.zone = S(
               'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
               function(e, n) {
@@ -78037,7 +78064,7 @@
               function() {
                 if (!s(this._isDSTShifted)) return this._isDSTShifted;
                 var e = {};
-                if ((v(e, this), (e = Ln(e))._a)) {
+                if ((v(e, this), (e = Tn(e))._a)) {
                   var n = e._isUTC ? p(e._a) : En(e._a);
                   this._isDSTShifted = this.isValid() && A(e._a, n.toArray()) > 0;
                 } else this._isDSTShifted = !1;
@@ -78071,7 +78098,7 @@
           }
           (ml.calendar = function(e, n, l) {
             var t = this._calendar[e] || this._calendar.sameElse;
-            return T(t) ? t.call(n, l) : t;
+            return L(t) ? t.call(n, l) : t;
           }),
             (ml.longDateFormat = function(e) {
               var n = this._longDateFormat[e],
@@ -78093,15 +78120,15 @@
             (ml.postformat = pl),
             (ml.relativeTime = function(e, n, l, t) {
               var r = this._relativeTime[l];
-              return T(r) ? r(e, n, l, t) : r.replace(/%d/i, e);
+              return L(r) ? r(e, n, l, t) : r.replace(/%d/i, e);
             }),
             (ml.pastFuture = function(e, n) {
               var l = this._relativeTime[e > 0 ? 'future' : 'past'];
-              return T(l) ? l(n) : l.replace(/%s/i, n);
+              return L(l) ? l(n) : l.replace(/%s/i, n);
             }),
             (ml.set = function(e) {
               var n, l;
-              for (l in e) T((n = e[l])) ? (this[l] = n) : (this['_' + l] = n);
+              for (l in e) L((n = e[l])) ? (this[l] = n) : (this['_' + l] = n);
               (this._config = e),
                 (this._dayOfMonthOrdinalParseLenient = new RegExp(
                   (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) + '|' + /\d{1,2}/.source
@@ -78144,21 +78171,21 @@
                         (this._longMonthsParse[t] = this.months(i, '').toLocaleLowerCase());
                   return l
                     ? 'MMM' === n
-                      ? -1 !== (r = Le.call(this._shortMonthsParse, o))
+                      ? -1 !== (r = Te.call(this._shortMonthsParse, o))
                         ? r
                         : null
-                      : -1 !== (r = Le.call(this._longMonthsParse, o))
+                      : -1 !== (r = Te.call(this._longMonthsParse, o))
                       ? r
                       : null
                     : 'MMM' === n
-                    ? -1 !== (r = Le.call(this._shortMonthsParse, o))
+                    ? -1 !== (r = Te.call(this._shortMonthsParse, o))
                       ? r
-                      : -1 !== (r = Le.call(this._longMonthsParse, o))
+                      : -1 !== (r = Te.call(this._longMonthsParse, o))
                       ? r
                       : null
-                    : -1 !== (r = Le.call(this._longMonthsParse, o))
+                    : -1 !== (r = Te.call(this._longMonthsParse, o))
                     ? r
-                    : -1 !== (r = Le.call(this._shortMonthsParse, o))
+                    : -1 !== (r = Te.call(this._shortMonthsParse, o))
                     ? r
                     : null;
                 }.call(this, e, n, l);
@@ -78245,37 +78272,37 @@
                         (this._weekdaysParse[t] = this.weekdays(i, '').toLocaleLowerCase());
                   return l
                     ? 'dddd' === n
-                      ? -1 !== (r = Le.call(this._weekdaysParse, o))
+                      ? -1 !== (r = Te.call(this._weekdaysParse, o))
                         ? r
                         : null
                       : 'ddd' === n
-                      ? -1 !== (r = Le.call(this._shortWeekdaysParse, o))
+                      ? -1 !== (r = Te.call(this._shortWeekdaysParse, o))
                         ? r
                         : null
-                      : -1 !== (r = Le.call(this._minWeekdaysParse, o))
+                      : -1 !== (r = Te.call(this._minWeekdaysParse, o))
                       ? r
                       : null
                     : 'dddd' === n
-                    ? -1 !== (r = Le.call(this._weekdaysParse, o))
+                    ? -1 !== (r = Te.call(this._weekdaysParse, o))
                       ? r
-                      : -1 !== (r = Le.call(this._shortWeekdaysParse, o))
+                      : -1 !== (r = Te.call(this._shortWeekdaysParse, o))
                       ? r
-                      : -1 !== (r = Le.call(this._minWeekdaysParse, o))
+                      : -1 !== (r = Te.call(this._minWeekdaysParse, o))
                       ? r
                       : null
                     : 'ddd' === n
-                    ? -1 !== (r = Le.call(this._shortWeekdaysParse, o))
+                    ? -1 !== (r = Te.call(this._shortWeekdaysParse, o))
                       ? r
-                      : -1 !== (r = Le.call(this._weekdaysParse, o))
+                      : -1 !== (r = Te.call(this._weekdaysParse, o))
                       ? r
-                      : -1 !== (r = Le.call(this._minWeekdaysParse, o))
+                      : -1 !== (r = Te.call(this._minWeekdaysParse, o))
                       ? r
                       : null
-                    : -1 !== (r = Le.call(this._minWeekdaysParse, o))
+                    : -1 !== (r = Te.call(this._minWeekdaysParse, o))
                     ? r
-                    : -1 !== (r = Le.call(this._weekdaysParse, o))
+                    : -1 !== (r = Te.call(this._weekdaysParse, o))
                     ? r
-                    : -1 !== (r = Le.call(this._shortWeekdaysParse, o))
+                    : -1 !== (r = Te.call(this._shortWeekdaysParse, o))
                     ? r
                     : null;
                 }.call(this, e, n, l);
@@ -78381,8 +78408,8 @@
             Sl = Ml('m'),
             kl = Ml('h'),
             xl = Ml('d'),
-            Ll = Ml('w'),
-            Tl = Ml('M'),
+            Tl = Ml('w'),
+            Ll = Ml('M'),
             El = Ml('y');
           function Ol(e) {
             return function() {
@@ -78489,8 +78516,8 @@
             (Gl.asMinutes = Sl),
             (Gl.asHours = kl),
             (Gl.asDays = xl),
-            (Gl.asWeeks = Ll),
-            (Gl.asMonths = Tl),
+            (Gl.asWeeks = Tl),
+            (Gl.asMonths = Ll),
             (Gl.asYears = El),
             (Gl.valueOf = function() {
               return this.isValid()
@@ -81113,11 +81140,11 @@
         l('SVse'),
         l('tFo4'),
         l('0KIs'),
-        l('s7LF'),
         l('WyT/'),
         l('85dN'),
         l('TtqT'),
         l('x3Mz'),
+        l('s7LF'),
         l('CXjp')
       ]),
         void 0 ===
@@ -81754,6 +81781,46 @@
               return t.ɵvid(
                 0,
                 [
+                  (e()(),
+                  t.ɵeld(
+                    0,
+                    0,
+                    null,
+                    null,
+                    1,
+                    'app-notas',
+                    [],
+                    null,
+                    [[null, 'showAll']],
+                    function(e, n, l) {
+                      var t = !0;
+                      return 'showAll' === n && (t = !1 !== e.component.showNotasModal() && t), t;
+                    },
+                    s.View_NotasComponent_0,
+                    s.RenderType_NotasComponent
+                  )),
+                  t.ɵdid(
+                    1,
+                    114688,
+                    null,
+                    0,
+                    u.NotasComponent,
+                    [a.ReservaService, d.ToastService],
+                    { idReserva: [0, 'idReserva'], notas: [1, 'notas'] },
+                    { showAll: 'showAll' }
+                  )
+                ],
+                function(e, n) {
+                  var l = n.component;
+                  e(n, 1, 0, l.model.idReserva, l.model.notas);
+                },
+                null
+              );
+            }
+            function x(e) {
+              return t.ɵvid(
+                0,
+                [
                   (e()(), t.ɵeld(0, 0, null, null, 9, 'h4', [], null, null, null, null, null)),
                   (e()(), t.ɵted(-1, null, [' Pagado '])),
                   (e()(), t.ɵeld(2, 0, null, null, 2, 'small', [], [[8, 'hidden', 0]], null, null, null, null)),
@@ -81807,7 +81874,7 @@
                 }
               );
             }
-            function x(e) {
+            function T(e) {
               return t.ɵvid(
                 0,
                 [
@@ -81859,7 +81926,7 @@
                 null
               );
             }
-            function T(e) {
+            function E(e) {
               return t.ɵvid(
                 0,
                 [
@@ -81878,7 +81945,7 @@
                     null,
                     null
                   )),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, x)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
                   t.ɵdid(2, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   t.ɵeld(
@@ -81960,7 +82027,7 @@
                 }
               );
             }
-            function E(e) {
+            function O(e) {
               return t.ɵvid(
                 0,
                 [
@@ -81984,7 +82051,7 @@
                 null
               );
             }
-            function O(e) {
+            function R(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82014,7 +82081,7 @@
                 null
               );
             }
-            function R(e) {
+            function I(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82057,7 +82124,7 @@
                 null
               );
             }
-            function I(e) {
+            function N(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82100,7 +82167,7 @@
                 null
               );
             }
-            function N(e) {
+            function j(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82143,7 +82210,7 @@
                 null
               );
             }
-            function j(e) {
+            function Y(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82171,7 +82238,7 @@
                 null
               );
             }
-            function Y(e) {
+            function P(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82190,17 +82257,17 @@
                     null,
                     null
                   )),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, E)),
-                  t.ɵdid(2, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, O)),
-                  t.ɵdid(4, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  t.ɵdid(2, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, R)),
-                  t.ɵdid(6, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  t.ɵdid(4, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, I)),
-                  t.ɵdid(8, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  t.ɵdid(6, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, N)),
-                  t.ɵdid(10, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  t.ɵdid(8, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, j)),
+                  t.ɵdid(10, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, Y)),
                   t.ɵdid(12, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -82217,7 +82284,7 @@
                 }
               );
             }
-            function P(e) {
+            function F(e) {
               return t.ɵvid(
                 0,
                 [
@@ -82323,10 +82390,10 @@
                     null,
                     null
                   )),
-                  t.ɵdid(13, 16384, null, 0, s.ɵangular_packages_forms_forms_bg, [], null, null),
-                  t.ɵdid(14, 4210688, null, 0, s.NgForm, [[8, null], [8, null]], null, null),
-                  t.ɵprd(2048, null, s.ControlContainer, null, [s.NgForm]),
-                  t.ɵdid(16, 16384, null, 0, s.NgControlStatusGroup, [[4, s.ControlContainer]], null, null),
+                  t.ɵdid(13, 16384, null, 0, c.ɵangular_packages_forms_forms_bg, [], null, null),
+                  t.ɵdid(14, 4210688, null, 0, c.NgForm, [[8, null], [8, null]], null, null),
+                  t.ɵprd(2048, null, c.ControlContainer, null, [c.NgForm]),
+                  t.ɵdid(16, 16384, null, 0, c.NgControlStatusGroup, [[4, c.ControlContainer]], null, null),
                   (e()(), t.ɵeld(17, 0, null, null, 21, 'div', [], [[8, 'hidden', 0]], null, null, null, null)),
                   (e()(),
                   t.ɵeld(
@@ -82505,39 +82572,13 @@
                   (e()(), t.ɵand(16777216, null, null, 1, null, S)),
                   t.ɵdid(65, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵeld(66, 0, null, null, 2, 'div', [['class', 'form-group']], null, null, null, null, null)),
-                  (e()(),
-                  t.ɵeld(
-                    67,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'app-notas',
-                    [],
-                    null,
-                    [[null, 'showAll']],
-                    function(e, n, l) {
-                      var t = !0;
-                      return 'showAll' === n && (t = !1 !== e.component.showNotasModal() && t), t;
-                    },
-                    u.View_NotasComponent_0,
-                    u.RenderType_NotasComponent
-                  )),
-                  t.ɵdid(
-                    68,
-                    114688,
-                    null,
-                    0,
-                    a.NotasComponent,
-                    [d.ReservaService, c.ToastService],
-                    { idReserva: [0, 'idReserva'], notas: [1, 'notas'] },
-                    { showAll: 'showAll' }
-                  ),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, k)),
+                  t.ɵdid(68, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵeld(69, 0, null, null, 0, 'hr', [['class', 'my-1']], null, null, null, null, null)),
                   (e()(),
                   t.ɵeld(70, 0, null, null, 15, 'div', [['class', 'row text-right']], null, null, null, null, null)),
                   (e()(), t.ɵeld(71, 0, null, null, 2, 'div', [['class', 'col-md-4']], null, null, null, null, null)),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, k)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, x)),
                   t.ɵdid(73, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵeld(74, 0, null, null, 5, 'div', [['class', 'col-md-4']], null, null, null, null, null)),
                   (e()(), t.ɵeld(75, 0, null, null, 4, 'h4', [], null, null, null, null, null)),
@@ -82584,9 +82625,9 @@
                     null,
                     null
                   )),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, T)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, E)),
                   t.ɵdid(89, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, Y)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, P)),
                   t.ɵdid(91, 16384, null, 0, r.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -82600,7 +82641,7 @@
                     e(n, 58, 0, 'Re' === l.model.estado),
                     e(n, 63, 0, 'Re' !== l.model.estado),
                     e(n, 65, 0, 'Re' === l.model.estado),
-                    e(n, 68, 0, l.model.idReserva, l.model.notas),
+                    e(n, 68, 0, 'Re' === l.model.estado),
                     e(n, 73, 0, 'Pr' !== l.model.estado),
                     e(n, 89, 0, 'Pr' == l.model.estado),
                     e(n, 91, 0, 'Pr' !== l.model.estado);
@@ -82639,12 +82680,12 @@
                 }
               );
             }
-            function F(e) {
+            function V(e) {
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-detalle-reserva', [], null, null, null, P, p)),
-                  t.ɵdid(1, 638976, null, 0, h.DetalleReservaComponent, [d.ReservaService, c.ToastService], null, null)
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-detalle-reserva', [], null, null, null, F, p)),
+                  t.ɵdid(1, 638976, null, 0, h.DetalleReservaComponent, [a.ReservaService, d.ToastService], null, null)
                 ],
                 function(e, n) {
                   e(n, 1, 0);
@@ -82653,12 +82694,12 @@
               );
             }
             (n.RenderType_DetalleReservaComponent = p),
-              (n.View_DetalleReservaComponent_0 = P),
-              (n.View_DetalleReservaComponent_Host_0 = F);
-            var V = t.ɵccf(
+              (n.View_DetalleReservaComponent_0 = F),
+              (n.View_DetalleReservaComponent_Host_0 = V);
+            var H = t.ɵccf(
               'app-detalle-reserva',
               h.DetalleReservaComponent,
-              F,
+              V,
               { model: 'model', aerolineas: 'aerolineas', fuentes: 'fuentes' },
               {
                 success: 'success',
@@ -82670,7 +82711,7 @@
               },
               []
             );
-            n.DetalleReservaComponentNgFactory = V;
+            n.DetalleReservaComponentNgFactory = H;
           }.apply(n, t)) || (e.exports = r);
     },
     zfKp: function(e, n, l) {

@@ -199,16 +199,17 @@
                   ></app-p-select>
                 </div>
                 <div class="form-group">
-                  <!-- <label for="notas">Notas</label> -->
-                  <!-- <p *ngIf="model.estado !== 'Re'" name="notas" class="text-muted">
-                    {{ model.notas && model.notas[0] && model.notas[0].notas }}
-                  </p>
-                  <app-p-text-area
+                  <!-- <label for="notas">Notas</label>
+                  <p *ngIf="model.estado !== 'Re'" name="notas" class="text-muted">
+                    {{ (model.notas && model.notas[0] && model.notas[0].notas) || '' }}
+                  </p> -->
+                  <!-- <app-p-text-area
                     *ngIf="model.estado === 'Re'"
                     [text]="model.notas && model.notas[0] && model.notas[0].notas"
                     (modificar)="modificarNotas($event)"
-                  ></app-p-text-area>                 -->
+                  ></app-p-text-area>-->
                   <app-notas
+                    *ngIf="model.estado === 'Re'"
                     [idReserva]="model.idReserva"
                     [notas]="model.notas"
                     (showAll)="showNotasModal()"

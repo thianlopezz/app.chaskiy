@@ -52,6 +52,10 @@
     (success)="onSuccessEstados()"
     (cancelaEstados)="onCancelaEstados()"
   ></app-modal-estados>
-  <app-modal-notas [notas]="model.notas" (_closeModal)="onCloseNotasModal()"></app-modal-notas>
+  <app-modal-notas
+    *ngIf="model && model.notas"
+    [notas]="model.notas"
+    (_closeModal)="onCloseNotasModal()"
+  ></app-modal-notas>
 </div>
 <!-- FIN CONTAINER -->
