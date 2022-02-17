@@ -17,6 +17,21 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
+function _typeof(obj) {
+  if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype
+        ? 'symbol'
+        : typeof obj;
+    };
+  }
+  return _typeof(obj);
+}
+
 function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
     if (i % 2) {
@@ -376,9 +391,17 @@ var Reserva =
 
           var dataAcess = new _DataAccess['default']();
 
-          if (reserva.notas) {
-            reserva.notas = reserva.notas.replace(/\n/g, '');
-            reserva.notas = reserva.notas.replace(/\t/g, '');
+          if (reserva.accion == 'I') {
+            if (reserva.notas && _typeof(reserva.notas) == String) {
+              reserva.notas = reserva.notas.replace(/\n/g, '');
+              reserva.notas = reserva.notas.replace(/\t/g, '');
+            } else if (reserva.notas && Array.isArray(reserva.notas)) {
+              reserva.notas =
+                reserva.notas && reserva.notas[0] && reserva.notas[0].notas
+                  ? reserva.notas[0].notas.replace(/\n/g, '')
+                  : '';
+              reserva.notas = reserva.notas.replace(/\t/g, '');
+            }
           }
 
           if (reserva.idAgencia && !reserva.idPasajero) {

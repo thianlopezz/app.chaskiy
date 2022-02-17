@@ -42,9 +42,7 @@
             <button [disabled]="loading0" class="btn btn-primary">
               Recuperar
             </button>
-            <a *ngIf="!loading0" [routerLink]="['/']" class="btn btn-link"
-              >Cancelar</a
-            >
+            <a *ngIf="!loading0" [routerLink]="['/']" class="btn btn-link">Cancelar</a>
           </div>
         </form>
       </div>
@@ -56,8 +54,7 @@
   <div class="card ml-auto mr-auto">
     <div class="card-body">
       <p>
-        Tu registro se completó correctamente, no olvides confirmar tu cuenta
-        con el mensaje enviado a tu correo.
+        Tu registro se completó correctamente, no olvides confirmar tu cuenta con el mensaje enviado a tu correo.
       </p>
       <p>No olvides tambien revisar tu bandeja de correos no deseados.</p>
       <!-- <p>Inicia sesión dando click
@@ -75,8 +72,7 @@
       </div>
       <div *ngIf="muestra">
         <p>
-          Tu cuenta ha sido activada correctamente, es momento de disfrutar las
-          bondades que te ofrece Chaskiy.
+          Tu cuenta ha sido activada correctamente, es momento de disfrutar las bondades que te ofrece Chaskiy.
         </p>
         <p>
           Inicia sesión dando click
@@ -112,10 +108,7 @@
               (ngModelChange)="valuechange_pass($event)"
               required
             />
-            <div
-              *ngIf="f.submitted && !password.valid"
-              class="invalid-feedback"
-            >
+            <div *ngIf="f.submitted && !password.valid" class="invalid-feedback">
               La contraseña es requerida
             </div>
           </div>
@@ -130,10 +123,7 @@
               (ngModelChange)="valuechange_pass($event)"
               required
             />
-            <div
-              *ngIf="f.submitted && !password0.valid"
-              class="invalid-feedback"
-            >
+            <div *ngIf="f.submitted && !password0.valid" class="invalid-feedback">
               Repita la contraseña
             </div>
             <div *ngIf="valid_pass">
@@ -150,9 +140,7 @@
             <button [disabled]="loading" class="btn btn-primary">
               Guardar
             </button>
-            <a *ngIf="!loading" [routerLink]="['/']" class="btn btn-link"
-              >Cancelar</a
-            >
+            <a *ngIf="!loading" [routerLink]="['/']" class="btn btn-link">Cancelar</a>
           </div>
         </form>
       </div>
@@ -168,21 +156,13 @@
         <!-- style="width: 20rem;" -->
         <img
           class="card-img-top"
-          [src]="
-            'https://correo-generico.herokuapp.com/logo_hospedaje' +
-            model.hospedaje.idHospedaje +
-            '.png'
-          "
+          [src]="'https://correo-generico.herokuapp.com/logo_hospedaje' + model.hospedaje.idHospedaje + '.png'"
           alt="Logo"
         />
         <div class="card-body">
           <h4 class="card-title">{{ model.hospedaje.hospedaje }}</h4>
           <div class="row">
-            <div
-              *ngFor="let red of redes"
-              [hidden]="red.valor === ''"
-              class="col-auto"
-            >
+            <div *ngFor="let red of redes" [hidden]="red.valor === ''" class="col-auto">
               <a [href]="red.url + '' + red.valor" target="_blank">
                 <i [class]="red.icon" aria-hidden="true"></i>
               </a>
@@ -195,16 +175,9 @@
             {{ model.hospedaje.ciudad }}
           </div>
           <div class="row">
-            <a
-              [href]="
-                'mailto:' +
-                model.hospedaje.correo +
-                '?Subject=Reserva%20' +
-                model.idReserva
-              "
-              target="_top"
-              >{{ model.hospedaje.correo }}</a
-            >
+            <a [href]="'mailto:' + model.hospedaje.correo + '?Subject=Reserva%20' + model.idReserva" target="_top">{{
+              model.hospedaje.correo
+            }}</a>
           </div>
         </div>
       </div>
@@ -214,12 +187,9 @@
         <h2>
           Información de reserva
           <small
-            ><span
-              *ngIf="model.estado"
-              [ngClass]="getEstadoStyle(model)"
-              class="badge badge-pill"
-              >{{ getEstado(model) }}</span
-            ></small
+            ><span *ngIf="model.estado" [ngClass]="getEstadoStyle(model)" class="badge badge-pill">{{
+              getEstado(model)
+            }}</span></small
           >
         </h2>
         <div class="card mt-4">
@@ -263,9 +233,7 @@
                     <strong>Número de personas</strong>
                   </label>
                   <p name="noPersonas" class="text-muted">
-                    {{ model.adultos }}&nbsp;adultos&nbsp;{{
-                      model.ninos
-                    }}&nbsp;niños
+                    {{ model.adultos }}&nbsp;adultos&nbsp;{{ model.ninos }}&nbsp;niños
                   </p>
                 </div>
               </div>
@@ -274,7 +242,7 @@
                   <label for="aerolinea">
                     <strong>Aerolínea</strong>
                   </label>
-                  <p name="notas" class="text-muted">{{ model.aerolinea }}</p>
+                  <p name="aerolinea" class="text-muted">{{ model.aerolinea }}</p>
                 </div>
                 <div class="form-group">
                   <label for="adicional">
@@ -285,7 +253,7 @@
                     role="alert"
                     *ngFor="let adi of model.adicionales"
                   >
-                    <h6 class="alert-heading">{{ " " + adi.adicional }}</h6>
+                    <h6 class="alert-heading">{{ ' ' + adi.adicional }}</h6>
                   </div>
                 </div>
                 <div class="form-group">
@@ -298,44 +266,36 @@
                     *ngFor="let room of model.habitaciones"
                   >
                     <h6 class="alert-heading">
-                      {{ " " + room.habitacion }}
-                      <small>
-                        {{ nightDiff(room.feDesde, room.feHasta) }} noche(s)
-                      </small>
+                      {{ ' ' + room.habitacion }}
+                      <small> {{ nightDiff(room.feDesde, room.feHasta) }} noche(s) </small>
                     </h6>
                     <strong
-                      >{{ room.feDesde | date: "dd/MMM/yyyy" }}{{ " - "
-                      }}{{ room.feHasta | date: "dd/MMM/yyyy" }}</strong
+                      >{{ room.feDesde | date: 'dd/MMM/yyyy' }}{{ ' - '
+                      }}{{ room.feHasta | date: 'dd/MMM/yyyy' }}</strong
                     >
                   </div>
                 </div>
                 <hr class="my-4" />
                 <div class="d-flex flex-row-reverse">
                   <div class="p-2">
-                    <h4>{{ getTotal() | currency: "USD" }}</h4>
+                    <h4>{{ getTotal() | currency: 'USD' }}</h4>
                   </div>
                   <div class="p-2">
                     <h4>Total</h4>
                   </div>
                 </div>
-                <div
-                  *ngIf="model.estado != 'Pr'"
-                  class="d-flex flex-row-reverse"
-                >
+                <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
                   <div class="p-2">
-                    <h5>{{ model.totalPagado | currency: "USD" }}</h5>
+                    <h5>{{ model.totalPagado | currency: 'USD' }}</h5>
                   </div>
                   <div class="p-2">
                     <h5>Pagado</h5>
                   </div>
                 </div>
-                <div
-                  *ngIf="model.estado != 'Pr'"
-                  class="d-flex flex-row-reverse"
-                >
+                <div *ngIf="model.estado != 'Pr'" class="d-flex flex-row-reverse">
                   <div class="p-2">
                     <h5>
-                      {{ getTotal() - model.totalPagado | currency: "USD" }}
+                      {{ getTotal() - model.totalPagado | currency: 'USD' }}
                     </h5>
                   </div>
                   <div class="p-2">
@@ -348,12 +308,7 @@
             <div *ngIf="model.estado === 'Pr'" class="row">
               <div class="col-md-2">
                 <img *ngIf="loading" src="/assets/images/loading.svg" />
-                <button
-                  *ngIf="!loading"
-                  type="buttom"
-                  (click)="confirma()"
-                  class="btn btn-primary"
-                >
+                <button *ngIf="!loading" type="buttom" (click)="confirma()" class="btn btn-primary">
                   Confirmar
                 </button>
               </div>

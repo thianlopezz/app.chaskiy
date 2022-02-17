@@ -560,7 +560,12 @@
                           >{{ model.notas && model.notas[0] && model.notas[0].notas }}</textarea
                         >
                       </div> -->
-                      <app-notas></app-notas>
+                      <!-- <app-notas></app-notas> -->
+                      <app-notas
+                        *ngIf="model.estado === 'Re' || model.estado === 'Pr'"
+                        [notas]="model.notas"
+                        (onChangeNota)="onChangeNota($event)"
+                      ></app-notas>
                     </div>
                   </div>
                 </div>

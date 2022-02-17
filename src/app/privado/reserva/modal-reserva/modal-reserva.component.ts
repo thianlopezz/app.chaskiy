@@ -652,4 +652,8 @@ export class ModalReservaComponent implements OnInit, OnChanges {
   onChangeAgencia(e) {
     this.agenciaSelected = this.agencias.find(agencia => agencia.idAgencia == e.target.value);
   }
+
+  onChangeNota(value) {
+    this.model.notas = [{ notas: value }];
+  }
 }

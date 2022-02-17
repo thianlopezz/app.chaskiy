@@ -46,9 +46,15 @@ class Reserva {
   mantenimiento(reserva, res) {
     const dataAcess = new DataAcess();
 
-    if (reserva.notas) {
-      reserva.notas = reserva.notas.replace(/\n/g, '');
-      reserva.notas = reserva.notas.replace(/\t/g, '');
+    if (reserva.accion == 'I') {
+      if (reserva.notas && typeof reserva.notas == String) {
+        reserva.notas = reserva.notas.replace(/\n/g, '');
+        reserva.notas = reserva.notas.replace(/\t/g, '');
+      } else if (reserva.notas && Array.isArray(reserva.notas)) {
+        reserva.notas =
+          reserva.notas && reserva.notas[0] && reserva.notas[0].notas ? reserva.notas[0].notas.replace(/\n/g, '') : '';
+        reserva.notas = reserva.notas.replace(/\t/g, '');
+      }
     }
 
     if (reserva.idAgencia && !reserva.idPasajero) {

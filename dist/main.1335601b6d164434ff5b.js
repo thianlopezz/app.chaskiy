@@ -6540,10 +6540,14 @@
                     (this.toastService = n),
                     (this.notas = []),
                     (this.showAll = new l.EventEmitter()),
+                    (this.onChangeNota = new l.EventEmitter()),
                     (this.notaSelected = {});
                 }
                 ngOnInit() {}
                 modificarNotas(e, n) {
+                  this.idReserva && n ? this.updateNota(e, n) : this.onChangeNota.next(e);
+                }
+                updateNota(e, n) {
                   let l = Object.assign({}, this.notaSelected, { idReserva: this.idReserva, notas: e, idNotas: n });
                   this.reservaService.addUpdateNotas(l).subscribe(
                     e => {
@@ -32690,6 +32694,45 @@
                 0,
                 [
                   (e()(),
+                  t.ɵeld(
+                    0,
+                    0,
+                    null,
+                    null,
+                    1,
+                    'app-notas',
+                    [],
+                    null,
+                    [[null, 'onChangeNota']],
+                    function(e, n, l) {
+                      var t = !0;
+                      return 'onChangeNota' === n && (t = !1 !== e.component.onChangeNota(l) && t), t;
+                    },
+                    m.View_NotasComponent_0,
+                    m.RenderType_NotasComponent
+                  )),
+                  t.ɵdid(
+                    1,
+                    114688,
+                    null,
+                    0,
+                    f.NotasComponent,
+                    [o.ReservaService, s.ToastService],
+                    { notas: [0, 'notas'] },
+                    { onChangeNota: 'onChangeNota' }
+                  )
+                ],
+                function(e, n) {
+                  e(n, 1, 0, n.component.model.notas);
+                },
+                null
+              );
+            }
+            function he(e) {
+              return t.ɵvid(
+                0,
+                [
+                  (e()(),
                   t.ɵeld(0, 0, null, null, 163, 'div', [['class', 'modal-body']], null, null, null, null, null)),
                   (e()(), t.ɵeld(1, 0, null, null, 162, 'div', [['class', 'row']], null, null, null, null, null)),
                   (e()(),
@@ -33491,22 +33534,8 @@
                   t.ɵdid(145, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(),
                   t.ɵeld(146, 0, null, null, 2, 'div', [['class', 'col-md-12 px-1']], null, null, null, null, null)),
-                  (e()(),
-                  t.ɵeld(
-                    147,
-                    0,
-                    null,
-                    null,
-                    1,
-                    'app-notas',
-                    [],
-                    null,
-                    null,
-                    null,
-                    m.View_NotasComponent_0,
-                    m.RenderType_NotasComponent
-                  )),
-                  t.ɵdid(148, 114688, null, 0, f.NotasComponent, [o.ReservaService, s.ToastService], null, null),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, ce)),
+                  t.ɵdid(148, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵeld(149, 0, null, null, 11, 'div', [['class', 'row']], null, null, null, null, null)),
                   (e()(), t.ɵeld(150, 0, null, null, 0, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
                   (e()(), t.ɵeld(151, 0, null, null, 9, 'div', [['class', 'col-md-6']], null, null, null, null, null)),
@@ -33612,7 +33641,7 @@
                     e(n, 139, 0, 'fuente', l.model.idFuente),
                     e(n, 143, 0, l.fuentes),
                     e(n, 145, 0, t.ɵnov(n, 9).submitted && !t.ɵnov(n, 139).valid),
-                    e(n, 148, 0);
+                    e(n, 148, 0, 'Re' === l.model.estado || 'Pr' === l.model.estado);
                 },
                 function(e, n) {
                   var l = n.component;
@@ -33712,7 +33741,7 @@
                 }
               );
             }
-            function he(e) {
+            function pe(e) {
               return t.ɵvid(
                 0,
                 [
@@ -33736,7 +33765,7 @@
                 null
               );
             }
-            function pe(e) {
+            function me(e) {
               return t.ɵvid(
                 0,
                 [
@@ -33764,7 +33793,7 @@
                 null
               );
             }
-            function me(e) {
+            function fe(e) {
               return t.ɵvid(
                 0,
                 [
@@ -33792,7 +33821,7 @@
                 null
               );
             }
-            function fe(e) {
+            function ge(e) {
               return t.ɵvid(
                 0,
                 [
@@ -33820,19 +33849,19 @@
                 null
               );
             }
-            function ge(e) {
+            function _e(e) {
               return t.ɵvid(
                 0,
                 [
                   (e()(),
                   t.ɵeld(0, 0, null, null, 8, 'div', [['class', 'modal-footer']], null, null, null, null, null)),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, he)),
-                  t.ɵdid(2, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, pe)),
-                  t.ɵdid(4, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  t.ɵdid(2, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, me)),
-                  t.ɵdid(6, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  t.ɵdid(4, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, fe)),
+                  t.ɵdid(6, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, ge)),
                   t.ɵdid(8, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -33845,7 +33874,7 @@
                 null
               );
             }
-            function _e(e) {
+            function ve(e) {
               return t.ɵvid(
                 0,
                 [
@@ -33894,9 +33923,9 @@
                   t.ɵdid(8, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
                   (e()(), t.ɵand(16777216, null, null, 1, null, w)),
                   t.ɵdid(10, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, ce)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, he)),
                   t.ɵdid(12, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null),
-                  (e()(), t.ɵand(16777216, null, null, 1, null, ge)),
+                  (e()(), t.ɵand(16777216, null, null, 1, null, _e)),
                   t.ɵdid(14, 16384, null, 0, c.NgIf, [t.ViewContainerRef, t.TemplateRef], { ngIf: [0, 'ngIf'] }, null)
                 ],
                 function(e, n) {
@@ -33910,11 +33939,11 @@
                 null
               );
             }
-            function ve(e) {
+            function ye(e) {
               return t.ɵvid(
                 0,
                 [
-                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-modal-reserva', [], null, null, null, _e, y)),
+                  (e()(), t.ɵeld(0, 0, null, null, 1, 'app-modal-reserva', [], null, null, null, ve, y)),
                   t.ɵdid(
                     1,
                     638976,
@@ -33933,12 +33962,12 @@
               );
             }
             (n.RenderType_ModalReservaComponent = y),
-              (n.View_ModalReservaComponent_0 = _e),
-              (n.View_ModalReservaComponent_Host_0 = ve);
-            var ye = t.ɵccf(
+              (n.View_ModalReservaComponent_0 = ve),
+              (n.View_ModalReservaComponent_Host_0 = ye);
+            var be = t.ɵccf(
               'app-modal-reserva',
               _.ModalReservaComponent,
-              ve,
+              ye,
               {
                 model: 'model',
                 accion: 'accion',
@@ -33961,7 +33990,7 @@
               },
               []
             );
-            n.ModalReservaComponentNgFactory = ye;
+            n.ModalReservaComponentNgFactory = be;
           }.apply(n, t)) || (e.exports = r);
     },
     OAkW: function(e, n, l) {
@@ -44908,7 +44937,7 @@
               s.NotasComponent,
               v,
               { idReserva: 'idReserva', notas: 'notas' },
-              { showAll: 'showAll' },
+              { showAll: 'showAll', onChangeNota: 'onChangeNota' },
               []
             );
             n.NotasComponentNgFactory = y;
@@ -52255,7 +52284,7 @@
                     null,
                     1,
                     'p',
-                    [['class', 'text-muted'], ['name', 'notas']],
+                    [['class', 'text-muted'], ['name', 'aerolinea']],
                     null,
                     null,
                     null,
@@ -52956,6 +52985,9 @@
                 }
                 onChangeAgencia(e) {
                   this.agenciaSelected = this.agencias.find(n => n.idAgencia == e.target.value);
+                }
+                onChangeNota(e) {
+                  this.model.notas = [{ notas: e }];
                 }
               });
           }.apply(n, t)) || (e.exports = r);

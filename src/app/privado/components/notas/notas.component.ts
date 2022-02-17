@@ -12,6 +12,7 @@ export class NotasComponent implements OnInit {
   @Input() notas: any[] = [];
 
   @Output() showAll = new EventEmitter<any>();
+  @Output() onChangeNota = new EventEmitter<any>();
 
   mode;
   notaSelected = {};
@@ -21,6 +22,14 @@ export class NotasComponent implements OnInit {
   ngOnInit() {}
 
   modificarNotas(val, id) {
+    if (this.idReserva && id) {
+      this.updateNota(val, id);
+    } else {
+      this.onChangeNota.next(val);
+    }
+  }
+
+  updateNota(val, id) {
     let nota = { ...this.notaSelected, idReserva: this.idReserva, notas: val, idNotas: id };
     this.reservaService.addUpdateNotas(nota).subscribe(
       data => {
