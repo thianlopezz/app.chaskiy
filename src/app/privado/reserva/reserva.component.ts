@@ -415,7 +415,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   getDetalleFromApi(indexReservaBD, idReserva?) {
-    if (indexReservaBD) {
+    if (indexReservaBD != undefined) {
       idReserva = this.reservasBD[indexReservaBD].idReserva;
     }
 

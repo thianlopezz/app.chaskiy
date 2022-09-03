@@ -29322,7 +29322,7 @@
                   jQuery('#reservaModal').modal('show'), this.getDetalleFromApi(o);
                 }
                 getDetalleFromApi(e, n) {
-                  e && (n = this.reservasBD[e].idReserva),
+                  void 0 != e && (n = this.reservasBD[e].idReserva),
                     this.reservaService.getById(n).subscribe(e => {
                       if (((this.loadingDetalle = !1), e.success)) {
                         let n = e.data[0];
