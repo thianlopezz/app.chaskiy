@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import { ReservaService } from '../reserva/reserva.service';
 import { MensajeService } from '../../compartido/components/modal-mensaje/mensaje.service';
 import { AutenticacionService } from '../../publico/services/autenticacion.service';
@@ -26,12 +26,12 @@ export class HomeComponent implements OnInit {
 
   modiFecha = 'Hoy';
 
-  public myDatePickerOptions: IMyDpOptions = {
+  public myDatePickerOptions: IAngularMyDpOptions = {
     // other options...
-    dateFormat: 'dd/mm/yyyy',
-    openSelectorOnInputClick: true,
-    showClearDateBtn: false,
-    width: '60%'
+    dateFormat: 'dd/mm/yyyy'
+    // openSelectorOnInputClick: true,
+    // showClearDateBtn: false,
+    // width: '60%'
   };
 
   public fecha: any;
@@ -96,13 +96,21 @@ export class HomeComponent implements OnInit {
   }
 
   onDateChanged(event: IMyDateModel) {
-    const _fecha = new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0);
+    const _fecha = new Date(
+      event.singleDate.date.year,
+      event.singleDate.date.month - 1,
+      event.singleDate.date.day,
+      0,
+      0,
+      0,
+      0
+    );
 
     this.fecha = {
       date: {
-        year: event.date.year,
-        month: event.date.month,
-        day: event.date.day
+        year: event.singleDate.date.year,
+        month: event.singleDate.date.month,
+        day: event.singleDate.date.day
       }
     };
 

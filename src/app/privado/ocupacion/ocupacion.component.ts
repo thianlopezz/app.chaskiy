@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import { ChartOptions } from '../models/chart-options';
 import { CurrentMonth } from '../models/current-month';
 import { EstadisticaService } from '../services/estadistica.service';
@@ -14,11 +14,11 @@ import * as moment from 'moment';
 export class OcupacionComponent implements OnInit {
   loading_pg = true;
 
-  public myDatePickerOptions: IMyDpOptions = {
+  public myDatePickerOptions: IAngularMyDpOptions = {
     // other options...
-    dateFormat: 'dd/mm/yyyy',
-    openSelectorOnInputClick: true,
-    showClearDateBtn: false
+    dateFormat: 'dd/mm/yyyy'
+    // openSelectorOnInputClick: true,
+    // showClearDateBtn: false
   };
 
   toDay = new Date();
@@ -60,11 +60,19 @@ export class OcupacionComponent implements OnInit {
     if (id === 'D') {
       this.feDesde = {
         date: {
-          year: event.date.year,
-          month: event.date.month,
-          day: event.date.day
+          year: event.singleDate.date.year,
+          month: event.singleDate.date.month,
+          day: event.singleDate.date.day
         },
-        _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
+        _date: new Date(
+          event.singleDate.date.year,
+          event.singleDate.date.month - 1,
+          event.singleDate.date.day,
+          0,
+          0,
+          0,
+          0
+        )
       };
 
       this.feHasta = {
@@ -87,11 +95,19 @@ export class OcupacionComponent implements OnInit {
 
       this.feHasta = {
         date: {
-          year: event.date.year,
-          month: event.date.month,
-          day: event.date.day
+          year: event.singleDate.date.year,
+          month: event.singleDate.date.month,
+          day: event.singleDate.date.day
         },
-        _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
+        _date: new Date(
+          event.singleDate.date.year,
+          event.singleDate.date.month - 1,
+          event.singleDate.date.day,
+          0,
+          0,
+          0,
+          0
+        )
       };
     }
 

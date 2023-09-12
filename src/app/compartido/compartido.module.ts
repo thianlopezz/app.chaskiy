@@ -9,7 +9,7 @@ import { GenericoComponent } from './generico/generico.component';
 import { ModalConfirmacionComponent } from './components/modal-confirmacion/modal-confirmacion.component';
 import { ModalMensajeComponent } from './components/modal-mensaje/modal-mensaje.component';
 import { MensajeService } from './components/modal-mensaje/mensaje.service';
-import { MyDatePickerModule } from 'mydatepicker';
+import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 
 import { ToastService } from '../compartido/services/toast.service';
 import { Err404Component } from './err404/err404.component';
@@ -27,9 +27,9 @@ import { MonedaPipe } from '../privado/pipes/moneda.pipe';
 import { PSelect2Component } from './components/p-select2/p-select2.component';
 
 @NgModule({
-  imports: [CommonModule, MyDatePickerModule, FormsModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, AngularMyDatePickerModule, FormsModule, RouterModule, HttpClientModule],
   exports: [
-    // MyDatePickerModule,
+    AngularMyDatePickerModule,
     ModalConfirmacionComponent,
     ModalMensajeComponent,
     SpinnerComponent,
