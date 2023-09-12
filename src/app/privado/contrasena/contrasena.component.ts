@@ -42,7 +42,7 @@ export class ContrasenaComponent implements OnInit {
     this.loading = true;
 
     this.registerService.password(this.model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.loading = false;
           this.mensajeService.success(data.mensaje);

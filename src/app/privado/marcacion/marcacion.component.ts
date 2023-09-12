@@ -31,8 +31,7 @@ export class MarcacionComponent implements OnInit {
   setMarca(marcas) {
     let marca = marcas.find(
       x =>
-        moment(x.feEntrada).format('DD/MM/YYYY') ===
-          moment().format('DD/MM/YYYY') &&
+        moment(x.feEntrada).format('DD/MM/YYYY') === moment().format('DD/MM/YYYY') &&
         x.idUsuario === this.chasker.idUsuario
     );
     if (marca) {
@@ -49,7 +48,7 @@ export class MarcacionComponent implements OnInit {
   getMarcacion() {
     this.loading = true;
     this.marcacionService.getAll().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.marca = this.setMarca(response.data);
         } else {
@@ -91,7 +90,7 @@ export class MarcacionComponent implements OnInit {
       marca = { ...this.marca };
     }
     this.marcacionService.marcar(marca).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.getMarcacion();

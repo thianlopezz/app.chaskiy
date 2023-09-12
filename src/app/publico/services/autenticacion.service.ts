@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import * as jwt_decode from 'jwt-decode';
@@ -7,14 +7,14 @@ export const TOKEN_NAME = 'jwt_token';
 
 @Injectable()
 export class AutenticacionService {
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   login(user: any) {
     user.username = user.username.trim();
     user.password = user.password.trim();
 
     return this.http.post('/api/auth/login/', user).pipe(
-      map((response: Response) => {
+      map((response: any) => {
         const _response = response.json();
 
         if (_response.success) {

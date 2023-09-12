@@ -7,12 +7,11 @@ import { NotificacionService } from '../../../privado/notificaciones/notificacio
   styleUrls: ['./card-notificaciones.component.css']
 })
 export class CardNotificacionesComponent implements OnInit {
-
   loading = true;
 
   notificaciones = [];
 
-  constructor(private notificacionService: NotificacionService) { }
+  constructor(private notificacionService: NotificacionService) {}
 
   ngOnInit() {
     // this.getNotificaciones();
@@ -23,9 +22,8 @@ export class CardNotificacionesComponent implements OnInit {
 
   getNotificaciones() {
     this.loading = true;
-    this.notificacionService.get()
-      .subscribe(
-      result => {
+    this.notificacionService.get().subscribe(
+      (result: any) => {
         if (result.success) {
           this.notificaciones = result.data;
         }
@@ -35,11 +33,8 @@ export class CardNotificacionesComponent implements OnInit {
         console.log(error);
         this.loading = false;
       }
-      );
+    );
   }
 
-  goNotificacion() {
-
-  }
-
+  goNotificacion() {}
 }

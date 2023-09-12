@@ -32,7 +32,7 @@ export class GaleriaComponent implements OnInit {
 
   delete() {
     this.galeriaService.deleteFoto({ idFoto: this.idFoto }).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadGallery();
@@ -70,7 +70,7 @@ export class GaleriaComponent implements OnInit {
   guardarImagen(image) {
     this.loading = true;
     this.galeriaService.uploadImages(image.files, '').subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.toastService.showSuccess(response.mensaje);
           this.imageModel = {};
@@ -95,7 +95,7 @@ export class GaleriaComponent implements OnInit {
   loadGallery() {
     this.loadingList = true;
     this.galeriaService.get().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.images = response.data;
         } else {

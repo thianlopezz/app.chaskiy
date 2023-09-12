@@ -130,7 +130,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     this.model.accion = 'D';
 
     this.reservaService.mantenimiento(this.model).subscribe(
-      response => {
+      (response: any) => {
         this.loading = false;
 
         if (response.success) {
@@ -174,7 +174,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     };
 
     this.reservaService.cambiaEstado(reserva).subscribe(
-      response => {
+      (response: any) => {
         this.loading = false;
 
         if (response.success) {
@@ -200,7 +200,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
     const mensajeError = 'Ocurrió un error al eliminar el pago';
 
     this.pagoService.mantenimiento(this.modelPago).subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.toastService.showSuccess(response.mensaje);
 
@@ -419,7 +419,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
       idReserva = this.reservasBD[indexReservaBD].idReserva;
     }
 
-    this.reservaService.getById(idReserva).subscribe(reservas => {
+    this.reservaService.getById(idReserva).subscribe((reservas: any) => {
       this.loadingDetalle = false;
 
       if (reservas.success) {
@@ -471,7 +471,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
 
     const feHasta = feDesde.clone().endOf('month');
 
-    this.reservaService.getByDate('C', feDesde.toDate(), feHasta.toDate()).subscribe(reservas => {
+    this.reservaService.getByDate('C', feDesde.toDate(), feHasta.toDate()).subscribe((reservas: any) => {
       if (reservas.success) {
         this.reservasBD = reservas.data;
 
@@ -485,7 +485,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   private loadAllFormaPagos() {
-    this.formaService.get().subscribe(formas => {
+    this.formaService.get().subscribe((formas: any) => {
       if (formas.success) {
         this.formaPagos = formas.data;
       } else {
@@ -495,7 +495,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   private loadAllTarifas() {
-    this.tarifaService.getAll().subscribe(response => {
+    this.tarifaService.getAll().subscribe((response: any) => {
       if (response.success) {
         this.tarifasFormat = response.agrupado;
         this.tarifas = response.data;
@@ -506,7 +506,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   private loadAllAirlines() {
-    this.aerolineaService.get().subscribe(response => {
+    this.aerolineaService.get().subscribe((response: any) => {
       if (response.success) {
         this.aerolineas = response.data;
       } else {
@@ -516,7 +516,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   private loadAllFuentes() {
-    this.fuenteService.get().subscribe(response => {
+    this.fuenteService.get().subscribe((response: any) => {
       if (response.success) {
         this.fuentes = response.data;
       } else {
@@ -526,7 +526,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   private loadAllAdicionales() {
-    this.adicionalService.get().subscribe(response => {
+    this.adicionalService.get().subscribe((response: any) => {
       if (response.success) {
         this.adicionales = response.data;
       } else {
@@ -536,7 +536,7 @@ export class ReservaComponent implements OnInit, AfterViewChecked {
   }
 
   private loadAllPaises() {
-    this.paisService.get().subscribe(response => {
+    this.paisService.get().subscribe((response: any) => {
       if (response.success) {
         this.paises = response.data;
       } else {

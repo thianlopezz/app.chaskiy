@@ -11,7 +11,6 @@ declare var jQuery: any;
   styleUrls: ['./modal-pago.component.css']
 })
 export class ModalPagoComponent implements OnInit, OnChanges {
-
   @Input() idReserva;
   @Input() formaPagos = [];
   @Input() total = 0;
@@ -28,11 +27,9 @@ export class ModalPagoComponent implements OnInit, OnChanges {
 
   mensajeConfirmacion;
 
-  constructor(private pagoService: PagoService,
-    private toastService: ToastService) { }
+  constructor(private pagoService: PagoService, private toastService: ToastService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.idReserva && changes.idReserva.currentValue) {
@@ -52,22 +49,18 @@ export class ModalPagoComponent implements OnInit, OnChanges {
   }
 
   getPagos(devulveTotalPagado?) {
-
     this.loading = true;
 
-    this.pagoService.get(this.idReserva)
-      .subscribe(pagos => {
-
+    this.pagoService.get(this.idReserva).subscribe(
+      (pagos: any) => {
         this.loading = false;
 
         if (pagos.success) {
-
           this.pagos = pagos.data;
 
           let sum = 0;
 
           for (let i = 0; i < pagos.data.length; i++) {
-
             sum += pagos.data[i].monto;
           }
 
@@ -76,21 +69,19 @@ export class ModalPagoComponent implements OnInit, OnChanges {
           if (devulveTotalPagado) {
             this.success.next(this.totalPagado);
           }
-
         } else {
-
           this.toastService.showError(pagos.mensaje);
         }
       },
-        error => {
-          this.loading = false;
-          this.toastService.showError('Ocurrió un error al obtener los pagos');
-          console.log(error);
-        });
+      error => {
+        this.loading = false;
+        this.toastService.showError('Ocurrió un error al obtener los pagos');
+        console.log(error);
+      }
+    );
   }
 
   guardar(form: NgForm) {
-
     this.loading = true;
 
     this.model.idReserva = this.idReserva;
@@ -107,30 +98,27 @@ export class ModalPagoComponent implements OnInit, OnChanges {
         break;
     }
 
-    this.pagoService.mantenimiento(this.model)
-      .subscribe(
-        response => {
+    this.pagoService.mantenimiento(this.model).subscribe(
+      (response: any) => {
+        this.loading = false;
 
+        if (response.success) {
+          form.resetForm();
+          this.getPagos(true);
+          this.toastService.showSuccess(response.mensaje);
+          jQuery('#pagoModal').modal('hide');
+          jQuery('#pagosModal').modal('show');
+        } else {
           this.loading = false;
-
-          if (response.success) {
-            form.resetForm();
-            this.getPagos(true);
-            this.toastService.showSuccess(response.mensaje);
-            jQuery('#pagoModal').modal('hide');
-            jQuery('#pagosModal').modal('show');
-          } else {
-
-            this.loading = false;
-            this.toastService.showError(response.mensaje);
-          }
-        },
-        error => {
-
-          console.log(error);
-          this.loading = false;
-          this.toastService.showError(mensajeError);
-        });
+          this.toastService.showError(response.mensaje);
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.toastService.showError(mensajeError);
+      }
+    );
   }
 
   onCancelar() {
@@ -148,5 +136,4 @@ export class ModalPagoComponent implements OnInit, OnChanges {
     jQuery('#pagoModal').modal('hide');
     jQuery('#pagosModal').modal('show');
   }
-
 }

@@ -11,7 +11,6 @@ declare var jQuery: any;
   styleUrls: ['./tarifa.component.css']
 })
 export class TarifaComponent implements OnInit {
-
   filtro;
 
   model: any = {};
@@ -25,11 +24,9 @@ export class TarifaComponent implements OnInit {
 
   mensajeConfirmacion;
 
-  constructor(private tarifaService: TarifaService,
-    private toastService: ToastService) { }
+  constructor(private tarifaService: TarifaService, private toastService: ToastService) {}
 
   ngOnInit() {
-
     this.loadAllTarifas();
     this.loadAllTipos();
   }
@@ -39,34 +36,30 @@ export class TarifaComponent implements OnInit {
 
     this.model.accion = this.accion;
 
-    this.tarifaService.mantenimiento(this.model)
-      .subscribe(
-        data => {
-          if (data.success) {
-
-            this.toastService.showSuccess('Registro eliminado con éxito');
-            this.loading = false;
-            this.loadAllTarifas();
-          } else {
-
-            this.toastService.showError(data.mensaje);
-            this.loading = false;
-          }
-
-          jQuery('#confirmaModal').modal('hide');
-        },
-        error => {
-
-          this.toastService.showError('Ocurrió al eliminar el registro');
-          console.log(error);
+    this.tarifaService.mantenimiento(this.model).subscribe(
+      (data: any) => {
+        if (data.success) {
+          this.toastService.showSuccess('Registro eliminado con éxito');
           this.loading = false;
+          this.loadAllTarifas();
+        } else {
+          this.toastService.showError(data.mensaje);
+          this.loading = false;
+        }
 
-          jQuery('#confirmaModal').modal('hide');
-        });
+        jQuery('#confirmaModal').modal('hide');
+      },
+      error => {
+        this.toastService.showError('Ocurrió al eliminar el registro');
+        console.log(error);
+        this.loading = false;
+
+        jQuery('#confirmaModal').modal('hide');
+      }
+    );
   }
 
   guardar(form: NgForm) {
-
     this.loading = true;
 
     this.model.accion = this.accion;
@@ -85,34 +78,30 @@ export class TarifaComponent implements OnInit {
         break;
     }
 
-    this.tarifaService.mantenimiento(this.model)
-      .subscribe(
-        data => {
-          if (data.success) {
-
-            this.toastService.showSuccess(mensaje);
-            this.loading = false;
-            this.loadAllTarifas();
-            form.resetForm();
-            this.modalHide();
-          } else {
-
-            this.toastService.showError(data.mensaje);
-            this.loading = false;
-            jQuery('#messModal').modal('show');
-          }
-        },
-        error => {
-
-          this.toastService.showError(mensaje_err);
-          console.log(error);
+    this.tarifaService.mantenimiento(this.model).subscribe(
+      (data: any) => {
+        if (data.success) {
+          this.toastService.showSuccess(mensaje);
+          this.loading = false;
+          this.loadAllTarifas();
+          form.resetForm();
+          this.modalHide();
+        } else {
+          this.toastService.showError(data.mensaje);
           this.loading = false;
           jQuery('#messModal').modal('show');
-        });
+        }
+      },
+      error => {
+        this.toastService.showError(mensaje_err);
+        console.log(error);
+        this.loading = false;
+        jQuery('#messModal').modal('show');
+      }
+    );
   }
 
   onCancelar() {
-
     this.model = {};
     this.readOnly = true;
     jQuery('#confirmaModal').modal('hide');
@@ -137,11 +126,9 @@ export class TarifaComponent implements OnInit {
   }
 
   private loadAllTarifas() {
-
     this.loading_tar = true;
 
-    this.tarifaService.getAll().subscribe(response => {
-
+    this.tarifaService.getAll().subscribe((response: any) => {
       if (response.success) {
         this.tarifas = response.data;
       } else {
@@ -153,8 +140,7 @@ export class TarifaComponent implements OnInit {
   }
 
   private loadAllTipos() {
-    this.tarifaService.getAllTipos().subscribe(response => {
-
+    this.tarifaService.getAllTipos().subscribe((response: any) => {
       if (response.success) {
         this.tipos = response.data;
       } else {
@@ -164,8 +150,6 @@ export class TarifaComponent implements OnInit {
   }
 
   private modalHide() {
-
     jQuery('#tarifaModal').modal('hide');
   }
-
 }

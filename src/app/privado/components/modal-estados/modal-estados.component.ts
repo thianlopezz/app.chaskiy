@@ -93,7 +93,7 @@ export class ModalEstadosComponent implements OnInit {
     };
 
     this.reservaService.cambiaEstado(reserva).subscribe(
-      response => {
+      (response: any) => {
         this.loading = false;
         f.resetForm();
 

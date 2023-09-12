@@ -82,7 +82,7 @@ export class HabitacionDetalleComponent implements OnInit {
     this.habitacionService
       .addEspecificacion({ idEspecificacion: especificacion.idEspecificacion, idHabitacion: this.idHabitacion })
       .subscribe(
-        data => {
+        (data: any) => {
           if (data.success) {
             this.toastService.showSuccess(data.mensaje);
             this.loadHabitacion();
@@ -103,7 +103,7 @@ export class HabitacionDetalleComponent implements OnInit {
   addCama(cama) {
     this.loadingAddCama = true;
     this.habitacionService.addCama({ ...this.varianteSelected, ...cama }).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacion();
@@ -125,7 +125,7 @@ export class HabitacionDetalleComponent implements OnInit {
     this.habitacionService
       .deleteCama({ idHabitacion: this.idHabitacion, idCama: cama.idCama, idTipoHabitacion: cama.idTipoHabitacion })
       .subscribe(
-        data => {
+        (data: any) => {
           if (data.success) {
             this.toastService.showSuccess(data.mensaje);
             this.loadHabitacion();
@@ -144,7 +144,7 @@ export class HabitacionDetalleComponent implements OnInit {
     this.habitacionService
       .deleteEspecificacion({ idEspecificacion: especificacion.idEspecificacion, idHabitacion: this.idHabitacion })
       .subscribe(
-        data => {
+        (data: any) => {
           if (data.success) {
             this.toastService.showSuccess(data.mensaje);
             this.loadHabitacion();
@@ -179,7 +179,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   delete() {
     this.habitacionService.deleteFoto({ idFoto: this.idFoto, idHabitacion: this.idHabitacion }).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacionImages();
@@ -208,7 +208,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   feature(idFoto) {
     this.habitacionService.featureFoto({ idFoto, idHabitacion: this.idHabitacion }).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacionImages();
@@ -233,7 +233,7 @@ export class HabitacionDetalleComponent implements OnInit {
     };
 
     this.habitacionService.saveTarifa(model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacion();
@@ -260,7 +260,7 @@ export class HabitacionDetalleComponent implements OnInit {
     };
 
     this.habitacionService.saveCapacidad(model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacion();
@@ -287,7 +287,7 @@ export class HabitacionDetalleComponent implements OnInit {
     };
 
     this.habitacionService.saveDescripcionTipoHabitacion(model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacion();
@@ -314,7 +314,7 @@ export class HabitacionDetalleComponent implements OnInit {
         })
       })
       .subscribe(
-        data => {
+        (data: any) => {
           if (data.success) {
             this.toastService.showSuccess(data.mensaje);
             this.loadHabitacion();
@@ -345,7 +345,7 @@ export class HabitacionDetalleComponent implements OnInit {
     habitacion[name] = value;
 
     this.habitacionService.mantenimiento(habitacion).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
           this.loadHabitacion();
@@ -365,7 +365,7 @@ export class HabitacionDetalleComponent implements OnInit {
   addImage(idFotos) {
     this.loading = true;
     this.habitacionService.addImages({ idHabitacion: this.idHabitacion, idFotos }).subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.toastService.showSuccess(response.mensaje);
           this.loadHabitacionImages();
@@ -386,7 +386,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   loadHabitacion() {
     this.habitacionService.getById(this.idHabitacion).subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           let habitacion = response.data;
           habitacion.idTipoHabitacion = habitacion.variantes.map(variante => variante.idTipoHabitacion);
@@ -404,7 +404,7 @@ export class HabitacionDetalleComponent implements OnInit {
   loadHabitacionImages() {
     this.loadingList = true;
     this.habitacionService.getFotos(this.idHabitacion).subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.habitacionImages = response.data;
           this.filterImages();
@@ -423,7 +423,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   loadGallery() {
     this.galeriaService.get().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.images = response.data;
           this.filterImages();
@@ -439,7 +439,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   loadTiposHabitacion() {
     this.tipoHabitacionService.get().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.tiposHabitacion = response.data;
           this.tiposHabitacionFormat = this.tiposHabitacion.map(tipo => {
@@ -457,7 +457,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   loadEspecificaciones() {
     this.espcificacionService.get().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.especificaciones = response.data;
         } else {
@@ -472,7 +472,7 @@ export class HabitacionDetalleComponent implements OnInit {
 
   loadCamas() {
     this.camaService.get().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.camas = response.data;
         } else {

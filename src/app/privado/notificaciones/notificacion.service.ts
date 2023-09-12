@@ -1,36 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class NotificacionService {
-
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) {}
 
   get() {
-
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     const param = encodeURIComponent('<params accion="C" idUsuario = "' + chasker.idUsuario + '" />');
-    return this.http.get('/api/notificacion/all/' + param, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/notificacion/all/' + param, this.jwt());
   }
 
   setLeido(idnotificacion) {
-
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.post('/api/notificacion/leido/' + idnotificacion, {}, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/notificacion/leido/' + idnotificacion, {}, this.jwt());
   }
 
   private jwt() {
-
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     if (chasker && chasker.token) {
-      const headers = new Headers({ 'x-access-token': chasker.token });
-      return new RequestOptions({ headers: headers });
+      const headers = new HttpHeaders({ 'x-access-token': chasker.token });
+      return { headers: headers };
     }
   }
 }

@@ -32,7 +32,7 @@ export class NotasComponent implements OnInit {
   updateNota(val, id) {
     let nota = { ...this.notaSelected, idReserva: this.idReserva, notas: val, idNotas: id };
     this.reservaService.addUpdateNotas(nota).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje || 'Registro guardado con éxito');
           this.reservaService.onHasRefetchDetalleReserva(this.idReserva);

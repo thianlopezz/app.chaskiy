@@ -375,7 +375,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   private loadAllRooms() {
     this.loadingHabitaciones = true;
 
-    this.habitacionService.get().subscribe(response => {
+    this.habitacionService.get().subscribe((response: any) => {
       this.loadingHabitaciones = false;
 
       if (response.success) {

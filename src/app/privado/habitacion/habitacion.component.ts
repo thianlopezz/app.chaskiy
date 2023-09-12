@@ -36,7 +36,7 @@ export class HabitacionComponent implements OnInit {
     this.model.accion = this.accion;
 
     this.habitacionService.mantenimiento(this.model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess('Registro eliminado con éxito');
           this.loading = false;
@@ -78,7 +78,7 @@ export class HabitacionComponent implements OnInit {
     }
 
     this.habitacionService.mantenimiento(this.model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(mensaje);
           this.loading = false;
@@ -127,7 +127,7 @@ export class HabitacionComponent implements OnInit {
   private loadAllRooms() {
     this.loading_hab = true;
     this.habitacionService.get().subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.rooms = response.data;
         } else {

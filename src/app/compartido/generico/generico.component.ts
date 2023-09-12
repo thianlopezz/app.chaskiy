@@ -90,7 +90,7 @@ export class GenericoComponent implements OnInit {
 
   private activaCuenta(token: string) {
     this.registroService.activa(token).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.muestra = true;
         } else {
@@ -111,7 +111,7 @@ export class GenericoComponent implements OnInit {
     this.loading = true;
 
     this.reservaService.confirmaReserva(this.id).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.loading = false;
           this.mensajeService.success(data.mensaje);
@@ -166,7 +166,7 @@ export class GenericoComponent implements OnInit {
     this.model.tokenRecupera = this.token;
 
     this.registroService.upRecupera(this.model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.loading = false;
           this.mensajeService.success(data.mensaje);
@@ -212,7 +212,7 @@ export class GenericoComponent implements OnInit {
     // }
 
     this.registroService.enviaRecupera(this.model).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.loading = false;
 
@@ -237,7 +237,7 @@ export class GenericoComponent implements OnInit {
   }
 
   getReserveDet(idReserva: number, token: string) {
-    this.reservaService.getByIdEx(idReserva, token).subscribe(reservas => {
+    this.reservaService.getByIdEx(idReserva, token).subscribe((reservas: any) => {
       if (reservas.success) {
         this.showReserve = true;
         this.showMensajeReserva = false;
@@ -315,7 +315,7 @@ export class GenericoComponent implements OnInit {
   }
 
   private loadSocial() {
-    this.socialService.get().subscribe(social => {
+    this.socialService.get().subscribe((social: any) => {
       if (social.success) {
         this.redes = social.data;
         this.mapSocial();

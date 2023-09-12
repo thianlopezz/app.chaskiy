@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 // TODO: IMPLEMENTAR MANTENIMIENTO
@@ -7,17 +7,17 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TipoHabitacionService {
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   get() {
-    return this.http.get('/api/habitaciones/tipo/', this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/habitaciones/tipo/', this.jwt());
   }
 
   getById(idHabitacion) {
     // const chasker = JSON.parse(localStorage.getItem('chasker'));
     // return this.http
     //   .get(`/api/habitaciones/${chasker.idHospedaje}/${idHabitacion}`, this.jwt())
-    //   .pipe(map((response: Response) => response.json()));
+    //   ;
   }
 
   mantenimiento(room: any) {
@@ -25,15 +25,15 @@ export class TipoHabitacionService {
 
     // room.idHospedaje = chasker.idHospedaje;
     // room.idUsuario = chasker.idUsuario;
-    // return this.http.post('/api/habitaciones/', room, this.jwt()).pipe(map((response: Response) => response.json()));
+    // return this.http.post('/api/habitaciones/', room, this.jwt());
   }
 
   private jwt() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     if (chasker && chasker.token) {
-      const headers = new Headers({ 'x-access-token': chasker.token });
-      return new RequestOptions({ headers: headers });
+      const headers = new HttpHeaders({ 'x-access-token': chasker.token });
+      return { headers: headers };
     }
   }
 }

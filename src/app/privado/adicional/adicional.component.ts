@@ -13,7 +13,6 @@ declare var jQuery: any;
   styleUrls: ['./adicional.component.css']
 })
 export class AdicionalComponent implements OnInit {
-
   filtro;
 
   model: any = {};
@@ -26,11 +25,9 @@ export class AdicionalComponent implements OnInit {
 
   mensajeConfirmacion;
 
-  constructor(private addService: AdicionalService,
-    private toastService: ToastService) { }
+  constructor(private addService: AdicionalService, private toastService: ToastService) {}
 
   ngOnInit() {
-
     this.loadAllAdds();
   }
 
@@ -39,34 +36,30 @@ export class AdicionalComponent implements OnInit {
 
     this.model.accion = this.accion;
 
-    this.addService.mantenimiento(this.model)
-      .subscribe(
-        data => {
-          if (data.success) {
-
-            this.toastService.showSuccess('Registro eliminado con éxito');
-            this.loading = false;
-            this.loadAllAdds();
-          } else {
-
-            this.toastService.showError(data.mensaje);
-            this.loading = false;
-          }
-
-          jQuery('#confirmaModal').modal('hide');
-        },
-        error => {
-
-          this.toastService.showError('Ocurrió un error al eliminar el registro');
-          console.log(error);
+    this.addService.mantenimiento(this.model).subscribe(
+      (data: any) => {
+        if (data.success) {
+          this.toastService.showSuccess('Registro eliminado con éxito');
           this.loading = false;
+          this.loadAllAdds();
+        } else {
+          this.toastService.showError(data.mensaje);
+          this.loading = false;
+        }
 
-          jQuery('#confirmaModal').modal('hide');
-        });
+        jQuery('#confirmaModal').modal('hide');
+      },
+      error => {
+        this.toastService.showError('Ocurrió un error al eliminar el registro');
+        console.log(error);
+        this.loading = false;
+
+        jQuery('#confirmaModal').modal('hide');
+      }
+    );
   }
 
   guardar(form: NgForm) {
-
     this.loading = true;
 
     this.model.accion = this.accion;
@@ -85,34 +78,30 @@ export class AdicionalComponent implements OnInit {
         break;
     }
 
-    this.addService.mantenimiento(this.model)
-      .subscribe(
-        data => {
-          if (data.success) {
-
-            this.toastService.showSuccess(mensaje);
-            this.loading = false;
-            this.loadAllAdds();
-            form.resetForm();
-            this.hideModal();
-          } else {
-
-            this.toastService.showError(data.mensaje);
-            this.loading = false;
-            jQuery('#messModal').modal('show');
-          }
-        },
-        error => {
-
-          this.toastService.showError(mensaje_err);
-          console.log(error);
+    this.addService.mantenimiento(this.model).subscribe(
+      (data: any) => {
+        if (data.success) {
+          this.toastService.showSuccess(mensaje);
+          this.loading = false;
+          this.loadAllAdds();
+          form.resetForm();
+          this.hideModal();
+        } else {
+          this.toastService.showError(data.mensaje);
           this.loading = false;
           jQuery('#messModal').modal('show');
-        });
+        }
+      },
+      error => {
+        this.toastService.showError(mensaje_err);
+        console.log(error);
+        this.loading = false;
+        jQuery('#messModal').modal('show');
+      }
+    );
   }
 
   onCancelar() {
-
     this.model = {};
     this.readOnly = true;
   }
@@ -138,23 +127,23 @@ export class AdicionalComponent implements OnInit {
 
   private loadAllAdds() {
     this.loadingAdicional = true;
-    this.addService.get().subscribe(adds => {
-
-      if (adds.success) {
-        this.adds = adds.data;
-      } else {
-        console.log('Error>> loadAllAdds>> ' + adds.mensaje);
-      }
-      this.loadingAdicional = false;
-    },
+    this.addService.get().subscribe(
+      (adds: any) => {
+        if (adds.success) {
+          this.adds = adds.data;
+        } else {
+          console.log('Error>> loadAllAdds>> ' + adds.mensaje);
+        }
+        this.loadingAdicional = false;
+      },
       error => {
         console.log('Error>> loadAllAdds>> ' + error.message);
         this.loadingAdicional = false;
-      });
+      }
+    );
   }
 
   private hideModal() {
     jQuery('#adicionalModal').modal('hide');
   }
-
 }

@@ -205,7 +205,7 @@ export class DetalleReservaComponent implements OnInit, OnChanges {
 
   modificarCamposIndividuales(reserva) {
     this.reservaService.modificarCamposIndividuales(reserva).subscribe(
-      data => {
+      (data: any) => {
         if (data.success) {
           this.toastService.showSuccess(data.mensaje);
         } else {

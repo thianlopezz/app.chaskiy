@@ -1,24 +1,26 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReservaService {
   @Output() hasRefetchDetalleReserva = new EventEmitter<any>();
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   getById(id: number) {
-    return this.http.get('/api/reservas/' + id, this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/reservas/' + id, this.jwt());
   }
 
   getByDate(consulta: string, feDesde: Date, feHasta: Date) {
     // DD/MM/AAAA
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http
-      .post('/api/reservas/all/' + consulta, { feDesde, feHasta, idHospedaje: chasker.idHospedaje }, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(
+      '/api/reservas/all/' + consulta,
+      { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
+      this.jwt()
+    );
   }
 
   mantenimiento(reserve: any) {
@@ -34,7 +36,7 @@ export class ReservaService {
       );
     }
 
-    return this.http.post('/api/reservas', reserve, this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/reservas', reserve, this.jwt());
   }
 
   cambiaEstado(reserva) {
@@ -42,19 +44,15 @@ export class ReservaService {
 
     reserva.idUsuario = chasker.idUsuario;
 
-    return this.http
-      .post('/api/reservas/estado/', reserva, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/reservas/estado/', reserva, this.jwt());
   }
 
   getByIdEx(id: number, token: string) {
-    return this.http
-      .get('/api/reservas/ex/' + id + '/' + token, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/reservas/ex/' + id + '/' + token, this.jwt());
   }
 
   confirmaReserva(id: number) {
-    return this.http.get('/api/reservas/confirma/' + id, this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/reservas/confirma/' + id, this.jwt());
   }
 
   getEstado(reserva: any) {
@@ -102,9 +100,7 @@ export class ReservaService {
 
     reserva.idUsuario = chasker.idUsuario;
 
-    return this.http
-      .post('/api/reservas/individuales/', reserva, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/reservas/individuales/', reserva, this.jwt());
   }
 
   // notas
@@ -113,7 +109,7 @@ export class ReservaService {
 
     notas.idUsuario = chasker.idUsuario;
 
-    return this.http.post('/api/reservas/notas/', notas, this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/reservas/notas/', notas, this.jwt());
   }
 
   onHasRefetchDetalleReserva(idReserva) {
@@ -124,8 +120,8 @@ export class ReservaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     if (chasker && chasker.token) {
-      const headers = new Headers({ 'x-access-token': chasker.token });
-      return new RequestOptions({ headers: headers });
+      const headers = new HttpHeaders({ 'x-access-token': chasker.token });
+      return { headers: headers };
     }
   }
 }

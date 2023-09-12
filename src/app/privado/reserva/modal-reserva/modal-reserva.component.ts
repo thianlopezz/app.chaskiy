@@ -286,7 +286,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     this.model.total = this.model.iva.total;
 
     this.reservaService.mantenimiento(this.model).subscribe(
-      response => {
+      (response: any) => {
         this.loading = false;
 
         if (response.success) {
@@ -454,7 +454,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     this.model.pasajero.idPais = jQuery('#pais').val();
 
     this.pasajeroService.mantenimiento(this.model.pasajero).subscribe(
-      response => {
+      (response: any) => {
         this.loadingPasajero = false;
 
         if (response.success) {
@@ -481,7 +481,7 @@ export class ModalReservaComponent implements OnInit, OnChanges {
     const correo = this.model.pasajero.correo;
 
     this.pasajeroService.getByCorreo(correo).subscribe(
-      response => {
+      (response: any) => {
         if (response.success) {
           this.loadingPasajero = false;
 

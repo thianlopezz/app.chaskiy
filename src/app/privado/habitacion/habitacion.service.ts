@@ -1,82 +1,66 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class HabitacionService {
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .get('/api/habitaciones/all/' + chasker.idHospedaje, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get('/api/habitaciones/all/' + chasker.idHospedaje, this.jwt());
   }
 
   getById(idHabitacion) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .get(`/api/habitaciones/${chasker.idHospedaje}/${idHabitacion}`, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get(`/api/habitaciones/${chasker.idHospedaje}/${idHabitacion}`, this.jwt());
   }
 
   featureFoto(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .put(`/api/habitaciones/foto/feature/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.put(`/api/habitaciones/foto/feature/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt());
   }
 
   deleteFoto(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .post(`/api/habitaciones/foto/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(`/api/habitaciones/foto/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt());
   }
 
   getFotos(idHabitacion) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .get(`/api/habitaciones/foto/${chasker.idHospedaje}/${idHabitacion}`, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.get(`/api/habitaciones/foto/${chasker.idHospedaje}/${idHabitacion}`, this.jwt());
   }
 
   addImages(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     params = { ...params, idHospedaje: chasker.idHospedaje, idUsuario: chasker.idUsuario };
-    return this.http
-      .post(`/api/habitaciones/foto`, params, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(`/api/habitaciones/foto`, params, this.jwt());
   }
 
   addEspecificacion(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     params = { ...params, idHospedaje: chasker.idHospedaje, idUsuario: chasker.idUsuario };
-    return this.http
-      .post(`/api/habitaciones/especificacion`, params, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(`/api/habitaciones/especificacion`, params, this.jwt());
   }
 
   addCama(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     params = { ...params, idHospedaje: chasker.idHospedaje, idUsuario: chasker.idUsuario };
-    return this.http
-      .post(`/api/habitaciones/cama`, params, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(`/api/habitaciones/cama`, params, this.jwt());
   }
 
   deleteEspecificacion(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .post(`/api/habitaciones/especificacion/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(
+      `/api/habitaciones/especificacion/delete/`,
+      { ...params, idUsuario: chasker.idUsuario },
+      this.jwt()
+    );
   }
 
   deleteCama(params) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http
-      .post(`/api/habitaciones/cama/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post(`/api/habitaciones/cama/delete/`, { ...params, idUsuario: chasker.idUsuario }, this.jwt());
   }
 
   mantenimiento(room: any) {
@@ -84,7 +68,7 @@ export class HabitacionService {
 
     room.idHospedaje = chasker.idHospedaje;
     room.idUsuario = chasker.idUsuario;
-    return this.http.post('/api/habitaciones/', room, this.jwt()).pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/habitaciones/', room, this.jwt());
   }
 
   saveTipoHabitacion(room: any) {
@@ -92,9 +76,7 @@ export class HabitacionService {
 
     room.idHospedaje = chasker.idHospedaje;
     room.idUsuario = chasker.idUsuario;
-    return this.http
-      .post('/api/habitaciones/tipo', room, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/habitaciones/tipo', room, this.jwt());
   }
 
   saveTarifa(params: any) {
@@ -102,9 +84,7 @@ export class HabitacionService {
 
     params.idHospedaje = chasker.idHospedaje;
     params.idUsuario = chasker.idUsuario;
-    return this.http
-      .post('/api/habitaciones/tarifa', params, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/habitaciones/tarifa', params, this.jwt());
   }
 
   saveCapacidad(params: any) {
@@ -112,9 +92,7 @@ export class HabitacionService {
 
     params.idHospedaje = chasker.idHospedaje;
     params.idUsuario = chasker.idUsuario;
-    return this.http
-      .post('/api/habitaciones/capacidad', params, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/habitaciones/capacidad', params, this.jwt());
   }
 
   saveDescripcionTipoHabitacion(params: any) {
@@ -122,17 +100,15 @@ export class HabitacionService {
 
     params.idHospedaje = chasker.idHospedaje;
     params.idUsuario = chasker.idUsuario;
-    return this.http
-      .post('/api/habitaciones/descripcion/tipohabitacion', params, this.jwt())
-      .pipe(map((response: Response) => response.json()));
+    return this.http.post('/api/habitaciones/descripcion/tipohabitacion', params, this.jwt());
   }
 
   private jwt() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     if (chasker && chasker.token) {
-      const headers = new Headers({ 'x-access-token': chasker.token });
-      return new RequestOptions({ headers: headers });
+      const headers = new HttpHeaders({ 'x-access-token': chasker.token });
+      return { headers: headers };
     }
   }
 }

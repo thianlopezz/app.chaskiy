@@ -12,7 +12,6 @@ import * as moment from 'moment';
   styleUrls: ['./captacion.component.css']
 })
 export class CaptacionComponent implements OnInit {
-
   loading_pg = true;
 
   public myDatePickerOptions: IMyDpOptions = {
@@ -50,31 +49,25 @@ export class CaptacionComponent implements OnInit {
 
   captacion: any = {};
 
-  constructor(private estadisticaService: EstadisticaService) { }
+  constructor(private estadisticaService: EstadisticaService) {}
 
   ngOnInit() {
-
     this.getDatos();
   }
 
   getDatos() {
-
-    this.estadisticaService.getCaptacion().subscribe(
-      captacion => {
-
-        if (captacion.success) {
-          this.captacion = captacion.data;
-          this.goStatistics();
-        } else {
-          console.log('Error>> getDatos>> ' + captacion.mensaje);
-        }
-      });
+    this.estadisticaService.getCaptacion().subscribe((captacion: any) => {
+      if (captacion.success) {
+        this.captacion = captacion.data;
+        this.goStatistics();
+      } else {
+        console.log('Error>> getDatos>> ' + captacion.mensaje);
+      }
+    });
   }
 
   onDateChanged(event: IMyDateModel, id: string) {
-
     if (id === 'D') {
-
       this.feDesde = {
         date: {
           year: event.date.year,
@@ -93,7 +86,6 @@ export class CaptacionComponent implements OnInit {
         _date: new Date(this.feHasta.date.year, this.feHasta.date.month - 1, this.feHasta.date.day, 0, 0, 0, 0)
       };
     } else if (id === 'H') {
-
       this.feDesde = {
         date: {
           year: this.feDesde.date.year,
@@ -112,14 +104,12 @@ export class CaptacionComponent implements OnInit {
         _date: new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0)
       };
     }
-// FIXME: evitar que cargue datos si esta erronea una fecha
+    // FIXME: evitar que cargue datos si esta erronea una fecha
     this.goStatistics();
   }
 
   goStatistics() {
-
     if (this.feDesde._date.getTime() > this.feHasta._date.getTime()) {
-
       this.hbDesde = { show: true, mensaje: 'La fecha desde no puede ser mayor a la fecha hasta' };
       return;
     }
@@ -127,7 +117,6 @@ export class CaptacionComponent implements OnInit {
     this.hbDesde = { show: false };
 
     if (this.feHasta._date.getTime() < this.feDesde._date.getTime()) {
-
       this.hbHasta = { show: true, mensaje: 'La fecha hasta no puede ser menor a la fecha desde' };
       return;
     }
@@ -161,7 +150,6 @@ export class CaptacionComponent implements OnInit {
     datasets.push(setTotal);
 
     this.captacion.fuentes.forEach(fuente => {
-
       const set = {
         label: fuente.fuente,
         data: [],
@@ -170,8 +158,9 @@ export class CaptacionComponent implements OnInit {
       };
 
       ceros.forEach(cero => {
-        const fuenteCaptacion = this.captacion.porFuente.find(x => x.idFuente === fuente.idFuente
-          && x.mes === cero.mes && x.anio === cero.anio);
+        const fuenteCaptacion = this.captacion.porFuente.find(
+          x => x.idFuente === fuente.idFuente && x.mes === cero.mes && x.anio === cero.anio
+        );
         if (fuenteCaptacion) {
           set.data.push(fuenteCaptacion.valor);
         } else {
@@ -185,7 +174,6 @@ export class CaptacionComponent implements OnInit {
     const labels = [];
 
     for (let i = 0; i < ceros.length; i++) {
-
       labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
     }
 
@@ -197,52 +185,51 @@ export class CaptacionComponent implements OnInit {
     this.chart = new ChartOptions(data, 'bar');
   }
 
-  private getOcupacion(ceros, feDesde, feHasta) {
+  // private getOcupacion(ceros, feDesde, feHasta) {
 
-    this.estadisticaService.getOcupacionPorRango(feDesde, feHasta).subscribe(
-      ocupaciones => {
+  //   this.estadisticaService.getOcupacionPorRango(feDesde, feHasta).subscribe(
+  //     ocupaciones => {
 
-        if (ocupaciones.success) {
+  //       if (ocupaciones.success) {
 
-          for (let i = 0; i < ocupaciones.data.length; i++) {
-            for (let j = 0; j < ceros.length; j++) {
+  //         for (let i = 0; i < ocupaciones.data.length; i++) {
+  //           for (let j = 0; j < ceros.length; j++) {
 
-              if (ceros[j].mes === ocupaciones.data[i].mes &&
-                ceros[j].anio === ocupaciones.data[i].anio) {
+  //             if (ceros[j].mes === ocupaciones.data[i].mes &&
+  //               ceros[j].anio === ocupaciones.data[i].anio) {
 
-                ceros[j].ocupacion = ocupaciones.data[i].ocupacion;
-                break;
-              }
-            }
-          }
+  //               ceros[j].ocupacion = ocupaciones.data[i].ocupacion;
+  //               break;
+  //             }
+  //           }
+  //         }
 
-          const data = {
-            labels: [],
-            datasets: []
-          };
+  //         const data = {
+  //           labels: [],
+  //           datasets: []
+  //         };
 
-          const ds = [];
+  //         const ds = [];
 
-          for (let i = 0; i < ceros.length; i++) {
+  //         for (let i = 0; i < ceros.length; i++) {
 
-            data.labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
-            ds.push(ceros[i].ocupacion);
-          }
+  //           data.labels.push(this.auxMonth.meses[ceros[i].mes - 1] + '/' + ceros[i].anio);
+  //           ds.push(ceros[i].ocupacion);
+  //         }
 
-          data.datasets.push({
-            label: 'Ocupación', borderColor: '#e59607',
-            backgroundColor: 'rgba(31, 61, 76, 0.54)', data: ds
-          });
-          this.chart = new ChartOptions(data);
-        } else {
+  //         data.datasets.push({
+  //           label: 'Ocupación', borderColor: '#e59607',
+  //           backgroundColor: 'rgba(31, 61, 76, 0.54)', data: ds
+  //         });
+  //         this.chart = new ChartOptions(data);
+  //       } else {
 
-          console.log('Error>> getOcupacion>> ' + ocupaciones.mensaje);
-        }
-      });
-  }
+  //         console.log('Error>> getOcupacion>> ' + ocupaciones.mensaje);
+  //       }
+  //     });
+  // }
 
   private genCeros(feDesde: Date, feHasta: Date): any {
-
     const dataset = [];
 
     let aux = feDesde.getMonth();
@@ -252,15 +239,11 @@ export class CaptacionComponent implements OnInit {
 
     dataset.push({ valor: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear() });
 
-    while (feDesde.getMonth() !== feHasta.getMonth() ||
-      feDesde.getFullYear() !== feHasta.getFullYear()) {
-
+    while (feDesde.getMonth() !== feHasta.getMonth() || feDesde.getFullYear() !== feHasta.getFullYear()) {
       feDesde.setMonth(feDesde.getMonth() + 1);
       dataset.push({ valor: 0, mes: feDesde.getMonth() + 1, anio: feDesde.getFullYear() });
     }
 
     return dataset;
   }
-
 }
-

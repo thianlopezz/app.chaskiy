@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { GenericoComponent } from './generico/generico.component';
@@ -28,7 +27,7 @@ import { MonedaPipe } from '../privado/pipes/moneda.pipe';
 import { PSelect2Component } from './components/p-select2/p-select2.component';
 
 @NgModule({
-  imports: [CommonModule, MyDatePickerModule, FormsModule, RouterModule, HttpModule, HttpClientModule],
+  imports: [CommonModule, MyDatePickerModule, FormsModule, RouterModule, HttpClientModule],
   exports: [
     // MyDatePickerModule,
     ModalConfirmacionComponent,
@@ -36,7 +35,6 @@ import { PSelect2Component } from './components/p-select2/p-select2.component';
     SpinnerComponent,
     HeaderComponent,
     FooterComponent,
-    HttpModule,
     HttpClientModule,
     FiltrarPipe,
     PInputComponent,

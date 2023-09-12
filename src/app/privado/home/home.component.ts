@@ -11,7 +11,6 @@ declare var jQuery: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   reservadosDb: any[] = [];
 
   loadingllegadas = true;
@@ -39,12 +38,13 @@ export class HomeComponent implements OnInit {
   subscription: any;
   model: any;
 
-  constructor(private autenticacionService: AutenticacionService,
+  constructor(
+    private autenticacionService: AutenticacionService,
     private reservaService: ReservaService,
-    private mensajeService: MensajeService) { }
+    private mensajeService: MensajeService
+  ) {}
 
   ngOnInit() {
-
     this.getByDate();
 
     this.user = this.autenticacionService.getLogin();
@@ -72,8 +72,9 @@ export class HomeComponent implements OnInit {
   }
 
   private refresca() {
-
-    const _fecha = new Date(new Date(this.fecha.date.year, this.fecha.date.month - 1, this.fecha.date.day, 0, 0, 0, 0).getTime());
+    const _fecha = new Date(
+      new Date(this.fecha.date.year, this.fecha.date.month - 1, this.fecha.date.day, 0, 0, 0, 0).getTime()
+    );
 
     this.fecha = {
       date: {
@@ -89,17 +90,13 @@ export class HomeComponent implements OnInit {
   }
 
   private showMess() {
-
     setTimeout(() => {
-
       jQuery('#messModal').modal('show');
     }, 200);
   }
 
   onDateChanged(event: IMyDateModel) {
-
     const _fecha = new Date(event.date.year, event.date.month - 1, event.date.day, 0, 0, 0, 0);
-
 
     this.fecha = {
       date: {
@@ -117,10 +114,10 @@ export class HomeComponent implements OnInit {
   }
 
   nextDate() {
-
-    const _fecha = new Date(new Date(this.fecha.date.year,
-      this.fecha.date.month - 1,
-      this.fecha.date.day, 0, 0, 0, 0).getTime() + (1000 * 60 * 60 * 24));
+    const _fecha = new Date(
+      new Date(this.fecha.date.year, this.fecha.date.month - 1, this.fecha.date.day, 0, 0, 0, 0).getTime() +
+        1000 * 60 * 60 * 24
+    );
 
     this.fecha = {
       date: {
@@ -138,10 +135,10 @@ export class HomeComponent implements OnInit {
   }
 
   previousDate() {
-
-    const _fecha = new Date(new Date(this.fecha.date.year,
-      this.fecha.date.month - 1,
-      this.fecha.date.day, 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24));
+    const _fecha = new Date(
+      new Date(this.fecha.date.year, this.fecha.date.month - 1, this.fecha.date.day, 0, 0, 0, 0).getTime() -
+        1000 * 60 * 60 * 24
+    );
 
     this.fecha = {
       date: {
@@ -159,44 +156,43 @@ export class HomeComponent implements OnInit {
   }
 
   getModiFecha() {
-
     const today = new Date();
-    const tomorrow = new Date(new Date(today.getFullYear(),
-      today.getMonth(),
-      today.getDate(), 0, 0, 0, 0).getTime() + (1000 * 60 * 60 * 24));
+    const tomorrow = new Date(
+      new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() + 1000 * 60 * 60 * 24
+    );
 
-    const yesterday = new Date(new Date(today.getFullYear(),
-      today.getMonth(),
-      today.getDate(), 0, 0, 0, 0).getTime() - (1000 * 60 * 60 * 24));
+    const yesterday = new Date(
+      new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0).getTime() - 1000 * 60 * 60 * 24
+    );
 
-    if (this.fecha.date.year === today.getFullYear()
-      && this.fecha.date.month === (today.getMonth() + 1)
-      && this.fecha.date.day === today.getDate()) {
-
+    if (
+      this.fecha.date.year === today.getFullYear() &&
+      this.fecha.date.month === today.getMonth() + 1 &&
+      this.fecha.date.day === today.getDate()
+    ) {
       this.modiFecha = 'Hoy';
-    } else if (this.fecha.date.year === tomorrow.getFullYear()
-      && this.fecha.date.month === (tomorrow.getMonth() + 1)
-      && this.fecha.date.day === tomorrow.getDate()) {
-
+    } else if (
+      this.fecha.date.year === tomorrow.getFullYear() &&
+      this.fecha.date.month === tomorrow.getMonth() + 1 &&
+      this.fecha.date.day === tomorrow.getDate()
+    ) {
       this.modiFecha = 'Mañana';
-    } else if (this.fecha.date.year === yesterday.getFullYear()
-      && this.fecha.date.month === (yesterday.getMonth() + 1)
-      && this.fecha.date.day === yesterday.getDate()) {
-
+    } else if (
+      this.fecha.date.year === yesterday.getFullYear() &&
+      this.fecha.date.month === yesterday.getMonth() + 1 &&
+      this.fecha.date.day === yesterday.getDate()
+    ) {
       this.modiFecha = 'Ayer';
     } else {
-
       this.modiFecha = this.fecha.date.day + '/' + this.fecha.date.month + '/' + this.fecha.date.year;
     }
   }
 
   nightDiff(reserva: any) {
-
     return this.reservaService.getNumeroNoches(new Date(reserva.feDesde), new Date(reserva.feHasta));
   }
 
   private getByDate() {
-
     this.loadingrecientes = true;
 
     const dia = 1000 * 60 * 60 * 24;
@@ -204,85 +200,64 @@ export class HomeComponent implements OnInit {
     const _feDesde = new Date();
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
-    const _feHasta = new Date(new Date(new Date().getTime() + (dia * 7)));
+    const _feHasta = new Date(new Date(new Date().getTime() + dia * 7));
     const feHasta = _feHasta.getDate() + '/' + (_feHasta.getMonth() + 1) + '/' + _feHasta.getFullYear();
 
-
-    this.reservaService.getByDate('C2', _feDesde, _feHasta).subscribe(
-      reservas => {
-
-        if (reservas.success) {
-
-          this.reservadosDb = reservas.data;
-        } else {
-
-          console.log('Error>> getByDate>> ' + reservas.mensaje);
-        }
-        this.loadingrecientes = false;
-      });
+    this.reservaService.getByDate('C2', _feDesde, _feHasta).subscribe((reservas: any) => {
+      if (reservas.success) {
+        this.reservadosDb = reservas.data;
+      } else {
+        console.log('Error>> getByDate>> ' + reservas.mensaje);
+      }
+      this.loadingrecientes = false;
+    });
   }
 
   private getLlegadas(_feDesde: Date) {
-
     this.loadingllegadas = true;
 
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
-    this.reservaService.getByDate('C3', _feDesde, _feDesde).subscribe(
-      reservas => {
-
-        if (reservas.success) {
-
-          this.llegadas = reservas.data;
-        } else {
-
-          console.log('Error>> getByDate>> ' + reservas.mensaje);
-        }
-        this.loadingllegadas = false;
-      });
+    this.reservaService.getByDate('C3', _feDesde, _feDesde).subscribe((reservas: any) => {
+      if (reservas.success) {
+        this.llegadas = reservas.data;
+      } else {
+        console.log('Error>> getByDate>> ' + reservas.mensaje);
+      }
+      this.loadingllegadas = false;
+    });
   }
 
   private getSalidas(_feHasta: Date) {
-
     this.loadingsalidas = true;
 
-    _feHasta = new Date(_feHasta.getTime() - (1000 * 60 * 60 * 24));
+    _feHasta = new Date(_feHasta.getTime() - 1000 * 60 * 60 * 24);
 
     const feHasta = _feHasta.getDate() + '/' + (_feHasta.getMonth() + 1) + '/' + _feHasta.getFullYear();
 
-
-    this.reservaService.getByDate('C4', _feHasta, _feHasta).subscribe(
-      reservas => {
-
-        if (reservas.success) {
-
-          this.salidas = reservas.data;
-        } else {
-
-          console.log('Error>> getByDate>> ' + reservas.mensaje);
-        }
-        this.loadingsalidas = false;
-      });
+    this.reservaService.getByDate('C4', _feHasta, _feHasta).subscribe((reservas: any) => {
+      if (reservas.success) {
+        this.salidas = reservas.data;
+      } else {
+        console.log('Error>> getByDate>> ' + reservas.mensaje);
+      }
+      this.loadingsalidas = false;
+    });
   }
 
   private getEstancias(_feDesde: Date) {
-
     this.loadingestancias = true;
 
     const feDesde = _feDesde.getDate() + '/' + (_feDesde.getMonth() + 1) + '/' + _feDesde.getFullYear();
 
-    this.reservaService.getByDate('C5', _feDesde, _feDesde).subscribe(
-      reservas => {
-
-        if (reservas.success) {
-
-          this.estancias = reservas.data;
-        } else {
-
-          console.log('Error>> getByDate>> ' + reservas.mensaje);
-        }
-        this.loadingestancias = false;
-      });
+    this.reservaService.getByDate('C5', _feDesde, _feDesde).subscribe((reservas: any) => {
+      if (reservas.success) {
+        this.estancias = reservas.data;
+      } else {
+        console.log('Error>> getByDate>> ' + reservas.mensaje);
+      }
+      this.loadingestancias = false;
+    });
   }
 
   onSuccessEstados() {
@@ -293,4 +268,3 @@ export class HomeComponent implements OnInit {
     jQuery('#estadosModal').modal('hide');
   }
 }
-
