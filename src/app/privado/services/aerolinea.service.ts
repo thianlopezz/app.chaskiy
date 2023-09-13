@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { UrlService } from '../../compartido/services/url.service';
 
 @Injectable()
 export class AerolineaService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get('/api/aerolineas/all/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/api/aerolineas/all/', this.jwt());
   }
 
   private jwt() {

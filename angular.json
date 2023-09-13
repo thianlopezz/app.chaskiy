@@ -44,6 +44,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -55,8 +63,12 @@
           "configurations": {
             "production": {
               "browserTarget": "chaskiy-quarpa:build:production"
+            },
+            "development": {
+              "browserTarget": "chaskiy-quarpa:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

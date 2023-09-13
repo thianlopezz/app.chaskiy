@@ -24,6 +24,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MonedaDirective } from '../privado/directives/moneda.directive';
 import { MonedaPipe } from '../privado/pipes/moneda.pipe';
 import { PSelect2Component } from './components/p-select2/p-select2.component';
+import { UrlService } from './services/url.service';
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule, HttpClientModule],
@@ -44,7 +45,7 @@ import { PSelect2Component } from './components/p-select2/p-select2.component';
     MonedaDirective,
     MonedaPipe
   ],
-  providers: [MensajeService, ToastService],
+  providers: [MensajeService, ToastService, UrlService],
   declarations: [
     GenericoComponent,
     ModalConfirmacionComponent,

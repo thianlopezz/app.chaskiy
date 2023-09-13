@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { UrlService } from '../../compartido/services/url.service';
 
 @Injectable()
 export class PaisService {
   chasker: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get('/api/paises/all/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/api/paises/all/', this.jwt());
   }
 
   private jwt() {

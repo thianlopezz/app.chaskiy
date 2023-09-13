@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { UrlService } from '../../compartido/services/url.service';
 
 @Injectable()
 export class AdicionalService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get('/api/adicionales/all/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/api/adicionales/all/' + chasker.idHospedaje, this.jwt());
   }
 
   mantenimiento(adicional: any) {
@@ -17,7 +18,7 @@ export class AdicionalService {
 
     adicional.idHospedaje = chasker.idHospedaje;
     adicional.idUsuario = chasker.idUsuario;
-    return this.http.post('/api/adicionales/', adicional, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/api/adicionales/', adicional, this.jwt());
   }
 
   private jwt() {

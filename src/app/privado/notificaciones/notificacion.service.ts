@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { UrlService } from '../../compartido/services/url.service';
 
 @Injectable()
 export class NotificacionService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     const param = encodeURIComponent('<params accion="C" idUsuario = "' + chasker.idUsuario + '" />');
-    return this.http.get('/api/notificacion/all/' + param, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/api/notificacion/all/' + param, this.jwt());
   }
 
   setLeido(idnotificacion) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.post('/api/notificacion/leido/' + idnotificacion, {}, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/api/notificacion/leido/' + idnotificacion, {}, this.jwt());
   }
 
   private jwt() {

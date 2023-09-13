@@ -1,33 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 import * as jwt_decode from 'jwt-decode';
+import { UrlService } from '../../compartido/services/url.service';
 export const TOKEN_NAME = 'jwt_token';
 
 @Injectable()
 export class AutenticacionService {
-  constructor(private http: HttpClient) {}
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-  login(user: any) {
+  constructor(private http: HttpClient, private url: UrlService) {}
+
+  login(user: any): Observable<any> {
     user.username = user.username.trim();
     user.password = user.password.trim();
 
-    return this.http.post('/api/auth/login/', user).pipe(
-      map((response: any) => {
-        const _response = response.json();
-
-        if (_response.success) {
-          const _user = _response.usuario;
-          if (_user && _user.token) {
-            localStorage.setItem('chasker', JSON.stringify(_user));
-            return _response;
-          }
-        } else {
-          return _response;
-        }
-      })
-    );
+    return this.http
+      .post<any>(this.url.getBaseURL() + this.url.getBaseURL() + '/api/auth/login/', user, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      );
   }
 
   getLogin() {
@@ -100,5 +99,20 @@ export class AutenticacionService {
       { route: 'marcar', text: 'Marcar' },
       { route: 'contrasena', text: 'Cambiar contrasena', hidden: true }
     ];
+  }
+
+  errorHandl(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(() => {
+      return errorMessage;
+    });
   }
 }

@@ -4,10 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && node api/server.js",
+    "start": "ng serve -o",
     "start:prod": "pm2 start api/server.js --name chaskiy",
     "dev": "npm-run-all --parallel test:watch dev:server",
     "dev:server": "nodemon --exec babel-node API/server.js",
+    "dev:client": "ng serve -o",
     "test:watch": "ng build --output-path dist --watch",
     "build": "ng build && nodemon api/server.js",
     "test": "ng test",
