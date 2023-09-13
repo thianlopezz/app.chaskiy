@@ -114,7 +114,6 @@
       }
     }
   },
-  "defaultProject": "chaskiy-quarpa",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
