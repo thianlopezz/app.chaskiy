@@ -35,7 +35,6 @@ import { MonedaPipe } from './pipes/moneda.pipe';
 
 import { CompartidoModule } from '../compartido/compartido.module';
 
-import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { TarifaComponent } from './tarifa/tarifa.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 import { NotificacionService } from './notificaciones/notificacion.service';
@@ -69,7 +68,7 @@ import { NotasComponent } from './components/notas/notas.component';
 import { ModalNotasComponent } from './components/modal-notas/modal-notas.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, RouterModule, CompartidoModule, AngularMyDatePickerModule],
+  imports: [CommonModule, FormsModule, RouterModule, CompartidoModule],
   declarations: [
     CardChartComponent,
     CardReservaComponent,
