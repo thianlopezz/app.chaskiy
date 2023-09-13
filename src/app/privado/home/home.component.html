@@ -1,96 +1,126 @@
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <div class="container">
-	<h3 class="display-4">{{user.hospedaje}}</h3>
-	<hr class="my-2">
+  <h3 class="display-4">{{ user.hospedaje }}</h3>
+  <hr class="my-2" />
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-lg-9 col-md-10 col-sm-12">
-			<div class="row">
-				<div class="col-md-8 col-sm-12">
-					<h3 class="display-5">{{modiFecha}}</h3>
-				</div>
-				<div class="col-md-4 col-sm-12 text-center">
-					<div class="p-1">
-						<button class="btn btn-side mb-4" type="button" (click)="previousDate()">
-							<i class="fa fa-chevron-left" aria-hidden="true"></i>
-						</button>
-						<my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="fecha" (dateChanged)="onDateChanged($event)"></my-date-picker>
-						<button class="btn btn-side mb-4" type="button" (click)="nextDate()">
-							<i class="fa fa-chevron-right" aria-hidden="true"></i>
-						</button>						
-					</div>
-				</div>
-			</div>
-			<hr class="my-2">
-			<!-- <p class="float-right d-md-none">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <h3 class="display-5">{{ modiFecha }}</h3>
+        </div>
+        <div class="col-md-4 col-sm-12 text-center">
+          <div class="p-1">
+            <button class="btn btn-side mb-4" type="button" (click)="previousDate()">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <!-- <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="fecha" (dateChanged)="onDateChanged($event)"></my-date-picker> -->
+            <button class="btn btn-side mb-4" type="button" (click)="nextDate()">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2" />
+      <!-- <p class="float-right d-md-none">
 				<button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Notificaciones</button>
 			</p> -->
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" id="llegadas-tab" data-toggle="tab" href="#llegadas" role="tab" aria-controls="home" aria-expanded="true">						 
-						<i class="fa fa-suitcase" aria-hidden="true"></i>
-						Llegadas{{ ' (' + llegadas.length + ')'}}
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="estancias-tab" data-toggle="tab" href="#estancias" role="tab" aria-controls="estancias">
-						<i class="fa fa-bed" aria-hidden="true"></i>
-						Estancias{{ ' (' + estancias.length + ')'}}
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="salidas-tab" data-toggle="tab" href="#salidas" role="tab" aria-controls="salidas">						
-						<i class="fa fa-plane" aria-hidden="true"></i>
-						Salidas{{ ' (' + salidas.length + ')'}}
-					</a>
-				</li>
-			</ul>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="llegadas" role="tabpanel" aria-labelledby="llegadas-tab">
-					<br>					
-					<app-card-reserva [loading]="loadingllegadas" [reservas]="llegadas" (cambiarEstado)="onCambiarEstado($event)"></app-card-reserva>
-				</div>
-				<div class="tab-pane fade" id="estancias" role="tabpanel" aria-labelledby="estancias-tab">
-					<br>
-					<app-card-reserva [loading]="loadingestancias" [reservas]="estancias" (cambiarEstado)="onCambiarEstado($event)"></app-card-reserva>
-				</div>
-				<div class="tab-pane fade" id="salidas" role="tabpanel" aria-labelledby="salidas-tab">
-					<br>
-					<app-card-reserva [loading]="loadingsalidas" [reservas]="salidas" (cambiarEstado)="onCambiarEstado($event)"></app-card-reserva>
-				</div>
-			</div>
-			<br>
-			<br>
-			<div class="row">
-				<div class="col-md-12">
-					<h3 class="display-5">Actividad Reciente</h3>
-				</div>
-			</div>
-			<hr class="my-2">
-			<app-card-reserva [loading]="loadingrecientes" [reservas]="reservadosDb"></app-card-reserva>
-		</div>
-		<!--/span-->
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="llegadas-tab"
+            data-toggle="tab"
+            href="#llegadas"
+            role="tab"
+            aria-controls="home"
+            aria-expanded="true"
+          >
+            <i class="fa fa-suitcase" aria-hidden="true"></i>
+            Llegadas{{ ' (' + llegadas.length + ')' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="estancias-tab"
+            data-toggle="tab"
+            href="#estancias"
+            role="tab"
+            aria-controls="estancias"
+          >
+            <i class="fa fa-bed" aria-hidden="true"></i>
+            Estancias{{ ' (' + estancias.length + ')' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="salidas-tab" data-toggle="tab" href="#salidas" role="tab" aria-controls="salidas">
+            <i class="fa fa-plane" aria-hidden="true"></i>
+            Salidas{{ ' (' + salidas.length + ')' }}
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="llegadas" role="tabpanel" aria-labelledby="llegadas-tab">
+          <br />
+          <app-card-reserva
+            [loading]="loadingllegadas"
+            [reservas]="llegadas"
+            (cambiarEstado)="onCambiarEstado($event)"
+          ></app-card-reserva>
+        </div>
+        <div class="tab-pane fade" id="estancias" role="tabpanel" aria-labelledby="estancias-tab">
+          <br />
+          <app-card-reserva
+            [loading]="loadingestancias"
+            [reservas]="estancias"
+            (cambiarEstado)="onCambiarEstado($event)"
+          ></app-card-reserva>
+        </div>
+        <div class="tab-pane fade" id="salidas" role="tabpanel" aria-labelledby="salidas-tab">
+          <br />
+          <app-card-reserva
+            [loading]="loadingsalidas"
+            [reservas]="salidas"
+            (cambiarEstado)="onCambiarEstado($event)"
+          ></app-card-reserva>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="display-5">Actividad Reciente</h3>
+        </div>
+      </div>
+      <hr class="my-2" />
+      <app-card-reserva [loading]="loadingrecientes" [reservas]="reservadosDb"></app-card-reserva>
+    </div>
+    <!--/span-->
 
-		<div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            Encuentra las llegadas, las salidas y las estancias de tus pasajeros filtradas por fechas.
+          </p>
+        </div>
+      </div>
 
-			<div class="card mt-2">
-				<div class="card-body">
-					<h4 class="card-title">Ayuda</h4>
-					<p class="card-text">
-						Encuentra las llegadas, las salidas y las estancias de tus pasajeros filtradas por fechas.
-					</p>
-				</div>
-			</div>
-
-			<div class="mt-2">
-				 <app-card-notificaciones></app-card-notificaciones>
-			</div>
-
-		</div>
-		<!--/row-->
-		<app-modal-estados [model]="model" (success)="onSuccessEstados()" (cancelaEstados)="onCancelaEstados()"></app-modal-estados>
-	</div>
-	<!--/.container-->
+      <div class="mt-2">
+        <app-card-notificaciones></app-card-notificaciones>
+      </div>
+    </div>
+    <!--/row-->
+    <app-modal-estados
+      [model]="model"
+      (success)="onSuccessEstados()"
+      (cancelaEstados)="onCancelaEstados()"
+    ></app-modal-estados>
+  </div>
+  <!--/.container-->
+</div>

@@ -1,107 +1,105 @@
-<br>
-<br>
+<br />
+<br />
 <div class="container">
-	<h2>Pagos</h2>
-	<hr class="my-2">
+  <h2>Pagos</h2>
+  <hr class="my-2" />
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-lg-9 col-md-10 col-sm-12">
-			<div class="row">
-				<div class="col-md-4">
-					<h3>Ingresos</h3>
-				</div>
-				<div class="col-md-8">
-					<div class="row">
-						<div class="col-md-6">
-							<label for="mydate">Desde</label>
-							<my-date-picker id="mydate" name="mydate" [options]="myDatePickerOptions" [(ngModel)]="feDesde" (dateChanged)="onDateChanged($event, 'D')"></my-date-picker>
-							<div [hidden]="!hbDesde.show" class="helper-p">
-								<p class="text-warning mb-0">{{hbDesde.mensaje}}</p>
-							</div>
-							<!-- <small [hidden]="!hbDesde.show" class="form-text text-muted">{{hbDesde.mensaje}}</small> -->
-						</div>
-						<div class="col-md-6">
-							<label for="mydate0">Hasta</label>
-							<my-date-picker id="mydate0" name="mydate0" [options]="myDatePickerOptions" [(ngModel)]="feHasta" (dateChanged)="onDateChanged($event, 'H')"></my-date-picker>
-							<div [hidden]="!hbHasta.show" class="helper-p">
-								<p class="text-warning mb-0">{{hbHasta.mensaje}}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr class="my-2">
-			<div class="row">
-				<div class="col-md-12">
-					<app-card-chart [options]="chart"></app-card-chart>
-				</div>
-			</div>
-			<div class="row mt-4">
-				<div class="col-md-12">
-					<h3>Detalles</h3>
-					<hr class="my-2">
-					<div class="card">
-						<div class="card-body">
-							<table class="table table-hover ml-auto mr-auto">
-								<thead>
-									<tr>
-										<th>Forma de Pago</th>
-										<th>Generado por</th>
-										<th>Fecha</th>
-										<th>Monto</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr *ngFor="let pago of pagos">
-										<td width="25%">{{pago.formaPago}}</td>
-										<td width="35%">{{pago.usuario}}</td>
-										<td width="20%">{{pago.feCreacionFormat}}</td>
-										<td width="20%">{{pago.monto | currency:'USD'}}</td>
-									</tr>
-									<tr *ngIf="loading_pg">
-										<td colspan="4">
-											<app-spinner></app-spinner>
-										</td>
-									</tr>
-									<tr *ngIf="!loading_pg && pagos.length===0">
-										<td class="text-center" colspan="4">
-											<p class="text-muted">No existen pagos</p>
-										</td>
-									</tr>
-									<tr>
-										<td width="25%"></td>
-										<td width="35%"></td>
-										<td width="20%">
-											<strong>Total</strong>
-										</td>
-										<td width="20%">{{totalPagos | currency:'USD'}}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr class="my-2">
-			<!-- <card-reservas [reservas]="reservadosDb"></card-reservas> -->
-		</div>
-		<div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+  <div class="row">
+    <div class="col-lg-9 col-md-10 col-sm-12">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Ingresos</h3>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="mydate">Desde</label>
+              <!-- <my-date-picker id="mydate" name="mydate" [options]="myDatePickerOptions" [(ngModel)]="feDesde" (dateChanged)="onDateChanged($event, 'D')"></my-date-picker> -->
+              <div [hidden]="!hbDesde.show" class="helper-p">
+                <p class="text-warning mb-0">{{ hbDesde.mensaje }}</p>
+              </div>
+              <!-- <small [hidden]="!hbDesde.show" class="form-text text-muted">{{hbDesde.mensaje}}</small> -->
+            </div>
+            <div class="col-md-6">
+              <label for="mydate0">Hasta</label>
+              <!-- <my-date-picker id="mydate0" name="mydate0" [options]="myDatePickerOptions" [(ngModel)]="feHasta" (dateChanged)="onDateChanged($event, 'H')"></my-date-picker> -->
+              <div [hidden]="!hbHasta.show" class="helper-p">
+                <p class="text-warning mb-0">{{ hbHasta.mensaje }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2" />
+      <div class="row">
+        <div class="col-md-12">
+          <app-card-chart [options]="chart"></app-card-chart>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h3>Detalles</h3>
+          <hr class="my-2" />
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-hover ml-auto mr-auto">
+                <thead>
+                  <tr>
+                    <th>Forma de Pago</th>
+                    <th>Generado por</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let pago of pagos">
+                    <td width="25%">{{ pago.formaPago }}</td>
+                    <td width="35%">{{ pago.usuario }}</td>
+                    <td width="20%">{{ pago.feCreacionFormat }}</td>
+                    <td width="20%">{{ pago.monto | currency: 'USD' }}</td>
+                  </tr>
+                  <tr *ngIf="loading_pg">
+                    <td colspan="4">
+                      <app-spinner></app-spinner>
+                    </td>
+                  </tr>
+                  <tr *ngIf="!loading_pg && pagos.length === 0">
+                    <td class="text-center" colspan="4">
+                      <p class="text-muted">No existen pagos</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="25%"></td>
+                    <td width="35%"></td>
+                    <td width="20%">
+                      <strong>Total</strong>
+                    </td>
+                    <td width="20%">{{ totalPagos | currency: 'USD' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2" />
+      <!-- <card-reservas [reservas]="reservadosDb"></card-reservas> -->
+    </div>
+    <div class="col-lg-3 col-md-2 col-sm-12" id="sidebar">
+      <div class="card mt-2">
+        <div class="card-body">
+          <h4 class="card-title">Ayuda</h4>
+          <p class="card-text">
+            No pierdas de vista los pagos que se generan con tus reservas, busca tus pagos y genera tu estadístca con
+            las fechas que tu elijas.
+          </p>
+        </div>
+      </div>
 
-			<div class="card mt-2">
-				<div class="card-body">
-					<h4 class="card-title">Ayuda</h4>
-					<p class="card-text">
-						No pierdas de vista los pagos que se generan con tus reservas, busca tus pagos y genera tu estadístca con las fechas que
-						tu elijas.
-					</p>
-				</div>
-			</div>
-
-			<div class="mt-2">
-				<app-card-notificaciones></app-card-notificaciones>
-			</div>
-
-		</div>
-	</div>
+      <div class="mt-2">
+        <app-card-notificaciones></app-card-notificaciones>
+      </div>
+    </div>
+  </div>
 </div>
