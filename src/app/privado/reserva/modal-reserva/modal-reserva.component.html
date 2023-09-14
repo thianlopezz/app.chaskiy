@@ -343,10 +343,8 @@
                                 name="correo"
                                 [(ngModel)]="model.pasajero.correo"
                                 #correo="ngModel"
-                                (blur)="correo.valid && accion !== 'U' && getPasajero()"
                                 [readonly]="accion == 'U' || modificarPasajero"
                                 [email]="true"
-                                required
                               />
                               <img *ngIf="loadingPasajero" src="/assets/images/loading.svg" />
                             </div>
@@ -522,7 +520,6 @@
                           name="aerolinea"
                           [(ngModel)]="model.idAerolinea"
                           #aerolinea="ngModel"
-                          required
                         >
                           <option *ngFor="let op of aerolineas" [value]="op.idAerolinea">{{ op.aerolinea }}</option>
                         </select>

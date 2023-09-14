@@ -9,7 +9,7 @@ export class ReservaService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   getById(id: number) {
-    return this.http.get(this.url.getBaseURL() + this.url.getBaseURL() + '/api/reservas/' + id, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/api/reservas/' + id, this.jwt());
   }
 
   getByDate(consulta: string, feDesde: Date, feHasta: Date) {
