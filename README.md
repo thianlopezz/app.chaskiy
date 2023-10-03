@@ -26,3 +26,18 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Docker
+
+## To run app in Docker container
+
+1. Edit the credentials in _ecosystem.config.example.js_ and change its name to _ecosystem.config.js_
+
+2. Build the image and run the container
+
+```bash
+# build the image
+docker build -t app.chaskiy .
+# then create de cotainer and expose port
+docker run --name app.chaskiy -p 3001:3001 -d app.chaskiy
+```
