@@ -8,14 +8,14 @@ export class PagoService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get(idReserva: string) {
-    return this.http.get(this.url.getBaseURL() + '/api/pago/all/' + idReserva, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/pago/all/' + idReserva, this.jwt());
   }
 
   getByRango(feDesde: Date, feHasta: Date) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     return this.http.post(
-      this.url.getBaseURL() + '/api/pago/rango/',
+      this.url.getBaseURL() + '/pago/rango/',
       { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
       this.jwt()
     );
@@ -25,7 +25,7 @@ export class PagoService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     pago.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/pago', pago, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/pago', pago, this.jwt());
   }
 
   private jwt() {

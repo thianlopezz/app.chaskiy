@@ -8,7 +8,7 @@ export class SocialService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/social/all/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/social/all/', this.jwt());
   }
 
   private jwt() {

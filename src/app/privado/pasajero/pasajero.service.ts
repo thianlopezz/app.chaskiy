@@ -10,16 +10,13 @@ export class PasajeroService {
   getAll() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get(this.url.getBaseURL() + '/api/pasajeros/all/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/pasajeros/all/' + chasker.idHospedaje, this.jwt());
   }
 
   getByCorreo(correo: string) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get(
-      this.url.getBaseURL() + '/api/pasajeros/correo/' + correo + '/' + chasker.idHospedaje,
-      this.jwt()
-    );
+    return this.http.get(this.url.getBaseURL() + '/pasajeros/correo/' + correo + '/' + chasker.idHospedaje, this.jwt());
   }
 
   mantenimiento(pass) {
@@ -27,7 +24,7 @@ export class PasajeroService {
     pass.idHospedaje = chasker.idHospedaje;
     pass.idUsuario = chasker.idUsuario;
 
-    return this.http.post(this.url.getBaseURL() + '/api/pasajeros/', pass, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/pasajeros/', pass, this.jwt());
   }
 
   private jwt() {

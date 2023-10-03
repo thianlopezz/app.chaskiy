@@ -9,7 +9,7 @@ export class HabitacionService {
 
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http.get(this.url.getBaseURL() + '/api/habitaciones/all/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/habitaciones/all/' + chasker.idHospedaje, this.jwt());
   }
 
   getById(idHabitacion) {
@@ -69,7 +69,7 @@ export class HabitacionService {
 
     room.idHospedaje = chasker.idHospedaje;
     room.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/habitaciones/', room, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/habitaciones/', room, this.jwt());
   }
 
   saveTipoHabitacion(room: any) {
@@ -77,7 +77,7 @@ export class HabitacionService {
 
     room.idHospedaje = chasker.idHospedaje;
     room.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/habitaciones/tipo', room, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/habitaciones/tipo', room, this.jwt());
   }
 
   saveTarifa(params: any) {
@@ -85,7 +85,7 @@ export class HabitacionService {
 
     params.idHospedaje = chasker.idHospedaje;
     params.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/habitaciones/tarifa', params, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/habitaciones/tarifa', params, this.jwt());
   }
 
   saveCapacidad(params: any) {
@@ -93,7 +93,7 @@ export class HabitacionService {
 
     params.idHospedaje = chasker.idHospedaje;
     params.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/habitaciones/capacidad', params, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/habitaciones/capacidad', params, this.jwt());
   }
 
   saveDescripcionTipoHabitacion(params: any) {
@@ -101,7 +101,7 @@ export class HabitacionService {
 
     params.idHospedaje = chasker.idHospedaje;
     params.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/habitaciones/descripcion/tipohabitacion', params, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/habitaciones/descripcion/tipohabitacion', params, this.jwt());
   }
 
   private jwt() {

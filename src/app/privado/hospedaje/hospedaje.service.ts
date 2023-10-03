@@ -10,7 +10,7 @@ export class HospedajeService {
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get(this.url.getBaseURL() + '/api/hospedaje/all/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/hospedaje/all/' + chasker.idHospedaje, this.jwt());
   }
 
   mantenimiento(registro: any) {
@@ -18,7 +18,7 @@ export class HospedajeService {
 
     registro.idHospedaje = chasker.idHospedaje;
     registro.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/hospedaje/', registro, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/hospedaje/', registro, this.jwt());
   }
 
   private jwt() {

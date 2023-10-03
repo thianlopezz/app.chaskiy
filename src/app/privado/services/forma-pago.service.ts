@@ -8,7 +8,7 @@ export class FormaPagoService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/formapago/all/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/formapago/all/', this.jwt());
   }
 
   private jwt() {

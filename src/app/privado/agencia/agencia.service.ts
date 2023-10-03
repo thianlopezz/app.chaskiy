@@ -11,7 +11,7 @@ export class AgenciaService {
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get(this.url.getBaseURL() + '/api/agencia/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/agencia/' + chasker.idHospedaje, this.jwt());
   }
 
   mantenimiento(adicional: any) {
@@ -19,7 +19,7 @@ export class AgenciaService {
 
     adicional.idHospedaje = chasker.idHospedaje;
     adicional.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/agencia/', adicional, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/agencia/', adicional, this.jwt());
   }
 
   private jwt() {

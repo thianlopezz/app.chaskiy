@@ -10,7 +10,7 @@ export class FuenteService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/fuente/all/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/fuente/all/', this.jwt());
   }
 
   private jwt() {

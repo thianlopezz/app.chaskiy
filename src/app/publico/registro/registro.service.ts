@@ -8,30 +8,30 @@ export class RegistroService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   registro(registro: any) {
-    return this.http.post(this.url.getBaseURL() + '/api/register/', registro, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/register/', registro, this.jwt());
   }
 
   isRegister(registro: any) {
-    return this.http.post(this.url.getBaseURL() + '/api/register/isregister', registro, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/register/isregister', registro, this.jwt());
   }
 
   password(model: any) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
     model.idUsuario = chasker.idUsuario;
 
-    return this.http.post(this.url.getBaseURL() + '/api/register/password', model, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/register/password', model, this.jwt());
   }
 
   enviaRecupera(correo: any) {
-    return this.http.post(this.url.getBaseURL() + '/api/register/enviarecupera', correo, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/register/enviarecupera', correo, this.jwt());
   }
 
   upRecupera(registro) {
-    return this.http.post(this.url.getBaseURL() + '/api/register/uprecupera', registro, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/register/uprecupera', registro, this.jwt());
   }
 
   activa(token) {
-    return this.http.post(this.url.getBaseURL() + '/api/register/activa', { token: token }, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/register/activa', { token: token }, this.jwt());
   }
 
   private jwt() {

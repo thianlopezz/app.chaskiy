@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  app-chaskiy:
+    image: ${IMAGE_URL}
+    container_name: app.chaskiy
+    networks:
+      - proxy
+    env_file:
+      - .env
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=production
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=proxy'
+      - 'traefik.http.routers.app-chaskiy-secure.entrypoints=websecure'
+      - 'traefik.http.routers.app-chaskiy-secure.rule=Host(`app.hotels.nomadem.cloud`)'
+      - 'traefik.http.routers.app-chaskiy-secure.service=app-chaskiy'
+      - 'traefik.http.services.app-chaskiy.loadbalancer.server.port=3001'
+
+networks:
+  proxy:
+    external: true

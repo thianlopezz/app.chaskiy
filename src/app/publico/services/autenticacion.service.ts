@@ -21,12 +21,13 @@ export class AutenticacionService {
     user.username = user.username.trim();
     user.password = user.password.trim();
 
-    return this.http
-      .post<any>(this.url.getBaseURL() + this.url.getBaseURL() + '/api/auth/login/', user, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      );
+    console.log(this.url.getBaseURL());
+    debugger;
+
+    return this.http.post<any>(this.url.getBaseURL() + '/auth/login/', user, this.httpOptions).pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    );
   }
 
   getLogin() {

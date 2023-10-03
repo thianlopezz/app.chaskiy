@@ -11,7 +11,7 @@ export class EspecificacionService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/especificaciones/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/especificaciones/', this.jwt());
   }
 
   // NOT IMPLEMENTED
@@ -28,7 +28,7 @@ export class EspecificacionService {
 
     // room.idHospedaje = chasker.idHospedaje;
     // room.idUsuario = chasker.idUsuario;
-    // return this.http.post(this.url.getBaseURL() + '/api/habitaciones/', room, this.jwt());
+    // return this.http.post(this.url.getBaseURL() + '/habitaciones/', room, this.jwt());
   }
 
   private jwt() {

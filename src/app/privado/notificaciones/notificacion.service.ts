@@ -11,13 +11,13 @@ export class NotificacionService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     const param = encodeURIComponent('<params accion="C" idUsuario = "' + chasker.idUsuario + '" />');
-    return this.http.get(this.url.getBaseURL() + '/api/notificacion/all/' + param, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/notificacion/all/' + param, this.jwt());
   }
 
   setLeido(idnotificacion) {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.post(this.url.getBaseURL() + '/api/notificacion/leido/' + idnotificacion, {}, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/notificacion/leido/' + idnotificacion, {}, this.jwt());
   }
 
   private jwt() {

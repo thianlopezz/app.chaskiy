@@ -10,11 +10,11 @@ export class TarifaService {
   getAll() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get(this.url.getBaseURL() + '/api/tarifa/all/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/tarifa/all/' + chasker.idHospedaje, this.jwt());
   }
 
   getAllTipos() {
-    return this.http.get(this.url.getBaseURL() + '/api/tarifa/alltipos/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/tarifa/alltipos/', this.jwt());
   }
 
   mantenimiento(tarifa) {
@@ -22,7 +22,7 @@ export class TarifaService {
 
     tarifa.idHospedaje = chasker.idHospedaje;
     tarifa.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/tarifa/', tarifa, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/tarifa/', tarifa, this.jwt());
   }
 
   private jwt() {

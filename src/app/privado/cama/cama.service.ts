@@ -10,7 +10,7 @@ export class CamaService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/camas/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/camas/', this.jwt());
   }
 
   // NOT IMPLEMENTED
@@ -27,7 +27,7 @@ export class CamaService {
 
     // room.idHospedaje = chasker.idHospedaje;
     // room.idUsuario = chasker.idUsuario;
-    // return this.http.post(this.url.getBaseURL() + '/api/habitaciones/', room, this.jwt());
+    // return this.http.post(this.url.getBaseURL() + '/habitaciones/', room, this.jwt());
   }
 
   private jwt() {

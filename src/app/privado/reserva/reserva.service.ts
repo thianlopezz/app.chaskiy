@@ -9,7 +9,7 @@ export class ReservaService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   getById(id: number) {
-    return this.http.get(this.url.getBaseURL() + '/api/reservas/' + id, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/reservas/' + id, this.jwt());
   }
 
   getByDate(consulta: string, feDesde: Date, feHasta: Date) {
@@ -17,7 +17,7 @@ export class ReservaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     return this.http.post(
-      this.url.getBaseURL() + '/api/reservas/all/' + consulta,
+      this.url.getBaseURL() + '/reservas/all/' + consulta,
       { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
       this.jwt()
     );
@@ -36,7 +36,7 @@ export class ReservaService {
       );
     }
 
-    return this.http.post(this.url.getBaseURL() + '/api/reservas', reserve, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/reservas', reserve, this.jwt());
   }
 
   cambiaEstado(reserva) {
@@ -44,15 +44,15 @@ export class ReservaService {
 
     reserva.idUsuario = chasker.idUsuario;
 
-    return this.http.post(this.url.getBaseURL() + '/api/reservas/estado/', reserva, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/reservas/estado/', reserva, this.jwt());
   }
 
   getByIdEx(id: number, token: string) {
-    return this.http.get(this.url.getBaseURL() + '/api/reservas/ex/' + id + '/' + token, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/reservas/ex/' + id + '/' + token, this.jwt());
   }
 
   confirmaReserva(id: number) {
-    return this.http.get(this.url.getBaseURL() + '/api/reservas/confirma/' + id, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/reservas/confirma/' + id, this.jwt());
   }
 
   getEstado(reserva: any) {
@@ -100,7 +100,7 @@ export class ReservaService {
 
     reserva.idUsuario = chasker.idUsuario;
 
-    return this.http.post(this.url.getBaseURL() + '/api/reservas/individuales/', reserva, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/reservas/individuales/', reserva, this.jwt());
   }
 
   // notas
@@ -109,7 +109,7 @@ export class ReservaService {
 
     notas.idUsuario = chasker.idUsuario;
 
-    return this.http.post(this.url.getBaseURL() + '/api/reservas/notas/', notas, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/reservas/notas/', notas, this.jwt());
   }
 
   onHasRefetchDetalleReserva(idReserva) {

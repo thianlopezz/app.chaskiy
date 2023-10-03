@@ -1,0 +1,6 @@
+/node_modules
+/dist
+/api_dist
+/API_DIST
+/.angular
+/.vscode

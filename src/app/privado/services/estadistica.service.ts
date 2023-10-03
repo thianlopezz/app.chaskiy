@@ -11,7 +11,7 @@ export class EstadisticaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     return this.http.post(
-      this.url.getBaseURL() + '/api/statistic/pagos',
+      this.url.getBaseURL() + '/statistic/pagos',
       { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
       this.jwt()
     );
@@ -21,7 +21,7 @@ export class EstadisticaService {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
     return this.http.post(
-      this.url.getBaseURL() + '/api/statistic/ocupacion',
+      this.url.getBaseURL() + '/statistic/ocupacion',
       { feDesde, feHasta, idHospedaje: chasker.idHospedaje },
       this.jwt()
     );
@@ -30,7 +30,7 @@ export class EstadisticaService {
   getCaptacion() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
 
-    return this.http.get(this.url.getBaseURL() + '/api/statistic/captacion/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/statistic/captacion/' + chasker.idHospedaje, this.jwt());
   }
 
   private jwt() {

@@ -11,7 +11,7 @@ export class GaleriaService {
 
   get() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http.get(this.url.getBaseURL() + '/api/galeria/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/galeria/' + chasker.idHospedaje, this.jwt());
   }
 
   public uploadImages(images: FileList, descripcion) {
@@ -30,7 +30,7 @@ export class GaleriaService {
       formData.append('descripcion', descripcion);
     }
 
-    return this.http.post(this.url.getBaseURL() + '/api/galeria/upload', formData, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/galeria/upload', formData, this.jwt());
   }
 
   deleteFoto(params) {

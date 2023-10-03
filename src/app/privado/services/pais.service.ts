@@ -10,7 +10,7 @@ export class PaisService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/paises/all/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/paises/all/', this.jwt());
   }
 
   private jwt() {

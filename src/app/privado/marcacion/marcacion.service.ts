@@ -11,7 +11,7 @@ export class MarcacionService {
 
   getAll() {
     const chasker = JSON.parse(localStorage.getItem('chasker'));
-    return this.http.get(this.url.getBaseURL() + '/api/marcacion/all/' + chasker.idHospedaje, this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/marcacion/all/' + chasker.idHospedaje, this.jwt());
   }
 
   marcar(marca) {
@@ -19,7 +19,7 @@ export class MarcacionService {
 
     marca.idHospedaje = chasker.idHospedaje;
     marca.idUsuario = chasker.idUsuario;
-    return this.http.post(this.url.getBaseURL() + '/api/marcacion/', marca, this.jwt());
+    return this.http.post(this.url.getBaseURL() + '/marcacion/', marca, this.jwt());
   }
 
   private jwt() {

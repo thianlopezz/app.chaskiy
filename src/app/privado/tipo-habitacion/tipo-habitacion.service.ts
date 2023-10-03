@@ -11,7 +11,7 @@ export class TipoHabitacionService {
   constructor(private http: HttpClient, private url: UrlService) {}
 
   get() {
-    return this.http.get(this.url.getBaseURL() + '/api/habitaciones/tipo/', this.jwt());
+    return this.http.get(this.url.getBaseURL() + '/habitaciones/tipo/', this.jwt());
   }
 
   getById(idHabitacion) {
@@ -26,7 +26,7 @@ export class TipoHabitacionService {
 
     // room.idHospedaje = chasker.idHospedaje;
     // room.idUsuario = chasker.idUsuario;
-    // return this.http.post(this.url.getBaseURL() + '/api/habitaciones/', room, this.jwt());
+    // return this.http.post(this.url.getBaseURL() + '/habitaciones/', room, this.jwt());
   }
 
   private jwt() {
