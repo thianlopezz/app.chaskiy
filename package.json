@@ -7,9 +7,7 @@
     "start": "ng serve",
     "build": "ng build --aot --configuration=production",
     "test": "ng test",
-    "format:fix": "pretty-quick --staged",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "format:fix": "pretty-quick --staged"
   },
   "husky": {
     "hooks": {
@@ -30,23 +28,14 @@
     "@angular/platform-browser-dynamic": "16.2.5",
     "@angular/router": "16.2.5",
     "angular-mydatepicker": "^0.11.5",
-    "aws-sdk": "^2.580.0",
-    "axios": "^0.17.0",
-    "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
     "chart.js": "^2.7.1",
     "core-js": "^2.4.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "express": "^4.16.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
-    "jsonwebtoken": "^8.1.0",
     "jwt-decode": "^2.2.0",
     "md5": "^2.2.1",
     "moment": "^2.19.1",
-    "multer": "^1.4.1",
-    "multer-s3": "^2.9.0",
-    "mysql": "^2.17.1",
     "popper.js": "^1.12.6",
     "rxjs": "6.6.7",
     "select2": "^4.0.6-rc.1",
@@ -56,36 +45,28 @@
   },
   "devDependencies": {
     "@angular/language-service": "16.2.5",
-    "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.19",
-    "@babel/node": "^7.22.19",
-    "@babel/plugin-transform-runtime": "^7.22.15",
-    "@babel/preset-env": "^7.22.15",
-    "@babel/runtime": "^7.22.15",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@types/jasmine": "~2.5.53",
-    "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "codelyzer": "^5.0.1",
     "husky": "^1.3.1",
     "jasmine-core": "~2.6.2",
-    "jasmine-spec-reporter": "~4.1.0",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~2.1.1",
     "karma-cli": "~1.0.1",
-    "karma-coverage-istanbul-reporter": "^1.2.1",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "npm-run-all": "^1.8.0",
     "prettier": "^1.16.4",
-    "pretty-quick": "^1.10.0",
-    "protractor": "~7.0.0",
-    "ts-node": "~3.2.0",
-    "tslint": "~6.1.3"
+    "pretty-quick": "^1.10.0"
+  },
+  "overrides": {
+    "jsdom": "^16.7.0",
+    "piscina": "^4.9.4",
+    "pretty-quick": {
+      "cross-spawn": "^6.0.6"
+    }
   },
   "engines": {
-    "node": "16.14.2",
-    "npm": "8.5.0"
+    "node": ">=24.22.1"
   }
 }

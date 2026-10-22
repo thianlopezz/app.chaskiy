@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const port = process.env.PORT || 3001; // use port 3001 unless there exists a preconfigured port
+const distDir = path.join(__dirname, '../dist');
 
 http
   .createServer(function(request, response) {
@@ -9,9 +10,16 @@ http
     let filePath = request.url;
 
     if (!filePath.includes('.')) {
-      filePath = path.join(__dirname, '../dist/index.html');
+      filePath = path.join(distDir, 'index.html');
     } else {
-      filePath = path.join(__dirname, '../dist/' + request.url);
+      filePath = path.join(distDir, request.url);
+    }
+
+    // Block path traversal (e.g. /../package.json) out of the dist folder
+    if (!filePath.startsWith(distDir + path.sep)) {
+      response.writeHead(404, { 'Content-Type': 'text/html' });
+      response.end();
+      return;
     }
 
     // filePath = path.join(__dirname, '../build/index.html');
