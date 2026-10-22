@@ -53,6 +53,8 @@ jobs:
     name: Deploy on AWS  EC2 servers
     runs-on: ubuntu-latest
     needs: build_and_push
+    # PRs only build the image; deploy happens on push to main or manual dispatch
+    if: github.event_name != 'pull_request'
     steps:
       - name: Deploy to Digital Ocean droplet via SSH action
         uses: appleboy/ssh-action@v0.1.3
