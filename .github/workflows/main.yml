@@ -72,4 +72,4 @@ jobs:
             git pull origin main
             # Pull the new image first; the running container is only replaced if the pull succeeded
             export IMAGE_URL=$(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
-            docker-compose pull && docker-compose up -d
+            docker compose pull && docker compose up -d
